@@ -1,4 +1,3 @@
 # Python Virtual Environment
 env
-/src/m_play/m_play/__pycache__
-/src/m_play/gnovel/__pycache__
+**/__pycache__/
