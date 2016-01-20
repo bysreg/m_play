@@ -14,6 +14,39 @@
 		<script src="{% static 'gnovel/js/third_party/three.min.js' %}"></script>
 		<script>
 			// Our Javascript will go here.
+
+			//Display images
+			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera.position.z = 900;
+
+			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var material, quad;
+
+			var texture = THREE.ImageUtils.loadTexture("{% static 'gnovel/res/textures/testpic.png'%}");
+			texture.minFilter = THREE.LinearFilter;
+			texture.magFilter = THREE.NearestFilter;
+
+			material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: texture });
+
+			var plane = new THREE.PlaneBufferGeometry( 512, 768 );
+
+			quad = new THREE.Mesh( plane, material );
+			quad.position.z = -100;
+			scene.add( quad );
+
+			var render = function () {
+				requestAnimationFrame( render );
+				renderer.render(scene, camera);
+			};
+
+			render();
+
+
 		</script>
 		
 		{{ text }}
