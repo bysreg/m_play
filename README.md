@@ -7,8 +7,8 @@
 
 ####Setting up local server
 - install all server requirements
-- add /PostgreSQL/9.5/bin/pg_config.exe to PATH
 - for windows : 
+  - add /PostgreSQL/9.5/bin/pg_config.exe to PATH
   - open up pgAdminIII
   - add server with name and host "localhost"
   - uncheck store password
@@ -16,4 +16,5 @@
 - run pip install -r /src/requirements.txt
 - create postgresql localhost database called "m_play"
 - add user "m_play" with password "test"
+- run python manage.py migrate
 - run python manage.py runserver
