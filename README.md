@@ -2,6 +2,7 @@
 
 ####Server requirement
 - python 3.4.3
+- python-pip
 - All the libraries listed in src/requirements.txt
 - PostgreSQL 9.4.5
 
