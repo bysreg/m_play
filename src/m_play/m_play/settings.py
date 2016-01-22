@@ -23,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Load sensitive config
 is_localhost = False
 try:
+	print("Using production setting")
 	config = open(os.path.join(BASE_DIR, '..', 'sensitive_config'))
 except FileNotFoundError:
 	print("No sensitive_config file found. Use localhost setting instead")
