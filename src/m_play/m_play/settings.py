@@ -19,6 +19,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+# Load sensitive config
+try:
+	config = open(os.path.join(BASE_DIR, '..', 'sensitive_config'))
+except FileNotFoundError:
+	print("No sensitive_config file found. Use localhost setting instead")
+	is_localhost = True
+	
+if not is_localhost:
+	config_data = json.load(config)
+	config.close()
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
 
@@ -76,16 +87,30 @@ WSGI_APPLICATION = 'm_play.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'm_play',
-		'USER' : 'm_play',
-		'PASSWORD' : 'test', 
-		'HOST' : '127.0.0.1',
-		'PORT' : '5432',
+if not is_localhost:
+	# production server setting
+	DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config_data['DB_NAME'],
+            'USER': config_data['DB_USERNAME'],
+            'PASSWORD': config_data['DB_PASSWORD'],
+            'HOST': config_data['HOSTNAME'],
+            'PORT': config_data['PORT'],
+        }
     }
-}
+else:
+	# default to localhost
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': 'm_play',
+			'USER' : 'm_play',
+			'PASSWORD' : 'test', 
+			'HOST' : '127.0.0.1',
+			'PORT' : '5432',
+		}
+	}
 
 
 # Password validation
