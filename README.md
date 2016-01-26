@@ -5,12 +5,15 @@
 - python-pip
 - All the libraries listed in src/requirements.txt
 - PostgreSQL 9.4.5
+- uWSGI
+- nginx
 
 ####Windows localhost requirement
 - visual express 2010
 
 #### note for linux
 - instead of using python & pip, you must run the command using python3 and pip3
+- most of the time, you need sudo to properly install stuff with pip
 
 ####Setting up local server
 - install all server requirements
