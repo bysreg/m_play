@@ -35,11 +35,18 @@ if not is_localhost:
 else:
 	print("No sensitive_config file found. Use localhost setting instead")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
+if is_localhost:
+	# SECURITY WARNING: keep the secret key used in production secret!
+	SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
+else:
+	SECRET_KEY = config_data['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+if not is_localhost:
+	# SECURITY WARNING: don't run with debug turned on in production!
+	DEBUG = True
+else:
+	DEBUG = False
 
 ALLOWED_HOSTS = []
 
