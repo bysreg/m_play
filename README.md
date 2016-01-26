@@ -29,3 +29,14 @@
 - go to manage folder
 - run python manage.py migrate
 - run python manage.py runserver
+
+#### sensitive_config file
+sensitive_config file is mandatory to have for production server. The file
+should be placed in /src. NEVER PUT sensitive_config TO VERSION CONTROL. 
+sensitive_config should contain one json oject with this property:
+  - DB_NAME
+  - DB_USERNAME
+  - DB_PASSWORD
+  - HOSTNAME
+  - PORT
+  - SECRET_KEY
