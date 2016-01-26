@@ -9,6 +9,9 @@
 ####Windows localhost requirement
 - visual express 2010
 
+#### note for linux
+- instead of using python & pip, you must run the command using python3 and pip3
+
 ####Setting up local server
 - install all server requirements
 - for windows : 
