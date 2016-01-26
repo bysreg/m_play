@@ -42,7 +42,7 @@ else:
 	SECRET_KEY = config_data['SECRET_KEY']
 
 
-if not is_localhost:
+if is_localhost:
 	# SECURITY WARNING: don't run with debug turned on in production!
 	DEBUG = True
 else:
