@@ -22,16 +22,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load sensitive config
 is_localhost = False
-try:
-	print("Using production setting")
+try:	
 	config = open(os.path.join(BASE_DIR, '..', 'sensitive_config'))
-except FileNotFoundError:
-	print("No sensitive_config file found. Use localhost setting instead")
+except FileNotFoundError:	
 	is_localhost = True
 	
+# we are using production settings
 if not is_localhost:
+	print("Using production setting")
 	config_data = json.load(config)
 	config.close()
+else:
+	print("No sensitive_config file found. Use localhost setting instead")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
