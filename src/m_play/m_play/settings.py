@@ -48,7 +48,10 @@ if not is_localhost:
 else:
 	DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+	'localhost',
+	'.true-north.etc.cmu.edu',
+]
 
 
 # Application definition
