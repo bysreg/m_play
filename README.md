@@ -5,8 +5,8 @@
 - python-pip
 - All the libraries listed in src/requirements.txt
 - PostgreSQL 9.4.5
-- uWSGI
-- nginx
+- uWSGI 2.0.12
+- nginx 1.4.6
 
 ####Windows localhost requirement
 - visual express 2010
