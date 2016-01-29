@@ -11,110 +11,13 @@
 			</style>
 	</head>
 	<body>
+		<!-- change this to three.min.js in the release -->
+		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
 
-		<div id="countdown"> </div>
-		<div id="timeout">Time out!</div>
-
-		<script src="{% static 'gnovel/js/third_party/three.min.js' %}"></script>		
-		<script>
-			var light;		
-			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
-			camera.position.z = 900;
-			camera.position.y = 100;
-			
-			var scene = new THREE.Scene();
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-			light = new THREE.DirectionalLight( 0xffffff );
-			light.position.set( 0, 0.5, 1 ).normalize();
-			scene.add( light );
-			
-			var material, quad;
-
-			var texture = THREE.ImageUtils.loadTexture("{% static 'gnovel/res/textures/testpic.png'%}");
-			texture.minFilter = THREE.LinearFilter;
-			texture.magFilter = THREE.NearestFilter;
-
-			material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: texture });
-
-			var plane = new THREE.PlaneBufferGeometry( 512, 768 );
-
-			quad = new THREE.Mesh( plane, material );
-			quad.position.z = 100;
-			scene.add( quad );
-
-			var render = function () {
-				requestAnimationFrame( render );
-				
-				renderer.render(scene, camera);
-			};
-
-			render();
-
-			////////////// COMMON ///////////////			
-			
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );				
-			}
-			window.addEventListener( 'resize', onWindowResize, false );
-			
-			///////////////// SOUND ///////////////
-			var listener = new THREE.AudioListener();
-			camera.add( listener );
-			
-			var sphere = new THREE.SphereGeometry( 20, 32, 16 );
-			material_sphere1 = new THREE.MeshLambertMaterial( { color: 0xffaa00, shading: THREE.FlatShading } );
-			material_sphere2 = new THREE.MeshLambertMaterial( { color: 0xff2200, shading: THREE.FlatShading } );
-			
-			var mesh1 = new THREE.Mesh( sphere, material_sphere1 );
-			mesh1.position.set( -250, 30, 0 );
-			scene.add( mesh1 );
-			
-			var sound1 = new THREE.Audio( listener );
-			sound1.load( "{% static 'gnovel/res/sounds/32084__quilt__orchestral-5of5.ogg' %}" );
-			sound1.setRefDistance( 20 );
-			sound1.autoplay = true;
-			mesh1.add(sound1);
-			
-			var mesh2 = new THREE.Mesh( sphere, material_sphere2 );
-			mesh2.position.set( 250, 30, 0 );
-			scene.add( mesh2 );
-			
-			// ground
-			var helper = new THREE.GridHelper( 500, 10 );
-			helper.color1.setHex( 0x444444 );
-			helper.color2.setHex( 0x444444 );
-			helper.position.y = 0.1;
-			scene.add( helper );
-			
-			//Countdown timer
-			window.onload = function() {
-			    var countdownElement = document.getElementById('countdown'),
-			        timeoutarea = document.getElementById('timeout'),
-			        seconds = 10,
-			        second = 0,
-			        interval;
-
-			    timeoutarea.style.display = 'none';
-
-			    interval = setInterval(function() {
-			        countdownElement.firstChild.data = 'You have ' + (seconds - second) + ' seconds to make your decision.';
-			        if (second >= seconds) {
-			            timeoutarea.style.display = 'block';
-			            clearInterval(interval);
-			        }
-
-			        second++;
-			    }, 1000);
-			}
-			
+		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
+		
+		<script>			
+			var gnovel = new this.gnovel.Gnovel();
 		</script>
 		
 		{{ text }}

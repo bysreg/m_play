@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,13 +20,38 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
+# Load sensitive config
+is_localhost = False
+try:	
+	config = open(os.path.join(BASE_DIR, '..', 'sensitive_config'))
+except FileNotFoundError:	
+	is_localhost = True
+	
+# we are using production settings
+if not is_localhost:
+	print("Using production setting")
+	config_data = json.load(config)
+	config.close()
+else:
+	print("No sensitive_config file found. Use localhost setting instead")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if is_localhost:
+	# SECURITY WARNING: keep the secret key used in production secret!
+	SECRET_KEY = '7n)btr1m8mm#bi-^vba9xrs-naw+p78j&m&jay)v960ie#trkt'
+else:
+	SECRET_KEY = config_data['SECRET_KEY']
 
-ALLOWED_HOSTS = []
+
+if is_localhost:
+	# SECURITY WARNING: don't run with debug turned on in production!
+	DEBUG = True
+else:
+	DEBUG = False
+
+ALLOWED_HOSTS = [
+	'localhost',
+	'.true-north.etc.cmu.edu',
+]
 
 
 # Application definition
@@ -76,16 +102,30 @@ WSGI_APPLICATION = 'm_play.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'm_play',
-		'USER' : 'm_play',
-		'PASSWORD' : 'test', 
-		'HOST' : '127.0.0.1',
-		'PORT' : '5432',
+if not is_localhost:
+	# production server setting
+	DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config_data['DB_NAME'],
+            'USER': config_data['DB_USERNAME'],
+            'PASSWORD': config_data['DB_PASSWORD'],
+            'HOST': config_data['HOSTNAME'],
+            'PORT': config_data['PORT'],
+        }
     }
-}
+else:
+	# default to localhost
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': 'm_play_test',
+			'USER' : 'm_play_test',
+			'PASSWORD' : 'test', 
+			'HOST' : '127.0.0.1',
+			'PORT' : '5432',
+		}
+	}
 
 
 # Password validation
@@ -111,13 +151,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -125,3 +161,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', '..', '..', 'static')
