@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<script src="js/third_party/three.min.js"></script>
-		<script src="js/m_SceneManager.js"></script>
+		<script src="js/m_PageManager.js"></script>
 		<script src="js/m_Transition.js"></script>
 		<script src="js/iObject.js"></script>
 		<script src="js/third_party/Tween.js"></script>
@@ -23,7 +23,7 @@
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 			//create a wrapper with all selectable objects and add to scene
 			var myWrapper = new THREE.Object3D();
-			var sceneManager = new gnovel.SceneManager();
+			var pageManager = new gnovel.PageManager();
 			var transition = new gnovel.Transitions();
 
 			init();
@@ -62,8 +62,8 @@
 				myWrapper.add(object);
 				scene.add(object);
 				scene.interactObjs.push(object);
-				sceneManager.push(object,null);
-				scene.add(sceneManager);
+				pageManager.push(object,null);
+				scene.add(pageManager);
 
 
 			}
@@ -118,7 +118,7 @@
 			    scene.add(object);
 			    scene.interactObjs.push(object);
 			    transition.time = 1000;
-			    sceneManager.push(object,transition);
+			    pageManager.push(object,transition);
 			  }
 			  return intersects[0]; //should return the 1st object found on click
 			}
