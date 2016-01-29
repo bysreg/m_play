@@ -15,9 +15,19 @@
 		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
 
 		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
+
+		<!-- pages -->
+		<script src="{% static 'gnovel/js/mplay/page1.js' %}"></script>
 		
 		<script>			
-			var gnovel = new this.gnovel.Gnovel();
+			var gnovel = new GNOVEL.Gnovel();		
+			
+			// add pages
+			gnovel.addPage(MPLAY.Page1);
+			
+			// start gnovel
+			gnovel.start();
 		</script>
 		
 		{{ text }}
