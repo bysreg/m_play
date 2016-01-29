@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>My first Three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/third_party/three.min.js"></script>
+		<script src="js/m_SceneManager.js"></script>
+		<script src="js/m_Transition.js"></script>
+		<script src="js/iObject.js"></script>
+		<script src="js/third_party/Tween.js"></script>
+		<script>
+			var mouse, prevIntersect;
+			var raycaster;
+			var renderer;
+			var objClicked = false;
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+			//create a wrapper with all selectable objects and add to scene
+			var myWrapper = new THREE.Object3D();
+			var sceneManager = new gnovel.SceneManager();
+			var transition = new gnovel.Transitions();
+
+			init();
+			animate();
+
+			function init()
+			{
+			camera.position.set(0,0,5);
+
+				raycaster = new THREE.Raycaster();
+				mouse = new THREE.Vector2();
+				renderer = new THREE.WebGLRenderer();
+				renderer.setClearColor(0xf0f0f0);
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				document.body.appendChild(renderer.domElement);
+
+				document.addEventListener('mousedown', onMouseDown, false);
+				document.addEventListener('mousemove', onMouseMove, false);
+
+				//array of interactive objects.
+				//add object to array if it wants to be detected by mouse
+				scene.interactObjs = [];
+				/*iObject.prototype.getMesh = function()
+				{
+					return this.mesh;
+				}*/
+
+				var geometry = new THREE.PlaneGeometry(12, 7);//new THREE.BoxGeometry(1,1,1);
+				var texture = THREE.ImageUtils.loadTexture( 'textures/steven_universeXworlds8.jpg' );
+				var material = new THREE.MeshBasicMaterial( {map: texture, transparent:true, opacity:1 } );
+				//static is for static objects
+
+				//add first page to scene
+				var object = new gnovel.iObject("2","cube","static", geometry, material);// new THREE.Mesh(geometry,material);
+				object.name = "page1";
+				myWrapper.add(object);
+				scene.add(object);
+				scene.interactObjs.push(object);
+				sceneManager.push(object,null);
+				scene.add(sceneManager);
+
+
+			}
+
+			/*referenced from three.js r.71
+			*
+			*/
+		/*	function iObject(name, obj, type, geometry, material)
+			{
+				this.name = name;
+				this.obj = obj;
+				this.type = type;
+				this.active = false;
+				this.geometry = geometry;
+				this.material = material
+				THREE.Mesh.call(this,this.geometry, this.material);
+
+			}*/
+
+			function onMouseDown(event)
+			{
+			  var clickedObj;
+			  event.preventDefault();
+			  //why?
+			  mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+			  mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+			  //update picking ray with camera and mouse pos
+			  raycaster.setFromCamera(mouse, camera);
+
+			  //create array of objects intersected with
+			  var intersects = raycaster.intersectObjects(scene.interactObjs,true); //should be an array of custom objects
+			  if(intersects.length > 0)
+			  {
+			    console.log("clicked");
+			    for(var i in intersects)
+			    {
+			      console.log(intersects[i].object);
+			    }
+			    clickedObj = intersects[0].object;
+			    clickedObj.material.color.setHex(Math.random() * 0xffffff | 0x80000000);
+			    //an interactive object has been clicked
+			    objClicked = true;
+
+			    //create new page
+			    var geometry = new THREE.PlaneGeometry(12, 7);
+			    var texture = THREE.ImageUtils.loadTexture( 'textures/steven_universeXworlds11.jpg' );
+			    var material = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity:1} );
+			    var object = new gnovel.iObject("1","cube","static", geometry, material);//new THREE.Mesh(geometry,material);
+			    object.name = "page2";
+			    myWrapper.add(object);
+			    scene.add(object);
+			    scene.interactObjs.push(object);
+			    transition.time = 1000;
+			    sceneManager.push(object,transition);
+			  }
+			  return intersects[0]; //should return the 1st object found on click
+			}
+
+			function onMouseMove(event)
+			{
+			  event.preventDefault();
+			  //why?
+			  mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+			  mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+
+			}
+			//mouse hover effect
+			function hoverEffect(intersects)
+			{
+			  if(intersects.length > 0)
+			  {
+			    //if intersected object is not the same as the previous object
+			    if(prevIntersect != intersects[0].object )
+			    {
+			      if(prevIntersect)
+			        prevIntersect.material.color.setHex(prevIntersect.currentHex); //reset hex color of previous object
+			      prevIntersect = intersects[0].object;
+			      //currentHex is a created variable that just holds that currentHex value
+			      prevIntersect.currentHex = prevIntersect.material.color.getHex();
+			      prevIntersect.material.color.setHex(0xf0e611);
+			    }
+			  }
+			  else
+			  {
+			    if(prevIntersect)
+			      prevIntersect.material.color.setHex(prevIntersect.currentHex);  //reset hex color
+
+			      prevIntersect = null; //nothing has been hovered over last
+			  }
+			};
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			function animate()
+			{
+				requestAnimationFrame(animate); //only plays while on tab
+				TWEEN.update();
+				render();
+			}
+
+			function render()
+			{
+				//update picking ray with camera and mouse pos
+				raycaster.setFromCamera(mouse,camera);
+
+				//check for mouse hover over interactable objects
+				var intersects = raycaster.intersectObjects(scene.interactObjs); //should be an array of custom objects
+				//display mouse hover effect
+				hoverEffect(intersects);
+
+
+				renderer.render(scene, camera);
+			}
+
+		</script>
