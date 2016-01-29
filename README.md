@@ -8,6 +8,11 @@
 - uWSGI 2.0.12
 - nginx 1.4.6
 
+####Dev requirement
+- node.js 5.5.0 (only to minstall js packages)
+- three.js r73
+- jsdoc 3.4.0  (for code documentation)
+
 ####Windows localhost requirement
 - visual express 2010
 
