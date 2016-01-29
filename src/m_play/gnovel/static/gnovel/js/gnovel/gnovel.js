@@ -4,7 +4,7 @@
  */
 
 // namespace:
-this.gnovel = this.gnovel || {};
+var GNOVEL = GNOVEL || {};
 
 (function() {
 	"use strict";
@@ -27,6 +27,7 @@ this.gnovel = this.gnovel || {};
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(renderer.domElement);
 
+		// setup render loop
 		var render = function () {
 			requestAnimationFrame(render);			
 			renderer.render(scene, camera);
@@ -51,8 +52,33 @@ this.gnovel = this.gnovel || {};
 		helper.position.y = 0.1;
 		scene.add(helper);
 
-		this._scene = scene;		
+		this._scene = scene;
+		this._pages = [];
+		this._curPageIdx = 0;
 	};	
 
-	gnovel.Gnovel = Gnovel;
+	Gnovel.prototype.addPage = function(pageType) {
+		var page = new pageType();
+		page._owner = this;
+		this._pages.push(page);
+	};
+
+	Gnovel.prototype._addToScene = function(o) {
+		this._scene.add(o);
+	};
+
+	Gnovel.prototype.start = function() {
+		this._curPageIdx = 0;	
+
+		// get the first page
+		var page = this._pages[this._curPageIdx];
+
+		this._load(page);
+	};
+
+	Gnovel.prototype._load = function(page) {
+		page._onLoad();
+	};
+
+	GNOVEL.Gnovel = Gnovel;
 }());
