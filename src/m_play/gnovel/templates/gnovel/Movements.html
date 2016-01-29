@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My first Three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+
+		<div id="countdown"> </div>
+		<div id="timeout">Time out!</div>
+
+		<script src="js/three.min.js"></script>
+		<script>
+
+			//*******************test classes
+			function Character ( geometry, material ) {
+				THREE.Mesh.call(this);
+				this.geometry = geometry;
+				this.material = material;
+
+				this.updateMorphTargets();
+
+
+				this.isMoving = false;
+				this.curPositon = new THREE.Vector3();
+				this.destination = new THREE.Vector3();
+				this.velocity = new THREE.Vector3(0,0,0);
+				
+			}
+			Character.prototype = new THREE.Mesh();
+			Character.prototype.constructor = THREE.Mesh;
+
+			Character.prototype.set_curPosition = function( cur ) {
+					this.curPositon = cur;
+			}
+
+			Character.prototype.set_destination = function( dest ) {
+					this.destination = dest;
+			}
+			Character.prototype.set_velocity = function( vel ) {
+				this.velocity = vel;
+			}
+			Character.prototype.render_movement = function() {
+				if( !( this.position.distanceTo( this.destination ) < 1 ) )
+					this.position.add( this.velocity );
+				else this.isMoving = false;
+			}
+
+
+			//*******************test classes
+
+
+			//Display an image
+			var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 10000 );
+			camera.position.z = 900;
+
+			var scene = new THREE.Scene();
+			var renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var material, quad;
+
+			var texture = THREE.ImageUtils.loadTexture("textures/sakuran3.jpg");
+			texture.minFilter = THREE.LinearFilter;
+			texture.magFilter = THREE.NearestFilter;
+
+			material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: texture });
+
+			var plane = new THREE.PlaneBufferGeometry( 800, 432 );
+
+			
+
+
+			
+			//Basic Movements
+
+			var mouseX = 0, mouseY = 0;
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+			function onDocumentMouseMove( event ) {
+				mouseX = ( event.clientX - window.innerWidth / 2 ) / 4;
+				mouseY = ( event.clientY - window.innerHeight / 2 ) / 4;
+			}
+
+			function onWindowResize( event ) {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			var click = false;
+			var sta = new THREE.Vector3( 0, 0, -100 );
+			var ed = new THREE.Vector3( 100, 300, -250);
+
+			//test classes************
+			var quad = new Character( plane, material );
+			quad.position.z = -100;
+			scene.add( quad );
+			quad.set_curPosition( sta );
+			quad.set_destination( ed );
+			//test classes************
+
+
+			document.addEventListener( 'keydown', function( event ) {
+				if(event.keyCode == 37 ) {
+					click = true;
+					object_movement(quad, sta, ed, 5);
+				}
+			} );
+
+			function object_movement( object, start, end, velocity ) {
+
+					object.velocity.subVectors( end, start ).normalize().multiplyScalar( velocity );
+					object.isMoving = true;  
+			}
+			//render			
+
+
+			var render = function () {
+				requestAnimationFrame( render );
+
+				render_basiccameramove();
+				
+				if( quad.isMoving )
+					quad.render_movement();
+
+
+				renderer.render(scene, camera);
+			};
+
+
+			function render_basiccameramove() {
+
+				camera.position.x += ( mouseX - camera.position.x ) * .05;               //Basic movements
+				camera.position.y += ( mouseY - camera.position.y ) * .05;               //Basic movements
+
+				camera.lookAt( scene.position );                                         //Basic movements
+			}
+			
+
+			render();
+
+			
+		</script>
+	</body>
+</html>
