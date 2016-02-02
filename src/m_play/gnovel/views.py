@@ -7,3 +7,7 @@ def index(request):
 		'text': 'sing ngarso sung tulodo'
 	}
 	return render(request, 'gnovel/index.html', context)
+
+def exp(request):
+	context = {}
+	return render(request, 'gnovel/exp.html', context)
