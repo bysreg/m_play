@@ -21,12 +21,10 @@ var GNOVEL = GNOVEL || {};
 	 * @param {nextPage} the new page to show
 	 **/
 	Transition.prototype.run = function(currentPage, nextPage) {
-		var duration = this.time;
+		var duration = this.time;		
+		
+		nextPage.getBackground().material.opacity = 0;	
 
-		currentPage.getBackground().material.opacity = 0;
-		nextPage.getBackground().material.opacity = 0;
-
-		///*
 		//tween opacity for fade over duration time.
 		var tween_out = new TWEEN.Tween(currentPage.getBackground().material)
 			.to({
@@ -38,8 +36,7 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				opacity: 1
 			}, duration)
-			.start();
-		//*/
+			.start();		
 	};
 	
 	// transition type

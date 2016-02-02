@@ -22,7 +22,7 @@ var GNOVEL = GNOVEL || {};
 		texture.minFilter = THREE.LinearFilter;
 		texture.magFilter = THREE.NearestFilter;
 
-		var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture});
+		var material = new THREE.MeshBasicMaterial({color: 0xffffff, transparent:true, map: texture});		
 		var plane = new THREE.PlaneBufferGeometry(512, 768);
 		var quad = new THREE.Mesh(plane, material);
 		quad.position.z = 100;
