@@ -16,11 +16,16 @@ var GNOVEL = GNOVEL || {};
 	 * 
 	 */
 	var Gnovel = function() {
+
+		this._scene = new THREE.Scene();
+		this._pages = [];
+		this._curPageIdx = 0;
+
 		var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
 		camera.position.z = 900;
 		camera.position.y = 100;
 
-		var scene = new THREE.Scene();
+		var scene = this._scene;
 
 		var renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio(window.devicePixelRatio);
@@ -52,10 +57,19 @@ var GNOVEL = GNOVEL || {};
 		helper.position.y = 0.1;
 		scene.add(helper);
 
-		this._scene = scene;
-		this._pages = [];
-		this._curPageIdx = 0;
-	};	
+		var temp = this;
+		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
+		document.addEventListener('mousemove', function(event) { _onMouseMove(event, temp); }, false);
+	};
+
+	function _onMouseDown(event, gnovelObj) {		
+		gnovelObj._onMouseDown(event);
+	};
+	
+	function _onMouseMove(event, gnovelObj) {
+		gnovelObj._onMouseMove(event);
+	};
+	
 
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
@@ -67,11 +81,27 @@ var GNOVEL = GNOVEL || {};
 		this._scene.add(o);
 	};
 
+	Gnovel.prototype._onMouseDown = function(event) {	
+		//console.log("on mouse down");	
+		var page = this.getCurrentPage();
+		if(page != null) {				
+			page._onMouseDown(event);
+		}
+	};
+
+	Gnovel.prototype._onMouseMove = function(event) {
+		//console.log("on mouse move");	
+		var page = this.getCurrentPage();
+		if(page != null) {
+			page._onMouseMove(event);
+		}
+	};
+
 	Gnovel.prototype.start = function() {
 		this._curPageIdx = 0;	
 
 		// get the first page
-		var page = this._pages[this._curPageIdx];
+		var page = this.getCurrentPage();
 
 		this._load(page);
 	};
@@ -79,6 +109,12 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype._load = function(page) {
 		page._onLoad();
 	};
+
+	Gnovel.prototype.getCurrentPage = function() {
+		if(this._curPageIdx < 0 || this._curPageIdx >= this._pages.length)
+			return null;
+		return this._pages[this._curPageIdx];
+	}
 
 	GNOVEL.Gnovel = Gnovel;
 }());

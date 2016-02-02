@@ -33,7 +33,16 @@ var GNOVEL = GNOVEL || {};
 		this._bg = quad;
 	};
 
+	/**
+	 * This function will be called right before page is displayed on screen	 
+	 */
 	Page.prototype._onLoad = function() {}
+
+	Page.prototype._onMouseDown = function(event) {	
+	};
+
+	Page.prototype._onMouseMove = function(event) {		
+	};
 
 	GNOVEL.Page = Page;
 }());
