@@ -33,6 +33,10 @@ var GNOVEL = GNOVEL || {};
 		this._bg = quad;
 	};
 
+	Page.prototype.getBackground = function() {
+		return this._bg;
+	}
+
 	/**
 	 * This function will be called right before page is displayed on screen	 
 	 */
