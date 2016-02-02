@@ -11,3 +11,7 @@ def index(request):
 def exp(request):
 	context = {}
 	return render(request, 'gnovel/exp.html', context)
+
+def exp2(request):
+	context = {}
+	return render(request, 'gnovel/exp2.html', context)
