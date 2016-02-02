@@ -18,13 +18,15 @@
 		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/transition.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/mousemovedcamera.js' %}"></script>
 
 		<!-- pages -->
 		<script src="{% static 'gnovel/js/mplay/page1.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page2.js' %}"></script>
 		
 		<script>			
-			var gnovel = new GNOVEL.Gnovel();		
+			var gnovel = new GNOVEL.Gnovel();
+			var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
 			
 			// add pages
 			gnovel.addPage(MPLAY.Page1);

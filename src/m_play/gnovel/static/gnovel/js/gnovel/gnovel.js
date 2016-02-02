@@ -20,8 +20,9 @@ var GNOVEL = GNOVEL || {};
 		this._scene = new THREE.Scene();
 		this._pages = [];
 		this._curPageIdx = 0;
+		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
 
-		var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+		var camera = this._camera;
 		camera.position.z = 900;
 		camera.position.y = 100;
 
@@ -70,7 +71,6 @@ var GNOVEL = GNOVEL || {};
 	function _onMouseMove(event, gnovelObj) {
 		gnovelObj._onMouseMove(event);
 	};
-	
 
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
@@ -132,6 +132,10 @@ var GNOVEL = GNOVEL || {};
 
 		var transition = new GNOVEL.Transition(1000);
 		transition.run(curPage, nextPage);
+	};
+
+	Gnovel.prototype.getCamera = function() {
+		return this._camera;
 	};
 
 	GNOVEL.Gnovel = Gnovel;
