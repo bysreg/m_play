@@ -35,6 +35,7 @@ var GNOVEL = GNOVEL || {};
 		// setup render loop
 		var render = function () {
 			requestAnimationFrame(render);			
+			TWEEN.update();
 			renderer.render(scene, camera);
 		};
 		render();
@@ -98,7 +99,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.start = function() {
-		this._curPageIdx = 0;	
+		this._curPageIdx = 0;
 
 		// get the first page
 		var page = this.getCurrentPage();
@@ -113,8 +114,25 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype.getCurrentPage = function() {
 		if(this._curPageIdx < 0 || this._curPageIdx >= this._pages.length)
 			return null;
-		return this._pages[this._curPageIdx];
-	}
+		return this.getPageAt(this._curPageIdx);
+	};
+
+	Gnovel.prototype.getPageAt = function(pageIndex) {
+		return this._pages[pageIndex];
+	};
+
+	Gnovel.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
+		// FIXME : for now regardless of transitionType and transitionParam, 
+		// the transition is going to be FADE
+		var curPage = this.getCurrentPage();
+		var nextPage = this.getPageAt(pageIndex);
+
+		// load the next page first 
+		this._load(nextPage);
+
+		var transition = new GNOVEL.Transition(1000);
+		transition.run(curPage, nextPage);
+	};
 
 	GNOVEL.Gnovel = Gnovel;
 }());
