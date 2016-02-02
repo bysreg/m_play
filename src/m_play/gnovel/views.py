@@ -3,9 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 def index(request):
-	context = {
-		'text': 'sing ngarso sung tulodo'
-	}
+	context = {}
 	return render(request, 'gnovel/index.html', context)
 
 def exp(request):
