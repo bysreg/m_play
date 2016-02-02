@@ -9,8 +9,7 @@
 - nginx 1.4.6
 
 ####Dev requirement
-- node.js 5.5.0 (only to minstall js packages)
-- three.js r73
+- node.js 5.5.0 (only to install js packages)
 - jsdoc 3.4.0  (for code documentation)
 
 ####Windows localhost requirement
@@ -45,3 +44,7 @@ sensitive_config should contain one json oject with this property:
   - HOSTNAME
   - PORT
   - SECRET_KEY
+
+#### third party lib
+- three.js r73
+- Tween.js
