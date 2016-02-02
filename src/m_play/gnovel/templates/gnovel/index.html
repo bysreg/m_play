@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-			<title>My first Three.js app</title>
+			<title>Morality Play</title>
 			<style>
 				body { margin: 0; }
 				canvas { width: 100%; height: 100% }
@@ -13,18 +13,22 @@
 	<body>
 		<!-- change this to three.min.js in the release -->
 		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
+		<script src="{% static 'gnovel/js/third_party/Tween.js' %}"></script>
 
 		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/transition.js' %}"></script>
 
 		<!-- pages -->
 		<script src="{% static 'gnovel/js/mplay/page1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page2.js' %}"></script>
 		
 		<script>			
 			var gnovel = new GNOVEL.Gnovel();		
 			
 			// add pages
 			gnovel.addPage(MPLAY.Page1);
+			gnovel.addPage(MPLAY.Page2);
 			
 			// start gnovel
 			gnovel.start();
