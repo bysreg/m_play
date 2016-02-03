@@ -24,7 +24,7 @@ var GNOVEL = GNOVEL || {};
 
 		camera.position.x += ( mouseX - camera.position.x ) * .05;
 		camera.position.y += ( mouseY - camera.position.y ) * .05;
-		camera.lookAt( scene.position );       
+		camera.lookAt(new THREE.Vector3(0, 0, 0));
 	};
 
 	GNOVEL.MouseMovedCamera = MouseMovedCamera;
