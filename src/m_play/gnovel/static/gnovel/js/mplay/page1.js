@@ -24,7 +24,17 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/test1.jpg");
 		this._bg.position.z = -1000;
-		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});	
+		this.move(this._bg, {z : this._bg.position.z + 1100, easing : TWEEN.Easing.Cubic.Out});	
+
+		var textBox = this.addTextBox(" Hello World~~", 
+			{fontsize: 46, 
+			  borderColor: {r:255, g:0, b:0, a:1.0}, 
+			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
+			});
+		
+		textBox.position.set(0, 0, 200);		
+		//scene.add( spritey );
+		this._owner._addToScene(textBox);
 	};
 
 	/**
