@@ -21,6 +21,13 @@ var GNOVEL = GNOVEL || {};
 		this._pages = [];
 		this._curPageIdx = 0;
 		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+		this._stats = null;
+		this._container = document.createElement('div'); // html div container
+
+		var gnovel = this;
+
+		var container = this._container;
+		document.body.appendChild( container );
 
 		var camera = this._camera;
 		camera.position.z = 900;		
@@ -30,13 +37,17 @@ var GNOVEL = GNOVEL || {};
 		var renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(renderer.domElement);
+		container.appendChild(renderer.domElement);
 
 		// setup render loop
 		var render = function () {
 			requestAnimationFrame(render);			
 			TWEEN.update();
 			renderer.render(scene, camera);
+
+			if(gnovel._stats !== null) {
+				gnovel._stats.update();
+			}				
 		};
 		render();
 
@@ -137,6 +148,14 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.getCamera = function() {
 		return this._camera;
+	};
+
+	Gnovel.prototype.seeStats = function() {
+		var stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
+		this._container.appendChild( stats.domElement );
+		this._stats = stats;
 	};
 
 	GNOVEL.Gnovel = Gnovel;
