@@ -2,7 +2,7 @@
 
 ####Server requirement
 - python 3.4.3
-- python-pip
+- python-pip 1.5.4
 - All the libraries listed in src/requirements.txt
 - PostgreSQL 9.4.5
 - uWSGI 2.0.12
@@ -47,4 +47,4 @@ sensitive_config should contain one json oject with this property:
 
 #### third party lib
 - three.js r73 (https://github.com/mrdoob/three.js/)
-- tween.js (https://github.com/tweenjs/tween.js)
+- tween.js 16.3.4 (https://github.com/tweenjs/tween.js)
