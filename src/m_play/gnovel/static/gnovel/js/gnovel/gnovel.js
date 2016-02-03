@@ -23,8 +23,7 @@ var GNOVEL = GNOVEL || {};
 		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
 
 		var camera = this._camera;
-		camera.position.z = 900;
-		camera.position.y = 100;
+		camera.position.z = 900;		
 
 		var scene = this._scene;
 
@@ -53,11 +52,13 @@ var GNOVEL = GNOVEL || {};
 		camera.add(listener);
 
 		// ground's grid
+		/*
 		var helper = new THREE.GridHelper(500, 10);
 		helper.color1.setHex(0x444444);
 		helper.color2.setHex(0x444444);
 		helper.position.y = 0.1;
 		scene.add(helper);
+		*/
 
 		var temp = this;
 		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
