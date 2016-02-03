@@ -35,12 +35,12 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.getBackground = function() {
 		return this._bg;
-	}
+	};
 
 	/**
 	 * This function will be called right before page is displayed on screen	 
 	 */
-	Page.prototype._onLoad = function() {}
+	Page.prototype._onLoad = function() {};
 
 	Page.prototype._onMouseDown = function(event) {	
 	};
@@ -48,13 +48,21 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._onMouseMove = function(event) {		
 	};
 
+	Page.prototype.move = function(obj, params) {
+		var duration = params.duration || 1000;
+
+		var tween = new TWEEN.Tween(obj.position)
+		.to({
+			x : (params.x != null ? params.x : obj.x),
+			y : (params.y != null ? params.y : obj.y),
+			z : (params.z != null ? params.z : obj.z),
+		}, duration)
+		.easing(params.easing || TWEEN.Easing.Linear.None)
+		.start();			
+	};
+	
+
 	GNOVEL.Page = Page;
 }());
-
-
-
-
-
-
 
 

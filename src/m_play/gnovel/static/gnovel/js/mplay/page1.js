@@ -23,12 +23,8 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._onLoad.call(this);
 
 		this.setBackground("/static/gnovel/res/textures/test1.jpg");
-
-		var tween = new TWEEN.Tween(this._bg)
-			.to({
-				x : 100
-			}, 1000)
-			.start();		
+		this._bg.position.z = -1000;
+		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});	
 	};
 
 	/**
