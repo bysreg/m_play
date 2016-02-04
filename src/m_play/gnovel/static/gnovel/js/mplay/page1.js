@@ -27,10 +27,25 @@ var MPLAY = MPLAY || {};
 		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});
 
 		var position = new THREE.Vector3(1,1,5);
-		var obj = this.createImage("/static/gnovel/res/textures/ryan-happy.jpg",position);
+		var obj = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png",position);
+		this._addToScene(obj);
 		this.addCharacter("ryan",obj);
 
 		this.showHUD();
+
+		var textBox = this.addTextBox(" Hello World~~",
+			{fontsize: 46,
+			  borderColor: {r:255, g:0, b:0, a:1.0},
+			  backgroundColor: {r:255, g:100, b:100, a:0.8}
+			});
+
+		textBox.position.set(-130, 200, 300);
+		this._addToScene(textBox);
+	};
+
+	Page1.prototype._onUnload = function() {
+		GNOVEL.Page.prototype._onUnload.call(this);
+
 
 	};
 

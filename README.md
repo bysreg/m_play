@@ -48,3 +48,4 @@ sensitive_config should contain one json oject with this property:
 #### third party lib
 - three.js r73 (https://github.com/mrdoob/three.js/)
 - tween.js 16.3.4 (https://github.com/tweenjs/tween.js)
+- stats r14 (https://github.com/mrdoob/stats.js)

@@ -5,7 +5,7 @@ var GNOVEL = GNOVEL || {};
 	"use strict";
 
 	/**
-	 *transition to next scene over certain time
+	 * Transition to next scene over certain time
 	 * @class Transition
 	 * @constructor
 	 * @param {time} time for transition to play, in milliseconds
@@ -15,30 +15,53 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	/**
-	 * Do Transition. only called by the Manager
+	 * Do Transition
 	 * @method run
 	 * @param {currentPage} currentPage, the current page to be tansitioned from
 	 * @param {nextPage} the new page to show
 	 **/
-	Transition.prototype.run = function(currentPage, nextPage) {
+	Transition.prototype.run = function(currentPage, nextPage, params) {
 		var duration = this.time;		
-		
-		nextPage.getBackground().material.opacity = 0;	
+		var toObjIn = {opacity: 1};
+		var toObjOut = {opacity: 0};		
 
-		//tween opacity for fade over duration time.
-		var tween_out = new TWEEN.Tween(currentPage.getBackground().material)
-			.to({
-				opacity: 0
-			}, duration)
-			.start();
+		var curPageRootObj = currentPage._getRootObject();
+		var nextPageRootObj = nextPage._getRootObject();
+		this._runOnHierarchy(curPageRootObj, toObjOut, params);
+		this._runOnHierarchy(nextPageRootObj, toObjIn, params);
 
-		var tween_in = new TWEEN.Tween(nextPage.getBackground().material)
-			.to({
-				opacity: 1
-			}, duration)
-			.start();		
 	};
 	
+	Transition.prototype._runOnHierarchy = function(h, toObj, params) {
+		var duration = this.time;		
+
+		var isOnCompleteAdded = false;
+
+		h.traverseVisible(function(obj3d) {
+
+			if(obj3d.material == null)
+				return;
+
+			if(toObj.opacity == 1)
+				obj3d.material.opacity = 0;
+			else
+				obj3d.material.opacity = 1;
+			
+			//tween opacity for fade over duration time
+			var tween = new TWEEN.Tween(obj3d.material)
+			.to(toObj, duration);
+
+			if(params != null)
+			{
+				if(params.onComplete != null && !isOnCompleteAdded) {
+					tween.onComplete(params.onComplete);
+					isOnCompleteAdded = true;
+				}
+			}
+			tween.start();
+		});						
+	}
+
 	// transition type
 	GNOVEL.TransitionType = {};
 	GNOVEL.TransitionType.FADE = 0;
