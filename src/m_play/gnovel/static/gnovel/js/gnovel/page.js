@@ -17,12 +17,13 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = null;
+
+		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
 		window.addEventListener("scenePause", this.onPause.bind(this));
 		window.addEventListener("sceneEnter", this.onEnter.bind(this));
 		window.addEventListener("sceneExit", this.onExit.bind(this));
 
-		//add event listeners and bind them
 	};
 
 	Page.prototype.setBackground = function(path) {
