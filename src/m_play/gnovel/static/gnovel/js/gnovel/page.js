@@ -14,6 +14,8 @@ var GNOVEL = GNOVEL || {};
 		this._owner = null;
 		this._bg = null;
 		this._id = -1; // id for gnovel
+		this._flowCounter = 0;
+		this._flow = null;
 	};
 
 	Page.prototype.setBackground = function(path) {
@@ -188,6 +190,34 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._getRootObject = function() {
 		return this._owner._getPageRootObject(this);
+	};
+
+	Page.prototype._setFlow = function(flow) {
+		this._flow = flow;
+	};
+
+	Page.prototype._runFlow = function() {
+		var o = this._flow[this._flowCounter];
+
+		if(o.type == "Dialog") 
+		{
+			this._processDialog(o);
+		}
+	};
+
+	Page.prototype._processDialog = function(dialog) {
+		this.addTextBox(dialog.text, {fontsize: 23, 
+			  borderColor: {r:255, g:0, b:0, a:1.0}, 
+			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
+			});
+
+		this._onFlowComplete();
+	};
+
+	Page.prototype._onFlowComplete = function() {
+		this._flowCounter++;
+
+		
 	};
 
 	GNOVEL.Page = Page;

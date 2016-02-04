@@ -37,6 +37,16 @@ var MPLAY = MPLAY || {};
 
 		var ryan = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, 0, 200));
 		this._addToScene(ryan);
+
+		var flow = [
+			{type : "Dialog", text : "it is the first day...."}, 
+			{type : "Dialog", text : "... and as we wrap up"},
+			{type : "Dialog", text : "you gather"},
+			{type : "Dialog", text : "hey nice to meet"}, 
+			{type : "Choice", choices : ["not at all", "oh, what did you"]},
+		];
+
+		this._setFlow(flow);
 	};
 
 	Page1.prototype._onUnload = function() {
