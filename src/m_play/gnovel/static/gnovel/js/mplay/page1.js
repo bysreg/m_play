@@ -34,12 +34,12 @@ var MPLAY = MPLAY || {};
 		this.showHUD();
 
 		var textBox = this.addTextBox(" Hello World~~", 
-			{fontsize: 46, 
+			{fontsize: 32, 
 			  borderColor: {r:255, g:0, b:0, a:1.0}, 
 			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
 			});
 		
-		textBox.position.set(-130, 200, 300);
+		textBox.position.set(0, 0, 100);
 		this._addToScene(textBox);
 
 		var flow = [
