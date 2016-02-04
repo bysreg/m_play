@@ -17,18 +17,25 @@ var MPLAY = MPLAY || {};
 	Page1.prototype.constructor = Page1;
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
 
 		this.setBackground("/static/gnovel/res/textures/test1.jpg");
 		this._bg.position.z = -1000;
-		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});	
+		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});
+
+		var position = new THREE.Vector3(1,1,5);
+		var obj = this.createImage("/static/gnovel/res/textures/ryan-happy.jpg",position);
+		this.addCharacter("ryan",obj);
+
+		this.showHUD();
+
 	};
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	Page1.prototype._onMouseDown = function(event) {
 		this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
