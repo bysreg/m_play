@@ -13,6 +13,7 @@ var GNOVEL = GNOVEL || {};
 	var Page = function() {
 		this._owner = null;
 		this._bg = null;
+		this._id = -1; // id for gnovel
 	};
 
 	Page.prototype.setBackground = function(path) {
@@ -28,9 +29,10 @@ var GNOVEL = GNOVEL || {};
 		var plane = new THREE.PlaneBufferGeometry(512, 768);
 		var quad = new THREE.Mesh(plane, material);
 		quad.position.z = 100;
+		quad.name = "Background";
 
 		// add this to the scene
-		this._owner._addToScene(quad);
+		this._addToScene(quad);
 
 		this._bg = quad;
 	};
@@ -43,6 +45,12 @@ var GNOVEL = GNOVEL || {};
 	 * This function will be called right before page is displayed on screen	 
 	 */
 	Page.prototype._onLoad = function() {};
+
+	/**
+	 * This function will be called right before page is removed from screen
+	 *
+	 */
+	Page.prototype._onUnload = function() {};
 
 	Page.prototype._onMouseDown = function(event) {};
 
@@ -73,12 +81,10 @@ var GNOVEL = GNOVEL || {};
 		});
 		var plane = new THREE.PlaneBufferGeometry(512, 768);
 		var quad = new THREE.Mesh(plane, material);
-		quad.position.z = 100;
+		quad.position.set(position.x, position.y, position.z);
+		quad.name = "Image";
 
-		// add this to the scene
-		this._owner._addToScene(quad);
-
-		this._bg = quad;
+		return quad;
 	};
 
 	// function for drawing rounded rectangles
@@ -100,9 +106,24 @@ var GNOVEL = GNOVEL || {};
 	}
 
 	/**
-	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
+	 * Page identifier. Will be set by Gnovel object
+	 * @param {int} id
 	 */
-	///*
+	Page.prototype._setPageId = function(id) {
+		this._id = id;
+	};
+
+	/**
+	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
+	 * @return {int} 
+	 */
+	Page.prototype.getPageId = function() {
+		return this._id;
+	}
+
+	/**
+	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
+	 */	
 	Page.prototype.addTextBox = function(message, parameters) {
 		var fontface = parameters.hasOwnProperty("fontface") ?
 			parameters["fontface"] : "Arial";
@@ -156,10 +177,14 @@ var GNOVEL = GNOVEL || {};
 			map: texture,
 		});
 		var sprite = new THREE.Sprite(spriteMaterial);
+		sprite.name = "Text Box";
 		sprite.scale.set(100, 50, 1.0);
 		return sprite;
 	};
-	//*/
+
+	Page.prototype._addToScene = function(o) {
+		this._owner._addToScene(this, o);
+	}
 
 	GNOVEL.Page = Page;
 }());

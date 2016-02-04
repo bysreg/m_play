@@ -5,7 +5,7 @@ var GNOVEL = GNOVEL || {};
 	"use strict";
 
 	/**
-	 *transition to next scene over certain time
+	 * Transition to next scene over certain time
 	 * @class Transition
 	 * @constructor
 	 * @param {time} time for transition to play, in milliseconds
@@ -15,12 +15,12 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	/**
-	 * Do Transition. only called by the Manager
+	 * Do Transition
 	 * @method run
 	 * @param {currentPage} currentPage, the current page to be tansitioned from
 	 * @param {nextPage} the new page to show
 	 **/
-	Transition.prototype.run = function(currentPage, nextPage) {
+	Transition.prototype.run = function(currentPage, nextPage, params) {
 		var duration = this.time;		
 		
 		nextPage.getBackground().material.opacity = 0;	
@@ -29,14 +29,22 @@ var GNOVEL = GNOVEL || {};
 		var tween_out = new TWEEN.Tween(currentPage.getBackground().material)
 			.to({
 				opacity: 0
-			}, duration)
-			.start();
+			}, duration);
 
 		var tween_in = new TWEEN.Tween(nextPage.getBackground().material)
 			.to({
 				opacity: 1
-			}, duration)
-			.start();		
+			}, duration);
+
+		if(params != null)
+		{
+			if(params.onComplete  != null) {
+				tween_in.onComplete(params.onComplete);
+			}
+		}		
+
+		tween_out.start();
+		tween_in.start();
 	};
 	
 	// transition type

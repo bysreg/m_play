@@ -32,9 +32,17 @@ var MPLAY = MPLAY || {};
 			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
 			});
 		
-		textBox.position.set(0, 0, 200);		
-		//scene.add( spritey );
-		this._owner._addToScene(textBox);
+		textBox.position.set(-130, 200, 300);
+		this._addToScene(textBox);
+
+		var ryan = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, 0, 200));
+		this._addToScene(ryan);
+	};
+
+	Page1.prototype._onUnload = function() {
+		GNOVEL.Page.prototype._onUnload.call(this);
+
+
 	};
 
 	/**

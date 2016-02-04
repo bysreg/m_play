@@ -23,6 +23,8 @@ var GNOVEL = GNOVEL || {};
 		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
 		this._stats = null;
 		this._container = document.createElement('div'); // html div container
+		this._prevPage = null;
+		this._pageRootObject = {curPage : null, prevPage : null};
 
 		var gnovel = this;
 
@@ -86,12 +88,14 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
+		page._setPageId(this._pages.length);
 		page._owner = this;
 		this._pages.push(page);
 	};
 
-	Gnovel.prototype._addToScene = function(o) {
-		this._scene.add(o);
+	Gnovel.prototype._addToScene = function(page, o) {		
+		this._pageRootObject[page.getPageId()].add(o);		
+		//this._scene.add(o);
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {	
@@ -120,7 +124,19 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._load = function(page) {
+		var pageRoot = new THREE.Object3D();
+		this._pageRootObject[page.getPageId()] = pageRoot;
+		this._scene.add(pageRoot);
 		page._onLoad();
+	};
+
+	Gnovel.prototype._unload = function(page) {
+		page._onUnload();
+
+		// remove all objects added to scene
+		var rootObj = this._pageRootObject[page.getPageId()];
+		this._scene.remove(rootObj);
+		this._pageRootObject[page.getPageId()] = null;
 	};
 
 	Gnovel.prototype.getCurrentPage = function() {
@@ -143,7 +159,16 @@ var GNOVEL = GNOVEL || {};
 		this._load(nextPage);
 
 		var transition = new GNOVEL.Transition(1000);
-		transition.run(curPage, nextPage);
+		var gnovel = this;
+		transition.run(curPage, nextPage, {onComplete : function() {gnovel._onPageTransitionComplete(gnovel);}});
+
+		this._prevPage = curPage;
+		this._curPageIdx = pageIndex;
+	};
+
+	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {		
+		// unload the previous page
+		gnovelObj._unload(gnovelObj._prevPage);
 	};
 
 	Gnovel.prototype.getCamera = function() {
