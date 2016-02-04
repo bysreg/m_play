@@ -1,4 +1,4 @@
-// namespace
+// namespace 
 var GNOVEL = GNOVEL || {};
 
 (function() {
@@ -8,13 +8,15 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 * @class Page
 	 * @constructor
-	 *
+	 * 
 	 */
 	var Page = function() {
 		this._owner = null;
 		this._bg = null;
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
+		this._flowCounter = 0;
+		this._flow = null;
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume",this.onResume.bind(this));
@@ -86,7 +88,7 @@ var GNOVEL = GNOVEL || {};
 	}
 
 	/**
-	 * This function will be called right before page is displayed on screen
+	 * This function will be called right before page is displayed on screen	 
 	 */
 	Page.prototype._onLoad = function() {};
 
@@ -122,7 +124,7 @@ var GNOVEL = GNOVEL || {};
 
 
 	// function for drawing rounded rectangles
-	function roundRect(ctx, x, y, w, h, r)
+	function roundRect(ctx, x, y, w, h, r) 
 	{
 		ctx.beginPath();
 		ctx.moveTo(x+r, y);
@@ -136,7 +138,7 @@ var GNOVEL = GNOVEL || {};
 		ctx.quadraticCurveTo(x, y, x+r, y);
 		ctx.closePath();
 		ctx.fill();
-		ctx.stroke();
+		ctx.stroke();   
 	}
 
 	/**
@@ -149,7 +151,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
-	 * @return {int}
+	 * @return {int} 
 	 */
 	Page.prototype.getPageId = function() {
 		return this._id;
@@ -157,7 +159,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
-	 */
+	 */	
 	Page.prototype.addTextBox = function(message, parameters) {
 		var fontface = parameters.hasOwnProperty("fontface") ?
 			parameters["fontface"] : "Arial";
@@ -182,7 +184,7 @@ var GNOVEL = GNOVEL || {};
 				g: 255,
 				b: 255,
 				a: 1.0
-			};
+			};		
 
 		var canvas = document.createElement('canvas');
 		var context = canvas.getContext('2d');
@@ -222,6 +224,34 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._getRootObject = function() {
 		return this._owner._getPageRootObject(this);
+	};
+
+	Page.prototype._setFlow = function(flow) {
+		this._flow = flow;
+	};
+
+	Page.prototype._runFlow = function() {
+		var o = this._flow[this._flowCounter];
+
+		if(o.type == "Dialog") 
+		{
+			this._processDialog(o);
+		}
+	};
+
+	Page.prototype._processDialog = function(dialog) {
+		this.addTextBox(dialog.text, {fontsize: 23, 
+			  borderColor: {r:255, g:0, b:0, a:1.0}, 
+			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
+			});
+
+		this._onFlowComplete();
+	};
+
+	Page.prototype._onFlowComplete = function() {
+		this._flowCounter++;
+
+		
 	};
 
 	GNOVEL.Page = Page;

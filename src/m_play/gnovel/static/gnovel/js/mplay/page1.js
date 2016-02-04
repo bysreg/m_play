@@ -17,7 +17,7 @@ var MPLAY = MPLAY || {};
 	Page1.prototype.constructor = Page1;
 
 	/**
-	 * @override
+	 * @override	 
 	 */
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
@@ -33,14 +33,24 @@ var MPLAY = MPLAY || {};
 
 		this.showHUD();
 
-		var textBox = this.addTextBox(" Hello World~~",
-			{fontsize: 46,
-			  borderColor: {r:255, g:0, b:0, a:1.0},
-			  backgroundColor: {r:255, g:100, b:100, a:0.8}
+		var textBox = this.addTextBox(" Hello World~~", 
+			{fontsize: 46, 
+			  borderColor: {r:255, g:0, b:0, a:1.0}, 
+			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
 			});
-
+		
 		textBox.position.set(-130, 200, 300);
 		this._addToScene(textBox);
+
+		var flow = [
+			{type : "Dialog", text : "it is the first day...."}, 
+			{type : "Dialog", text : "... and as we wrap up"},
+			{type : "Dialog", text : "you gather"},
+			{type : "Dialog", text : "hey nice to meet"}, 
+			{type : "Choice", choices : ["not at all", "oh, what did you"]},
+		];
+
+		this._setFlow(flow);
 	};
 
 	Page1.prototype._onUnload = function() {
@@ -50,7 +60,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	/**
-	 * @override
+	 * @override	 
 	 */
 	Page1.prototype._onMouseDown = function(event) {
 		this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
