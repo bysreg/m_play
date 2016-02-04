@@ -184,7 +184,7 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._addToScene = function(o) {
 		this._owner._addToScene(this, o);
-	}
+	};
 
 	GNOVEL.Page = Page;
 }());
