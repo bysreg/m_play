@@ -24,7 +24,14 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/test1.jpg");
 		this._bg.position.z = -1000;
-		this.move(this._bg, {z : this._bg.position.z + 1100, easing : TWEEN.Easing.Cubic.Out});	
+		this.move(this._bg, {z : this._bg.position.z + 1000, easing : TWEEN.Easing.Cubic.Out});
+
+		var position = new THREE.Vector3(1,1,5);
+		var obj = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png",position);
+		this._addToScene(obj);
+		this.addCharacter("ryan",obj);
+
+		this.showHUD();
 
 		var textBox = this.addTextBox(" Hello World~~", 
 			{fontsize: 46, 
@@ -34,9 +41,6 @@ var MPLAY = MPLAY || {};
 		
 		textBox.position.set(-130, 200, 300);
 		this._addToScene(textBox);
-
-		var ryan = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, 0, 200));
-		this._addToScene(ryan);
 
 		var flow = [
 			{type : "Dialog", text : "it is the first day...."}, 
