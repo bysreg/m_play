@@ -125,6 +125,7 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._load = function(page) {
 		var pageRoot = new THREE.Object3D();
+		pageRoot.name = "Page Root";
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		this._scene.add(pageRoot);
 		page._onLoad();
@@ -181,6 +182,10 @@ var GNOVEL = GNOVEL || {};
 		stats.domElement.style.top = '0px';
 		this._container.appendChild( stats.domElement );
 		this._stats = stats;
+	};
+
+	Gnovel.prototype._getPageRootObject = function(page) {
+		return this._pageRootObject[page.getPageId()];
 	};
 
 	GNOVEL.Gnovel = Gnovel;

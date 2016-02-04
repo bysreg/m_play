@@ -186,5 +186,9 @@ var GNOVEL = GNOVEL || {};
 		this._owner._addToScene(this, o);
 	};
 
+	Page.prototype._getRootObject = function() {
+		return this._owner._getPageRootObject(this);
+	};
+
 	GNOVEL.Page = Page;
 }());
