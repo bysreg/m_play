@@ -8,10 +8,10 @@ var GNOVEL = GNOVEL || {};
 		this._choices = choices;
 		this._page = page;		
 		this._result = result;
-		this._params = params;
+		this._params = params || {};
 
 		this._choicesBox = [];
-		this._choosed = false;
+		this._choosed = false;		
 
 		this._init();
 
@@ -29,13 +29,17 @@ var GNOVEL = GNOVEL || {};
 			opacity: 0.2,
 			transparent: true
 		});
-		var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
-		var timer = new THREE.Mesh(timer_plane, timer_material);
-		this.timer = timer;
-		timer.position.x = -390;
-		timer.position.z = -100;
-		timer.position.y = -350;
-		this._page._addToScene(timer);
+
+		if(this._params.seconds > 0) {
+			var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
+			var timer = new THREE.Mesh(timer_plane, timer_material);
+			this.timer = timer;
+			timer.position.x = -390;
+			timer.position.z = -100;
+			timer.position.y = -350;
+			this._page._addToScene(timer);
+		}	
+
 		var textbox;		
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.addTextBox(this._choices[i], {
@@ -68,20 +72,31 @@ var GNOVEL = GNOVEL || {};
 			x: 390,
 			y: -350,
 			z: -100
-		}, this._params.seconds * 1000).onComplete(function() {
-
+		}, this._params.seconds).onComplete(function() {
 			if (timer._choosed) {
-				return timer._result;
+				// do nothing, because we already call _onChoiceComplete on mouse down
 			} else {
-
-				for (var i = 0; i < timer.choices.length; i++) {
-					timer._page._removeFromScene(timer._choicesBox[i]);
-				}
-
-				timer._page._removeFromScene(timer.timer);
+				// auto select the first option
+				this._result.choiceId = 0;
+				timer._onChoiceComplete();
 			}
 		});
 		tween.start();
+	};
+
+	Choices.prototype._onChoiceComplete = function() {
+		// clean up all objects from scene
+		if(this._params.seconds != null && params.seconds > 0) {
+			this._page._removeFromScene(timer.timer);	
+		}
+
+		for (var i = 0; i < this._choices.length; i++) {
+			this._page._removeFromScene(this._choicesBox[i]);
+		}
+
+		if(this._params._onChoiceComplete != null) {
+			this._params._onChoiceComplete(this);
+		}
 	};
 
 	Choices.prototype._onMouseDown = function(event) {
@@ -97,11 +112,10 @@ var GNOVEL = GNOVEL || {};
 
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		if (intersects.length > 0) {			
+		if (intersects.length > 0 && !this._choosed) {			
 			clickedObj = intersects[0].object;
 			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);			
 
-			this._result = intersects[0];
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
 			for (var i = 0; i < this._choices.length; i++) {
@@ -109,10 +123,11 @@ var GNOVEL = GNOVEL || {};
 				if(this._choicesBox[i] == intersects[0].object)
 				{
 					console.log("clicked on " + i);
+					this._result.choiceId = i;
 				}
 				//*/
 				
-				this._page._removeFromScene(this._choicesBox[i]);
+				this._onChoiceComplete();
 			}
 		}		
 	};

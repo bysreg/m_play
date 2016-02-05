@@ -40,19 +40,9 @@ var MPLAY = MPLAY || {};
 		textBox.position.set(0, 0, 200);
 		this._addToScene(textBox);
 
-		var flow = [
-			{type : "Dialog", text : "it is the first day...."}, 
-			{type : "Dialog", text : "... and as we wrap up"},
-			{type : "Dialog", text : "you gather"},
-			{type : "Dialog", text : "hey nice to meet"}, 
-			{type : "Choice", choices : ["not at all", "oh, what did you"]},
-		];
-
-		this._setFlow(flow);
 		var result = {};
 		var choices = new GNOVEL.Choices(this, ['choice1', 'choice2'], result);
-		this.choices = choices;
-		this.choices.position.set();
+		this.choices = choices;		
 	};
 
 	Page1.prototype._onUnload = function() {
