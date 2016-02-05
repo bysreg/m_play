@@ -164,79 +164,61 @@ var GNOVEL = GNOVEL || {};
 	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
 	 */
 	Page.prototype.addTextBox = function(message, parameters) {
-		/*
-		if ( parameters === undefined ) parameters = {};
-        var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
-        var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
-        var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
-        var borderColor = parameters.hasOwnProperty("borderColor") ?parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
-        var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
-        var textColor = parameters.hasOwnProperty("textColor") ?parameters["textColor"] : { r:0, g:0, b:0, a:1.0 };
+		var fontface = parameters.hasOwnProperty("fontface") ?
+				parameters["fontface"] : "Arial";
 
-        var canvas = document.createElement('canvas');        
-        var context = canvas.getContext('2d');
-        context.font = "Bold " + fontsize + "px " + fontface;
-        var metrics = context.measureText( message );
-        var textWidth = metrics.width;
-        canvas.width = THREE.Math.nextPowerOfTwo(textWidth + 50);
-        canvas.height = THREE.Math.nextPowerOfTwo(fontsize + 50);
+			var fontsize = parameters.hasOwnProperty("fontsize") ?
+				parameters["fontsize"] : 18;
 
-        //context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-        //context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+			var borderThickness = parameters.hasOwnProperty("borderThickness") ?
+				parameters["borderThickness"] : 4;
 
-        //context.lineWidth = borderThickness;
-        //roundRect(context, borderThickness/2, borderThickness/2, (textWidth + borderThickness) * 1.1, fontsize * 1.4 + borderThickness, 8);
+			var borderColor = parameters.hasOwnProperty("borderColor") ?
+				parameters["borderColor"] : {
+					r: 0,
+					g: 0,
+					b: 0,
+					a: 1.0
+				};
 
-        //context.fillStyle = "rgba("+textColor.r+", "+textColor.g+", "+textColor.b+", 1.0)";
-        context.fillText( message, borderThickness, fontsize + borderThickness);
+			var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+				parameters["backgroundColor"] : {
+					r: 255,
+					g: 255,
+					b: 255,
+					a: 1.0
+				};		
 
-        var texture = new THREE.Texture(canvas) 
-        texture.needsUpdate = true;
+			var canvas = document.createElement('canvas');
+			var context = canvas.getContext('2d');
+			context.font = "Bold " + fontsize + "px " + fontface;
 
-        var spriteMaterial = new THREE.SpriteMaterial( { map: texture} );
-        //var sprite = new THREE.Sprite( spriteMaterial );
-        //sprite.scale.set(0.5 * fontsize, 0.25 * fontsize, 0.75 * fontsize);
-		var SpriteText2D = THREE_Text.SpriteText2D;
-        var sprite = new SpriteText2D(message, { align: textAlign.center,  font: '40px Arial', fillStyle: '#000000' , antialias: false })
-        */
+			// get size data (height depends only on font size)
+			var metrics = context.measureText(message);
+			var textWidth = metrics.width;
 
-        /*
-		var canvas1 = document.createElement('canvas');
-		var context1 = canvas1.getContext('2d');
-		context1.font = "Bold 20px Arial";
-		context1.fillStyle = "rgba(255,0,0,0.95)";
-		context1.fillText(message, 0, 50);
+			// background color
+			context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+			// border color
+			context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+			context.lineWidth = borderThickness;
+			roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+			// 1.4 is extra height factor for text below baseline: g,j,p,q.
 
-		var texture1 = new THREE.Texture(canvas1);
-		texture1.needsUpdate = true;
+			// text color
+			context.fillStyle = "rgba(0, 0, 0, 1.0)";
+			context.fillText(message, borderThickness, fontsize + borderThickness);
 
-		var material1 = new THREE.MeshBasicMaterial({
-			map: texture1,
-			side: THREE.DoubleSide
-		});
-		material1.transparent = true;
-
-		var spriteMaterial = new THREE.SpriteMaterial( { map: texture1} );
-
-		var mesh1 = new THREE.Mesh(
-			new THREE.PlaneGeometry(canvas1.width, canvas1.height),
-			material1
-		);
-
-		var sprite = new THREE.Sprite( spriteMaterial );		
-
-
-		return mesh1;
-		//return sprite;
-		*/
-	
-		var textAlign = THREE_Text.textAlign;
-		//var lines = message.split("\n");
-		//var Text2D = require('three-text2d').Text2D;
-		//var text = new Text2D("Hello world!", { align: textAlign.right, font: '30px Arial', fillStyle: '#000000', antialias: true });
-		var SpriteText2D = THREE_Text.SpriteText2D;
-        var sprite = new SpriteText2D(message, { align: textAlign.center,  font: '40px Arial', fillStyle: '#FF0000' , antialias: false })
-		return sprite;
+			// canvas contents will be used for a texture
+			var texture = new THREE.Texture(canvas)
+			texture.needsUpdate = true;
+			var spriteMaterial = new THREE.SpriteMaterial({
+				map: texture,
+			});
+			var sprite = new THREE.Sprite(spriteMaterial);
+			sprite.name = "Text Box";
+			sprite.scale.set(100, 50, 1.0);
+			return sprite;
 	};
 
 	Page.prototype._addToScene = function(o) {

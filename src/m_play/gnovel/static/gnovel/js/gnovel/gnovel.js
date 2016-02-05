@@ -25,6 +25,8 @@ var GNOVEL = GNOVEL || {};
 		this._container = document.createElement('div'); // html div container
 		this._prevPage = null;
 		this._pageRootObject = {curPage : null, prevPage : null};
+		this._renderer = new THREE.WebGLRenderer();
+		this._raycaster = new THREE.Raycaster();
 
 		var gnovel = this;
 
@@ -36,7 +38,7 @@ var GNOVEL = GNOVEL || {};
 
 		var scene = this._scene;
 
-		var renderer = new THREE.WebGLRenderer();
+		var renderer = this._renderer;
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		container.appendChild(renderer.domElement);
@@ -73,6 +75,9 @@ var GNOVEL = GNOVEL || {};
 		scene.add(helper);
 		*/
 
+		
+		scene.interactObjs = [];
+
 		var temp = this;
 		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
 		document.addEventListener('mousemove', function(event) { _onMouseMove(event, temp); }, false);
@@ -96,6 +101,10 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype._addToScene = function(page, o) {		
 		this._pageRootObject[page.getPageId()].add(o);		
 		//this._scene.add(o);
+	};
+
+	Gnovel.prototype._removeFromScene = function(page, o) {
+		this._pageRootObject[page.getPageId()].remove(o);
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {	
