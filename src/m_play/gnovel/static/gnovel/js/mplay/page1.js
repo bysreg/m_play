@@ -37,7 +37,7 @@ var MPLAY = MPLAY || {};
 			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
 			});
 		
-		textBox.position.set(0, 0, 100);
+		textBox.position.set(0, 0, 200);
 		this._addToScene(textBox);
 
 		var flow = [
@@ -50,16 +50,13 @@ var MPLAY = MPLAY || {};
 
 		this._setFlow(flow);
 		var result = {};
-		var timer = new GNOVEL.Timer(this, 10, ['choice1', 'choice2'], result);
-		timer.init();
-		this.timer = timer;
-		timer.countdown();
+		var choices = new GNOVEL.Choices(this, ['choice1', 'choice2'], result);
+		this.choices = choices;
+		this.choices.position.set();
 	};
 
 	Page1.prototype._onUnload = function() {
 		GNOVEL.Page.prototype._onUnload.call(this);
-
-
 	};
 
 	/**
@@ -67,7 +64,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page1.prototype._onMouseDown = function(event) {
 //		this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
-		this.timer._onMouseDown(event);
+		this.choices._onMouseDown(event);
 	};
 
 	MPLAY.Page1 = Page1;

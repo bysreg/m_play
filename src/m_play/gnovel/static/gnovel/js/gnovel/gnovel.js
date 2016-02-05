@@ -73,10 +73,7 @@ var GNOVEL = GNOVEL || {};
 		helper.color2.setHex(0x444444);
 		helper.position.y = 0.1;
 		scene.add(helper);
-		*/
-
-		
-		scene.interactObjs = [];
+		*/		
 
 		var temp = this;
 		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
