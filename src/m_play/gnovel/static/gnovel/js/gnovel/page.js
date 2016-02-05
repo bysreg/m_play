@@ -36,7 +36,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true,
 			map: texture
 		});
-		var plane = new THREE.PlaneBufferGeometry(512, 768);
+		var plane = new THREE.PlaneBufferGeometry(1024, 768);
 		var quad = new THREE.Mesh(plane, material);
 		quad.position.z = 100;
 		quad.name = "Background";
@@ -245,6 +245,10 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._getRootObject = function() {
 		return this._owner._getPageRootObject(this);
+	};
+
+	Page.prototype._removeFromScene = function(o) {
+		this._owner._removeFromScene(this, o);
 	};
 
 	Page.prototype._setFlow = function(flow) {

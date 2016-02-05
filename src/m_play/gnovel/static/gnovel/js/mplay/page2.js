@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page2.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds8.jpg");				
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 	};
 
 	MPLAY.Page2 = Page2;
