@@ -51,6 +51,11 @@ var MPLAY = MPLAY || {};
 		];
 
 		this._setFlow(flow);
+		var result = {};
+		var timer = new GNOVEL.Timer(this, 10, ['choice1', 'choice2'], result);
+		timer.init();
+		this.timer = timer;
+		timer.countdown();
 	};
 
 	Page1.prototype._onUnload = function() {
@@ -63,7 +68,8 @@ var MPLAY = MPLAY || {};
 	 * @override	 
 	 */
 	Page1.prototype._onMouseDown = function(event) {
-		this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
+//		this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
+		this.timer._onMouseDown(event);
 	};
 
 	MPLAY.Page1 = Page1;
