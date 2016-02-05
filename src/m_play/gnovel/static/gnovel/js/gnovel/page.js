@@ -37,8 +37,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(1024, 768);
-		var quad = new THREE.Mesh(plane, material);
-		quad.position.z = 100;
+		var quad = new THREE.Mesh(plane, material);		
 		quad.name = "Background";
 
 		// add this to the scene
@@ -51,14 +50,14 @@ var GNOVEL = GNOVEL || {};
 		return this._bg;
 	};
 
-	Page.prototype.createImage = function(path, position) {
+	Page.prototype.createImage = function(path, position, width, height) {
 		var texture = THREE.ImageUtils.loadTexture(path);
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xffffff,
 			transparent: true,
 			map: texture
 		});
-		var plane = new THREE.PlaneBufferGeometry(512, 768);
+		var plane = new THREE.PlaneBufferGeometry(width, height);
 		var quad = new THREE.Mesh(plane, material);
 		//quad.position.set(position);
 		quad.position.set(position.x, position.y, position.z);
@@ -75,7 +74,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.showHUD = function() {
-		var hud = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(0, -300, 10));
+		var hud = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(0, -300, 50), 512, 768);
 		var uiHeight = .2;
 		var uiWidth = 1.5;
 		hud.scale.set(uiWidth, uiHeight, 1);
@@ -116,8 +115,11 @@ var GNOVEL = GNOVEL || {};
 				y: (params.y !== null ? params.y : obj.y),
 				z: (params.z !== null ? params.z : obj.z),
 			}, duration)
-			.easing(params.easing || TWEEN.Easing.Linear.None)
-			.start();
+			.easing(params.easing || TWEEN.Easing.Linear.None);
+		if(params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+		tween.start();			
 	};
 
 	Page.prototype.onPause = function(evt) {}
@@ -163,7 +165,7 @@ var GNOVEL = GNOVEL || {};
 	/**
 	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
 	 */
-	Page.prototype.addTextBox = function(message, parameters) {
+	Page.prototype.createTextBox = function(message, parameters) {
 		var fontface = parameters.hasOwnProperty("fontface") ?
 			parameters["fontface"] : "Arial";
 
@@ -246,7 +248,8 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype._processDialog = function(dialog) {
-		this.addTextBox(dialog.text, {
+		// FIXME : not yet finished
+		this.createTextBox(dialog.text, {
 			fontsize: 23,
 			borderColor: {
 				r: 255,

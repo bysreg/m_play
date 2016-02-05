@@ -20,6 +20,11 @@ var GNOVEL = GNOVEL || {};
 				this._countdown();
 			}			
 		}
+
+		// HACKS
+		// FIXME : should not
+		var choices = this;
+		document.addEventListener('mousedown', function(event) { _onMouseDown(event, choices); }, false);
 	};
 
 	Choices.prototype._init = function() {
@@ -34,15 +39,15 @@ var GNOVEL = GNOVEL || {};
 			var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
-			timer.position.x = -390;
-			timer.position.z = -100;
+			timer.position.x = -390;			
 			timer.position.y = -350;
+			timer.position.z = 75;
 			this._page._addToScene(timer);
 		}	
 
 		var textbox;		
 		for (var i = 0; i < this._choices.length; i++) {
-			textbox = this._page.addTextBox(this._choices[i], {
+			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,
 				borderColor: {
 					r: 255,
@@ -57,10 +62,14 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(i * 100, -200, 250);
+			textbox.position.set(i * 100, -200, 75);
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);			
 		};
+	};
+
+	function _onMouseDown(event, choiceObj) {		
+		choiceObj._onMouseDown(event);
 	};
 
 	/**
