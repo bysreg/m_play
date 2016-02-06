@@ -29,7 +29,7 @@ var MPLAY = MPLAY || {};
 		this._choicesBg = null;
 		this._textBg = null;
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds8.jpg");
 
 		//create images
 		this._juli = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 60), 600, 750);
@@ -130,7 +130,7 @@ var MPLAY = MPLAY || {};
 	Page2.prototype._runAnim = function() {
 		switch(this._state) {
 			case 0:
-				this._show(this._juli);
+				this._show(this._juli);				
 				break;
 			case 1:				
 				this._showDialog("Hey guys, I'm still sort of confused..", 0, -220, 220);
