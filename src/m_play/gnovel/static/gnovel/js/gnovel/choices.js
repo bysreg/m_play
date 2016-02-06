@@ -65,6 +65,11 @@ var GNOVEL = GNOVEL || {};
 				}
 			});
 			textbox.position.set(i * 400 + startx, -200 + starty, 75);
+			textbox.name = "choices";
+
+			// hack : because we are using Text2D, we are going to identify the raycast based on this name
+			textbox.children[0].name = ""+i;
+
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);			
 		};
@@ -131,15 +136,15 @@ var GNOVEL = GNOVEL || {};
 			this._page._removeFromScene(this.timer);
 			for (var i = 0; i < this._choices.length; i++) {
 				///*
-				if(this._choicesBox[i] == intersects[0].object)
+				if(this._choicesBox[i].children[0].name == intersects[0].object.name)
 				{
 					console.log("clicked on " + i);
 					this._result.choiceId = i;
 				}
 				//*/
-				
-				this._onChoiceComplete();
 			}
+
+			this._onChoiceComplete();
 		}		
 	};
 

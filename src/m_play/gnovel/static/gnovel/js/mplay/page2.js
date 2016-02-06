@@ -24,6 +24,7 @@ var MPLAY = MPLAY || {};
 		this._state = 0;
 		this._curTextBox = null;
 		this._result = {};
+		this._choiceJumpArr = {};
 		this._choices = null;
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
@@ -60,6 +61,11 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._curTextBox);
 	};
 
+	Page2.prototype._jump = function(index) {
+		this._state = index - 1;		
+		this._onNext();
+	}
+
 	Page2.prototype._show = function(obj) {
 		var pageObj = this;
 		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
@@ -67,11 +73,13 @@ var MPLAY = MPLAY || {};
 		}});
 	};
 
-	Page2.prototype._showChoices = function(choicesArr, params) {
+	Page2.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
+		this._choiceJumpArr = jumpArr;
 		var pageObj = this;
 		params.onChoiceComplete = function() {
-			pageObj._onNext();
+			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+			pageObj._jump(jumpIndex);			
 		};
 
 		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);	
@@ -95,11 +103,24 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Shoot - I didn't get a chance to print it!", 0, 200, 200);
 				break;
 			case 5:
-				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130});
+				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130}, [6, 9]);
 				break;
+			// branch 1 
 			case 6:								
 				this._showDialog("Agreed! I'm sending an email as we speak. ", 0, 200, 200);				
 				break;
+			case 7:
+				this._showDialog("Fine, but seems like a waste of time.", 0, 200, 200);
+				break;
+			case 8:
+				// finish
+				break;
+			//end of branch 1
+			//branch 2
+			case 9:
+				this._showDialog("Good, I just but seems like a waste of time.", 0, 200, 200);
+				break;
+			//end of brnach 2
 		}
 	};
 
