@@ -73,6 +73,13 @@ var MPLAY = MPLAY || {};
 		}});
 	};
 
+	Page2.prototype._hide = function(obj) {
+		var pageObj = this;
+		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
+			pageObj._onNext();
+		}});
+	};
+
 	Page2.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
 		this._choiceJumpArr = jumpArr;
