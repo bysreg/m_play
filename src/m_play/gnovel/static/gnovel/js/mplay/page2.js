@@ -41,7 +41,6 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
 		this._addToScene(this._cat);					
-		//this.move(juli.material, {z : 100});		
 	};
 
 	Page2.prototype._onStart = function() {
@@ -57,7 +56,23 @@ var MPLAY = MPLAY || {};
 
 	Page2.prototype._showDialog = function(message, x, y, z, params) {
 		this._curTextBox = this.createTextBox(message, params || {});
-		this._curTextBox.position.set(x, y, z);
+		this._curTextBox.position.set(x - 100, y, z + 10);
+
+		// add background textbox	
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(x - 100, y, z), 900, 145.5);
+		textBg.material.opacity = 0;		
+		this._addToScene(textBg);
+
+		// alpha
+		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+
+		// move 
+		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+
+		//this._curTextBox.children[0].add(textBg);
+		//textBg.add(this._curTextBox);		
 		this._addToScene(this._curTextBox);
 	};
 
