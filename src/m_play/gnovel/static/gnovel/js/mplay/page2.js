@@ -17,7 +17,7 @@ var MPLAY = MPLAY || {};
 	Page2.prototype.constructor = Page2;
 
 	/**
-	 * @override
+	 * @override	 
 	 */
 	Page2.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
@@ -42,15 +42,14 @@ var MPLAY = MPLAY || {};
 
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
-		this._addToScene(this._cat);
+		this._addToScene(this._cat);					
 		this._addToScene(this._syllabus);
-		//this.move(juli.material, {z : 100});
 	};
 
 	Page2.prototype._onStart = function() {
-		GNOVEL.Page.prototype._onStart.call(this);
+		GNOVEL.Page.prototype._onStart.call(this);	
 
-		this._runAnim();
+		this._runAnim();	
 	};
 
 	Page2.prototype._onNext = function() {
@@ -60,12 +59,28 @@ var MPLAY = MPLAY || {};
 
 	Page2.prototype._showDialog = function(message, x, y, z, params) {
 		this._curTextBox = this.createTextBox(message, params || {});
-		this._curTextBox.position.set(x, y, z);
+		this._curTextBox.position.set(x - 100, y, z + 10);
+
+		// add background textbox	
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(x - 100, y, z), 900, 145.5);
+		textBg.material.opacity = 0;		
+		this._addToScene(textBg);
+
+		// alpha
+		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+
+		// move 
+		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+
+		//this._curTextBox.children[0].add(textBg);
+		//textBg.add(this._curTextBox);		
 		this._addToScene(this._curTextBox);
 	};
 
 	Page2.prototype._jump = function(index) {
-		this._state = index - 1;
+		this._state = index - 1;		
 		this._onNext();
 	}
 
@@ -99,10 +114,10 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 		params.onChoiceComplete = function() {
 			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);
+			pageObj._jump(jumpIndex);			
 		};
 
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);	
 	};
 
 	Page2.prototype._runAnim = function() {
@@ -110,12 +125,12 @@ var MPLAY = MPLAY || {};
 			case 0:
 				this._show(this._juli);
 				break;
-			case 1:
+			case 1:				
 				this._showDialog("Hey guys, I'm still sort of confused..", 0, 200, 200);
 				break;
 			case 2:
 				this._showDialog("..about the collaboration in class.", 0, 200, 200);
-				break;
+				break;			
 			case 3:
 				this._timHide(this._juli);
 				this._show(this._cat);
@@ -163,9 +178,9 @@ var MPLAY = MPLAY || {};
 			case 16:
 				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130}, [17, 21]);
 				break;
-			// branch 1
+			// branch 1 
 			case 17:
-				this._showDialog("Agreed! I'm sending an email as we speak. ", 0, 200, 200);
+				this._showDialog("Agreed! I'm sending an email as we speak. ", 0, 200, 200);				
 				break;
 			case 18:
 				this._timHide(this._cat);
