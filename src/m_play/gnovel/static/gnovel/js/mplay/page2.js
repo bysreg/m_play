@@ -161,7 +161,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Yes, but not all classes are the same, Ryan.",0,200,200);
 				break;
 			case 16:
-				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130}, [6, 9]);
+				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130}, [17, 21]);
 				break;
 			// branch 1
 			case 17:
@@ -191,8 +191,6 @@ var MPLAY = MPLAY || {};
 				break;
 			case 24:
 				this._showDialog("Thank you, CAT.",0,200,200);
-			case 27:
-				this._showDialog("Good, it just but seems like a waste of time.", 0, 200, 200);
 				break;
 			//end of brnach 2
 		}
