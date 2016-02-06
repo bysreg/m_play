@@ -135,6 +135,20 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		this._scene.add(pageRoot);
 		page._onLoad();
+
+		// wait for several seconds
+		var o = {val:0};
+		var loadDuration = 2;
+		var tween = new TWEEN.Tween(o)
+			.to({
+				val: 1,
+			}, loadDuration * 1000)
+			.onComplete(function() {_onStart(page)});		
+		tween.start();		
+	};
+
+	function _onStart(pageObj) {
+		pageObj._onStart();
 	};
 
 	Gnovel.prototype._unload = function(page) {

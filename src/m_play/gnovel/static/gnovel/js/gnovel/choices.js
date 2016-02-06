@@ -45,7 +45,9 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(timer);
 		}	
 
-		var textbox;		
+		var textbox;	
+		var startx = this._params.x || 0;
+		var starty = this._params.y || 0;	
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,
@@ -62,7 +64,7 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(i * 100, -200, 75);
+			textbox.position.set(i * 400 + startx, -200 + starty, 75);
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);			
 		};
@@ -81,7 +83,7 @@ var GNOVEL = GNOVEL || {};
 			x: 390,
 			y: -350,
 			z: -100
-		}, this._params.seconds).onComplete(function() {
+		}, this._params.seconds * 1000).onComplete(function() {
 			if (timer._choosed) {
 				// do nothing, because we already call _onChoiceComplete on mouse down
 			} else {
@@ -103,8 +105,8 @@ var GNOVEL = GNOVEL || {};
 			this._page._removeFromScene(this._choicesBox[i]);
 		}
 
-		if(this._params._onChoiceComplete != null) {
-			this._params._onChoiceComplete(this);
+		if(this._params.onChoiceComplete != null) {
+			this._params.onChoiceComplete(this);
 		}
 	};
 

@@ -22,7 +22,9 @@ var MPLAY = MPLAY || {};
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/test1.jpg");		
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");		
+
+		//=============================
 
 		var position = new THREE.Vector3(1,1,25);
 		var obj = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png",position, 1200, 1500);
@@ -31,18 +33,17 @@ var MPLAY = MPLAY || {};
 
 		//this.showHUD();
 
-		var textBox = this.createTextBox(" Hello World~~", 
-			{fontsize: 32, 
+		var textBox = this.createTextBox("Hi nice to meet you!", 
+			{fontsize: 6, 
 			  borderColor: {r:255, g:0, b:0, a:1.0}, 
 			  backgroundColor: {r:255, g:100, b:100, a:0.8} 
 			});
 		
-		textBox.position.set(0, 0, 75);
+		textBox.position.set(-200, 200, 75);
 		this._addToScene(textBox);
 
 		var result = {};
-		var choices = new GNOVEL.Choices(this, ['choice1', 'choice2'], result, {});
-		this.choices = choices;		
+		//var choices = new GNOVEL.Choices(this, ['Not at all', 'Oh, what did you do before deciding to get your MBA?'], result, {x: -200});	
 	};
 
 	Page1.prototype._onUnload = function() {

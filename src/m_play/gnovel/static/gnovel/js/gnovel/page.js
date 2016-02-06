@@ -58,8 +58,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
-		var quad = new THREE.Mesh(plane, material);
-		//quad.position.set(position);
+		var quad = new THREE.Mesh(plane, material);		
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
@@ -111,15 +110,29 @@ var GNOVEL = GNOVEL || {};
 
 		var tween = new TWEEN.Tween(obj.position)
 			.to({
-				x: (params.x !== null ? params.x : obj.x),
-				y: (params.y !== null ? params.y : obj.y),
-				z: (params.z !== null ? params.z : obj.z),
+				x: (params.x !== null ? params.x : obj.position.x),
+				y: (params.y !== null ? params.y : obj.positions.y),
+				z: (params.z !== null ? params.z : obj.position.z),				
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if(params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
 		tween.start();			
+	};
+
+	Page.prototype.tweenMat = function(obj, params) {
+		var duration = params.duration || 1000;
+
+		var tween = new TWEEN.Tween(obj.material)
+			.to({
+				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),				
+			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None);
+		if(params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+		tween.start();		
 	};
 
 	Page.prototype.onPause = function(evt) {}
@@ -166,14 +179,14 @@ var GNOVEL = GNOVEL || {};
 	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
 	 */
 	Page.prototype.createTextBox = function(message, parameters) {
-		var fontface = parameters.hasOwnProperty("fontface") ?
-			parameters["fontface"] : "Arial";
+		// var fontface = parameters.hasOwnProperty("fontface") ?
+		// 	parameters["fontface"] : "Arial";
 
 		var fontsize = parameters.hasOwnProperty("fontsize") ?
-			parameters["fontsize"] : 18;
+		 	parameters["fontsize"] : 18;
 
 		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-			parameters["borderThickness"] : 4;
+		 	parameters["borderThickness"] : 4;
 
 		var borderColor = parameters.hasOwnProperty("borderColor") ?
 			parameters["borderColor"] : {
@@ -191,35 +204,42 @@ var GNOVEL = GNOVEL || {};
 				a: 1.0
 			};
 
-		var canvas = document.createElement('canvas');
-		var context = canvas.getContext('2d');
-		context.font = "Bold " + fontsize + "px " + fontface;
+		// var canvas = document.createElement('canvas');
+		// var context = canvas.getContext('2d');
+		// context.font = "Bold " + fontsize + "px " + fontface;
 
-		// get size data (height depends only on font size)
-		var metrics = context.measureText(message);
-		var textWidth = metrics.width;
+		// // get size data (height depends only on font size)
+		// var metrics = context.measureText(message);
+		// var textWidth = metrics.width;
 
-		// background color
-		context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-		// border color
-		context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
-		context.lineWidth = borderThickness;
-		roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
-		// 1.4 is extra height factor for text below baseline: g,j,p,q.
+		// // background color
+		// context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+		// // border color
+		// context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+		// context.lineWidth = borderThickness;
+		// roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+		// // 1.4 is extra height factor for text below baseline: g,j,p,q.
 
-		// text color
-		context.fillStyle = "rgba(0, 0, 0, 1.0)";
-		context.fillText(message, borderThickness, fontsize + borderThickness);
+		// // text color
+		// context.fillStyle = "rgba(0, 0, 0, 1.0)";
+		// context.fillText(message, borderThickness, fontsize + borderThickness);
 
-		// canvas contents will be used for a texture
-		var texture = new THREE.Texture(canvas)
-		texture.needsUpdate = true;
-		var spriteMaterial = new THREE.SpriteMaterial({
-			map: texture,
-		});
-		var sprite = new THREE.Sprite(spriteMaterial);
-		sprite.name = "Text Box";
-		sprite.scale.set(100, 50, 1.0);
+		// // canvas contents will be used for a texture
+		// var texture = new THREE.Texture(canvas)
+		// texture.needsUpdate = true;
+		// var spriteMaterial = new THREE.SpriteMaterial({
+		// 	map: texture,
+		// });
+		// var sprite = new THREE.Sprite(spriteMaterial);
+		// sprite.name = "Text Box";
+		// sprite.scale.set(100, 50, 1.0);
+		// 
+
+		var textAlign = THREE_Text.textAlign;
+		var SpriteText2D = THREE_Text.SpriteText2D;
+		var Text2D = THREE_Text.Text2D;
+        var sprite = new Text2D(message, { align: textAlign.center,  font: '20px Arial', fillStyle: '#FFFF00' , antialias: false });
+
 		return sprite;
 	};
 
@@ -272,6 +292,11 @@ var GNOVEL = GNOVEL || {};
 		this._flowCounter++;
 
 
+	};
+
+	// will be called after load complete
+	Page.prototype._onStart = function() {
+		console.log("on start");
 	};
 
 	GNOVEL.Page = Page;
