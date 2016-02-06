@@ -174,7 +174,6 @@ var GNOVEL = GNOVEL || {};
 		return this._id;
 	};
 
-
 	/**
 	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
 	 */
