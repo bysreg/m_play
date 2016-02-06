@@ -39,7 +39,7 @@ var GNOVEL = GNOVEL || {};
 
 		h.traverseVisible(function(obj3d) {
 
-			if(obj3d.material == null)
+			if(obj3d.material == null || obj3d.material.opacity == 0)
 				return;
 
 			if(toObj.opacity == 1)
