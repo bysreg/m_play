@@ -48,6 +48,7 @@ var GNOVEL = GNOVEL || {};
 		var textbox;	
 		var startx = this._params.x || 0;
 		var starty = this._params.y || 0;	
+		var startz = this._params.z || 75;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,
@@ -64,7 +65,7 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(i * 400 + startx, -200 + starty, 75);
+			textbox.position.set(i * 400 + startx, -200 + starty, startz);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
