@@ -1,24 +1,24 @@
-// namespace 
+// namespace
 var GNOVEL = GNOVEL || {};
 
 (function() {
 	"use strict";
 
-	var Choices = function(page, choices, result, params) {		
+	var Choices = function(page, choices, result, params) {
 		this._choices = choices;
-		this._page = page;		
+		this._page = page;
 		this._result = result;
 		this._params = params || {};
 
 		this._choicesBox = [];
-		this._choosed = false;		
+		this._choosed = false;
 
 		this._init();
 
 		if (params != null) {
 			if (params.seconds != null && params.seconds > 0) {
 				this._countdown();
-			}			
+			}
 		}
 
 		// HACKS
@@ -39,15 +39,15 @@ var GNOVEL = GNOVEL || {};
 			var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
-			timer.position.x = -390;			
+			timer.position.x = -390;
 			timer.position.y = -350;
 			timer.position.z = 75;
 			this._page._addToScene(timer);
-		}	
+		}
 
-		var textbox;	
+		var textbox;
 		var startx = this._params.x || 0;
-		var starty = this._params.y || 0;	
+		var starty = this._params.y || -200;
 		var startz = this._params.z || 75;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
@@ -65,18 +65,18 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(i * 400 + startx, -200 + starty, startz + 10);
+			textbox.position.set(200 + startx, i * -30 + starty, startz + 10);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
 			textbox.children[0].name = ""+i;
 
 			this._choicesBox.push(textbox);
-			this._page._addToScene(this._choicesBox[i]);			
+			this._page._addToScene(this._choicesBox[i]);
 		};
 	};
 
-	function _onMouseDown(event, choiceObj) {		
+	function _onMouseDown(event, choiceObj) {
 		choiceObj._onMouseDown(event);
 	};
 
@@ -104,7 +104,7 @@ var GNOVEL = GNOVEL || {};
 	Choices.prototype._onChoiceComplete = function() {
 		// clean up all objects from scene
 		if(this._params.seconds != null && params.seconds > 0) {
-			this._page._removeFromScene(timer.timer);	
+			this._page._removeFromScene(timer.timer);
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {
@@ -129,9 +129,9 @@ var GNOVEL = GNOVEL || {};
 
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		if (intersects.length > 0 && !this._choosed) {			
+		if (intersects.length > 0 && !this._choosed) {
 			clickedObj = intersects[0].object;
-			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);			
+			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
@@ -146,7 +146,7 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			this._onChoiceComplete();
-		}		
+		}
 	};
 
 	GNOVEL.Choices = Choices;

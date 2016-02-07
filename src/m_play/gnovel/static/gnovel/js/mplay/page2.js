@@ -17,7 +17,7 @@ var MPLAY = MPLAY || {};
 	Page2.prototype.constructor = Page2;
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	Page2.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
@@ -28,6 +28,7 @@ var MPLAY = MPLAY || {};
 		this._choices = null;
 		this._choicesBg = null;
 		this._textBg = null;
+		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds8.jpg");
 
@@ -44,14 +45,14 @@ var MPLAY = MPLAY || {};
 
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
-		this._addToScene(this._cat);					
+		this._addToScene(this._cat);
 		this._addToScene(this._syllabus);
 	};
 
 	Page2.prototype._onStart = function() {
-		GNOVEL.Page.prototype._onStart.call(this);	
+		GNOVEL.Page.prototype._onStart.call(this);
 
-		this._runAnim();	
+		this._runAnim();
 	};
 
 	Page2.prototype._onNext = function() {
@@ -61,11 +62,28 @@ var MPLAY = MPLAY || {};
 
 	Page2.prototype._showDialog = function(message, x, y, z, params) {
 		this._curTextBox = this.createTextBox(message, params || {});
-		this._curTextBox.position.set(x - 100, y, z + 20);
+		/**
+		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		*/
+		//tween from the left
+		if(x < 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x - 100, y, z + 20);
+		}
+		//tween from the right
+		else if(x > 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x + 100, y, z + 20);
+		}
+		else {
+			this._curTextBox.position.set(x, y, z + 20);
+		}
 
-		// add background textbox	
-		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(x - 100, y, z), 900, 145.5);
-		textBg.material.opacity = 0;		
+		// add background textbox
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+		textBg.material.opacity = 0;
 		this._addToScene(textBg);
 		this._textBg = textBg;
 
@@ -73,15 +91,15 @@ var MPLAY = MPLAY || {};
 		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
 		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
 
-		// move 
+		// move
 		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
 		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-	
+
 		this._addToScene(this._curTextBox);
 	};
 
 	Page2.prototype._jump = function(index) {
-		this._state = index - 1;		
+		this._state = index - 1;
 		this._onNext();
 	}
 
@@ -116,13 +134,13 @@ var MPLAY = MPLAY || {};
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(pageObj._choicesBg);
 			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);			
+			pageObj._jump(jumpIndex);
 		};
 
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);	
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 
-		var choicesBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;		
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		choicesBg.material.opacity = 0.7;
 		this._addToScene(choicesBg);
 		this._choicesBg = choicesBg;
 	};
@@ -130,71 +148,78 @@ var MPLAY = MPLAY || {};
 	Page2.prototype._runAnim = function() {
 		switch(this._state) {
 			case 0:
-				this._show(this._juli);				
+				this._parentPosX = this._juli.position.x;
+				this._show(this._juli);
 				break;
-			case 1:				
-				this._showDialog("Hey guys, I'm still sort of confused..", 0, -220, 220);
+			case 1:
+				this._showDialog("Hey guys, I'm still sort of confused..", this._parentPosX, -220, 220);
 				break;
 			case 2:
-				this._showDialog("..about the collaboration in class.", 0, -220, 220);
-				break;			
+				this._showDialog("..about the collaboration in class.", this._parentPosX, -220, 220);
+				break;
 			case 3:
 				this._timHide(this._juli);
+				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
 			case 4:
-				this._showDialog("Shoot - I didn't get a chance to print it!", 0, -220, 220);
+				this._showDialog("Shoot - I didn't get a chance to print it!", this._parentPosX, -220, 220);
 				break;
 			case 5:
-				this._showDialog("Sorry.  Let me find it in my email.", 0, -220, 220);
+				this._showDialog("Sorry.  Let me find it in my email.", this._parentPosX, -220, 220);
 				break;
 			case 6:
 				this._show(this._syllabus);
 				break;
 			case 7:
-				this._showDialog("Syllabus",0, -220, 220); //showing this only for quarters!!
+				this._showDialog("Here's the syllabus",0, -220, 220); //showing this only for quarters!!
 				break;
 			case 8:
 				this._timHide(this._syllabus);
+				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
 			case 9:
-				this._showDialog("Wait, so yes we can collaborate with the group",0,-220, 220);
+				this._showDialog("Wait, so yes we can collaborate with the group",this._parentPosX,-220, 220);
 				break;
 			case 10:
-				this._showDialog(" but only on the project?  What about for homework?",0,-220, 220);
+				this._showDialog(" but only on the project?  What about for homework?",this._parentPosX,-220, 220);
 				break;
 			case 11:
 				this._timHide(this._juli);
+				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				this._timHide(this._cat);
 				break;
 			case 12:
-				this._showDialog("He doesn't say much about that... should be ok.",0,-220, 220);
+				this._showDialog("He doesn't say much about that... should be ok.",this._parentPosX,-220, 220);
 				break;
 			case 13:
-				this._showDialog("In my other classes we could work with anyone in the class.",0,-220, 220);
+				this._showDialog("In my other classes we could work with anyone in the class.",this._parentPosX,-220, 220);
 				break;
 			case 14:
 				this._timHide(this._ryan);
+				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
 			case 15:
-				this._showDialog("Yes, but not all classes are the same, Ryan.",0,-220, 220);
+				this._showDialog("Yes, but not all classes are the same, Ryan.",this._parentPosX,-220, 220);
 				break;
 			case 16:
-				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate!"], {x: -200, z: 130}, [17, 21]);
+				this._showChoices(["Let's just email TA!", "Maybe we should ask our classmate.",
+				"It probably means we only collaborate in groups"], {x: -200, z: 130}, [17, 21,25]);
 				break;
-			// branch 1 
+			// branch 1
 			case 17:
-				this._showDialog("Agreed! I'm sending an email as we speak. ", 0, -220, 220);				
+				this._showDialog("Agreed! I'm sending an email as we speak. ", this._parentPosX, -220, 220);
 				break;
 			case 18:
 				this._timHide(this._cat);
+				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
 			case 19:
-				this._showDialog("Fine, but seems like a waste of time.", 0, -220, 220);
+				this._showDialog("Fine, but seems like a waste of time.", this._parentPosX, -220, 220);
 				break;
 			case 20:
 				// finish
@@ -202,18 +227,31 @@ var MPLAY = MPLAY || {};
 			//end of branch 1
 			//branch 2
 			case 21:
-				this._showDialog("Ok you can ask someone else.",0,-220, 220);
+				this._showDialog("Ok you can ask someone else.",this._parentPosX,-220, 220);
 				break;
 			case 22:
-				this._showDialog("I'm just going to shoot the TA a note anyway.",0,-220, 220);
+				this._showDialog("I'm just going to shoot the TA a note anyway.",this._parentPosX,-220, 220);
 				break;
 			case 23:
 				this._timHide(this._ryan);
+				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
 			case 24:
-				this._showDialog("Thank you, CAT.",0,-220, 220);
+				this._showDialog("Thank you, CAT.",this._parentPosX,-220, 220);
 				break;
+			case 25:
+				this._showDialog("Maybe.  I just emailed the TA just to be sure.",this._parentPosX,-220, 220);
+				break;
+			case 26:
+				this._timHide(this._cat);
+				this._parentPosX = this._ryan.position.x;
+				this._show(this._ryan);
+				break;
+			case 27:
+				this._showDialog("It better be soon.  Don’t know if I’ll be able to sleep!",this._parentPosX,-220, 220)
+				break;
+
 			//end of brnach 2
 		}
 	};
