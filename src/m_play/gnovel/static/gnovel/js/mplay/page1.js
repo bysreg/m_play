@@ -27,6 +27,7 @@ var MPLAY = MPLAY || {};
 		this._choices = null;
 		this._choicesBg = null;
 		this._textBg = null;
+		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");		
 
@@ -126,13 +127,13 @@ var MPLAY = MPLAY || {};
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(pageObj._choicesBg);
 			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);			
+			pageObj._jump(jumpIndex);
 		};
 
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);	
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 
-		var choicesBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;		
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		choicesBg.material.opacity = 0.7;
 		this._addToScene(choicesBg);
 		this._choicesBg = choicesBg;
 	};
@@ -143,31 +144,31 @@ var MPLAY = MPLAY || {};
 				this._show(this._professor);
 				break;
 			case 1:				
-				this._showDialog("... And as we wrap up today's class", -200, 300, 100);
+				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
-				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", -150, 300, 100);
+				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
 				break;			
 			case 3:
-				this._showDialog("It will outline the objectives for the course..", -200, 300, 100);
+				this._showDialog("It will outline the objectives for the course..", 0, -220, 200);
 				break;
 			case 4:
-				this._showDialog("..as well as the graded assignments.", -200, 300, 100);
+				this._showDialog("..as well as the graded assignments.", this._parentPosX, -220, 200);
 				break;
 			case 5:
-				this._showDialog("Please reach out to the TAs if you have any questions. ", -150, 300, 100);
+				this._showDialog("Please reach out to the TAs if you have any questions. ", 0, -220, 200);
 				break;
 			case 6:								
-				this._showDialog("Now since we're ending early today ", -200, 300, 100);				
+				this._showDialog("Now since we're ending early today ", 0, -220, 200);				
 				break;
 			case 7:
-				this._showDialog("..I would like for you to break up into your assigned study groups", -120, 300, 100);
+				this._showDialog("..I would like for you to break up into your assigned study groups", 0, -220, 200);
 				break;
 			case 8:
-				this._showDialog("..and spend the remaining half hour, meeting together.", -150, 300, 100);
+				this._showDialog("..and spend the remaining half hour, meeting together.", 0, -220, 200);
 				break;
 			case 9:
-				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", -40, 300, 100);
+				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
 				break;
 			case 10:
 				this._hide(this._professor);
@@ -176,71 +177,71 @@ var MPLAY = MPLAY || {};
 				this._show(this._cat);
 				break;
 			case 12:
-				this._showDialog("Hey, nice to meet you", 280, 220, 160);
+				this._showDialog("Hey, nice to meet you", 0, -220, 200);
 				break;
 			case 13:
-				this._showDialog("You can call me Cat.", 280, 220, 160);
+				this._showDialog("You can call me Cat.", 0, -220, 200);
 				break;
 			case 14:
-				this._showDialog("I worked a few years before coming back to school.  ", 150, 220, 160);
+				this._showDialog("I worked a few years before coming back to school.  ", 0, -220, 200);
 				break;
 			case 15:
-				this._showDialog("Feels so strange... I'm like so much older than you guys.", 120, 220, 160);
+				this._showDialog("Feels so strange... I'm like so much older than you guys.", 0, -220, 200);
 				break;
 			case 16:
-				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [17, 17]);
+				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [17, 21, 25]);
 				break;
 			case 17:
-				this._showDialog("Yeah... I worked as a consultant in DC.", 180, 220, 160);
+				this._showDialog("Yeah... I worked as a consultant in DC.", 0, -220, 200);
 				break;
 			case 18:
-				this._showDialog("For seven years.  It's going to be an adjustment being here!", 120, 220, 160);
+				this._showDialog("For seven years.  It's going to be an adjustment being here!", 0, -220, 200);
 				break;
 			case 19:
 				this._show(this._juli);
 				break;
 			case 20:
-				this._showDialog("Sorry!  Was just texting my friends. ", -100, 250, 160);
+				this._showDialog("Sorry!  Was just texting my friends. ", 0, -220, 200);
 				break;
 			case 21:
-				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.",-40, 250, 160);
+				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", 0, -220, 200);
 				break;
 			case 22:
 			//the second choice is too long.
 				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {x: -200, z: 220}, [23, 23]);
 				break;
 			case 23:
-				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", 0, 250, 160);
+				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", 0, -220, 200);
 				break;
 			case 24:
-				this._showDialog("..I wouldn't have come on the plane!", -100, 250, 160);
+				this._showDialog("..I wouldn't have come on the plane!", 0, -220, 200);
 				break;
 			case 25:
 				this._show(this._ryan);
 				break;
 			case 26:
-				this._showDialog("Hey, what's up! ", 100, 290, 160);
+				this._showDialog("Hey, what's up! ", 0, -220, 200);
 				break;
 			case 27:
-				this._showDialog("I'm Ryan. You know what the deal is with this course?", 100, 290, 160);
+				this._showDialog("I'm Ryan. You know what the deal is with this course?", 0, -220, 200);
 				break;
 			case 28:
-				this._showDialog("I was looking for something a little low key.", 100, 290, 160);
+				this._showDialog("I was looking for something a little low key.", 0, -220, 200);
 				break;
 			case 29:
-				this._showDialog("After last semester, I'm beat up.", 100, 290, 160);
+				this._showDialog("After last semester, I'm beat up.", 0, -220, 200);
 				break;
 			case 30:
 				this._showChoices(["Oh yeah?  What program are you in?","You seem like you're recovering."], {x: -200, z: 220}, [31, 31]);
 				break;
 			case 31:
-				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", 100, 290, 160);
+				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", 0, -220, 200);
 				break;
 			case 32:
-				this._showDialog("Plus I work, so it's been a struggle. ", 100, 290, 160);
+				this._showDialog("Plus I work, so it's been a struggle. ", 0, -220, 200);
 				break;
 			case 33:
-				this._showDialog("This semester should be better though - I know what's coming.", 0, 290, 160);
+				this._showDialog("This semester should be better though - I know what's coming.", 0, -220, 200);
 				break;
 			case 34:
 				// finish
