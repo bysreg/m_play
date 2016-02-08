@@ -17,7 +17,7 @@ var MPLAY = MPLAY || {};
 	Page1.prototype.constructor = Page1;
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
@@ -29,7 +29,7 @@ var MPLAY = MPLAY || {};
 		this._textBg = null;
 		this._parentPosX = 0;
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");		
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
 		//create images
 		this._professor = this.createImage("/static/gnovel/res/textures/char/prof sweeney- thoughtful.png", new THREE.Vector3(75, -130, 180), 600, 750);
@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._professor);
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
-		this._addToScene(this._cat);	
+		this._addToScene(this._cat);
 
 		//=============================
 
@@ -56,37 +56,56 @@ var MPLAY = MPLAY || {};
 
 		// //this.showHUD();
 
-		// var textBox = this.createTextBox("Hi nice to meet you!", 
-		// 	{fontsize: 6, 
-		// 	  borderColor: {r:255, g:0, b:0, a:1.0}, 
-		// 	  backgroundColor: {r:255, g:100, b:100, a:0.8} 
+		// var textBox = this.createTextBox("Hi nice to meet you!",
+		// 	{fontsize: 6,
+		// 	  borderColor: {r:255, g:0, b:0, a:1.0},
+		// 	  backgroundColor: {r:255, g:100, b:100, a:0.8}
 		// 	});
-		
+
 		// textBox.position.set(-200, 200, 75);
 		// this._addToScene(textBox);
 
 		//var result = {};
-		//var choices = new GNOVEL.Choices(this, ['Not at all', 'Oh, what did you do before deciding to get your MBA?'], result, {x: -200});	
+		//var choices = new GNOVEL.Choices(this, ['Not at all', 'Oh, what did you do before deciding to get your MBA?'], result, {x: -200});
 	};
 
 	Page1.prototype._onStart = function() {
-		GNOVEL.Page.prototype._onStart.call(this);	
+		GNOVEL.Page.prototype._onStart.call(this);
 
-		this._runAnim();	
+		this._runAnim();
 	};
 
 	Page1.prototype._onNext = function() {
 		this._state++;
 		this._runAnim();
-	};	
+	};
 
 	Page1.prototype._showDialog = function(message, x, y, z, params) {
 		this._curTextBox = this.createTextBox(message, params || {});
-		this._curTextBox.position.set(x - 100, y, z + 20);
+		//this._curTextBox.position.set(x - 100, y, z + 20);
 
-		// add background textbox	
-		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(x - 100, y, z), 900, 145.5);
-		textBg.material.opacity = 0;		
+		/**
+		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		*/
+		//tween from the left
+		if(x < 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x - 100, y, z + 20);
+		}
+		//tween from the right
+		else if(x > 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x + 100, y, z + 20);
+		}
+		else {
+			this._curTextBox.position.set(x, y, z + 20);
+		}
+
+		// add background textbox
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+		textBg.material.opacity = 0;
 		this._addToScene(textBg);
 		this._textBg = textBg;
 
@@ -94,15 +113,15 @@ var MPLAY = MPLAY || {};
 		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
 		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
 
-		// move 
+		// move
 		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
 		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-	
+
 		this._addToScene(this._curTextBox);
 	};
 
 	Page1.prototype._jump = function(index) {
-		this._state = index - 1;		
+		this._state = index - 1;
 		this._onNext();
 	}
 
@@ -118,7 +137,17 @@ var MPLAY = MPLAY || {};
 		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
 			pageObj._onNext();
 		}});
-	};	
+	};
+
+	/**
+	* @function temporary hide function for quarters
+	*/
+		Page1.prototype._timHide = function(obj) {
+			var pageObj = this;
+			this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
+				//pageObj._onNext();
+			}});
+		};
 
 	Page1.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
@@ -143,12 +172,12 @@ var MPLAY = MPLAY || {};
 			case 0:
 				this._show(this._professor);
 				break;
-			case 1:				
+			case 1:
 				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
 				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
-				break;			
+				break;
 			case 3:
 				this._showDialog("It will outline the objectives for the course..", 0, -220, 200);
 				break;
@@ -158,8 +187,8 @@ var MPLAY = MPLAY || {};
 			case 5:
 				this._showDialog("Please reach out to the TAs if you have any questions. ", 0, -220, 200);
 				break;
-			case 6:								
-				this._showDialog("Now since we're ending early today ", 0, -220, 200);				
+			case 6:
+				this._showDialog("Now since we're ending early today ", 0, -220, 200);
 				break;
 			case 7:
 				this._showDialog("..I would like for you to break up into your assigned study groups", 0, -220, 200);
@@ -171,87 +200,90 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
 				break;
 			case 10:
-				this._hide(this._professor);
-				break;
-			case 11:
+				this._timHide(this._professor);
+				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
+			case 11:
+				this._showDialog("Hey, nice to meet you", this._parentPosX, -220, 200);
+				break;
 			case 12:
-				this._showDialog("Hey, nice to meet you", 0, -220, 200);
+				this._showDialog("You can call me Cat.", this._parentPosX, -220, 200);
 				break;
 			case 13:
-				this._showDialog("You can call me Cat.", 0, -220, 200);
+				this._showDialog("I worked a few years before coming back to school.  ", this._parentPosX, -220, 200);
 				break;
 			case 14:
-				this._showDialog("I worked a few years before coming back to school.  ", 0, -220, 200);
+				this._showDialog("Feels so strange... I'm like so much older than you guys.", this._parentPosX, -220, 200);
 				break;
 			case 15:
-				this._showDialog("Feels so strange... I'm like so much older than you guys.", 0, -220, 200);
+				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [16, 16]);
 				break;
 			case 16:
-				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [17, 21, 25]);
+				this._showDialog("Yeah... I worked as a consultant in DC.", this._parentPosX, -220, 200);
 				break;
 			case 17:
-				this._showDialog("Yeah... I worked as a consultant in DC.", 0, -220, 200);
+				this._showDialog("For seven years.  It's going to be an adjustment being here!", this._parentPosX, -220, 200);
 				break;
 			case 18:
-				this._showDialog("For seven years.  It's going to be an adjustment being here!", 0, -220, 200);
-				break;
-			case 19:
+				this._timHide(this._cat);
+				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
+			case 19:
+				this._showDialog("Sorry!  Was just texting my friends. ", this._parentPosX, -220, 200);
+				break;
 			case 20:
-				this._showDialog("Sorry!  Was just texting my friends. ", 0, -220, 200);
+				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", this._parentPosX, -220, 200);
 				break;
 			case 21:
-				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", 0, -220, 200);
+			//the second choice is too long.
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {x: -200, z: 220}, [22, 22]);
 				break;
 			case 22:
-			//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {x: -200, z: 220}, [23, 23]);
+				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", this._parentPosX, -220, 200);
 				break;
 			case 23:
-				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", 0, -220, 200);
+				this._showDialog("..I wouldn't have come on the plane!", this._parentPosX, -220, 200);
 				break;
 			case 24:
-				this._showDialog("..I wouldn't have come on the plane!", 0, -220, 200);
-				break;
-			case 25:
+				this._timHide(this._juli);
+				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
+			case 25:
+				this._showDialog("Hey, what's up! ", this._parentPosX, -220, 200);
+				break;
 			case 26:
-				this._showDialog("Hey, what's up! ", 0, -220, 200);
+				this._showDialog("I'm Ryan. You know what the deal is with this course?", this._parentPosX, -220, 200);
 				break;
 			case 27:
-				this._showDialog("I'm Ryan. You know what the deal is with this course?", 0, -220, 200);
+				this._showDialog("I was looking for something a little low key.", this._parentPosX, -220, 200);
 				break;
 			case 28:
-				this._showDialog("I was looking for something a little low key.", 0, -220, 200);
+				this._showDialog("After last semester, I'm beat up.", this._parentPosX, -220, 200);
 				break;
 			case 29:
-				this._showDialog("After last semester, I'm beat up.", 0, -220, 200);
+				this._showChoices(["Oh yeah?  What program are you in?","You seem like you're recovering."], {x: -200, z: 220}, [30, 30]);
 				break;
 			case 30:
-				this._showChoices(["Oh yeah?  What program are you in?","You seem like you're recovering."], {x: -200, z: 220}, [31, 31]);
+				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", this._parentPosX, -220, 200);
 				break;
 			case 31:
-				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", 0, -220, 200);
+				this._showDialog("Plus I work, so it's been a struggle. ", this._parentPosX, -220, 200);
 				break;
 			case 32:
-				this._showDialog("Plus I work, so it's been a struggle. ", 0, -220, 200);
+				this._showDialog("This semester should be better though - I know what's coming.", this._parentPosX, -220, 200);
 				break;
 			case 33:
-				this._showDialog("This semester should be better though - I know what's coming.", 0, -220, 200);
-				break;
-			case 34:
 				// finish
 				this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
 				break;
 			}
-	};	
+	};
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	Page1.prototype._onMouseDown = function(event) {
 		if(this._curTextBox != null) {
