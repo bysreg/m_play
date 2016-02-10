@@ -46,27 +46,6 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
 		this._addToScene(this._cat);
-
-		//=============================
-
-		// var position = new THREE.Vector3(1,1,25);
-		// var obj = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png",position, 1200, 1500);
-		// this._addToScene(obj);
-		// this.addCharacter("ryan",obj);
-
-		// //this.showHUD();
-
-		// var textBox = this.createTextBox("Hi nice to meet you!",
-		// 	{fontsize: 6,
-		// 	  borderColor: {r:255, g:0, b:0, a:1.0},
-		// 	  backgroundColor: {r:255, g:100, b:100, a:0.8}
-		// 	});
-
-		// textBox.position.set(-200, 200, 75);
-		// this._addToScene(textBox);
-
-		//var result = {};
-		//var choices = new GNOVEL.Choices(this, ['Not at all', 'Oh, what did you do before deciding to get your MBA?'], result, {x: -200});
 	};
 
 	Page1.prototype._onStart = function() {
@@ -80,95 +59,13 @@ var MPLAY = MPLAY || {};
 		this._runAnim();
 	};
 
-	Page1.prototype._showDialog = function(message, x, y, z, params) {
-		this._curTextBox = this.createTextBox(message, params || {});
-		//this._curTextBox.position.set(x - 100, y, z + 20);
-
-		/**
-		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
-		*/
-		//tween from the left
-		if(x < 0)
-		{
-			x = 0;
-			this._curTextBox.position.set(x - 100, y, z + 20);
-		}
-		//tween from the right
-		else if(x > 0)
-		{
-			x = 0;
-			this._curTextBox.position.set(x + 100, y, z + 20);
-		}
-		else {
-			this._curTextBox.position.set(x, y, z + 20);
-		}
-
-		// add background textbox
-		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
-		textBg.material.opacity = 0;
-		this._addToScene(textBg);
-		this._textBg = textBg;
-
-		// alpha
-		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-
-		// move
-		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-
-		this._addToScene(this._curTextBox);
-	};
-
 	Page1.prototype._jump = function(index) {
 		this._state = index - 1;
 		this._onNext();
 	}
 
-	Page1.prototype._show = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	Page1.prototype._hide = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	/**
-	* @function temporary hide function for quarters
-	*/
-		Page1.prototype._timHide = function(obj) {
-			var pageObj = this;
-			this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-				//pageObj._onNext();
-			}});
-		};
-
-	Page1.prototype._showChoices = function(choicesArr, params, jumpArr) {
-		params = params || {};
-		this._choiceJumpArr = jumpArr;
-		var pageObj = this;
-		params.onChoiceComplete = function() {
-			pageObj._removeFromScene(pageObj._choicesBg);
-			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);
-		};
-
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;
-		this._addToScene(choicesBg);
-		this._choicesBg = choicesBg;
-	};
-
 	Page1.prototype._runAnim = function() {
-		switch(this._state) {
+		switch (this._state) {
 			case 0:
 				this._show(this._professor);
 				break;
@@ -217,7 +114,10 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Feels so strange... I'm like so much older than you guys.", this._parentPosX, -220, 200);
 				break;
 			case 15:
-				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [16, 16]);
+				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
+					x: -200,
+					z: 220
+				}, [16, 16]);
 				break;
 			case 16:
 				this._showDialog("Yeah... I worked as a consultant in DC.", this._parentPosX, -220, 200);
@@ -237,8 +137,11 @@ var MPLAY = MPLAY || {};
 				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", this._parentPosX, -220, 200);
 				break;
 			case 21:
-			//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {x: -200, z: 220}, [22, 22]);
+				//the second choice is too long.
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
+					x: -200,
+					z: 220
+				}, [22, 22]);
 				break;
 			case 22:
 				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", this._parentPosX, -220, 200);
@@ -264,7 +167,10 @@ var MPLAY = MPLAY || {};
 				this._showDialog("After last semester, I'm beat up.", this._parentPosX, -220, 200);
 				break;
 			case 29:
-				this._showChoices(["Oh yeah?  What program are you in?","You seem like you're recovering."], {x: -200, z: 220}, [30, 30]);
+				this._showChoices(["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
+					x: -200,
+					z: 220
+				}, [30, 30]);
 				break;
 			case 30:
 				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", this._parentPosX, -220, 200);
@@ -279,14 +185,14 @@ var MPLAY = MPLAY || {};
 				// finish
 				this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
 				break;
-			}
+		}
 	};
 
 	/**
 	 * @override
 	 */
 	Page1.prototype._onMouseDown = function(event) {
-		if(this._curTextBox != null) {
+		if (this._curTextBox != null) {
 			this._removeFromScene(this._curTextBox);
 			this._removeFromScene(this._textBg);
 			this._curTextBox = null;

@@ -254,49 +254,96 @@ var GNOVEL = GNOVEL || {};
 		this._owner._removeFromScene(this, o);
 	};
 
-	Page.prototype._setFlow = function(flow) {
-		this._flow = flow;
-	};
-
-	Page.prototype._runFlow = function() {
-		var o = this._flow[this._flowCounter];
-
-		if (o.type == "Dialog") {
-			this._processDialog(o);
-		}
-	};
-
-	Page.prototype._processDialog = function(dialog) {
-		// FIXME : not yet finished
-		this.createTextBox(dialog.text, {
-			fontsize: 23,
-			borderColor: {
-				r: 255,
-				g: 0,
-				b: 0,
-				a: 1.0
-			},
-			backgroundColor: {
-				r: 255,
-				g: 100,
-				b: 100,
-				a: 0.8
-			}
-		});
-
-		this._onFlowComplete();
-	};
-
-	Page.prototype._onFlowComplete = function() {
-		this._flowCounter++;
-
-
-	};
-
 	// will be called after load complete
 	Page.prototype._onStart = function() {
 		console.log("on start");
 	};
+
+	Page.prototype._showDialog = function(message, x, y, z, params) {
+		this._curTextBox = this.createTextBox(message, params || {});		
+
+		/**
+		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		*/
+		//tween from the left
+		if(x < 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x - 100, y, z + 20);
+		}
+		//tween from the right
+		else if(x > 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x + 100, y, z + 20);
+		}
+		else {
+			this._curTextBox.position.set(x, y, z + 20);
+		}
+
+		// add background textbox
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+		textBg.material.opacity = 0;
+		this._addToScene(textBg);
+		this._textBg = textBg;
+
+		// alpha
+		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+
+		// move
+		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+
+		this._addToScene(this._curTextBox);
+	};
+
+	Page.prototype._show = function(obj) {
+		var pageObj = this;
+		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
+			pageObj._onNext();
+		}});
+	};
+
+	Page.prototype._hide = function(obj) {
+		var pageObj = this;
+		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
+			pageObj._onNext();
+		}});
+	};
+
+	/**
+	 * @function temporary hide function for quarters
+	 */
+	Page.prototype._timHide = function(obj) {
+		var pageObj = this;
+		this.tweenMat(obj, {
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				//pageObj._onNext();
+			}
+		});
+	};
+
+	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
+		params = params || {};
+		this._choiceJumpArr = jumpArr;
+		var pageObj = this;
+		params.onChoiceComplete = function() {
+			pageObj._removeFromScene(pageObj._choicesBg);
+			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+			pageObj._jump(jumpIndex);
+		};
+
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
+
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		choicesBg.material.opacity = 0.7;
+		this._addToScene(choicesBg);
+		this._choicesBg = choicesBg;
+	};
+
 
 	GNOVEL.Page = Page;
 }());
