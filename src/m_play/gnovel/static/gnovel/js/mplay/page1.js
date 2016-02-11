@@ -64,13 +64,24 @@ var MPLAY = MPLAY || {};
 		this._onNext();
 	}
 
+	//go to new page & location based upon page ID from showChoices
+	//custom code can be put here to specify what this move to location thing should be like
+	Page1.prototype._moveLocation = function(index){
+		//this._state = index-1;
+		this._owner.goToPage(index, GNOVEL.TransitionType.FADE);
+	}
+
 	Page1.prototype._runAnim = function() {
 		switch (this._state) {
 			case 0:
 				this._show(this._professor);
 				break;
 			case 1:
-				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
+				this._showChoices("location",["library","class"],{
+					x: -200,
+					z: 220
+				}, [1, 2]);
+			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
 				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
@@ -114,7 +125,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Feels so strange... I'm like so much older than you guys.", this._parentPosX, -220, 200);
 				break;
 			case 15:
-				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
+				this._showChoices("dialog",["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
 					x: -200,
 					z: 220
 				}, [16, 16]);
@@ -138,7 +149,7 @@ var MPLAY = MPLAY || {};
 				break;
 			case 21:
 				//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
+				this._showChoices("dialog",["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
 					x: -200,
 					z: 220
 				}, [22, 22]);
@@ -167,7 +178,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("After last semester, I'm beat up.", this._parentPosX, -220, 200);
 				break;
 			case 29:
-				this._showChoices(["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
+				this._showChoices("dialog",["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
 					x: -200,
 					z: 220
 				}, [30, 30]);

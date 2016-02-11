@@ -108,7 +108,7 @@ var MPLAY = MPLAY || {};
 			case 11:
 				this._timHide(this._juli);
 				this._parentPosX = this._ryan.position.x;
-				this._show(this._ryan);
+				this._show(this._ryan);a
 				this._timHide(this._cat);
 				break;
 			case 12:

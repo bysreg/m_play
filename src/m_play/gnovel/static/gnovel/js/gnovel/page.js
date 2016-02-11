@@ -1,4 +1,4 @@
-// namespace 
+// namespace
 var GNOVEL = GNOVEL || {};
 
 (function() {
@@ -8,7 +8,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 * @class Page
 	 * @constructor
-	 * 
+	 *
 	 */
 	var Page = function() {
 		this._owner = null;
@@ -17,6 +17,16 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = null;
+
+		//create enum or struct of locations and pages
+		//which locations are with which pages, for reference
+		/**
+		*class = 0
+		*library = 1
+		*home = 2
+		*coffee shop = 3
+		*
+		*/
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -37,7 +47,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(1024, 768);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";
 
 		// add this to the scene
@@ -58,7 +68,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
@@ -89,7 +99,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.playAnimation = function() {}
 
 	/**
-	 * This function will be called right before page is displayed on screen	 
+	 * This function will be called right before page is displayed on screen
 	 */
 	Page.prototype._onLoad = function() {};
 
@@ -112,13 +122,13 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				x: (params.x !== null ? params.x : obj.position.x),
 				y: (params.y !== null ? params.y : obj.positions.y),
-				z: (params.z !== null ? params.z : obj.position.z),				
+				z: (params.z !== null ? params.z : obj.position.z),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if(params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();			
+		tween.start();
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
@@ -126,13 +136,13 @@ var GNOVEL = GNOVEL || {};
 
 		var tween = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),				
+				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if(params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();		
+		tween.start();
 	};
 
 	Page.prototype.onPause = function(evt) {}
@@ -168,7 +178,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
-	 * @return {int} 
+	 * @return {int}
 	 */
 	Page.prototype.getPageId = function() {
 		return this._id;
@@ -232,7 +242,7 @@ var GNOVEL = GNOVEL || {};
 		// var sprite = new THREE.Sprite(spriteMaterial);
 		// sprite.name = "Text Box";
 		// sprite.scale.set(100, 50, 1.0);
-		// 
+		//
 
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
@@ -260,7 +270,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype._showDialog = function(message, x, y, z, params) {
-		this._curTextBox = this.createTextBox(message, params || {});		
+		this._curTextBox = this.createTextBox(message, params || {});
 
 		/**
 		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
@@ -326,17 +336,24 @@ var GNOVEL = GNOVEL || {};
 		});
 	};
 
-	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
+	Page.prototype._showChoices = function(type,choicesArr, params, jumpArr) {
 		params = params || {};
 		this._choiceJumpArr = jumpArr;
 		var pageObj = this;
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(pageObj._choicesBg);
-			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);
+			if(type == "location"){
+				//go to next page number
+				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+				pageObj._moveLocation(locIndex);
+			}
+			else {
+				var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];  //go to next statement based on ID of choice
+				pageObj._jump(jumpIndex);
+			}
 		};
 
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
+		this._choices = new GNOVEL.Choices(this, type, choicesArr, this._result, params);
 
 		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
