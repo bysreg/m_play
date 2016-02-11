@@ -8,10 +8,9 @@ var GNOVEL = GNOVEL || {};
 *choices = array of choices possible
 *result = what should happen after choice selected
 */
-	var Choices = function(page, type, choices, result, params) {
+	var Choices = function(page, choices, result, params) {
 		this._choices = choices;
 		this._page = page;
-		this._type = type;
 		this._result = result;
 		this._params = params || {};
 
@@ -81,11 +80,11 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(this._choicesBox[i]);
 		};
 		//if location type, show
-		if(this._type == "location")
+		if(this._params.type == "location")
 		{
 			//show UI images to click on
-			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png",new THREE.Vector3(0,0,200),1,1);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open_book.jpeg",new THREE.Vector3(2,0,200),1,1);
+			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png",new THREE.Vector3(100,-100,200),100,100);
+			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg",new THREE.Vector3(-100,-100,200),100,100);
 			this._uiElements.push(loc1);
 			this._uiElements.push(loc2);
 			this._page._addToScene(loc1);
@@ -108,7 +107,7 @@ var GNOVEL = GNOVEL || {};
 			z: -100
 		}, this._params.seconds * 1000).onComplete(function() {
 			if (timer._choosed) {
-				// do nothing, because we already call _onChoiceComplete on mouse down
+				// do nothing, because we already call _Page3 on mouse down
 			} else {
 				// auto select the first option
 				this._result.choiceId = 0;

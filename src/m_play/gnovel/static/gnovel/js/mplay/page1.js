@@ -77,9 +77,10 @@ var MPLAY = MPLAY || {};
 				this._show(this._professor);
 				break;
 			case 1:
-				this._showChoices("location",["library","class"],{
+				this._showChoices(["library","class"],{
 					x: -200,
-					z: 220
+					z: 220,
+					type:"location",
 				}, [1, 2]);
 			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
@@ -106,7 +107,7 @@ var MPLAY = MPLAY || {};
 				break;
 			case 9:
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
-				break;			
+				break;
 			case 10:
 				this._hide(this._professor, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
@@ -125,7 +126,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Feels so strange... I'm like so much older than you guys.", this._parentPosX, -220, 200);
 				break;
 			case 15:
-				this._showChoices("dialog",["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
+				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
 					x: -200,
 					z: 220
 				}, [16, 16]);
@@ -149,7 +150,7 @@ var MPLAY = MPLAY || {};
 				break;
 			case 21:
 				//the second choice is too long.
-				this._showChoices("dialog",["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
 					x: -200,
 					z: 220
 				}, [22, 22]);
@@ -178,7 +179,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("After last semester, I'm beat up.", this._parentPosX, -220, 200);
 				break;
 			case 29:
-				this._showChoices("dialog",["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
+				this._showChoices(["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
 					x: -200,
 					z: 220
 				}, [30, 30]);

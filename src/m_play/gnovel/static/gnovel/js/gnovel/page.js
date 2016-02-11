@@ -344,7 +344,7 @@ var GNOVEL = GNOVEL || {};
 		var waitUntilHidden = true;
 		if(params.waitUntilHidden != null) {
 			waitUntilHidden = params.waitUntilHidden;
-		}			
+		}
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
@@ -356,13 +356,13 @@ var GNOVEL = GNOVEL || {};
 		});
 	};
 
-	Page.prototype._showChoices = function(type,choicesArr, params, jumpArr) {
+	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
 		this._choiceJumpArr = jumpArr;
 		var pageObj = this;
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(pageObj._choicesBg);
-			if(type == "location"){
+			if(params.type == "location"){
 				//go to next page number
 				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
 				pageObj._moveLocation(locIndex);
@@ -373,7 +373,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		};
 
-		this._choices = new GNOVEL.Choices(this, type, choicesArr, this._result, params);
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 
 		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
