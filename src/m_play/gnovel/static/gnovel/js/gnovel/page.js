@@ -37,7 +37,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(1024, 768);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";
 
 		// add this to the scene
@@ -58,7 +58,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
@@ -112,13 +112,13 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				x: (params.x !== null ? params.x : obj.position.x),
 				y: (params.y !== null ? params.y : obj.positions.y),
-				z: (params.z !== null ? params.z : obj.position.z),				
+				z: (params.z !== null ? params.z : obj.position.z),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if(params.onComplete != null) {
+		if (params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();			
+		tween.start();
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
@@ -126,13 +126,13 @@ var GNOVEL = GNOVEL || {};
 
 		var tween = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),				
+				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if(params.onComplete != null) {
+		if (params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();		
+		tween.start();
 	};
 
 	Page.prototype.onPause = function(evt) {}
@@ -182,10 +182,10 @@ var GNOVEL = GNOVEL || {};
 		// 	parameters["fontface"] : "Arial";
 
 		var fontsize = parameters.hasOwnProperty("fontsize") ?
-		 	parameters["fontsize"] : 18;
+			parameters["fontsize"] : 18;
 
 		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-		 	parameters["borderThickness"] : 4;
+			parameters["borderThickness"] : 4;
 
 		var borderColor = parameters.hasOwnProperty("borderColor") ?
 			parameters["borderColor"] : {
@@ -237,7 +237,12 @@ var GNOVEL = GNOVEL || {};
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
 		var Text2D = THREE_Text.Text2D;
-        var sprite = new Text2D(message, { align: textAlign.center,  font: '20px Arial', fillStyle: '#FFFF00' , antialias: false });
+		var sprite = new Text2D(message, {
+			align: textAlign.center,
+			font: '20px Arial',
+			fillStyle: '#FFFF00',
+			antialias: false
+		});
 
 		return sprite;
 	};
@@ -259,25 +264,23 @@ var GNOVEL = GNOVEL || {};
 		console.log("on start");
 	};
 
-	Page.prototype._showDialog = function(message, x, y, z, params) {
-		this._curTextBox = this.createTextBox(message, params || {});		
+	Page.prototype._showDialog = function(message, x, y, params) {
+		this._curTextBox = this.createTextBox(message, params || {});
+		var z = 200;
 
 		/**
-		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
-		*/
+		 *@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		 */
 		//tween from the left
-		if(x < 0)
-		{
+		if (x < 0) {
 			x = 0;
 			this._curTextBox.position.set(x - 100, y, z + 20);
 		}
 		//tween from the right
-		else if(x > 0)
-		{
+		else if (x > 0) {
 			x = 0;
 			this._curTextBox.position.set(x + 100, y, z + 20);
-		}
-		else {
+		} else {
 			this._curTextBox.position.set(x, y, z + 20);
 		}
 
@@ -288,40 +291,57 @@ var GNOVEL = GNOVEL || {};
 		this._textBg = textBg;
 
 		// alpha
-		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(this._curTextBox, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.tweenMat(textBg, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 
 		// move
-		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(this._curTextBox, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.move(textBg, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 
 		this._addToScene(this._curTextBox);
 	};
 
 	Page.prototype._show = function(obj) {
 		var pageObj = this;
-		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
+		this.tweenMat(obj, {
+			opacity: 1,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				pageObj._onNext();
+			}
+		});
 	};
 
-	Page.prototype._hide = function(obj) {
+	Page.prototype._hide = function(obj, params) {
+		params = params || {};
 		var pageObj = this;
-		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	/**
-	 * @function temporary hide function for quarters
-	 */
-	Page.prototype._timHide = function(obj) {
-		var pageObj = this;
+		var waitUntilHidden = true;
+		if(params.waitUntilHidden != null) {
+			waitUntilHidden = params.waitUntilHidden;
+		}			
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				//pageObj._onNext();
+				if(params.waitUntilHidden) {
+					pageObj._onNext();
+				}
 			}
 		});
 	};

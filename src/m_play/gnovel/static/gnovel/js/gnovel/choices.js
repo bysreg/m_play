@@ -46,9 +46,9 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		var textbox;
-		var startx = this._params.x || 0;
+		var startx = this._params.x || -200;
 		var starty = this._params.y || -200;
-		var startz = this._params.z || 75;
+		var startz = this._params.z || 220;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,
