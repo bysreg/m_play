@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("..about the collaboration in class.", this._parentPosX, -220, 220);
 				break;
 			case 3:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -95,7 +95,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Here's the syllabus",0, -220, 220); //showing this only for quarters!!
 				break;
 			case 8:
-				this._timHide(this._syllabus);
+				this._hide(this._syllabus, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -106,7 +106,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog(" but only on the project?  What about for homework?",this._parentPosX,-220, 220);
 				break;
 			case 11:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);a
 				this._timHide(this._cat);
@@ -118,7 +118,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("In my other classes we could work with anyone in the class.",this._parentPosX,-220, 220);
 				break;
 			case 14:
-				this._timHide(this._ryan);
+				this._hide(this._ryan, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -134,7 +134,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Agreed! I'm sending an email as we speak. ", this._parentPosX, -220, 220);
 				break;
 			case 18:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
@@ -153,7 +153,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("I'm just going to shoot the TA a note anyway.",this._parentPosX,-220, 220);
 				break;
 			case 23:
-				this._timHide(this._ryan);
+				this._hide(this._ryan, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -164,7 +164,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Maybe.  I just emailed the TA just to be sure.",this._parentPosX,-220, 220);
 				break;
 			case 26:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;

@@ -106,9 +106,9 @@ var MPLAY = MPLAY || {};
 				break;
 			case 9:
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
-				break;
+				break;			
 			case 10:
-				this._timHide(this._professor);
+				this._hide(this._professor, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -137,7 +137,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("For seven years.  It's going to be an adjustment being here!", this._parentPosX, -220, 200);
 				break;
 			case 18:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -161,7 +161,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("..I wouldn't have come on the plane!", this._parentPosX, -220, 200);
 				break;
 			case 24:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
