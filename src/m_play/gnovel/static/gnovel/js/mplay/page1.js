@@ -21,12 +21,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
-		this._state = 0
-		this._curTextBox = null;
-		this._result = {};
-		this._choices = null;
-		this._choicesBg = null;
-		this._textBg = null;
+		this._state = 0						
 		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");

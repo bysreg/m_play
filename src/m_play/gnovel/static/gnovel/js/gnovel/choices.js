@@ -4,6 +4,10 @@ var GNOVEL = GNOVEL || {};
 (function() {
 	"use strict";
 
+	/**
+	 * @class  Choices
+	 * @constructor
+	 */
 	var Choices = function(page, choices, result, params) {
 		this._choices = choices;
 		this._page = page;
@@ -136,13 +140,12 @@ var GNOVEL = GNOVEL || {};
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
 			for (var i = 0; i < this._choices.length; i++) {
-				///*
+				
 				if(this._choicesBox[i].children[0].name == intersects[0].object.name)
 				{
 					console.log("clicked on " + i);
 					this._result.choiceId = i;
-				}
-				//*/
+				}				
 			}
 
 			this._onChoiceComplete();

@@ -16,7 +16,12 @@ var GNOVEL = GNOVEL || {};
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
-		this._flow = null;
+		this._flow = new GNOVEL.Flow(this);
+
+		this._curTextBox = null;
+		this._textBg = null;
+
+		this._result = {};
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -260,8 +265,14 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	// will be called after load complete
-	Page.prototype._onStart = function() {
+	Page.prototype._onStart = function() {			
 		console.log("on start");
+	};
+
+	// will be called after onStart called
+	Page.prototype._runFlow = function() {
+		this._flow._set(this._createFlowElements());
+		this._flow._exec();
 	};
 
 	Page.prototype._showDialog = function(message, x, y, params) {
@@ -348,22 +359,30 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
-		this._choiceJumpArr = jumpArr;
 		var pageObj = this;
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		choicesBg.material.opacity = 0.7;
+
 		params.onChoiceComplete = function() {
-			pageObj._removeFromScene(pageObj._choicesBg);
-			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+			pageObj._removeFromScene(choicesBg);
+			var jumpIndex = jumpArr[pageObj._result.choiceId];
 			pageObj._jump(jumpIndex);
 		};
 
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;
+		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 		this._addToScene(choicesBg);
-		this._choicesBg = choicesBg;
 	};
 
+
+	Page.prototype._setFlowElements = function(flowelements) {
+		this._flow._setFlowElements(flowelements);
+	};
+
+	Page.prototype._createFlowElements = function() {
+		// derive this function on child classes to specify the flow elements
+		
+		return {};
+	};
 
 	GNOVEL.Page = Page;
 }());
