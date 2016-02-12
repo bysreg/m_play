@@ -17,21 +17,12 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
+		this._objectTags = {};
 
 		this._curTextBox = null;
 		this._textBg = null;
 
 		this._result = {};
-
-		//create enum or struct of locations and pages
-		//which locations are with which pages, for reference
-		/**
-		*class = 0
-		*library = 1
-		*home = 2
-		*coffee shop = 3
-		*
-		*/
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -115,7 +106,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._onUnload = function() {};
 
 	Page.prototype._onMouseDown = function(event) {
-		onPause()
+
 	};
 
 	Page.prototype._onMouseMove = function(event) {};
@@ -150,10 +141,10 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
-	Page.prototype.onPause = function(evt) {}
-	Page.prototype.onResume = function(evt) {}
-	Page.prototype.onEnter = function(evt) {}
-	Page.prototype.onExit = function(evt) {}
+	Page.prototype.onPause = function(evt) {};
+	Page.prototype.onResume = function(evt) {};
+	Page.prototype.onEnter = function(evt) {};
+	Page.prototype.onExit = function(evt) {};
 
 
 	// function for drawing rounded rectangles
@@ -189,66 +180,7 @@ var GNOVEL = GNOVEL || {};
 		return this._id;
 	};
 
-	/**
-	 * adapted from https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Sprite-Text-Labels.html
-	 */
 	Page.prototype.createTextBox = function(message, parameters) {
-		// var fontface = parameters.hasOwnProperty("fontface") ?
-		// 	parameters["fontface"] : "Arial";
-
-		var fontsize = parameters.hasOwnProperty("fontsize") ?
-			parameters["fontsize"] : 18;
-
-		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-			parameters["borderThickness"] : 4;
-
-		var borderColor = parameters.hasOwnProperty("borderColor") ?
-			parameters["borderColor"] : {
-				r: 0,
-				g: 0,
-				b: 0,
-				a: 1.0
-			};
-
-		var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
-			parameters["backgroundColor"] : {
-				r: 255,
-				g: 255,
-				b: 255,
-				a: 1.0
-			};
-
-		// var canvas = document.createElement('canvas');
-		// var context = canvas.getContext('2d');
-		// context.font = "Bold " + fontsize + "px " + fontface;
-
-		// // get size data (height depends only on font size)
-		// var metrics = context.measureText(message);
-		// var textWidth = metrics.width;
-
-		// // background color
-		// context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-		// // border color
-		// context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
-		// context.lineWidth = borderThickness;
-		// roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
-		// // 1.4 is extra height factor for text below baseline: g,j,p,q.
-
-		// // text color
-		// context.fillStyle = "rgba(0, 0, 0, 1.0)";
-		// context.fillText(message, borderThickness, fontsize + borderThickness);
-
-		// // canvas contents will be used for a texture
-		// var texture = new THREE.Texture(canvas)
-		// texture.needsUpdate = true;
-		// var spriteMaterial = new THREE.SpriteMaterial({
-		// 	map: texture,
-		// });
-		// var sprite = new THREE.Sprite(spriteMaterial);
-		// sprite.name = "Text Box";
-		// sprite.scale.set(100, 50, 1.0);
-		// 
-
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
 		var Text2D = THREE_Text.Text2D;
@@ -275,7 +207,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	// will be called after load complete
-	Page.prototype._onStart = function() {			
+	Page.prototype._onStart = function() {
 		console.log("on start");
 	};
 
@@ -286,56 +218,16 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype._showDialog = function(message, x, y, params) {
-		this._curTextBox = this.createTextBox(message, params || {});
-		var z = 200;
+		params = params || {};
+		var pageObj = this;
 
-		/**
-		 *@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
-		 */
-		//tween from the left
-		if (x < 0) {
-			x = 0;
-			this._curTextBox.position.set(x - 100, y, z + 20);
-		}
-		//tween from the right
-		else if (x > 0) {
-			x = 0;
-			this._curTextBox.position.set(x + 100, y, z + 20);
-		} else {
-			this._curTextBox.position.set(x, y, z + 20);
-		}
+		params.onComplete = function() {
+			// go to next flow
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
 
-		// add background textbox
-		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
-		textBg.material.opacity = 0;
-		this._addToScene(textBg);
-		this._textBg = textBg;
-
-		// alpha
-		this.tweenMat(this._curTextBox, {
-			duration: 1000,
-			opacity: 0.7,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-		this.tweenMat(textBg, {
-			duration: 1000,
-			opacity: 0.7,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-
-		// move
-		this.move(this._curTextBox, {
-			duration: 1000,
-			x: x,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-		this.move(textBg, {
-			duration: 1000,
-			x: x,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-
-		this._addToScene(this._curTextBox);
+		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 	};
 
 	Page.prototype._show = function(obj) {
@@ -353,14 +245,14 @@ var GNOVEL = GNOVEL || {};
 		params = params || {};
 		var pageObj = this;
 		var waitUntilHidden = true;
-		if(params.waitUntilHidden != null) {
+		if (params.waitUntilHidden != null) {
 			waitUntilHidden = params.waitUntilHidden;
-		}			
+		}
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				if(params.waitUntilHidden) {
+				if (params.waitUntilHidden) {
 					pageObj._onNext();
 				}
 			}
@@ -370,14 +262,17 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
 		var pageObj = this;
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png",
+			new THREE.Vector3(params.x + 200, -250, 190), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
 
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(choicesBg);
-			var jumpIndex = jumpArr[pageObj._result.choiceId];			
-			//go to next statement based on ID of choice		
-			pageObj._jump(jumpIndex);			
+			var jumpIndex = jumpArr[pageObj._result.choiceId];
+	
+			// go to next flow
+			pageObj._flow._jump(jumpIndex);			
+			pageObj._flow._exec();
 		};
 
 		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
@@ -391,8 +286,12 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._createFlowElements = function() {
 		// derive this function on child classes to specify the flow elements
-		
+
 		return {};
+	};
+
+	Page.prototype._setObjectTag = function(tag, obj) {
+		this._objectTags[tag] = obj;
 	};
 
 	GNOVEL.Page = Page;
