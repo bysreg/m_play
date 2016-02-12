@@ -375,16 +375,9 @@ var GNOVEL = GNOVEL || {};
 
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(choicesBg);
-			var jumpIndex = jumpArr[pageObj._result.choiceId];
-			if(params.type == "location"){
-				//go to next page number
-				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-				pageObj._moveLocation(locIndex);
-			}
-			else {
-				var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];  //go to next statement based on ID of choice
-			pageObj._jump(jumpIndex);
-			}
+			var jumpIndex = jumpArr[pageObj._result.choiceId];			
+			//go to next statement based on ID of choice		
+			pageObj._jump(jumpIndex);			
 		};
 
 		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);

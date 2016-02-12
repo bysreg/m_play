@@ -21,7 +21,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page1.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
-		this._state = 0						
+		this._state = 0
 		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
@@ -59,21 +59,18 @@ var MPLAY = MPLAY || {};
 		//this._curTextBox.position.set(x - 100, y, z + 20);
 
 		/**
-		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
-		*/
+		 *@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		 */
 		//tween from the left
-		if(x < 0)
-		{
+		if (x < 0) {
 			x = 0;
 			this._curTextBox.position.set(x - 100, y + 20, z + 20);
 		}
 		//tween from the right
-		else if(x > 0)
-		{
+		else if (x > 0) {
 			x = 0;
 			this._curTextBox.position.set(x + 100, y + 20, z + 20);
-		}
-		else {
+		} else {
 			this._curTextBox.position.set(x, y + 20, z + 20);
 		}
 
@@ -84,12 +81,28 @@ var MPLAY = MPLAY || {};
 		this._textBg = textBg;
 
 		// alpha
-		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(this._curTextBox, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.tweenMat(textBg, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 
 		// move
-		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(this._curTextBox, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.move(textBg, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 
 		this._addToScene(this._curTextBox);
 	};
@@ -101,7 +114,7 @@ var MPLAY = MPLAY || {};
 
 	//go to new page & location based upon page ID from showChoices
 	//custom code can be put here to specify what this move to location thing should be like
-	Page1.prototype._moveLocation = function(index){
+	Page1.prototype._moveLocation = function(index) {
 		//this._state = index-1;
 		this._owner.goToPage(index, GNOVEL.TransitionType.FADE);
 	}
@@ -112,12 +125,12 @@ var MPLAY = MPLAY || {};
 				this._show(this._professor);
 				break;
 			case 1:
-				this._showChoices(["library","class"],{
+				this._showChoices(["library", "class"], {
 					x: -200,
 					z: 220,
-					type:"location",
-				}, [1, 2]);
-			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
+					type: "location",
+				}, [33, 34]);
+				//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
 				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
@@ -144,7 +157,9 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
 				break;
 			case 10:
-				this._hide(this._professor, {waitUntilHidden : false});
+				this._hide(this._professor, {
+					waitUntilHidden: false
+				});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -173,7 +188,9 @@ var MPLAY = MPLAY || {};
 				this._showDialog("For seven years.  It's going to be an adjustment being here!", this._parentPosX, -220, 200);
 				break;
 			case 18:
-				this._hide(this._cat, {waitUntilHidden : false});
+				this._hide(this._cat, {
+					waitUntilHidden: false
+				});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -184,8 +201,11 @@ var MPLAY = MPLAY || {};
 				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", this._parentPosX, -220, 200);
 				break;
 			case 21:
-			//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. We've been lucky so far with this mild weather."], {x: -200, z: 220}, [22, 22]);
+				//the second choice is too long.
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. We've been lucky so far with this mild weather."], {
+					x: -200,
+					z: 220
+				}, [22, 22]);
 				break;
 			case 22:
 				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", this._parentPosX, -220, 200);
@@ -194,7 +214,9 @@ var MPLAY = MPLAY || {};
 				this._showDialog("..I wouldn't have come on the plane!", this._parentPosX, -220, 200);
 				break;
 			case 24:
-				this._hide(this._juli, {waitUntilHidden : false});
+				this._hide(this._juli, {
+					waitUntilHidden: false
+				});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
@@ -227,7 +249,11 @@ var MPLAY = MPLAY || {};
 				break;
 			case 33:
 				// finish
-				this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
+				this._owner.goToPage(2, GNOVEL.TransitionType.FADE);
+				break;
+			case 34:
+				// finish
+				this._owner.goToPage(3, GNOVEL.TransitionType.FADE);
 				break;
 		}
 	};
