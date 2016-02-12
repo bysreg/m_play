@@ -37,10 +37,14 @@ var CanvasText = (function () {
         // calculate text width for multiline textbox 
         var hlpArr = text.match(/.{1,72}/g);
         this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
+        this.textHeight = hlpArr.length * getFontHeight(this.ctx.font);
       }
       else
+      {
         this.textWidth = Math.ceil(this.ctx.measureText(text).width);
-      this.textHeight = getFontHeight(this.ctx.font);
+        this.textHeight = getFontHeight(this.ctx.font);
+      }
+      
 
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
@@ -74,14 +78,13 @@ var CanvasText = (function () {
           else
             textArr[line] = textArr[line] + wordsArr[i] + " ";
         };
-        this.canvas.height *= line;
       }
 
       // fill text with different y coordinates for each line.
       var x =0, y = 0;
       for (var i = 0; i < textArr.length; i++) {
         this.ctx.fillText(textArr[i], x, y);
-        y += this.singlelineHeight * 0.2;
+        y += this.singlelineHeight * 0.3;
       };
       
       return this.canvas;
