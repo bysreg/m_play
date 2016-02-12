@@ -3,11 +3,11 @@ var GNOVEL = GNOVEL || {};
 
 (function() {
 	"use strict";
-/**
-*@param{page = ; type = the type of choice-dialogue, action, location; }
-*choices = array of choices possible
-*result = what should happen after choice selected
-*/
+	/**
+	 *@param{page = ; type = the type of choice-dialogue, action, location; }
+	 *choices = array of choices possible
+	 *result = what should happen after choice selected
+	 */
 	/**
 	 * @class  Choices
 	 * @constructor
@@ -17,6 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._page = page;
 		this._result = result;
 		this._params = params || {};
+		this._mouseDownListener = null;
 
 		this._choicesBox = [];
 		this._uiElements = [];
@@ -30,10 +31,11 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-		// HACKS
-		// FIXME : should not
 		var choices = this;
-		document.addEventListener('mousedown', function(event) { _onMouseDown(event, choices); }, false);
+		this._mouseDownListener = function(event) {			
+			choices._onMouseDown(event);
+		};
+		document.addEventListener('mousedown', this._mouseDownListener, false);
 	};
 
 	Choices.prototype._init = function() {
@@ -44,7 +46,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true
 		});
 
-		if(this._params.seconds > 0) {
+		if (this._params.seconds > 0) {
 			var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
@@ -56,7 +58,7 @@ var GNOVEL = GNOVEL || {};
 
 		var textbox;
 		var startx = this._params.x || -200;
-		var starty = this._params.y || -200;
+		var starty = this._params.y || 0;
 		var startz = this._params.z || 220;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
@@ -74,31 +76,26 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(200 + startx, i * -60 + starty, startz + 10);
+			textbox.position.set(200 + startx, i * -100 + starty, startz + 10);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
-			textbox.children[0].name = ""+i;
+			textbox.children[0].name = "choice_" + i;
 
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
 		//if location type, show
-		if(this._params.type == "location")
-		{
+		if (this._params.type == "location") {
 			//show UI images to click on
-			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png",new THREE.Vector3(100,-100,200),100,100);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg",new THREE.Vector3(-100,-100,200),100,100);
+			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png", new THREE.Vector3(100, -100, 200), 100, 100);
+			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);
 			this._uiElements.push(loc1);
 			this._uiElements.push(loc2);
 			this._page._addToScene(loc1);
 			this._page._addToScene(loc2);
 		}
-	};
-
-	function _onMouseDown(event, choiceObj) {
-		choiceObj._onMouseDown(event);
-	};
+	};	
 
 	/**
 	 * This function will only be called by this class when params.seconds > 0
@@ -122,8 +119,11 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Choices.prototype._onChoiceComplete = function() {
+		//remove mousedown listener
+		document.removeEventListener('mousedown', this._mouseDownListener, false);
+
 		// clean up all objects from scene
-		if(this._params.seconds != null && params.seconds > 0) {
+		if (this._params.seconds != null && params.seconds > 0) {
 			this._page._removeFromScene(timer.timer);
 		}
 
@@ -131,7 +131,7 @@ var GNOVEL = GNOVEL || {};
 			this._page._removeFromScene(this._choicesBox[i]);
 		}
 
-		if(this._params.onChoiceComplete != null) {
+		if (this._params.onChoiceComplete != null) {
 			this._params.onChoiceComplete(this);
 		}
 	};
@@ -156,20 +156,18 @@ var GNOVEL = GNOVEL || {};
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
 			for (var i = 0; i < this._choices.length; i++) {
-				
-				if(this._choicesBox[i].children[0].name == intersects[0].object.name)
-				{
+
+				if (this._choicesBox[i].children[0].name == intersects[0].object.name) {
 					console.log("clicked on " + i);
 					this._result.choiceId = i;
-				}				
+				}
 			}
 
 			this._onChoiceComplete();
-		}
-		else {
+		} else {
 			/*go back one step and display the previous thing if a location choice was display.
-			*otherwise, make the textbox dissapear and go back one step.
-			*/
+			 *otherwise, make the textbox dissapear and go back one step.
+			 */
 		}
 	};
 
