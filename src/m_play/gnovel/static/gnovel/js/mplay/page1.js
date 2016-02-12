@@ -46,27 +46,6 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._ryan);
 		this._addToScene(this._juli);
 		this._addToScene(this._cat);
-
-		//=============================
-
-		// var position = new THREE.Vector3(1,1,25);
-		// var obj = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png",position, 1200, 1500);
-		// this._addToScene(obj);
-		// this.addCharacter("ryan",obj);
-
-		// //this.showHUD();
-
-		// var textBox = this.createTextBox("Hi nice to meet you!",
-		// 	{fontsize: 6,
-		// 	  borderColor: {r:255, g:0, b:0, a:1.0},
-		// 	  backgroundColor: {r:255, g:100, b:100, a:0.8}
-		// 	});
-
-		// textBox.position.set(-200, 200, 75);
-		// this._addToScene(textBox);
-
-		//var result = {};
-		//var choices = new GNOVEL.Choices(this, ['Not at all', 'Oh, what did you do before deciding to get your MBA?'], result, {x: -200});
 	};
 
 	Page1.prototype._onStart = function() {
@@ -125,55 +104,25 @@ var MPLAY = MPLAY || {};
 		this._onNext();
 	}
 
-	Page1.prototype._show = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	Page1.prototype._hide = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	/**
-	* @function temporary hide function for quarters
-	*/
-		Page1.prototype._timHide = function(obj) {
-			var pageObj = this;
-			this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-				//pageObj._onNext();
-			}});
-		};
-
-	Page1.prototype._showChoices = function(choicesArr, params, jumpArr) {
-		params = params || {};
-		this._choiceJumpArr = jumpArr;
-		var pageObj = this;
-		params.onChoiceComplete = function() {
-			pageObj._removeFromScene(pageObj._choicesBg);
-			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);
-		};
-
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;
-		this._addToScene(choicesBg);
-		this._choicesBg = choicesBg;
-	};
+	//go to new page & location based upon page ID from showChoices
+	//custom code can be put here to specify what this move to location thing should be like
+	Page1.prototype._moveLocation = function(index){
+		//this._state = index-1;
+		this._owner.goToPage(index, GNOVEL.TransitionType.FADE);
+	}
 
 	Page1.prototype._runAnim = function() {
-		switch(this._state) {
+		switch (this._state) {
 			case 0:
 				this._show(this._professor);
 				break;
 			case 1:
-				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
+				this._showChoices(["library","class"],{
+					x: -200,
+					z: 220,
+					type:"location",
+				}, [1, 2]);
+			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
 				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
@@ -200,7 +149,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
 				break;
 			case 10:
-				this._timHide(this._professor);
+				this._hide(this._professor, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -217,7 +166,10 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Feels so strange... I'm like so much older than you guys.", this._parentPosX, -220, 200);
 				break;
 			case 15:
-				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {x: -200, z: 220}, [16, 16]);
+				this._showChoices(["Not at all!", "Oh, what did you do before deciding to get your MBA?"], {
+					x: -200,
+					z: 220
+				}, [16, 16]);
 				break;
 			case 16:
 				this._showDialog("Yeah... I worked as a consultant in DC.", this._parentPosX, -220, 200);
@@ -226,7 +178,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("For seven years.  It's going to be an adjustment being here!", this._parentPosX, -220, 200);
 				break;
 			case 18:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -247,7 +199,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("..I wouldn't have come on the plane!", this._parentPosX, -220, 200);
 				break;
 			case 24:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
@@ -264,7 +216,10 @@ var MPLAY = MPLAY || {};
 				this._showDialog("After last semester, I'm beat up.", this._parentPosX, -220, 200);
 				break;
 			case 29:
-				this._showChoices(["Oh yeah?  What program are you in?","You seem like you're recovering."], {x: -200, z: 220}, [30, 30]);
+				this._showChoices(["Oh yeah?  What program are you in?", "You seem like you're recovering."], {
+					x: -200,
+					z: 220
+				}, [30, 30]);
 				break;
 			case 30:
 				this._showDialog("Yeah!  I mean, CS has been kicking my ass.", this._parentPosX, -220, 200);
@@ -279,14 +234,14 @@ var MPLAY = MPLAY || {};
 				// finish
 				this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
 				break;
-			}
+		}
 	};
 
 	/**
 	 * @override
 	 */
 	Page1.prototype._onMouseDown = function(event) {
-		if(this._curTextBox != null) {
+		if (this._curTextBox != null) {
 			this._removeFromScene(this._curTextBox);
 			this._removeFromScene(this._textBg);
 			this._curTextBox = null;

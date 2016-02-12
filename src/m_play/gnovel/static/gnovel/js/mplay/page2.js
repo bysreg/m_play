@@ -60,89 +60,9 @@ var MPLAY = MPLAY || {};
 		this._runAnim();
 	};
 
-	Page2.prototype._showDialog = function(message, x, y, z, params) {
-		this._curTextBox = this.createTextBox(message, params || {});
-		/**
-		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
-		*/
-		//tween from the left
-		if(x < 0)
-		{
-			x = 0;
-			this._curTextBox.position.set(x - 100, y, z + 20);
-		}
-		//tween from the right
-		else if(x > 0)
-		{
-			x = 0;
-			this._curTextBox.position.set(x + 100, y, z + 20);
-		}
-		else {
-			this._curTextBox.position.set(x, y, z + 20);
-		}
-
-		// add background textbox
-		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
-		textBg.material.opacity = 0;
-		this._addToScene(textBg);
-		this._textBg = textBg;
-
-		// alpha
-		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
-
-		// move
-		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
-
-		this._addToScene(this._curTextBox);
-	};
-
 	Page2.prototype._jump = function(index) {
 		this._state = index - 1;
 		this._onNext();
-	}
-
-	Page2.prototype._show = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 1, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-	Page2.prototype._hide = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			pageObj._onNext();
-		}});
-	};
-
-/**
-* @function temporary hide function for quarters
-*/
-	Page2.prototype._timHide = function(obj) {
-		var pageObj = this;
-		this.tweenMat(obj, {opacity : 0, easing : TWEEN.Easing.Cubic.Out, onComplete : function() {
-			//pageObj._onNext();
-		}});
-	};
-
-	Page2.prototype._showChoices = function(choicesArr, params, jumpArr) {
-		params = params || {};
-		this._choiceJumpArr = jumpArr;
-		var pageObj = this;
-		params.onChoiceComplete = function() {
-			pageObj._removeFromScene(pageObj._choicesBg);
-			var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-			pageObj._jump(jumpIndex);
-		};
-
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
-		choicesBg.material.opacity = 0.7;
-		this._addToScene(choicesBg);
-		this._choicesBg = choicesBg;
 	};
 
 	Page2.prototype._runAnim = function() {
@@ -158,7 +78,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("..about the collaboration in class.", this._parentPosX, -220, 220);
 				break;
 			case 3:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -175,7 +95,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Here's the syllabus",0, -220, 220); //showing this only for quarters!!
 				break;
 			case 8:
-				this._timHide(this._syllabus);
+				this._hide(this._syllabus, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -186,9 +106,9 @@ var MPLAY = MPLAY || {};
 				this._showDialog(" but only on the project?  What about for homework?",this._parentPosX,-220, 220);
 				break;
 			case 11:
-				this._timHide(this._juli);
+				this._hide(this._juli, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
-				this._show(this._ryan);
+				this._show(this._ryan);a
 				this._timHide(this._cat);
 				break;
 			case 12:
@@ -198,7 +118,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("In my other classes we could work with anyone in the class.",this._parentPosX,-220, 220);
 				break;
 			case 14:
-				this._timHide(this._ryan);
+				this._hide(this._ryan, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
 				this._show(this._cat);
 				break;
@@ -214,7 +134,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Agreed! I'm sending an email as we speak. ", this._parentPosX, -220, 220);
 				break;
 			case 18:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;
@@ -233,7 +153,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("I'm just going to shoot the TA a note anyway.",this._parentPosX,-220, 220);
 				break;
 			case 23:
-				this._timHide(this._ryan);
+				this._hide(this._ryan, {waitUntilHidden : false});
 				this._parentPosX = this._juli.position.x;
 				this._show(this._juli);
 				break;
@@ -244,7 +164,7 @@ var MPLAY = MPLAY || {};
 				this._showDialog("Maybe.  I just emailed the TA just to be sure.",this._parentPosX,-220, 220);
 				break;
 			case 26:
-				this._timHide(this._cat);
+				this._hide(this._cat, {waitUntilHidden : false});
 				this._parentPosX = this._ryan.position.x;
 				this._show(this._ryan);
 				break;

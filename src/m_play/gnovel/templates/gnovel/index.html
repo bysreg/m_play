@@ -15,7 +15,7 @@
 		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
 		<script src="{% static 'gnovel/js/third_party/Tween.js' %}"></script>
 		<script src="{% static 'gnovel/js/third_party/stats.min.js' %}"></script>
-		<script src="{% static 'gnovel/js/third_party/three-text2d.js' %}"></script>	
+		<script src="{% static 'gnovel/js/third_party/three-text2d.js' %}"></script>
 
 		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
@@ -26,22 +26,24 @@
 		<!-- pages -->
 		<script src="{% static 'gnovel/js/mplay/page1.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page2.js' %}"></script>
-		
-		<script>			
+		<script src="{% static 'gnovel/js/mplay/page3.js' %}"></script>
+
+		<script>
 			var gnovel = new GNOVEL.Gnovel();
 			var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
-			
+
 			// for debugging
 			gnovel.seeStats();
 
 			// add pages
 			gnovel.addPage(MPLAY.Page1);
 			gnovel.addPage(MPLAY.Page2);
-			
+			gnovel.addPage(MPLAY.Page3);
+
 			// start gnovel
 			gnovel.start();
 		</script>
-		
+
 		{{ text }}
 	</body>
 </html>

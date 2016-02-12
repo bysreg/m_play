@@ -3,7 +3,11 @@ var GNOVEL = GNOVEL || {};
 
 (function() {
 	"use strict";
-
+/**
+*@param{page = ; type = the type of choice-dialogue, action, location; }
+*choices = array of choices possible
+*result = what should happen after choice selected
+*/
 	var Choices = function(page, choices, result, params) {
 		this._choices = choices;
 		this._page = page;
@@ -11,6 +15,7 @@ var GNOVEL = GNOVEL || {};
 		this._params = params || {};
 
 		this._choicesBox = [];
+		this._uiElements = [];
 		this._choosed = false;
 
 		this._init();
@@ -46,9 +51,9 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		var textbox;
-		var startx = this._params.x || 0;
+		var startx = this._params.x || -200;
 		var starty = this._params.y || -200;
-		var startz = this._params.z || 75;
+		var startz = this._params.z || 220;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,
@@ -74,6 +79,17 @@ var GNOVEL = GNOVEL || {};
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
+		//if location type, show
+		if(this._params.type == "location")
+		{
+			//show UI images to click on
+			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png",new THREE.Vector3(100,-100,200),100,100);
+			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg",new THREE.Vector3(-100,-100,200),100,100);
+			this._uiElements.push(loc1);
+			this._uiElements.push(loc2);
+			this._page._addToScene(loc1);
+			this._page._addToScene(loc2);
+		}
 	};
 
 	function _onMouseDown(event, choiceObj) {
@@ -91,7 +107,7 @@ var GNOVEL = GNOVEL || {};
 			z: -100
 		}, this._params.seconds * 1000).onComplete(function() {
 			if (timer._choosed) {
-				// do nothing, because we already call _onChoiceComplete on mouse down
+				// do nothing, because we already call _Page3 on mouse down
 			} else {
 				// auto select the first option
 				this._result.choiceId = 0;
@@ -146,6 +162,11 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			this._onChoiceComplete();
+		}
+		else {
+			/*go back one step and display the previous thing if a location choice was display.
+			*otherwise, make the textbox dissapear and go back one step.
+			*/
 		}
 	};
 

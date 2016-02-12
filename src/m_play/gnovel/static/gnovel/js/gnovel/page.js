@@ -1,4 +1,4 @@
-// namespace 
+// namespace
 var GNOVEL = GNOVEL || {};
 
 (function() {
@@ -8,7 +8,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 * @class Page
 	 * @constructor
-	 * 
+	 *
 	 */
 	var Page = function() {
 		this._owner = null;
@@ -17,6 +17,16 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = null;
+
+		//create enum or struct of locations and pages
+		//which locations are with which pages, for reference
+		/**
+		*class = 0
+		*library = 1
+		*home = 2
+		*coffee shop = 3
+		*
+		*/
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -37,7 +47,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(1024, 768);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";
 
 		// add this to the scene
@@ -58,7 +68,7 @@ var GNOVEL = GNOVEL || {};
 			map: texture
 		});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
-		var quad = new THREE.Mesh(plane, material);		
+		var quad = new THREE.Mesh(plane, material);
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
@@ -89,7 +99,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.playAnimation = function() {}
 
 	/**
-	 * This function will be called right before page is displayed on screen	 
+	 * This function will be called right before page is displayed on screen
 	 */
 	Page.prototype._onLoad = function() {};
 
@@ -112,13 +122,13 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				x: (params.x !== null ? params.x : obj.position.x),
 				y: (params.y !== null ? params.y : obj.positions.y),
-				z: (params.z !== null ? params.z : obj.position.z),				
+				z: (params.z !== null ? params.z : obj.position.z),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if(params.onComplete != null) {
+		if (params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();			
+		tween.start();
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
@@ -126,13 +136,13 @@ var GNOVEL = GNOVEL || {};
 
 		var tween = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),				
+				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if(params.onComplete != null) {
+		if (params.onComplete != null) {
 			tween.onComplete(params.onComplete);
 		}
-		tween.start();		
+		tween.start();
 	};
 
 	Page.prototype.onPause = function(evt) {}
@@ -168,7 +178,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
-	 * @return {int} 
+	 * @return {int}
 	 */
 	Page.prototype.getPageId = function() {
 		return this._id;
@@ -182,10 +192,10 @@ var GNOVEL = GNOVEL || {};
 		// 	parameters["fontface"] : "Arial";
 
 		var fontsize = parameters.hasOwnProperty("fontsize") ?
-		 	parameters["fontsize"] : 18;
+			parameters["fontsize"] : 18;
 
 		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-		 	parameters["borderThickness"] : 4;
+			parameters["borderThickness"] : 4;
 
 		var borderColor = parameters.hasOwnProperty("borderColor") ?
 			parameters["borderColor"] : {
@@ -232,12 +242,17 @@ var GNOVEL = GNOVEL || {};
 		// var sprite = new THREE.Sprite(spriteMaterial);
 		// sprite.name = "Text Box";
 		// sprite.scale.set(100, 50, 1.0);
-		// 
+		//
 
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
 		var Text2D = THREE_Text.Text2D;
-        var sprite = new Text2D(message, { align: textAlign.center,  font: '20px Arial', fillStyle: '#FFFF00' , antialias: false });
+		var sprite = new Text2D(message, {
+			align: textAlign.center,
+			font: '20px Arial',
+			fillStyle: '#FFFF00',
+			antialias: false
+		});
 
 		return sprite;
 	};
@@ -254,49 +269,118 @@ var GNOVEL = GNOVEL || {};
 		this._owner._removeFromScene(this, o);
 	};
 
-	Page.prototype._setFlow = function(flow) {
-		this._flow = flow;
-	};
-
-	Page.prototype._runFlow = function() {
-		var o = this._flow[this._flowCounter];
-
-		if (o.type == "Dialog") {
-			this._processDialog(o);
-		}
-	};
-
-	Page.prototype._processDialog = function(dialog) {
-		// FIXME : not yet finished
-		this.createTextBox(dialog.text, {
-			fontsize: 23,
-			borderColor: {
-				r: 255,
-				g: 0,
-				b: 0,
-				a: 1.0
-			},
-			backgroundColor: {
-				r: 255,
-				g: 100,
-				b: 100,
-				a: 0.8
-			}
-		});
-
-		this._onFlowComplete();
-	};
-
-	Page.prototype._onFlowComplete = function() {
-		this._flowCounter++;
-
-
-	};
-
 	// will be called after load complete
 	Page.prototype._onStart = function() {
 		console.log("on start");
 	};
+
+	Page.prototype._showDialog = function(message, x, y, params) {
+		this._curTextBox = this.createTextBox(message, params || {});
+		var z = 200;
+
+		/**
+		 *@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		 */
+		//tween from the left
+		if (x < 0) {
+			x = 0;
+			this._curTextBox.position.set(x - 100, y, z + 20);
+		}
+		//tween from the right
+		else if (x > 0) {
+			x = 0;
+			this._curTextBox.position.set(x + 100, y, z + 20);
+		} else {
+			this._curTextBox.position.set(x, y, z + 20);
+		}
+
+		// add background textbox
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+		textBg.material.opacity = 0;
+		this._addToScene(textBg);
+		this._textBg = textBg;
+
+		// alpha
+		this.tweenMat(this._curTextBox, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.tweenMat(textBg, {
+			duration: 1000,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+
+		// move
+		this.move(this._curTextBox, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this.move(textBg, {
+			duration: 1000,
+			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+
+		this._addToScene(this._curTextBox);
+	};
+
+	Page.prototype._show = function(obj) {
+		var pageObj = this;
+		this.tweenMat(obj, {
+			opacity: 1,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				pageObj._onNext();
+			}
+		});
+	};
+
+	Page.prototype._hide = function(obj, params) {
+		params = params || {};
+		var pageObj = this;
+		var waitUntilHidden = true;
+		if(params.waitUntilHidden != null) {
+			waitUntilHidden = params.waitUntilHidden;
+		}
+		this.tweenMat(obj, {
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				if(params.waitUntilHidden) {
+					pageObj._onNext();
+				}
+			}
+		});
+	};
+
+	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
+		params = params || {};
+		this._choiceJumpArr = jumpArr;
+		var pageObj = this;
+		params.onChoiceComplete = function() {
+			pageObj._removeFromScene(pageObj._choicesBg);
+			if(params.type == "location"){
+				//go to next page number
+				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+				pageObj._moveLocation(locIndex);
+			}
+			else {
+				var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];  //go to next statement based on ID of choice
+				pageObj._jump(jumpIndex);
+			}
+		};
+
+		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
+
+		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
+		choicesBg.material.opacity = 0.7;
+		this._addToScene(choicesBg);
+		this._choicesBg = choicesBg;
+	};
+
 
 	GNOVEL.Page = Page;
 }());
