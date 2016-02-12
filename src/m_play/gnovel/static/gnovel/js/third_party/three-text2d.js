@@ -1,3 +1,5 @@
+// Modified by Emily
+
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.THREE_Text = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -7,12 +9,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var fontHeightCache = {};
 
+// Modified drawText function which supports multiline text
 var CanvasText = (function () {
   function CanvasText() {
     _classCallCheck(this, CanvasText);
 
     this.textWidth = null;
     this.textHeight = null;
+
+    // The line spacing for multiline textbox
+    this.singlelineHeight = null;
 
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
@@ -25,19 +31,58 @@ var CanvasText = (function () {
 
       this.ctx.font = ctxOptions.font;
 
-      this.textWidth = Math.ceil(this.ctx.measureText(text).width);
-      this.textHeight = getFontHeight(this.ctx.font);
+      // Check if the text is long enough to split into multiple lines.
+      if(text.length > 72)
+      {
+        // calculate text width for multiline textbox 
+        var hlpArr = text.match(/.{1,72}/g);
+        this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
+      }
+      else
+        this.textWidth = Math.ceil(this.ctx.measureText(text).width);
+      this.textHeight = 4 * getFontHeight(this.ctx.font);
 
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
+
+      // calculate single line spacing
+      this.singlelineHeight = this.textHeight * 1.2;
 
       this.ctx.font = ctxOptions.font;
       this.ctx.fillStyle = ctxOptions.fillStyle;
       this.ctx.textAlign = 'left';
       this.ctx.textBaseline = 'top';
 
-      this.ctx.fillText(text, 0, 0);
+      // textArr is an array of text lines
+      var textArr = new Array();
+      textArr[0] = text;
+      if(text.length > 72)
+      {        
+        var wordsArr = text.split(" ");
+        var line = 0, curlength = 0;
+        textArr[0] = "";
+        // split text into single words first, and then add them to text lines one by one.
+        for (var i = 0; i < wordsArr.length; i++) {
+          curlength += wordsArr[i].length + 1;
+          if(curlength >= 72)
+          {
+            curlength = 0;
+            line++;
+            textArr[line] = "";
+            textArr[line] = textArr[line] + wordsArr[i] + " ";
+          }
+          else
+            textArr[line] = textArr[line] + wordsArr[i] + " ";
+        };
+      }
 
+      // fill text with different y coordinates for each line.
+      var x =0, y = 0;
+      for (var i = 0; i < textArr.length; i++) {
+        this.ctx.fillText(textArr[i], x, y);
+        y += this.singlelineHeight * 0.2;
+      };
+      
       return this.canvas;
     }
   }, {

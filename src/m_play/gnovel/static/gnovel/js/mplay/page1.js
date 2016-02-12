@@ -54,6 +54,46 @@ var MPLAY = MPLAY || {};
 		this._runAnim();
 	};
 
+	Page1.prototype._showDialog = function(message, x, y, z, params) {
+		this._curTextBox = this.createTextBox(message, params || {});
+		//this._curTextBox.position.set(x - 100, y, z + 20);
+
+		/**
+		*@function temporary tween decision on left & right.  should ultimately be based upon parent character's position
+		*/
+		//tween from the left
+		if(x < 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x - 100, y + 20, z + 20);
+		}
+		//tween from the right
+		else if(x > 0)
+		{
+			x = 0;
+			this._curTextBox.position.set(x + 100, y + 20, z + 20);
+		}
+		else {
+			this._curTextBox.position.set(x, y + 20, z + 20);
+		}
+
+		// add background textbox
+		var textBg = this.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+		textBg.material.opacity = 0;
+		this._addToScene(textBg);
+		this._textBg = textBg;
+
+		// alpha
+		this.tweenMat(this._curTextBox, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+		this.tweenMat(textBg, {duration : 1000, opacity : 0.7, easing : TWEEN.Easing.Cubic.Out});
+
+		// move
+		this.move(this._curTextBox, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+		this.move(textBg, {duration : 1000, x : x, easing : TWEEN.Easing.Cubic.Out});
+
+		this._addToScene(this._curTextBox);
+	};
+
 	Page1.prototype._jump = function(index) {
 		this._state = index - 1;
 		this._onNext();
@@ -80,13 +120,13 @@ var MPLAY = MPLAY || {};
 			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
-				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
+				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
 				break;
 			case 3:
 				this._showDialog("It will outline the objectives for the course..", 0, -220, 200);
 				break;
 			case 4:
-				this._showDialog("..as well as the graded assignments.", this._parentPosX, -220, 200);
+				this._showDialog("..as well as the graded assignments.", 0, -220, 200);
 				break;
 			case 5:
 				this._showDialog("Please reach out to the TAs if you have any questions. ", 0, -220, 200);
@@ -144,11 +184,8 @@ var MPLAY = MPLAY || {};
 				this._showDialog("I'm Juli.  This is my first winter here, and I was NOT prepared.", this._parentPosX, -220, 200);
 				break;
 			case 21:
-				//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {
-					x: -200,
-					z: 220
-				}, [22, 22]);
+			//the second choice is too long.
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. We've been lucky so far with this mild weather."], {x: -200, z: 220}, [22, 22]);
 				break;
 			case 22:
 				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", this._parentPosX, -220, 200);
