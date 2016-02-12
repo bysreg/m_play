@@ -1,4 +1,4 @@
-// namespace
+// namespace 
 var GNOVEL = GNOVEL || {};
 
 (function() {
@@ -8,7 +8,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 * @class Page
 	 * @constructor
-	 *
+	 * 
 	 */
 	var Page = function() {
 		this._owner = null;
@@ -16,7 +16,12 @@ var GNOVEL = GNOVEL || {};
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
-		this._flow = null;
+		this._flow = new GNOVEL.Flow(this);
+
+		this._curTextBox = null;
+		this._textBg = null;
+
+		this._result = {};
 
 		//create enum or struct of locations and pages
 		//which locations are with which pages, for reference
@@ -99,7 +104,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.playAnimation = function() {}
 
 	/**
-	 * This function will be called right before page is displayed on screen
+	 * This function will be called right before page is displayed on screen	 
 	 */
 	Page.prototype._onLoad = function() {};
 
@@ -178,7 +183,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
-	 * @return {int}
+	 * @return {int} 
 	 */
 	Page.prototype.getPageId = function() {
 		return this._id;
@@ -242,7 +247,7 @@ var GNOVEL = GNOVEL || {};
 		// var sprite = new THREE.Sprite(spriteMaterial);
 		// sprite.name = "Text Box";
 		// sprite.scale.set(100, 50, 1.0);
-		//
+		// 
 
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
@@ -270,8 +275,14 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	// will be called after load complete
-	Page.prototype._onStart = function() {
+	Page.prototype._onStart = function() {			
 		console.log("on start");
+	};
+
+	// will be called after onStart called
+	Page.prototype._runFlow = function() {
+		this._flow._set(this._createFlowElements());
+		this._flow._exec();
 	};
 
 	Page.prototype._showDialog = function(message, x, y, params) {
@@ -344,7 +355,7 @@ var GNOVEL = GNOVEL || {};
 		var waitUntilHidden = true;
 		if(params.waitUntilHidden != null) {
 			waitUntilHidden = params.waitUntilHidden;
-		}
+		}			
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
@@ -358,29 +369,31 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
-		this._choiceJumpArr = jumpArr;
 		var pageObj = this;
-		params.onChoiceComplete = function() {
-			pageObj._removeFromScene(pageObj._choicesBg);
-			if(params.type == "location"){
-				//go to next page number
-				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
-				pageObj._moveLocation(locIndex);
-			}
-			else {
-				var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];  //go to next statement based on ID of choice
-				pageObj._jump(jumpIndex);
-			}
-		};
-
-		this._choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-
 		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png", new THREE.Vector3(params.x + 200, -250, params.z - 20), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
+
+		params.onChoiceComplete = function() {
+			pageObj._removeFromScene(choicesBg);
+			var jumpIndex = jumpArr[pageObj._result.choiceId];			
+			//go to next statement based on ID of choice		
+			pageObj._jump(jumpIndex);			
+		};
+
+		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 		this._addToScene(choicesBg);
-		this._choicesBg = choicesBg;
 	};
 
+
+	Page.prototype._setFlowElements = function(flowelements) {
+		this._flow._setFlowElements(flowelements);
+	};
+
+	Page.prototype._createFlowElements = function() {
+		// derive this function on child classes to specify the flow elements
+		
+		return {};
+	};
 
 	GNOVEL.Page = Page;
 }());

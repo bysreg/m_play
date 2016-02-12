@@ -149,6 +149,7 @@ var GNOVEL = GNOVEL || {};
 
 	function _onStart(pageObj) {
 		pageObj._onStart();
+		pageObj._runFlow();
 	};
 
 	Gnovel.prototype._unload = function(page) {
