@@ -303,5 +303,9 @@ var GNOVEL = GNOVEL || {};
 		this._flow._setObjectTag(tag, obj);
 	};
 
+	Page.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
+		this._owner.goToPage(pageIndex, transitionType, transitionParam);
+	};
+
 	GNOVEL.Page = Page;
 }());

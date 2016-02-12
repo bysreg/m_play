@@ -20,6 +20,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.CHOICES = "choices";
 	Flow.SHOW = "show";
 	Flow.HIDE = "hide";
+	Flow.GOTO = "goto";
 
 	Flow.prototype._set = function(flowElements) {
 		this._elements = flowElements;
@@ -54,6 +55,9 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.HIDE:
 				this._handleHide(obj);
+				break;
+			case Flow.GOTO:
+				this._handleGoto(obj);
 				break;
 		}
 	};
@@ -118,7 +122,6 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Flow.prototype._handleChoices = function(obj) {
-		
 		// collect choices' text to its own array
 		var choicesTextArr = [];
 		for(var i = 0; i < obj.choices.length; i++) {
@@ -149,6 +152,19 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		this._page._hide(img, params);
+	};
+
+	Flow.prototype._handleGoto = function(obj) {
+		var pageIndex = obj.page;
+		var transitionType = obj.transition;
+
+		switch(transitionType) {
+			case "fade" :
+				transitionType = GNOVEL.TransitionType.FADE;
+				break;
+		};
+
+		this._page.goToPage(pageIndex, transitionType, null);
 	};
 
 	Flow.prototype._setObjectTag = function(tag, obj) {

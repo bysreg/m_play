@@ -59,16 +59,17 @@ var MPLAY = MPLAY || {};
 		var cat = "%cat";
 
 		var o = [
-			{type : "dialog", text : "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
-			{type : "choices", choices : [{text: "Not at all!", go: "#choice_number_1"}, {text : " Oh, what did you do before deciding to get your MBA?", go : "#choice_number_2"}]},
-			{type : "dialog", text : "you picked choice number 1", label : "choice_number_1"}, 
-			{type : "dialog", text : "you picked choice number 2", label : "choice_number_2"},			
-			{type : "show", img: professor},			
-			{type : "show", img: cat},
-			{type : "hide", img: professor, waitUntilHidden: false},
-			{type : "show", img: ryan}, 
-			{type : "hide", img: ryan},
-			{type : "hide", img: cat},
+			{type: "dialog", text: "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
+			{type: "choices", choices : [{text: "Not at all!", go: "#choice_number_1"}, {text : " Oh, what did you do before deciding to get your MBA?", go : "#choice_number_2"}]},
+			{type: "dialog", text: "you picked choice number 1", label : "choice_number_1"}, 
+			{type: "dialog", text: "you picked choice number 2", label : "choice_number_2"},			
+			{type: "show", img: professor},			
+			{type: "show", img: cat},
+			{type: "hide", img: professor, waitUntilHidden: false},
+			{type: "show", img: ryan}, 
+			{type: "hide", img: ryan},
+			{type: "hide", img: cat},
+			{type: "goto", page: 0, transition: "fade"},
 		];
 
 		return o;
