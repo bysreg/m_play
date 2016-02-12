@@ -91,16 +91,16 @@ var MPLAY = MPLAY || {};
 		if(x < 0)
 		{
 			x = 0;
-			this._curTextBox.position.set(x - 100, y, z + 20);
+			this._curTextBox.position.set(x - 100, y + 20, z + 20);
 		}
 		//tween from the right
 		else if(x > 0)
 		{
 			x = 0;
-			this._curTextBox.position.set(x + 100, y, z + 20);
+			this._curTextBox.position.set(x + 100, y + 20, z + 20);
 		}
 		else {
-			this._curTextBox.position.set(x, y, z + 20);
+			this._curTextBox.position.set(x, y + 20, z + 20);
 		}
 
 		// add background textbox
@@ -176,13 +176,13 @@ var MPLAY = MPLAY || {};
 				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
-				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
+				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
 				break;
 			case 3:
 				this._showDialog("It will outline the objectives for the course..", 0, -220, 200);
 				break;
 			case 4:
-				this._showDialog("..as well as the graded assignments.", this._parentPosX, -220, 200);
+				this._showDialog("..as well as the graded assignments.", 0, -220, 200);
 				break;
 			case 5:
 				this._showDialog("Please reach out to the TAs if you have any questions. ", 0, -220, 200);
@@ -238,7 +238,7 @@ var MPLAY = MPLAY || {};
 				break;
 			case 21:
 			//the second choice is too long.
-				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. "], {x: -200, z: 220}, [22, 22]);
+				this._showChoices(["I totally understand. I hate the cold.", "Just wait until you see some snow. We've been lucky so far with this mild weather."], {x: -200, z: 220}, [22, 22]);
 				break;
 			case 22:
 				this._showDialog("If you had told me before I got here that it would get below 0°C for months at a time...", this._parentPosX, -220, 200);
