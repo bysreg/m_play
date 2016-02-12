@@ -23,6 +23,16 @@ var GNOVEL = GNOVEL || {};
 
 		this._result = {};
 
+		//create enum or struct of locations and pages
+		//which locations are with which pages, for reference
+		/**
+		*class = 0
+		*library = 1
+		*home = 2
+		*coffee shop = 3
+		*
+		*/
+
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
 		window.addEventListener("scenePause", this.onPause.bind(this));
@@ -366,7 +376,15 @@ var GNOVEL = GNOVEL || {};
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(choicesBg);
 			var jumpIndex = jumpArr[pageObj._result.choiceId];
+			if(params.type == "location"){
+				//go to next page number
+				var locIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];
+				pageObj._moveLocation(locIndex);
+			}
+			else {
+				var jumpIndex = pageObj._choiceJumpArr[pageObj._result.choiceId];  //go to next statement based on ID of choice
 			pageObj._jump(jumpIndex);
+			}
 		};
 
 		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);

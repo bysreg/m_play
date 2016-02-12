@@ -59,13 +59,25 @@ var MPLAY = MPLAY || {};
 		this._onNext();
 	}
 
+	//go to new page & location based upon page ID from showChoices
+	//custom code can be put here to specify what this move to location thing should be like
+	Page1.prototype._moveLocation = function(index){
+		//this._state = index-1;
+		this._owner.goToPage(index, GNOVEL.TransitionType.FADE);
+	}
+
 	Page1.prototype._runAnim = function() {
 		switch (this._state) {
 			case 0:
 				this._show(this._professor);
 				break;
 			case 1:
-				this._showDialog("... And as we wrap up today's class", 0, -220, 200);
+				this._showChoices(["library","class"],{
+					x: -200,
+					z: 220,
+					type:"location",
+				}, [1, 2]);
+			//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
 				break;
 			case 2:
 				this._showDialog("..please be on the look out for the syllabus in your e-mail. ", 0, -220, 200);
@@ -90,7 +102,7 @@ var MPLAY = MPLAY || {};
 				break;
 			case 9:
 				this._showDialog("Remember, you'll be responsible for a group project midway through the semester.", 0, -220, 200);
-				break;			
+				break;
 			case 10:
 				this._hide(this._professor, {waitUntilHidden : false});
 				this._parentPosX = this._cat.position.x;
