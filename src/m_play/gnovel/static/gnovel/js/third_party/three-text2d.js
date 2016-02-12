@@ -40,7 +40,7 @@ var CanvasText = (function () {
       }
       else
         this.textWidth = Math.ceil(this.ctx.measureText(text).width);
-      this.textHeight = 4 * getFontHeight(this.ctx.font);
+      this.textHeight = getFontHeight(this.ctx.font);
 
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
@@ -74,6 +74,7 @@ var CanvasText = (function () {
           else
             textArr[line] = textArr[line] + wordsArr[i] + " ";
         };
+        this.canvas.height *= line;
       }
 
       // fill text with different y coordinates for each line.
