@@ -13,11 +13,13 @@ var GNOVEL = GNOVEL || {};
 		this._page = page;
 		this._elements = null;
 		this._labels = [];
+		this._objs = [];
 	};
 
 	Flow.DIALOG = "dialog";
 	Flow.CHOICES = "choices";
 	Flow.SHOW = "show";
+	Flow.HIDE = "hide";
 
 	Flow.prototype._set = function(flowElements) {
 		this._elements = flowElements;
@@ -50,6 +52,9 @@ var GNOVEL = GNOVEL || {};
 			case Flow.SHOW:
 				this._handleShow(obj);
 				break;
+			case Flow.HIDE:
+				this._handleHide(obj);
+				break;
 		}
 	};
 
@@ -77,16 +82,30 @@ var GNOVEL = GNOVEL || {};
 				
 				if(typeof (obj[prop]) === "string") {
 					// check if it starts with '#'
-					if(obj[prop].charAt(0) == '#') {
+					var c = obj[prop].charAt(0);
+					if(c == '#') {
 						var label = obj[prop].substring(1);
 						// search for that label in labels dictionary
-						obj[prop] = this._labels[label];
+						var value = this._labels[label];
+
+						if(value === null)
+							console.log("cannot find " + label);
+
+						obj[prop] = value;
+					} else if(c == '%') {
+						var label = obj[prop].substring(1);
+						// search for that label in objs dictionary
+						var value = this._objs[label];
+
+						if(value === null)
+							console.log("cannot find " + label);
+
+						obj[prop] = value;
 					}
-				}
-				else if(typeof(obj[prop]) === "object") {
+				} else if(typeof(obj[prop]) === "object") {
 					// recurse to this object
 					this._processParameters(obj[prop]);
-				}
+				}				
 			}
 		}
 	};
@@ -115,19 +134,25 @@ var GNOVEL = GNOVEL || {};
 		this._page._showChoices(choicesTextArr, null, jumpArr);
 	};
 
-	Flow.prototype._handleShow = function(obj) {
-		this._page.show(obj);
+	Flow.prototype._handleShow = function(obj) {	
+		var img = obj.img;
+
+		this._page._show(img);
 	};
 
 	Flow.prototype._handleHide = function(obj) {
 		var img = obj.img;
 		var params = {};
 
-		if(obj.waitUntilHidden) {
+		if(obj.waitUntilHidden != null) {
 			params.waitUntilHidden = obj.waitUntilHidden;
 		}
 
-		this._page.hide(obj, params);
+		this._page._hide(img, params);
+	};
+
+	Flow.prototype._setObjectTag = function(tag, obj) {
+		this._objs[tag] = obj;
 	};
 
 	GNOVEL.Flow = Flow;

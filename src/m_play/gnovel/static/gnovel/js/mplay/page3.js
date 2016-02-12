@@ -46,26 +46,29 @@ var MPLAY = MPLAY || {};
 		this._addToScene(this._catImg);
 
 		// add object tags
-		//this._setObjectTags
+		this._setObjectTag(this._professor, this._professorImg);
+		this._setObjectTag(this._juli, this._juliImg);
+		this._setObjectTag(this._ryan, this._ryanImg);
+		this._setObjectTag(this._cat, this._catImg);
 	};
 
 	Page3.prototype._createFlowElements = function() {
-		var professor = this._professor;
-		var juli = this._juli;
-		var ryan = this._ryan;
-		var cat = this._cat;
-
+		var professor = "%professor";
+		var juli = "%juli";
+		var ryan = "%ryan";
+		var cat = "%cat";
 
 		var o = [
-			{type : "dialog", who: professor, text : "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
+			{type : "dialog", text : "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
 			{type : "choices", choices : [{text: "Not at all!", go: "#choice_number_1"}, {text : " Oh, what did you do before deciding to get your MBA?", go : "#choice_number_2"}]},
-			{type : "dialog", who: professor, text : "you picked choice number 1", label : "choice_number_1"}, 
+			{type : "dialog", text : "you picked choice number 1", label : "choice_number_1"}, 
 			{type : "dialog", text : "you picked choice number 2", label : "choice_number_2"},			
-			//{type : "show", img: professor},
-
-			//{type : "hide", img: this._professor, waitUntilHidden : false}, 
-			//{type : "show", img: this._cat}, 
-
+			{type : "show", img: professor},			
+			{type : "show", img: cat},
+			{type : "hide", img: professor, waitUntilHidden: false},
+			{type : "show", img: ryan}, 
+			{type : "hide", img: ryan},
+			{type : "hide", img: cat},
 		];
 
 		return o;

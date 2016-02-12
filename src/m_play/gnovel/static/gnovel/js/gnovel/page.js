@@ -16,8 +16,7 @@ var GNOVEL = GNOVEL || {};
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
-		this._flow = new GNOVEL.Flow(this);
-		this._objectTags = {};
+		this._flow = new GNOVEL.Flow(this);		
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -236,7 +235,9 @@ var GNOVEL = GNOVEL || {};
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				pageObj._onNext();
+				// go to next flow
+				pageObj._flow._next();
+				pageObj._flow._exec();
 			}
 		});
 	};
@@ -252,11 +253,19 @@ var GNOVEL = GNOVEL || {};
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				if (params.waitUntilHidden) {
-					pageObj._onNext();
+				if (waitUntilHidden) {
+					// go to next flow
+					pageObj._flow._next();
+					pageObj._flow._exec();
 				}
 			}
 		});
+
+		if(!waitUntilHidden) {
+			// go to next flow
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		}
 	};
 
 	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
@@ -291,7 +300,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype._setObjectTag = function(tag, obj) {
-		this._objectTags[tag] = obj;
+		this._flow._setObjectTag(tag, obj);
 	};
 
 	GNOVEL.Page = Page;
