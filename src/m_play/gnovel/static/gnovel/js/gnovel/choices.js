@@ -74,7 +74,7 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(200 + startx, i * -30 + starty, startz + 10);
+			textbox.position.set(200 + startx, i * -60 + starty, startz + 10);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name

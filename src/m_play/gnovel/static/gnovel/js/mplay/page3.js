@@ -21,13 +21,8 @@ var MPLAY = MPLAY || {};
 	 */
 	Page3.prototype._onLoad = function() {
 		GNOVEL.Page.prototype._onLoad.call(this);
-		this._state = 0;
-		this._curTextBox = null;
-		this._result = {};
-		this._choiceJumpArr = {};
-		this._choices = null;
-		this._choicesBg = null;
-		this._textBg = null;
+		this._state = 0;		
+		this._result = {};				
 		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds11.jpg");

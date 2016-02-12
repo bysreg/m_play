@@ -125,15 +125,15 @@ var MPLAY = MPLAY || {};
 				this._show(this._professor);
 				break;
 			case 1:
+				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
+				break;
+			case 2:
 				this._showChoices(["library", "class"], {
 					x: -200,
 					z: 220,
 					type: "location",
 				}, [33, 34]);
 				//	this._showDialog("... And as we wrap up today's class", 0, -220, 200);
-				break;
-			case 2:
-				this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
 				break;
 			case 3:
 				this._showDialog("It will outline the objectives for the course..", 0, -220, 200);
@@ -248,12 +248,12 @@ var MPLAY = MPLAY || {};
 				this._showDialog("This semester should be better though - I know what's coming.", this._parentPosX, -220, 200);
 				break;
 			case 33:
-				// finish
-				this._owner.goToPage(2, GNOVEL.TransitionType.FADE);
+				// finish				
+				this._owner.goToPage(1, GNOVEL.TransitionType.FADE);
 				break;
 			case 34:
-				// finish
-				this._owner.goToPage(3, GNOVEL.TransitionType.FADE);
+				// finish				
+				this._owner.goToPage(2, GNOVEL.TransitionType.FADE);
 				break;
 		}
 	};
