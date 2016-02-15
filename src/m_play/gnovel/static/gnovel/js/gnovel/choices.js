@@ -136,10 +136,10 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	Choices.prototype._onMouseDown = function(event) {
-		var clickedObj;
-		event.preventDefault();
+	Choices.prototype._onMouseDown = function(event) {		 
 		var mouse = new THREE.Vector2();
+
+		event.preventDefault();		
 
 		mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
 		mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
@@ -150,7 +150,7 @@ var GNOVEL = GNOVEL || {};
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
 		if (intersects.length > 0 && !this._choosed) {
-			clickedObj = intersects[0].object;
+			var clickedObj = intersects[0].object;
 			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
@@ -158,7 +158,7 @@ var GNOVEL = GNOVEL || {};
 			for (var i = 0; i < this._choices.length; i++) {
 
 				if (this._choicesBox[i].children[0].name == intersects[0].object.name) {
-					console.log("clicked on " + i);
+					//console.log("clicked on " + i);
 					this._result.choiceId = i;
 				}
 			}
