@@ -16,7 +16,7 @@ var GNOVEL = GNOVEL || {};
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
-		this._flow = new GNOVEL.Flow(this);		
+		this._flow = new GNOVEL.Flow(this);
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -57,16 +57,25 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.createImage = function(path, position, width, height) {
 		var texture = THREE.ImageUtils.loadTexture(path);
-		var material = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			transparent: true,
-			map: texture
-		});
+			var material = new THREE.MeshBasicMaterial({
+				color: 0xffffff,
+				transparent: true,
+				map: texture
+			});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
 		var quad = new THREE.Mesh(plane, material);
+
+		if (typeof position === 'undefined' || position === null) {
+			position = new THREE.Vector3(0, 0, 0);
+		}
+		
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
+	};
+
+	Page.prototype.createInteractableObject = function(path, params) {
+		return new GNOVEL.InteractableObject(path, this, params);
 	};
 
 	Page.prototype.addCharacter = function(name, obj) {
@@ -207,7 +216,7 @@ var GNOVEL = GNOVEL || {};
 
 	// will be called after load complete
 	Page.prototype._onStart = function() {
-		console.log("on start");
+		//console.log("on start");
 	};
 
 	// will be called after onStart called
@@ -232,7 +241,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._show = function(obj) {
 		var pageObj = this;
 
-		if(pageObj.parent === null) {
+		if (obj.parent === null) {
 			this._addToScene(obj);
 		}
 
@@ -266,7 +275,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		});
 
-		if(!waitUntilHidden) {
+		if (!waitUntilHidden) {
 			// go to next flow
 			pageObj._flow._next();
 			pageObj._flow._exec();
@@ -283,9 +292,9 @@ var GNOVEL = GNOVEL || {};
 		params.onChoiceComplete = function() {
 			pageObj._removeFromScene(choicesBg);
 			var jumpIndex = jumpArr[pageObj._result.choiceId];
-	
+
 			// go to next flow
-			pageObj._flow._jump(jumpIndex);			
+			pageObj._flow._jump(jumpIndex);
 			pageObj._flow._exec();
 		};
 
