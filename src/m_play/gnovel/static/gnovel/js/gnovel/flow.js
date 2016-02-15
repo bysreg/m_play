@@ -9,11 +9,15 @@ var GNOVEL = GNOVEL || {};
 	 * @constructor
 	 */
 	var Flow = function(page) {
-		this._flowCounter = 0;
 		this._page = page;
-		this._elements = null;
-		this._labels = [];
 		this._objs = [];
+		this._reset();
+	};
+
+	Flow.prototype._reset = function() {
+		this._flowCounter = 0;		
+		this._elements = null;
+		this._labels = [];		
 	};
 
 	Flow.DIALOG = "dialog";
@@ -23,6 +27,11 @@ var GNOVEL = GNOVEL || {};
 	Flow.GOTO = "goto";
 
 	Flow.prototype._set = function(flowElements) {
+		this._reset();
+
+		if(flowElements == null)
+			flowElements = [];
+
 		this._elements = flowElements;
 		this._processLabels();		
 	};
