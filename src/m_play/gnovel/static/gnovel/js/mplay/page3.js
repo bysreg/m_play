@@ -30,6 +30,7 @@ var MPLAY = MPLAY || {};
 		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
 		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);
 
+
 		this._professorImg.material.opacity = 0;
 		this._juliImg.material.opacity = 0;
 		this._ryanImg.material.opacity = 0;
@@ -39,12 +40,7 @@ var MPLAY = MPLAY || {};
 		this._juli = "juli";
 		this._ryan = "ryan";
 		this._cat = "cat";
-
-		this._addToScene(this._professorImg);
-		this._addToScene(this._ryanImg);
-		this._addToScene(this._juliImg);
-		this._addToScene(this._catImg);
-
+		
 		// add object tags
 		this._setObjectTag(this._professor, this._professorImg);
 		this._setObjectTag(this._juli, this._juliImg);
@@ -69,6 +65,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan}, 
 			{type: "hide", img: ryan},
 			{type: "hide", img: cat},
+
 			{type: "goto", page: 0, transition: "fade"},
 		];
 

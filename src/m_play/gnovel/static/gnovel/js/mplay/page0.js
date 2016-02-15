@@ -31,6 +31,7 @@ var MPLAY = MPLAY || {};
 		this._juliImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
 		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
 		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);
+		this._button = this.createImage("/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", new THREE.Vector3(0, 0, 0), 256, 256);
 
 		this._professorImg.material.opacity = 0;
 		this._juliImg.material.opacity = 0;
@@ -40,12 +41,7 @@ var MPLAY = MPLAY || {};
 		this._professor = "professor";
 		this._juli = "juli";
 		this._ryan = "ryan";
-		this._cat = "cat";
-
-		this._addToScene(this._professorImg);
-		this._addToScene(this._ryanImg);
-		this._addToScene(this._juliImg);
-		this._addToScene(this._catImg);
+		this._cat = "cat";		
 
 		// add object tags
 		this._setObjectTag(this._professor, this._professorImg);

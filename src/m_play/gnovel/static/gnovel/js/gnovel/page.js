@@ -231,6 +231,11 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._show = function(obj) {
 		var pageObj = this;
+
+		if(pageObj.parent === null) {
+			this._addToScene(obj);
+		}
+
 		this.tweenMat(obj, {
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,

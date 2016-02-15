@@ -43,11 +43,6 @@ var MPLAY = MPLAY || {};
 		this._ryan = "ryan";
 		this._cat = "cat";
 
-		this._addToScene(this._professorImg);
-		this._addToScene(this._ryanImg);
-		this._addToScene(this._juliImg);
-		this._addToScene(this._catImg);
-
 		// add object tags
 		this._setObjectTag(this._professor, this._professorImg);
 		this._setObjectTag(this._juli, this._juliImg);
