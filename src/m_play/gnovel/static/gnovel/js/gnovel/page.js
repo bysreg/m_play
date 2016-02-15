@@ -20,6 +20,8 @@ var GNOVEL = GNOVEL || {};
 
 		this._curTextBox = null;
 		this._textBg = null;
+		this._curSpeker = null;
+		this._preSpeaker = null;
 
 		this._result = {};
 
@@ -234,8 +236,13 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		};
-
-		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
+		var curspk = this._getCurrentSpeaker();
+		var prespk = this._getPreviousSpeaker();
+		var hasTransition = true;
+		if(curspk == prespk)
+			hasTransition = false;
+		var dialog = new GNOVEL.Dialog(this, message, x, y, hasTransition, params);
+		this._setPreviousSpeaker(curspk);
 	};
 
 	Page.prototype._show = function(obj) {
@@ -320,6 +327,26 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
 		this._owner.goToPage(pageIndex, transitionType, transitionParam);
 	};
+
+	Page.prototype._setCurrentSpeaker = function(curspeaker) {
+		this._curSpeaker = curspeaker;
+	};
+
+	Page.prototype._setPreviousSpeaker = function(prespeaker) {
+		this._preSpeaker = prespeaker;
+	};
+
+	Page.prototype._getCurrentSpeaker = function() {		
+		return "A";
+	};
+
+	Page.prototype._getPreviousSpeaker = function() {
+		return "A";
+	};
+
+	Page.prototype._isDialogNext = function() {
+		return true;
+	}
 
 	GNOVEL.Page = Page;
 }());
