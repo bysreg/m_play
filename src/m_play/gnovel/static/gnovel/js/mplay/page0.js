@@ -75,22 +75,16 @@ var MPLAY = MPLAY || {};
 
 		if(this._talked == 1) {
 			o = [
-				{type: "dialog", text: "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
-				{type: "choices", choices : [{text: "Not at all!", go: "#choice_number_1"}, {text : " Oh, what did you do before deciding to get your MBA?", go : "#choice_number_2"}]},
-				{type: "dialog", text: "you picked choice number 1", label : "choice_number_1"}, 
-				{type: "dialog", text: "you picked choice number 2", label : "choice_number_2"},			
-				{type: "show", img: professor},			
-				{type: "show", img: cat},
-				{type: "hide", img: professor, waitUntilHidden: false},
 				{type: "show", img: ryan}, 
-				{type: "hide", img: ryan},
-				{type: "hide", img: cat},
-				//{type: "goto", page: 1, transition: "fade"},
+				{type: "dialog", text: "hi, i'm ryan"}, 
+				{type: "hide", img: ryan},				
 			];
 		}		
 		else if(this._talked == 2) {
 			o = [
-				{type: "dialog", text: "dialog with character number 2. bla bla"}, 
+				{type: "show", img: cat},
+				{type: "dialog", text: "hi, i'm cat", label : "choice_number_1"}, 
+				{type: "hide", img: cat},				
 			];
 		}
 		

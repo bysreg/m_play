@@ -27,6 +27,7 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject = {curPage : null, prevPage : null};
 		this._renderer = new THREE.WebGLRenderer();
 		this._raycaster = new THREE.Raycaster();
+		this._textureLoader = new THREE.TextureLoader();
 
 		var gnovel = this;
 
