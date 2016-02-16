@@ -67,26 +67,9 @@ var GNOVEL = GNOVEL || {};
 		var listener = new THREE.AudioListener();
 		camera.add(listener);
 
-		// ground's grid
-		/*
-		var helper = new THREE.GridHelper(500, 10);
-		helper.color1.setHex(0x444444);
-		helper.color2.setHex(0x444444);
-		helper.position.y = 0.1;
-		scene.add(helper);
-		*/		
-
-		var temp = this;
-		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
-		document.addEventListener('mousemove', function(event) { _onMouseMove(event, temp); }, false);
-	};
-
-	function _onMouseDown(event, gnovelObj) {		
-		gnovelObj._onMouseDown(event);
-	};
-	
-	function _onMouseMove(event, gnovelObj) {
-		gnovelObj._onMouseMove(event);
+		var gnovel = this;
+		document.addEventListener('mousedown', function(event) { gnovel._onMouseDown(event); }, false);
+		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
 	};
 
 	Gnovel.prototype.addPage = function(pageType) {
@@ -97,8 +80,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._addToScene = function(page, o) {		
-		this._pageRootObject[page.getPageId()].add(o);		
-		//this._scene.add(o);
+		this._pageRootObject[page.getPageId()].add(o);				
 	};
 
 	Gnovel.prototype._removeFromScene = function(page, o) {
