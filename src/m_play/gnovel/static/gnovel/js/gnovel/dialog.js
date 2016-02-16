@@ -13,20 +13,18 @@ var GNOVEL = GNOVEL || {};
 		this._params = params;
 		this._x = x;
 		this._y = y;
-		this._hasTransition = params.hasTransition;
+		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});				
 		this._tweenComplete = false;
 
-		var curspk = params._speaker;
+		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
-		var hasTransition = true;
-		
 		if(curspk == prespk)
-			hasTransition = false;
-		
-		params.hasTransition = hasTransition;
-
+		{
+			this._hasTransition = false;
+		}			
+	
 		this._init();
 
 		var dialog = this;
@@ -69,6 +67,7 @@ var GNOVEL = GNOVEL || {};
 		if(GNOVEL.Dialog._textBg != null && this._hasTransition){	
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 			GNOVEL.Dialog._textBg = null;
+			Dialog._prevSpeaker = null;
 		}
 
 		// add background textbox
@@ -110,6 +109,8 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._onComplete = function() {
+		Dialog._prevSpeaker = this._params.speaker;
+
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
