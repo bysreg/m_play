@@ -42,6 +42,13 @@ var GNOVEL = GNOVEL || {};
 		this._next();
 	};
 
+	Flow.prototype._peekNext = function() {
+		if(this._elements === null)
+			return null;
+
+		return this._elements[this._flowCounter + 1];
+	};
+
 	Flow.prototype._exec = function() {
 		var obj = this._elements[this._flowCounter];
 

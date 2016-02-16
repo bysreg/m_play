@@ -8,12 +8,12 @@ var GNOVEL = GNOVEL || {};
 	 * @class  Dialog
 	 * @constructor
 	 */
-	var Dialog = function(page, message, x, y, hasTransition, params) {
+	var Dialog = function(page, message, x, y, params) {
 		this._page = page;
 		this._params = params;
 		this._x = x;
 		this._y = y;
-		this._hasTransition = hasTransition;
+		this._hasTransition = params.hasTransition;
 		// this._textBg = null;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});				
@@ -101,7 +101,7 @@ var GNOVEL = GNOVEL || {};
 		document.removeEventListener('mousedown', this._mouseDownListener, false);
 
 		this._page._removeFromScene(this._curTextBox);
-		if(!this._page._isDialogNext()) {
+		if(!this._isDialogNext()) {
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 		}
 		this._curTextBox = null;
@@ -109,6 +109,10 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.onComplete != null) {
 			this._params.onComplete(this);
 		}
+	}
+
+	Dialog.prototype._isDialogNext = function() {
+		return this._flow._peekNext().type == GNOVEL.Flow.DIALOG;
 	}
 
 	GNOVEL.Dialog = Dialog;
