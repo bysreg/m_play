@@ -27,7 +27,7 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject = {curPage : null, prevPage : null};
 		this._renderer = new THREE.WebGLRenderer();
 		this._raycaster = new THREE.Raycaster();
-		this._textureLoader = new THREE.TextureLoader();
+		this._mouseDownListeners = [];
 
 		var gnovel = this;
 
@@ -92,6 +92,11 @@ var GNOVEL = GNOVEL || {};
 		var page = this.getCurrentPage();
 		if(page != null) {				
 			page._onMouseDown(event);
+		}
+
+		// notify all the listeners 
+		for(var i=0;i<this._mouseDownListeners.length;i++) {
+			this._mouseDownListeners[i](event);
 		}
 	};
 
@@ -190,6 +195,24 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._getPageRootObject = function(page) {
 		return this._pageRootObject[page.getPageId()];
+	};
+
+	Gnovel.prototype.addMouseDownListener = function(obj) {
+		this._mouseDownListeners.push(obj);
+	};
+
+	Gnovel.prototype.removeMouseDownListener = function(obj) {
+		var index = -1;
+		for(var i=0;i<this._mouseDownListeners.length;i++) {
+			if(this._mouseDownListeners[i] == obj) {
+				index = i;
+				break;
+			}
+		}
+
+		if(index != -1) {
+			this._mouseDownListeners.splice(index, 1);
+		}
 	};
 
 	GNOVEL.Gnovel = Gnovel;

@@ -14,10 +14,18 @@ var GNOVEL = GNOVEL || {};
 		this._x = x;
 		this._y = y;
 		this._hasTransition = params.hasTransition;
-		// this._textBg = null;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});				
 		this._tweenComplete = false;
+
+		var curspk = params._speaker;
+		var prespk = Dialog._prevSpeaker;
+		var hasTransition = true;
+		
+		if(curspk == prespk)
+			hasTransition = false;
+		
+		params.hasTransition = hasTransition;
 
 		this._init();
 
@@ -28,8 +36,14 @@ var GNOVEL = GNOVEL || {};
 				dialog._onComplete();
 			}			
 		}
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+		
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		//document.addEventListener('mousedown', this._mouseDownListener, false);
 	};
+
+	// static class variable
+	Dialog._textBg = null;
+	Dialog._prevSpeaker = null;
 
 	Dialog.prototype._init = function() {
 		var x = this._x;
@@ -98,6 +112,7 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._onComplete = function() {
 		//remove mousedown listener
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 		document.removeEventListener('mousedown', this._mouseDownListener, false);
 
 		this._page._removeFromScene(this._curTextBox);
@@ -109,11 +124,11 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.onComplete != null) {
 			this._params.onComplete(this);
 		}
-	}
+	};
 
 	Dialog.prototype._isDialogNext = function() {
-		return this._flow._peekNext().type == GNOVEL.Flow.DIALOG;
-	}
+		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
+	};
 
 	GNOVEL.Dialog = Dialog;
 }());

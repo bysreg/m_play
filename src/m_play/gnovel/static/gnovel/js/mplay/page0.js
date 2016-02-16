@@ -76,14 +76,17 @@ var MPLAY = MPLAY || {};
 		if(this._talked == 1) {
 			o = [
 				{type: "show", img: ryan}, 
-				{type: "dialog", text: "hi, i'm ryan"}, 
+				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 
+				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
+				{type: "dialog", speaker: "ryan", text: "xxxxxxx"},
+				{type: "dialog", speaker: "cat", text: "yeaooowwww"}, 
 				{type: "hide", img: ryan},				
 			];
 		}		
 		else if(this._talked == 2) {
 			o = [
 				{type: "show", img: cat},
-				{type: "dialog", text: "hi, i'm cat", label : "choice_number_1"}, 
+				{type: "dialog", speaker: "cat", text: "hi, i'm cat", label : "choice_number_1"}, 
 				{type: "hide", img: cat},				
 			];
 		}
