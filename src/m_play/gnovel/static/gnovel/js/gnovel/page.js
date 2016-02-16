@@ -241,8 +241,8 @@ var GNOVEL = GNOVEL || {};
 		var hasTransition = true;
 		if(curspk == prespk)
 			hasTransition = false;
-		var dialog = new GNOVEL.Dialog(this, message, x, y, hasTransition, params);
-		this._setPreviousSpeaker(curspk);
+		params.hasTransition = hasTransition;
+		var dialog = new GNOVEL.Dialog(this, message, x, y, params);		
 	};
 
 	Page.prototype._show = function(obj) {
@@ -343,10 +343,6 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._getPreviousSpeaker = function() {
 		return "A";
 	};
-
-	Page.prototype._isDialogNext = function() {
-		return true;
-	}
 
 	GNOVEL.Page = Page;
 }());
