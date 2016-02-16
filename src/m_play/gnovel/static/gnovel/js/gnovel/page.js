@@ -17,6 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
+		this._interactableObjects = [];
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -77,7 +78,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.createInteractableObject = function(path, params) {
-		return new GNOVEL.InteractableObject(path, this, params);
+		var ret = new GNOVEL.InteractableObject(path, this, params);
+		this._interactableObjects.push(ret);
+		return ret;
 	};
 
 	Page.prototype.addCharacter = function(name, obj) {
@@ -98,12 +101,6 @@ var GNOVEL = GNOVEL || {};
 		this._addToScene(hud);
 	}
 
-	Page.prototype.showChoice = function() {
-
-	}
-
-	Page.prototype.playAnimation = function() {}
-
 	/**
 	 * This function will be called right before page is displayed on screen	 
 	 */
@@ -113,11 +110,14 @@ var GNOVEL = GNOVEL || {};
 	 * This function will be called right before page is removed from screen
 	 *
 	 */
-	Page.prototype._onUnload = function() {};
-
-	Page.prototype._onMouseDown = function(event) {
-
+	Page.prototype._onUnload = function() {
+		// remove all interactable objects
+		for(var i=0;i<this._interactableObjects.length;i++) {
+			this._interactableObjects[i].remove();
+		}
 	};
+
+	Page.prototype._onMouseDown = function(event) {};
 
 	Page.prototype._onMouseMove = function(event) {};
 
