@@ -35,7 +35,8 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListener = function(event) {			
 			choices._onMouseDown(event);
 		};
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
 
 	Choices.prototype._init = function() {
@@ -120,7 +121,7 @@ var GNOVEL = GNOVEL || {};
 
 	Choices.prototype._onChoiceComplete = function() {
 		//remove mousedown listener
-		document.removeEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		// clean up all objects from scene
 		if (this._params.seconds != null && params.seconds > 0) {

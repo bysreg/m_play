@@ -30,10 +30,11 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListener = function(event) {			
 			io._onMouseDown(event);
 		};
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
 
-	InteractableObject.prototype._onMouseDown = function(event) {
+	InteractableObject.prototype._onMouseDown = function(event) {		
 		var mouse = new THREE.Vector2();
 
 		event.preventDefault();
@@ -53,6 +54,11 @@ var GNOVEL = GNOVEL || {};
 				this._params.onClick(this);
 			}
 		}
+	};
+
+	InteractableObject.prototype.remove = function() {
+		this._page.removeFromScene(this._img);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 	};
 
 	GNOVEL.InteractableObject = InteractableObject;

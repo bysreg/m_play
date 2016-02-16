@@ -13,12 +13,18 @@ var GNOVEL = GNOVEL || {};
 		this._params = params;
 		this._x = x;
 		this._y = y;
-		this._hasTransition = params.hasTransition;
-		// this._textBg = null;
+		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});				
 		this._tweenComplete = false;
 
+		var curspk = params.speaker;
+		var prespk = Dialog._prevSpeaker;
+		if(curspk == prespk)
+		{
+			this._hasTransition = false;
+		}			
+	
 		this._init();
 
 		var dialog = this;
@@ -28,8 +34,13 @@ var GNOVEL = GNOVEL || {};
 				dialog._onComplete();
 			}			
 		}
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+		
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
+
+	// static class variable
+	Dialog._textBg = null;
+	Dialog._prevSpeaker = null;
 
 	Dialog.prototype._init = function() {
 		var x = this._x;
@@ -56,6 +67,7 @@ var GNOVEL = GNOVEL || {};
 		if(GNOVEL.Dialog._textBg != null && this._hasTransition){	
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 			GNOVEL.Dialog._textBg = null;
+			Dialog._prevSpeaker = null;
 		}
 
 		// add background textbox
@@ -97,8 +109,10 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._onComplete = function() {
+		Dialog._prevSpeaker = this._params.speaker;
+
 		//remove mousedown listener
-		document.removeEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		this._page._removeFromScene(this._curTextBox);
 		if(!this._isDialogNext()) {
@@ -109,11 +123,11 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.onComplete != null) {
 			this._params.onComplete(this);
 		}
-	}
+	};
 
 	Dialog.prototype._isDialogNext = function() {
-		return this._flow._peekNext().type == GNOVEL.Flow.DIALOG;
-	}
+		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
+	};
 
 	GNOVEL.Dialog = Dialog;
 }());

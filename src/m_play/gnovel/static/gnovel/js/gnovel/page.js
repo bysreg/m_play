@@ -17,6 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
+		this._interactableObjects = [];
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -77,7 +78,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.createInteractableObject = function(path, params) {
-		return new GNOVEL.InteractableObject(path, this, params);
+		var ret = new GNOVEL.InteractableObject(path, this, params);
+		this._interactableObjects.push(ret);
+		return ret;
 	};
 
 	Page.prototype.addCharacter = function(name, obj) {
@@ -98,12 +101,6 @@ var GNOVEL = GNOVEL || {};
 		this._addToScene(hud);
 	}
 
-	Page.prototype.showChoice = function() {
-
-	}
-
-	Page.prototype.playAnimation = function() {}
-
 	/**
 	 * This function will be called right before page is displayed on screen	 
 	 */
@@ -113,11 +110,14 @@ var GNOVEL = GNOVEL || {};
 	 * This function will be called right before page is removed from screen
 	 *
 	 */
-	Page.prototype._onUnload = function() {};
-
-	Page.prototype._onMouseDown = function(event) {
-
+	Page.prototype._onUnload = function() {
+		// remove all interactable objects
+		for(var i=0;i<this._interactableObjects.length;i++) {
+			this._interactableObjects[i].remove();
+		}
 	};
+
+	Page.prototype._onMouseDown = function(event) {};
 
 	Page.prototype._onMouseMove = function(event) {};
 
@@ -190,6 +190,10 @@ var GNOVEL = GNOVEL || {};
 		return this._id;
 	};
 
+	Page.prototype.getOwner = function() {
+		return this._owner;
+	};
+
 	Page.prototype.createTextBox = function(message, parameters) {
 		var textAlign = THREE_Text.textAlign;
 		var SpriteText2D = THREE_Text.SpriteText2D;
@@ -236,12 +240,7 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		};
-		var curspk = this._getCurrentSpeaker();
-		var prespk = this._getPreviousSpeaker();
-		var hasTransition = true;
-		if(curspk == prespk)
-			hasTransition = false;
-		params.hasTransition = hasTransition;
+
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);		
 	};
 
@@ -328,20 +327,8 @@ var GNOVEL = GNOVEL || {};
 		this._owner.goToPage(pageIndex, transitionType, transitionParam);
 	};
 
-	Page.prototype._setCurrentSpeaker = function(curspeaker) {
-		this._curSpeaker = curspeaker;
-	};
-
-	Page.prototype._setPreviousSpeaker = function(prespeaker) {
-		this._preSpeaker = prespeaker;
-	};
-
-	Page.prototype._getCurrentSpeaker = function() {		
-		return "A";
-	};
-
-	Page.prototype._getPreviousSpeaker = function() {
-		return "A";
+	Page.prototype._getFlow = function() {
+		return this._flow;
 	};
 
 	GNOVEL.Page = Page;

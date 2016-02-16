@@ -141,8 +141,10 @@ var GNOVEL = GNOVEL || {};
 	Flow.prototype._handleDialog = function(obj) {
 		var x = obj.x || 0; // optional
 		var y = obj.y || 0; // optional
+		var params = {};
+		params.speaker = obj.speaker;
 
-		this._page._showDialog(obj.text, x, y);
+		this._page._showDialog(obj.text, x, y, params);
 	};
 
 	Flow.prototype._handleChoices = function(obj) {
