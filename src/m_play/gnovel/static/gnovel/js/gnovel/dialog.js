@@ -37,8 +37,7 @@ var GNOVEL = GNOVEL || {};
 			}			
 		}
 		
-		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
-		//document.addEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
 
 	// static class variable
@@ -112,8 +111,7 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._onComplete = function() {
 		//remove mousedown listener
-		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
-		document.removeEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		this._page._removeFromScene(this._curTextBox);
 		if(!this._isDialogNext()) {
