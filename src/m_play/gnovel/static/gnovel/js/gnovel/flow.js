@@ -25,6 +25,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.SHOW = "show";
 	Flow.HIDE = "hide";
 	Flow.GOTO = "goto";
+	Flow.COMPARE = "compare";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -67,6 +68,9 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.GOTO:
 				this._handleGoto(obj);
+				break;
+			case Flow.COMPARE:
+				this._handleCompare(obj);
 				break;
 		}
 	};
@@ -175,6 +179,35 @@ var GNOVEL = GNOVEL || {};
 
 		this._page.goToPage(pageIndex, transitionType, null);
 	};
+
+	Flow.prototype._handleCompare = function(obj) {
+		var diff = obj.leftop - obj.rightop;
+		var result;
+		switch(obj.operator) {
+			case "equal" :
+				result = (diff === 0);
+				break;
+			case "less" :
+				result = (diff < 0);
+				break;
+			case "greater" :
+				result = (diff > 0);
+				break;
+			case "less equal" :
+				result = (diff <= 0);
+				break;
+			case "greater equal" :
+				result = (diff >= 0);
+				break;
+		}
+		if(result) {
+			this._jump(obj.goTrue);
+		}
+		else {
+			this._jump(obj.goFalse);
+		}
+		this._exec();
+	}
 
 	Flow.prototype._setObjectTag = function(tag, obj) {
 		this._objs[tag] = obj;
