@@ -126,6 +126,10 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._isDialogNext = function() {
+		if(this._page._getFlow()._peekNext() == null) {
+			return null;
+		}			
+
 		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
 	};
 
