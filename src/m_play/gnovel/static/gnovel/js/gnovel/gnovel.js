@@ -28,6 +28,7 @@ var GNOVEL = GNOVEL || {};
 		this._renderer = new THREE.WebGLRenderer();
 		this._raycaster = new THREE.Raycaster();
 		this._mouseDownListeners = [];
+		this._started = false; // will be true if onStart is finished
 
 		var gnovel = this;
 
@@ -88,6 +89,8 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {	
+		if(!this._onStart) return;
+
 		//console.log("on mouse down");	
 		var page = this.getCurrentPage();
 		if(page != null) {				
@@ -101,6 +104,8 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseMove = function(event) {
+		if(!this._onStart) return;
+		
 		//console.log("on mouse move");	
 		var page = this.getCurrentPage();
 		if(page != null) {
@@ -119,6 +124,7 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._load = function(page) {
 		var pageRoot = new THREE.Object3D();
+		var gnovel = this;
 		pageRoot.name = "Page Root";
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		this._scene.add(pageRoot);
@@ -131,12 +137,16 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				val: 1,
 			}, loadDuration * 1000)
-			.onComplete(function() {_onStart(page)});		
+			.onComplete(function() {
+				_onStart(page);
+				gnovel._onStart = true;
+				console.log("gnovel started");
+			});		
 		tween.start();		
 	};
 
 	function _onStart(pageObj) {
-		pageObj._onStart();
+		pageObj._onStart();		
 		pageObj._runFlow();
 	};
 
