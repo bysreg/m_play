@@ -26,6 +26,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.HIDE = "hide";
 	Flow.GOTO = "goto";
 	Flow.COMPARE = "compare";
+	Flow.JUMP = "jump";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -78,6 +79,9 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.COMPARE:
 				this._handleCompare(obj);
+				break;
+			case Flow.JUMP:
+				this._handleJump(obj);
 				break;
 		}
 	};
@@ -208,6 +212,16 @@ var GNOVEL = GNOVEL || {};
 				break;
 		}
 		if(result) {
+			this._jump(obj.goTrue);
+		}
+		else {
+			this._jump(obj.goFalse);
+		}
+		this._exec();
+	}
+
+	Flow.prototype._handleJump = function(obj) {
+		if (obj.condition) {
 			this._jump(obj.goTrue);
 		}
 		else {
