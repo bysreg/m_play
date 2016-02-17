@@ -13,7 +13,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 *@class Gnovel
 	 *@constructor
-	 * 
+	 *
 	 */
 	var Gnovel = function() {
 
@@ -35,7 +35,7 @@ var GNOVEL = GNOVEL || {};
 		document.body.appendChild( container );
 
 		var camera = this._camera;
-		camera.position.z = 900;		
+		camera.position.z = 900;
 
 		var scene = this._scene;
 
@@ -46,13 +46,13 @@ var GNOVEL = GNOVEL || {};
 
 		// setup render loop
 		var render = function () {
-			requestAnimationFrame(render);			
+			requestAnimationFrame(render);
 			TWEEN.update();
 			renderer.render(scene, camera);
 
 			if(gnovel._stats !== null) {
 				gnovel._stats.update();
-			}				
+			}
 		};
 		render();
 
@@ -74,21 +74,25 @@ var GNOVEL = GNOVEL || {};
 		helper.color2.setHex(0x444444);
 		helper.position.y = 0.1;
 		scene.add(helper);
-		*/		
+		*/
 
 		var temp = this;
 		document.addEventListener('mousedown', function(event) { _onMouseDown(event, temp); }, false);
 		document.addEventListener('mousemove', function(event) { _onMouseMove(event, temp); }, false);
 	};
 
-	function _onMouseDown(event, gnovelObj) {		
+	function _onMouseDown(event, gnovelObj) {
 		gnovelObj._onMouseDown(event);
 	};
-	
+
 	function _onMouseMove(event, gnovelObj) {
 		gnovelObj._onMouseMove(event);
 	};
 
+	Gnovel.prototype.getContainer = function()
+	{
+		return this._container;
+	}
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
 		page._setPageId(this._pages.length);
@@ -96,8 +100,8 @@ var GNOVEL = GNOVEL || {};
 		this._pages.push(page);
 	};
 
-	Gnovel.prototype._addToScene = function(page, o) {		
-		this._pageRootObject[page.getPageId()].add(o);		
+	Gnovel.prototype._addToScene = function(page, o) {
+		this._pageRootObject[page.getPageId()].add(o);
 		//this._scene.add(o);
 	};
 
@@ -105,16 +109,16 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject[page.getPageId()].remove(o);
 	};
 
-	Gnovel.prototype._onMouseDown = function(event) {	
-		//console.log("on mouse down");	
+	Gnovel.prototype._onMouseDown = function(event) {
+		//console.log("on mouse down");
 		var page = this.getCurrentPage();
-		if(page != null) {				
+		if(page != null) {
 			page._onMouseDown(event);
 		}
 	};
 
 	Gnovel.prototype._onMouseMove = function(event) {
-		//console.log("on mouse move");	
+		//console.log("on mouse move");
 		var page = this.getCurrentPage();
 		if(page != null) {
 			page._onMouseMove(event);
@@ -144,8 +148,8 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				val: 1,
 			}, loadDuration * 1000)
-			.onComplete(function() {_onStart(page)});		
-		tween.start();		
+			.onComplete(function() {_onStart(page)});
+		tween.start();
 	};
 
 	function _onStart(pageObj) {
@@ -173,12 +177,12 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
-		// FIXME : for now regardless of transitionType and transitionParam, 
+		// FIXME : for now regardless of transitionType and transitionParam,
 		// the transition is going to be FADE
 		var curPage = this.getCurrentPage();
 		var nextPage = this.getPageAt(pageIndex);
 
-		// load the next page first 
+		// load the next page first
 		this._load(nextPage);
 
 		var transition = new GNOVEL.Transition(1000);
@@ -189,7 +193,7 @@ var GNOVEL = GNOVEL || {};
 		this._curPageIdx = pageIndex;
 	};
 
-	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {		
+	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {
 		// unload the previous page
 		gnovelObj._unload(gnovelObj._prevPage);
 	};
