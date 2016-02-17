@@ -115,7 +115,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: ryan},
 				{type: "show", img: cat},
 				{type: "dialog", speaker: "cat", text: "Thank you! I’ll run over there after this. Lifesaver!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#hidecat", integrityScore: 0}, {text : "Happy to help.", go : "#hidecat", integrityScore: 0}], label: "choices"},
+				{type: "choices", choices : [{text: "No Problem.", go: "#hidecat", relationship: {name:"cat", score:0}}, {text : "Happy to help.", go : "#hidecat", integrityScore: 0, relationship: {name:"cat", score:0}}], label: "choices"},
 				{type: "hide", img: cat, label: "hidecat"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 				{type: "dialog", speaker: "ryan", text: "I think we saw a phone on the bar at Scotties, right? Maybe it’s yours.", label: "phone_notpicked"},

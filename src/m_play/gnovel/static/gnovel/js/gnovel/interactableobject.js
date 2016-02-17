@@ -83,7 +83,6 @@ var GNOVEL = GNOVEL || {};
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects([this._img], true);
 		if (intersects.length > 0) {
-
 			if(this._hoveredObj != intersects[0].object){
 
 				this._hoveredObj = intersects[0].object;
@@ -104,10 +103,8 @@ var GNOVEL = GNOVEL || {};
 					this._page._owner.getContainer().style.cursor = 'auto';
 			}
 			this._hoveredObj = null;
-
 		}
-
-		console.log("interactable object is hovered");
+		//console.log("interactable object is hovered");
 	};
 
 	GNOVEL.InteractableObject = InteractableObject;

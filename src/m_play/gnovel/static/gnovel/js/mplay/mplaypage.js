@@ -12,10 +12,16 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.call(this);
 
 		this._integrityManager = null;
+		this._relationshipManager = null;
 
 		// we will only have one instance of IntegrityManager
 		if(MPlayPage._integrityManager == null) {
 			this._integrityManager = new MPLAY.IntegrityManager();
+		}
+
+		// we will also have only one instance of RelationshipManager
+		if(MPlayPage._relationshipManager == null) {
+			this._relationshipManager = new MPLAY.RelationshipManager();
 		}
 	};
 
@@ -24,6 +30,7 @@ var MPLAY = MPLAY || {};
 	
 	// class static variable
 	MPlayPage._integrityManager = null;
+	MPlayPage._relationshipManager = null;
 
 	/**
 	 * @override
@@ -32,6 +39,7 @@ var MPLAY = MPLAY || {};
 		params = params || {};
 		var flowElement = params.flowElement;
 		var integrityManager = this._integrityManager;
+		var relationshipManager = this._relationshipManager;
 
 		params.onChoiceComplete = function(resultId) {
 			// if flowElement is not defined and not null (not falsy)
@@ -40,7 +48,15 @@ var MPLAY = MPLAY || {};
 					flowElement.choices[resultId].integrityScore != null) {
 
 					integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
-				}					
+				}
+				
+				if(typeof flowElement.choices[resultId].relationship !== 'undefined' && 
+					flowElement.choices[resultId].relationship != null) {
+
+					var name = flowElement.choices[resultId].relationship.name;
+					var score = flowElement.choices[resultId].relationship.score;
+					relationshipManager.addRelationship(name, score);
+				}
 			}
 		};
 
