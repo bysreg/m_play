@@ -46,7 +46,7 @@ var GNOVEL = GNOVEL || {};
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects([this._img], true);
 		if (intersects.length > 0) {
-			var clickedObj = intersects[0].object;
+			var clickedObj = intersects[0].object;			
 
 			console.log("interactable object is clicked");
 
