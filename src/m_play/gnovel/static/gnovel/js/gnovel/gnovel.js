@@ -28,6 +28,7 @@ var GNOVEL = GNOVEL || {};
 		this._renderer = new THREE.WebGLRenderer();
 		this._raycaster = new THREE.Raycaster();
 		this._mouseDownListeners = [];
+		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
 
 		var gnovel = this;
@@ -76,7 +77,8 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype.getContainer = function()
 	{
 		return this._container;
-	}
+	};
+
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
 		page._setPageId(this._pages.length);
@@ -114,6 +116,11 @@ var GNOVEL = GNOVEL || {};
 		var page = this.getCurrentPage();
 		if(page != null) {
 			page._onMouseMove(event);
+		}
+
+		// notify all the listeners 
+		for(var i=0;i<this._mouseMoveListeners.length;i++) {
+			this._mouseMoveListeners[i](event);
 		}
 	};
 
@@ -216,17 +223,17 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.removeMouseDownListener = function(obj) {
-		var index = -1;
-		for(var i=0;i<this._mouseDownListeners.length;i++) {
-			if(this._mouseDownListeners[i] == obj) {
-				index = i;
-				break;
-			}
-		}
+		var index = GNOVEL.Util.findElement(this._mouseDownListeners, obj);
+		if(index != -1) this._mouseDownListeners.splice(index, 1);
+	};
 
-		if(index != -1) {
-			this._mouseDownListeners.splice(index, 1);
-		}
+	Gnovel.prototype.addMouseMoveListener = function(obj) {
+		this._mouseMoveListeners.push(obj);
+	};
+
+	Gnovel.prototype.removeMouseMoveListener = function(obj) {
+		var index = GNOVEL.Util.findElement(this._mouseMoveListeners, obj);
+		if(index != -1) this._mouseMoveListeners.splice(index, 1);	
 	};
 
 	GNOVEL.Gnovel = Gnovel;

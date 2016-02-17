@@ -33,18 +33,20 @@ var GNOVEL = GNOVEL || {};
 		this._page._addToScene(this._img);
 
 		var io = this;
+		this._mouseDownListener = function(event) {
 			io._onMouseDown(event);
 		};
 
-		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+
 		this._mouseMoveListener = function(event) {
 			io._onMouseMove(event);
 		};
-		document.addEventListener('mousemove', this._mouseMoveListener, false);
+
+		this._page.getOwner().addMouseMoveListener(this._mouseMoveListener);		
 	};
 
 	InteractableObject.prototype._onMouseDown = function(event) {		
-
 		event.preventDefault();
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
@@ -68,10 +70,10 @@ var GNOVEL = GNOVEL || {};
 	InteractableObject.prototype.remove = function() {
 		this._page.removeFromScene(this._img);
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
+		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
 	};
+
 	InteractableObject.prototype._onMouseMove = function(event){
-
-
 		event.preventDefault();
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
@@ -105,8 +107,7 @@ var GNOVEL = GNOVEL || {};
 
 		}
 
-
-			console.log("interactable object is hovered");
+		console.log("interactable object is hovered");
 	};
 
 	GNOVEL.InteractableObject = InteractableObject;
