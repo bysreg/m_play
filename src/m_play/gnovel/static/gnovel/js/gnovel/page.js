@@ -17,6 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._id = -1; // id for gnovel
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
+		this._interactableObjects = [];
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -43,7 +44,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true,
 			map: texture
 		});
-		var plane = new THREE.PlaneBufferGeometry(1024, 768);
+		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
 		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";
 
@@ -77,7 +78,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.createInteractableObject = function(path, params) {
-		return new GNOVEL.InteractableObject(path, this, params);
+		var ret = new GNOVEL.InteractableObject(path, this, params);
+		this._interactableObjects.push(ret);
+		return ret;
 	};
 
 	Page.prototype.addCharacter = function(name, obj) {
@@ -98,12 +101,6 @@ var GNOVEL = GNOVEL || {};
 		this._addToScene(hud);
 	}
 
-	Page.prototype.showChoice = function() {
-
-	}
-
-	Page.prototype.playAnimation = function() {}
-
 	/**
 	 * This function will be called right before page is displayed on screen	 
 	 */
@@ -113,11 +110,14 @@ var GNOVEL = GNOVEL || {};
 	 * This function will be called right before page is removed from screen
 	 *
 	 */
-	Page.prototype._onUnload = function() {};
-
-	Page.prototype._onMouseDown = function(event) {
-
+	Page.prototype._onUnload = function() {
+		// remove all interactable objects
+		for(var i=0;i<this._interactableObjects.length;i++) {
+			this._interactableObjects[i].remove();
+		}
 	};
+
+	Page.prototype._onMouseDown = function(event) {};
 
 	Page.prototype._onMouseMove = function(event) {};
 
@@ -156,24 +156,6 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.onEnter = function(evt) {};
 	Page.prototype.onExit = function(evt) {};
 
-
-	// function for drawing rounded rectangles
-	function roundRect(ctx, x, y, w, h, r) {
-		ctx.beginPath();
-		ctx.moveTo(x + r, y);
-		ctx.lineTo(x + w - r, y);
-		ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-		ctx.lineTo(x + w, y + h - r);
-		ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-		ctx.lineTo(x + r, y + h);
-		ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-		ctx.lineTo(x, y + r);
-		ctx.quadraticCurveTo(x, y, x + r, y);
-		ctx.closePath();
-		ctx.fill();
-		ctx.stroke();
-	}
-
 	/**
 	 * Page identifier. Will be set by Gnovel object
 	 * @param {int} id
@@ -190,9 +172,12 @@ var GNOVEL = GNOVEL || {};
 		return this._id;
 	};
 
+	Page.prototype.getOwner = function() {
+		return this._owner;
+	};
+
 	Page.prototype.createTextBox = function(message, parameters) {
-		var textAlign = THREE_Text.textAlign;
-		var SpriteText2D = THREE_Text.SpriteText2D;
+		var textAlign = THREE_Text.textAlign;		
 		var Text2D = THREE_Text.Text2D;
 		var sprite = new Text2D(message, {
 			align: textAlign.center,
@@ -236,13 +221,8 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		};
-		var curspk = this._getCurrentSpeaker();
-		var prespk = this._getPreviousSpeaker();
-		var hasTransition = true;
-		if(curspk == prespk)
-			hasTransition = false;
-		var dialog = new GNOVEL.Dialog(this, message, x, y, hasTransition, params);
-		this._setPreviousSpeaker(curspk);
+
+		var dialog = new GNOVEL.Dialog(this, message, x, y, params);		
 	};
 
 	Page.prototype._show = function(obj) {
@@ -296,14 +276,27 @@ var GNOVEL = GNOVEL || {};
 			new THREE.Vector3(params.x + 200, -250, 190), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
 
-		params.onChoiceComplete = function() {
+		// if params.onChoiceComplete is not null then we add another onChoiceComplete
+		var onChoiceComplete = function(resultId) {
 			pageObj._removeFromScene(choicesBg);
-			var jumpIndex = jumpArr[pageObj._result.choiceId];
+			var jumpIndex = jumpArr[resultId];
 
 			// go to next flow
 			pageObj._flow._jump(jumpIndex);
 			pageObj._flow._exec();
 		};
+
+		// if params.onChoiceComplete is undefined or null (or falsy)
+		if(!params.onChoiceComplete) {
+			params.onChoiceComplete = onChoiceComplete;
+		}else{
+			// there is already function specified in that
+			var oriChoiceComplete = params.onChoiceComplete;
+			params.onChoiceComplete = function(resultId) {
+				oriChoiceComplete(resultId);
+				onChoiceComplete(resultId);
+			};
+		}
 
 		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 		this._addToScene(choicesBg);
@@ -316,7 +309,6 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._createFlowElements = function() {
 		// derive this function on child classes to specify the flow elements
-
 		return {};
 	};
 
@@ -328,25 +320,9 @@ var GNOVEL = GNOVEL || {};
 		this._owner.goToPage(pageIndex, transitionType, transitionParam);
 	};
 
-	Page.prototype._setCurrentSpeaker = function(curspeaker) {
-		this._curSpeaker = curspeaker;
+	Page.prototype._getFlow = function() {
+		return this._flow;
 	};
-
-	Page.prototype._setPreviousSpeaker = function(prespeaker) {
-		this._preSpeaker = prespeaker;
-	};
-
-	Page.prototype._getCurrentSpeaker = function() {		
-		return "A";
-	};
-
-	Page.prototype._getPreviousSpeaker = function() {
-		return "A";
-	};
-
-	Page.prototype._isDialogNext = function() {
-		return true;
-	}
 
 	GNOVEL.Page = Page;
 }());

@@ -33,17 +33,17 @@ var GNOVEL = GNOVEL || {};
 		this._page._addToScene(this._img);
 
 		var io = this;
-		this._mouseDownListener = function(event) {
 			io._onMouseDown(event);
 		};
+
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 		this._mouseMoveListener = function(event) {
 			io._onMouseMove(event);
 		};
-		document.addEventListener('mousedown', this._mouseDownListener, false);
 		document.addEventListener('mousemove', this._mouseMoveListener, false);
 	};
 
-	InteractableObject.prototype._onMouseDown = function(event) {
+	InteractableObject.prototype._onMouseDown = function(event) {		
 
 		event.preventDefault();
 
@@ -54,7 +54,7 @@ var GNOVEL = GNOVEL || {};
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects([this._img], true);
 		if (intersects.length > 0) {
-			var clickedObj = intersects[0].object;
+			var clickedObj = intersects[0].object;			
 
 			console.log("interactable object is clicked");
 
@@ -65,6 +65,10 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
+	InteractableObject.prototype.remove = function() {
+		this._page.removeFromScene(this._img);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
+	};
 	InteractableObject.prototype._onMouseMove = function(event){
 
 

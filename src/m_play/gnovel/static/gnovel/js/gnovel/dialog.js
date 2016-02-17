@@ -8,17 +8,23 @@ var GNOVEL = GNOVEL || {};
 	 * @class  Dialog
 	 * @constructor
 	 */
-	var Dialog = function(page, message, x, y, hasTransition, params) {
+	var Dialog = function(page, message, x, y, params) {
 		this._page = page;
 		this._params = params;
 		this._x = x;
 		this._y = y;
-		this._hasTransition = hasTransition;
-		// this._textBg = null;
+		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});				
 		this._tweenComplete = false;
 
+		var curspk = params.speaker;
+		var prespk = Dialog._prevSpeaker;
+		if(curspk == prespk)
+		{
+			this._hasTransition = false;
+		}			
+	
 		this._init();
 
 		var dialog = this;
@@ -28,8 +34,13 @@ var GNOVEL = GNOVEL || {};
 				dialog._onComplete();
 			}			
 		}
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+		
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
+
+	// static class variable
+	Dialog._textBg = null;
+	Dialog._prevSpeaker = null;
 
 	Dialog.prototype._init = function() {
 		var x = this._x;
@@ -56,6 +67,7 @@ var GNOVEL = GNOVEL || {};
 		if(GNOVEL.Dialog._textBg != null && this._hasTransition){	
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 			GNOVEL.Dialog._textBg = null;
+			Dialog._prevSpeaker = null;
 		}
 
 		// add background textbox
@@ -97,11 +109,13 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._onComplete = function() {
+		Dialog._prevSpeaker = this._params.speaker;
+
 		//remove mousedown listener
-		document.removeEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		this._page._removeFromScene(this._curTextBox);
-		if(!this._page._isDialogNext()) {
+		if(!this._isDialogNext()) {
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 		}
 		this._curTextBox = null;
@@ -109,7 +123,15 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.onComplete != null) {
 			this._params.onComplete(this);
 		}
-	}
+	};
+
+	Dialog.prototype._isDialogNext = function() {
+		if(this._page._getFlow()._peekNext() == null) {
+			return null;
+		}			
+
+		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
+	};
 
 	GNOVEL.Dialog = Dialog;
 }());

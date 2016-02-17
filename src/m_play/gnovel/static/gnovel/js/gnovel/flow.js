@@ -25,6 +25,8 @@ var GNOVEL = GNOVEL || {};
 	Flow.SHOW = "show";
 	Flow.HIDE = "hide";
 	Flow.GOTO = "goto";
+	Flow.COMPARE = "compare";
+	Flow.JUMP = "jump";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -39,6 +41,13 @@ var GNOVEL = GNOVEL || {};
 	Flow.prototype._jump = function(index) {
 		this._flowCounter = index - 1;
 		this._next();
+	};
+
+	Flow.prototype._peekNext = function() {
+		if(this._elements === null)
+			return null;
+
+		return this._elements[this._flowCounter + 1];
 	};
 
 	Flow.prototype._exec = function() {
@@ -67,6 +76,12 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.GOTO:
 				this._handleGoto(obj);
+				break;
+			case Flow.COMPARE:
+				this._handleCompare(obj);
+				break;
+			case Flow.JUMP:
+				this._handleJump(obj);
 				break;
 		}
 	};
@@ -125,9 +140,11 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleDialog = function(obj) {
 		var x = obj.x || 0; // optional
-		var y = obj.y || 0; // optional
+		var y = obj.y || -250; // optional
+		var params = {};
+		params.speaker = obj.speaker;
 
-		this._page._showDialog(obj.text, x, y);
+		this._page._showDialog(obj.text, x, y, params);
 	};
 
 	Flow.prototype._handleChoices = function(obj) {
@@ -143,7 +160,11 @@ var GNOVEL = GNOVEL || {};
 			jumpArr.push(obj.choices[i].go);
 		}
 
-		this._page._showChoices(choicesTextArr, null, jumpArr);
+		// pass the original flow element to params
+		var params = {};
+		params.flowElement = obj;
+
+		this._page._showChoices(choicesTextArr, params, jumpArr);
 	};
 
 	Flow.prototype._handleShow = function(obj) {	
@@ -175,6 +196,45 @@ var GNOVEL = GNOVEL || {};
 
 		this._page.goToPage(pageIndex, transitionType, null);
 	};
+
+	Flow.prototype._handleCompare = function(obj) {
+		var diff = obj.leftop - obj.rightop;
+		var result;
+		switch(obj.operator) {
+			case "equal" :
+				result = (diff === 0);
+				break;
+			case "less" :
+				result = (diff < 0);
+				break;
+			case "greater" :
+				result = (diff > 0);
+				break;
+			case "less equal" :
+				result = (diff <= 0);
+				break;
+			case "greater equal" :
+				result = (diff >= 0);
+				break;
+		}
+		if(result) {
+			this._jump(obj.goTrue);
+		}
+		else {
+			this._jump(obj.goFalse);
+		}
+		this._exec();
+	}
+
+	Flow.prototype._handleJump = function(obj) {
+		if (obj.condition) {
+			this._jump(obj.goTrue);
+		}
+		else {
+			this._jump(obj.goFalse);
+		}
+		this._exec();
+	}
 
 	Flow.prototype._setObjectTag = function(tag, obj) {
 		this._objs[tag] = obj;

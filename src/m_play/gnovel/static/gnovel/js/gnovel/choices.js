@@ -35,7 +35,8 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListener = function(event) {			
 			choices._onMouseDown(event);
 		};
-		document.addEventListener('mousedown', this._mouseDownListener, false);
+
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
 	};
 
 	Choices.prototype._init = function() {
@@ -58,7 +59,7 @@ var GNOVEL = GNOVEL || {};
 
 		var textbox;
 		var startx = this._params.x || -200;
-		var starty = this._params.y || 0;
+		var starty = this._params.y || -200;
 		var startz = this._params.z || 220;
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
@@ -76,7 +77,7 @@ var GNOVEL = GNOVEL || {};
 					a: 0.8
 				}
 			});
-			textbox.position.set(200 + startx, i * -100 + starty, startz + 10);
+			textbox.position.set(200 + startx, i * -50 + starty, startz + 10);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
@@ -101,18 +102,18 @@ var GNOVEL = GNOVEL || {};
 	 * This function will only be called by this class when params.seconds > 0
 	 */
 	Choices.prototype._countdown = function() {
-		var timer = this;
+		var choices = this;
 		var tween = new TWEEN.Tween(this.timer.position).to({
 			x: 390,
 			y: -350,
 			z: -100
 		}, this._params.seconds * 1000).onComplete(function() {
-			if (timer._choosed) {
+			if (choices._choosed) {
 				// do nothing, because we already call _Page3 on mouse down
 			} else {
 				// auto select the first option
-				this._result.choiceId = 0;
-				timer._onChoiceComplete();
+				choices._result.choiceId = 0;
+				choices._onChoiceComplete(choices._result.choiceId);
 			}
 		});
 		tween.start();
@@ -120,7 +121,7 @@ var GNOVEL = GNOVEL || {};
 
 	Choices.prototype._onChoiceComplete = function() {
 		//remove mousedown listener
-		document.removeEventListener('mousedown', this._mouseDownListener, false);
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		// clean up all objects from scene
 		if (this._params.seconds != null && params.seconds > 0) {
@@ -132,7 +133,7 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		if (this._params.onChoiceComplete != null) {
-			this._params.onChoiceComplete(this);
+			this._params.onChoiceComplete(this._result.choiceId);
 		}
 	};
 
@@ -164,10 +165,6 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			this._onChoiceComplete();
-		} else {
-			/*go back one step and display the previous thing if a location choice was display.
-			 *otherwise, make the textbox dissapear and go back one step.
-			 */
 		}
 	};
 

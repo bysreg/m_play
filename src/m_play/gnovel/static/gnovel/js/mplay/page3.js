@@ -7,20 +7,20 @@ var MPLAY = MPLAY || {};
 	/**
 	 *
 	 * @class Page3
-	 * @augments GNOVEL.Page
+	 * @augments MPLAY.MPlayPage
 	 */
 	var Page3 = function() {
-		GNOVEL.Page.call(this);
+		MPLAY.MPlayPage.call(this);
 	};
 
-	Page3.prototype = Object.create(GNOVEL.Page.prototype);
+	Page3.prototype = Object.create(MPLAY.MPlayPage.prototype);
 	Page3.prototype.constructor = Page3;
 
 	/**
 	 * @override
 	 */
 	Page3.prototype._onLoad = function() {
-		GNOVEL.Page.prototype._onLoad.call(this);		
+		MPLAY.MPlayPage.prototype._onLoad.call(this);		
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
