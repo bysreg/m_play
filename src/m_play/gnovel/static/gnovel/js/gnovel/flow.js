@@ -160,7 +160,11 @@ var GNOVEL = GNOVEL || {};
 			jumpArr.push(obj.choices[i].go);
 		}
 
-		this._page._showChoices(choicesTextArr, null, jumpArr);
+		// pass the original flow element to params
+		var params = {};
+		params.flowElement = obj;
+
+		this._page._showChoices(choicesTextArr, params, jumpArr);
 	};
 
 	Flow.prototype._handleShow = function(obj) {	
