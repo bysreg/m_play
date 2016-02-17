@@ -7,20 +7,20 @@ var MPLAY = MPLAY || {};
 	/**
 	 *
 	 * @class Page2
-	 * @augments GNOVEL.Page
+	 * @augments MPLAY.MPlayPage
 	 */
 	var Page2 = function() {
-		GNOVEL.Page.call(this);
+		MPLAY.MPlayPage.call(this);
 	};
 
-	Page2.prototype = Object.create(GNOVEL.Page.prototype);
+	Page2.prototype = Object.create(MPLAY.MPlayPage.prototype);
 	Page2.prototype.constructor = Page2;
 
 	/**
 	 * @override
 	 */
 	Page2.prototype._onLoad = function() {
-		GNOVEL.Page.prototype._onLoad.call(this);
+		MPLAY.MPlayPage.prototype._onLoad.call(this);
 		this._state = 0;						
 		this._parentPosX = 0;
 
