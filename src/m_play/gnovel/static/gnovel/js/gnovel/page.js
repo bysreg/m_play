@@ -44,7 +44,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true,
 			map: texture
 		});
-		var plane = new THREE.PlaneBufferGeometry(1024, 768);
+		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
 		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";
 
