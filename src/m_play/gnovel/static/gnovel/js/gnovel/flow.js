@@ -140,7 +140,7 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleDialog = function(obj) {
 		var x = obj.x || 0; // optional
-		var y = obj.y || 0; // optional
+		var y = obj.y || -250; // optional
 		var params = {};
 		params.speaker = obj.speaker;
 

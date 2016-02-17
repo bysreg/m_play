@@ -28,10 +28,10 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds8.jpg");
 
 		//create images
-		this._professorImg = this.createImage("/static/gnovel/res/textures/char/prof sweeney- thoughtful.png", new THREE.Vector3(75, -130, 180), 600, 750);
+		this._professorImg = this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(75, -130, 180), 600, 750);
 		this._priyaImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
 		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);
+		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(450, -130, 100), 600, 750);
 
 		this._talked = 0;
 
@@ -90,34 +90,51 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: ryan},
 				{type: "show", img: priya, position: "left"},
 				{type: "dialog", speaker: "priya", text: "RYAN here helped me with some of my writing last semester. Always willing to be my study partner. I think I annoyed him most of the time. Anyway, nice to meet you"},
+				{type: "hide", img: priya},
 				{type: "show", img: cat, position: "right"},
 				{type: "dialog", speaker: "cat", text: "Hey I’m Cat. I’m in Tepper. I think I’m going to be in over my head a little here in a CS class It’s been an adjustment coming back to school."},
+				{type: "hide", img: cat},
 				{type: "show", img: ryan, position: "center"},
 				{type: "dialog", speaker: "ryan", text: "Oh, don’t sweat it, Cat. We’ll help you out if you get stuck."},
+				{type: "hide", img: ryan},
+				{type: "show", img: cat},
 				{type: "dialog", speaker: "cat", text: "Sorry - I’m a little all over the place. I lost my phone yesterday."},
+				{type: "hide", img: cat},
 				{type: "compare", leftop: isPhonePickedUp, operator: "equal", rightop: 1, goTrue: "#phone_picked", goFalse: "#phone_notpicked"},
-				{type: "dialog", speaker: "ryan", text: "Were you at Scottie’s Bar yesterday? " + player +" found a phone there.", label: "phone_picked"},
+				{type: "show", img: ryan, label: "phone_picked"},
+				{type: "dialog", speaker: "ryan", text: "Were you at Scottie’s Bar yesterday? " + player +" found a phone there."},
+				{type: "hide", img: ryan},
+				{type: "show", img: cat},
 				{type: "dialog", speaker: "cat", text: "Oh my God, do you guys have it with you?"},
+				{type: "hide", img: cat},
+				{type: "show", img: ryan},
 				{type: "compare", leftop: isPhoneWithYou, operator: "equal", rightop: 1, goTrue: "#phone_withyou", goFalse: "#phone_notwithyou"},
 				{type: "dialog", speaker: "ryan", text: "Yeah, " + player + " has it, right?", label: "phone_withyou"},
+				{type: "hide", img: ryan},
+				{type: "show", img: cat},
 				{type: "dialog", speaker: "cat", text: "Oh my God - you charged it too? You’ve totally restored my faith in humanity."},
 				{type: "jump", condition: true, goTrue: "#choices", goFalse: 1000},
 				{type: "dialog", speaker: "ryan", text: "We left it with the bartender.", label: "phone_notwithyou"},
+				{type: "hide", img: ryan},
+				{type: "show", img: cat},
 				{type: "dialog", speaker: "cat", text: "Thank you! I’ll run over there after this. Lifesaver!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#choice_number_1"}, {text : "Happy to help.", go : "#choice_number_2"}], label: "choices"},
+				{type: "choices", choices : [{text: "No Problem.", go: "#hidecat"}, {text : "Happy to help.", go : "#hidecat"}], label: "choices"},
+				{type: "hide", img: cat, label: "hidecat"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 				{type: "dialog", speaker: "ryan", text: "I think we saw a phone on the bar at Scotties, right? Maybe it’s yours.", label: "phone_notpicked"},
 				{type: "dialog", speaker: "cat", text: "Oh, uh thanks. I’ll call them."},
+				{type: "hide", img: cat},
 			];
 		}
 		else if(this._talked == 1) {
 			o = [
+				{type: "show", img: ryan},
 				{type: "dialog", speaker: "ryan", text: "What did I tell you, that karma!"},
-				{type: "dialog", speaker: "ryan", text: "test"},
 			];
 		}
 		else if(this._talked == 2) {
 			o = [
+				{type: "show", img: priya},
 				{type: "dialog", speaker: "priya", text: "What are the chances!"},
 			];
 		}
