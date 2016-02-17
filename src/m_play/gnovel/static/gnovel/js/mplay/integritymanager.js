@@ -8,7 +8,7 @@ var MPLAY = MPLAY || {};
 	 * @class  IntegrityManager
 	 */
 	var IntegrityManager = function() {
-		this._score = 0;
+		this._score = 0;		
 	};
 
 	IntegrityManager.prototype.addIntegrity = function(val) {
