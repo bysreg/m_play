@@ -102,18 +102,18 @@ var GNOVEL = GNOVEL || {};
 	 * This function will only be called by this class when params.seconds > 0
 	 */
 	Choices.prototype._countdown = function() {
-		var timer = this;
+		var choices = this;
 		var tween = new TWEEN.Tween(this.timer.position).to({
 			x: 390,
 			y: -350,
 			z: -100
 		}, this._params.seconds * 1000).onComplete(function() {
-			if (timer._choosed) {
+			if (choices._choosed) {
 				// do nothing, because we already call _Page3 on mouse down
 			} else {
 				// auto select the first option
-				this._result.choiceId = 0;
-				timer._onChoiceComplete();
+				choices._result.choiceId = 0;
+				choices._onChoiceComplete(choices._result.choiceId);
 			}
 		});
 		tween.start();
@@ -133,7 +133,7 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		if (this._params.onChoiceComplete != null) {
-			this._params.onChoiceComplete(this);
+			this._params.onChoiceComplete(this._result.choiceId);
 		}
 	};
 
@@ -165,10 +165,6 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			this._onChoiceComplete();
-		} else {
-			/*go back one step and display the previous thing if a location choice was display.
-			 *otherwise, make the textbox dissapear and go back one step.
-			 */
 		}
 	};
 
