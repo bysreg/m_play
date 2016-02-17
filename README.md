@@ -28,13 +28,22 @@
   - install visual express 2010
 - add <installation to python 3.4.3>\Scripts;
 - run pip install -r /src/requirements.txt
-- create postgresql localhost database called "m_play"
-- add user "m_play" with password "test"
-- go to manage folder
-- run python manage.py migrate
-- run python manage.py runserver
+- create postgresql localhost database called "m_play_test"
+- add postgresql user "m_play_test" with password "test"
+- run /scripts/run_localhost.bat for windows or /scripts/run_localhost.sh for linux
+- the localhost server should be up and running in 127.0.0.1:8000/gnovel/
 
-#### sensitive_config file
+####Setting up linux production server
+- install all server requirements
+- run pip3 install -r /src/requirements.txt
+- create file named sensitive_config (see [sensitive_config file section](#sensitive_config))
+- create postgresql database specified by DB_NAME in sensitive_config
+- add postgresql user specified by DB_USERNAME in sensitive_config with DB_PASSWORD
+- run /scripts/setup.sh
+- run /scripts/run_production.sh
+- the production server should be up and running in link <HOSTNAME>/gnovel
+
+#### sensitive_config file <a name="sensitive_config">
 sensitive_config file is mandatory to have for production server. The file
 should be placed in /src. NEVER PUT sensitive_config TO VERSION CONTROL. 
 sensitive_config should contain one json oject with this property:
