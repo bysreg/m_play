@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);		
 
-		this.setBackground("/static/gnovel/res/textures/steven_universeXworlds8.jpg");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/uc final layers png.png");
 
 		//create images
 		this._professorImg = this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(75, -130, 180), 600, 750);

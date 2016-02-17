@@ -13,7 +13,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 *@class Gnovel
 	 *@constructor
-	 * 
+	 *
 	 */
 	var Gnovel = function() {
 
@@ -36,7 +36,7 @@ var GNOVEL = GNOVEL || {};
 		document.body.appendChild( container );
 
 		var camera = this._camera;
-		camera.position.z = 900;		
+		camera.position.z = 900;
 
 		var scene = this._scene;
 
@@ -47,13 +47,13 @@ var GNOVEL = GNOVEL || {};
 
 		// setup render loop
 		var render = function () {
-			requestAnimationFrame(render);			
+			requestAnimationFrame(render);
 			TWEEN.update();
 			renderer.render(scene, camera);
 
 			if(gnovel._stats !== null) {
 				gnovel._stats.update();
-			}				
+			}
 		};
 		render();
 
@@ -73,6 +73,10 @@ var GNOVEL = GNOVEL || {};
 		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
 	};
 
+	Gnovel.prototype.getContainer = function()
+	{
+		return this._container;
+	}
 	Gnovel.prototype.addPage = function(pageType) {
 		var page = new pageType();
 		page._setPageId(this._pages.length);
@@ -93,7 +97,7 @@ var GNOVEL = GNOVEL || {};
 
 		//console.log("on mouse down");	
 		var page = this.getCurrentPage();
-		if(page != null) {				
+		if(page != null) {
 			page._onMouseDown(event);
 		}
 
@@ -170,12 +174,12 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
-		// FIXME : for now regardless of transitionType and transitionParam, 
+		// FIXME : for now regardless of transitionType and transitionParam,
 		// the transition is going to be FADE
 		var curPage = this.getCurrentPage();
 		var nextPage = this.getPageAt(pageIndex);
 
-		// load the next page first 
+		// load the next page first
 		this._load(nextPage);
 
 		var transition = new GNOVEL.Transition(1000);
@@ -186,7 +190,7 @@ var GNOVEL = GNOVEL || {};
 		this._curPageIdx = pageIndex;
 	};
 
-	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {		
+	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {
 		// unload the previous page
 		gnovelObj._unload(gnovelObj._prevPage);
 	};
