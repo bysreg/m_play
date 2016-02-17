@@ -156,24 +156,6 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.onEnter = function(evt) {};
 	Page.prototype.onExit = function(evt) {};
 
-
-	// function for drawing rounded rectangles
-	function roundRect(ctx, x, y, w, h, r) {
-		ctx.beginPath();
-		ctx.moveTo(x + r, y);
-		ctx.lineTo(x + w - r, y);
-		ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-		ctx.lineTo(x + w, y + h - r);
-		ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-		ctx.lineTo(x + r, y + h);
-		ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-		ctx.lineTo(x, y + r);
-		ctx.quadraticCurveTo(x, y, x + r, y);
-		ctx.closePath();
-		ctx.fill();
-		ctx.stroke();
-	}
-
 	/**
 	 * Page identifier. Will be set by Gnovel object
 	 * @param {int} id
@@ -195,8 +177,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.createTextBox = function(message, parameters) {
-		var textAlign = THREE_Text.textAlign;
-		var SpriteText2D = THREE_Text.SpriteText2D;
+		var textAlign = THREE_Text.textAlign;		
 		var Text2D = THREE_Text.Text2D;
 		var sprite = new Text2D(message, {
 			align: textAlign.center,
@@ -295,14 +276,27 @@ var GNOVEL = GNOVEL || {};
 			new THREE.Vector3(params.x + 200, -250, 190), 900, 145.5);
 		choicesBg.material.opacity = 0.7;
 
-		params.onChoiceComplete = function() {
+		// if params.onChoiceComplete is not null then we add another onChoiceComplete
+		var onChoiceComplete = function(resultId) {
 			pageObj._removeFromScene(choicesBg);
-			var jumpIndex = jumpArr[pageObj._result.choiceId];
+			var jumpIndex = jumpArr[resultId];
 
 			// go to next flow
 			pageObj._flow._jump(jumpIndex);
 			pageObj._flow._exec();
 		};
+
+		// if params.onChoiceComplete is undefined or null (or falsy)
+		if(!params.onChoiceComplete) {
+			params.onChoiceComplete = onChoiceComplete;
+		}else{
+			// there is already function specified in that
+			var oriChoiceComplete = params.onChoiceComplete;
+			params.onChoiceComplete = function(resultId) {
+				oriChoiceComplete(resultId);
+				onChoiceComplete(resultId);
+			};
+		}
 
 		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 		this._addToScene(choicesBg);
@@ -315,7 +309,6 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._createFlowElements = function() {
 		// derive this function on child classes to specify the flow elements
-
 		return {};
 	};
 

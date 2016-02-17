@@ -12,7 +12,9 @@ var MPLAY = MPLAY || {};
 	};
 
 	IntegrityManager.prototype.addIntegrity = function(val) {
-		this._score += val;
+		this._score += val;		
+
+		console.log("add integrity score : " + val);
 
 		if(this._score < 0) this._score = 0;
 	};
@@ -22,4 +24,5 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPLAY.IntegrityManager = IntegrityManager;
+
 }());
