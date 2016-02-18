@@ -78,16 +78,21 @@ var MPLAY = MPLAY || {};
 
 		if(this._talked == 0) {
 			o = [
+				// transition of this flow doesn't work
 				{type: "show", img: professor, position: "center", waitUntilShown: false},
 				{type: "dialog", speaker: "professor", text: "My aim in Programming and Society is to help you become a better programmer. Technology impacts how society operates. I will challenge you to look deeper into the programs, apps, and technologies that you use."},
 				{type: "dialog", speaker: "professor", text: "The second half of each lesson will break into your assigned study groups. Please use this time wisely, you’ll have a group project later in the semester."}, 
 				{type: "hide", img: professor, waitUntilHidden: false},
 				{type: "show", img: ryan, position: "center", waitUntilShown: false},
 				{type: "dialog", speaker: "ryan", text: "Awesome! Both you and Priya are in my group. This is Priya. She’s super smart, speaks like a bajillion languages. Too cool for me."},
+				// transition of this flow doesn't work
 				{type: "hide", img: ryan, waitUntilHidden: false},
+				// transition of this flow doesn't work
 				{type: "show", img: priya, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "priya", text: "RYAN here helped me with some of my writing last semester. Always willing to be my study partner. I think I annoyed him most of the time. Anyway, nice to meet you"},
+				// transition of this flow doesn't work
 				{type: "hide", img: priya, waitUntilHidden: false},
+				// transition of this flow doesn't work
 				{type: "show", img: cat, position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "cat", text: "Hey I’m Cat. I’m in Tepper. I think I’m going to be in over my head a little here in a CS class It’s been an adjustment coming back to school."},
 				{type: "hide", img: cat, waitUntilHidden: false},
