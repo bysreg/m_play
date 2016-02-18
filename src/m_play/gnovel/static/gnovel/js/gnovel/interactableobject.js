@@ -67,8 +67,7 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	InteractableObject.prototype.remove = function() {
-		this._page.removeFromScene(this._img);
+	InteractableObject.prototype.remove = function() {		
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
 	};
