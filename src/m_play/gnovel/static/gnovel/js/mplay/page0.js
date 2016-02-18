@@ -80,7 +80,17 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
 				{type: "dialog", speaker: "ryan", text: "xxxxxxx"},
 				{type: "dialog", speaker: "cat", text: "yeaooowwww"}, 
-				{type: "hide", img: ryan},				
+				{type: "hide", img: ryan},
+				{type: "choices", choices : [{text: "good decision", go: "#integrityScore"}, {text : "bad decision", go : "#integrityScore", integrityScore: -1}], label: "choices"},
+				{type: "custom", label: "integrityScore", func: function(page) {
+					return page._integrityManager.getIntegrity();
+				}},
+
+				{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: 0, goTrue: "#good", goFalse: "#bad"},
+				{type: "dialog", speaker: "ryan", text: "you have good ending", label: "good"}, 
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000}, 
+				{type: "dialog", speaker: "ryan", text: "you have bad ending", label: "bad"}, 
+				{type: "goto", page: 1},
 			];
 		}		
 		else if(this._talked == 2) {
