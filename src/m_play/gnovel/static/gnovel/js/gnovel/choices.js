@@ -18,6 +18,7 @@ var GNOVEL = GNOVEL || {};
 		this._result = result;
 		this._params = params || {};
 		this._mouseDownListener = null;
+		this._mouseMoveListener = null;
 
 		this._choicesBox = [];
 		this._uiElements = [];
@@ -32,11 +33,15 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		var choices = this;
-		this._mouseDownListener = function(event) {			
+		this._mouseDownListener = function(event) {
 			choices._onMouseDown(event);
 		};
+		this._mouseMoveListener = function(event) {
+			choices._onMouseMove(event);
+		};
 
-		this._page.getOwner().addMouseDownListener(this._mouseDownListener);		
+		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		this._page.getOwner().addMouseMoveListener(this._mouseMoveListener);
 	};
 
 	Choices.prototype._init = function() {
@@ -58,6 +63,9 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		var textbox;
+		var mouse = new THREE.Vector2(), hoveredChoice;
+		this._mouse = mouse;
+		this._hoveredChoice = hoveredChoice;
 		var startx = this._params.x || -200;
 		var starty = this._params.y || -200;
 		var startz = this._params.z || 220;
@@ -96,7 +104,7 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(loc1);
 			this._page._addToScene(loc2);
 		}
-	};	
+	};
 
 	/**
 	 * This function will only be called by this class when params.seconds > 0
@@ -121,7 +129,7 @@ var GNOVEL = GNOVEL || {};
 
 	Choices.prototype._onChoiceComplete = function() {
 		//remove mousedown listener
-		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 
 		// clean up all objects from scene
 		if (this._params.seconds != null && params.seconds > 0) {
@@ -137,16 +145,15 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	Choices.prototype._onMouseDown = function(event) {		 
-		var mouse = new THREE.Vector2();
+	Choices.prototype._onMouseDown = function(event) {
 
-		event.preventDefault();		
+		event.preventDefault();
 
-		mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
-		mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
+		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
 
 		//update picking ray with camera and mouse pos
-		this._page._owner._raycaster.setFromCamera(mouse, this._page._owner.getCamera());
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
@@ -166,6 +173,48 @@ var GNOVEL = GNOVEL || {};
 
 			this._onChoiceComplete();
 		}
+	};
+
+	Choices.prototype._onMouseMove = function(event){
+
+		event.preventDefault();
+
+		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
+		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+
+		//update picking ray with camera and mouse pos
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
+		if (intersects.length > 0) {
+			if(this._hoveredChoice != intersects[0].object){
+
+				this._hoveredChoice = intersects[0].object;
+				//do hover effect on intersected object
+				this._hoveredChoice.currentHex = this._hoveredChoice.material.color.getHex();
+				this._hoveredChoice.material.color.setHex(0xff0000);
+
+				for (var i = 0; i < this._choices.length; i++) {
+
+					if (this._choicesBox[i].children[0].name == intersects[0].object.name) {
+						console.log("clicked on " + i);
+					}
+				}
+			}
+
+			//on hover change mouse cursor to pointer
+			this._page._owner.getContainer().style.cursor = 'pointer';
+		}
+		else{
+			//reset hover effect, and set back to normal
+			if(this._hoveredChoice)
+			{
+				this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
+					this._page._owner.getContainer().style.cursor = 'auto';
+			}
+			this._hoveredChoice = null;
+		}
+		//console.log("interactable object is hovered");
 	};
 
 	GNOVEL.Choices = Choices;
