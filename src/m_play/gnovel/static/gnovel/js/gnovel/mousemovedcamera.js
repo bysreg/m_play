@@ -22,8 +22,8 @@ var GNOVEL = GNOVEL || {};
 		var mouseY = -( event.clientY - window.innerHeight / 2 ) / 4;
 		var camera = gnovelObj.getCamera();
 
-		camera.position.x += ( mouseX - camera.position.x ) * .01;
-		camera.position.y += ( mouseY - camera.position.y ) * .01;
+		camera.position.x += ( mouseX - camera.position.x ) * .002;
+		camera.position.y += ( mouseY - camera.position.y ) * .002;
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
 	};
 
