@@ -14,9 +14,7 @@ var MPLAY = MPLAY || {};
 	IntegrityManager.prototype.addIntegrity = function(val) {
 		this._score += val;		
 
-		console.log("add integrity score : " + val);
-
-		if(this._score < 0) this._score = 0;
+		console.log("add integrity score : " + val + " now score is " + this._score);		
 	};
 
 	IntegrityManager.prototype.getIntegrity = function() {
