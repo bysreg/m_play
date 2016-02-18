@@ -67,7 +67,7 @@ var GNOVEL = GNOVEL || {};
 		if(GNOVEL.Dialog._textBg != null && this._hasTransition){	
 			this._page._removeFromScene(GNOVEL.Dialog._textBg);
 			GNOVEL.Dialog._textBg = null;
-			Dialog._prevSpeaker = null;
+			GNOVEL.Dialog._prevSpeaker = null;
 		}
 
 		// add background textbox
