@@ -75,7 +75,7 @@ var MPLAY = MPLAY || {};
 
 		if(this._talked == 1) {
 			o = [
-				{type: "show", img: ryan}, 
+				{type: "show", img: ryan, waitUntilShown: false}, 
 				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 
 				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
 				{type: "hide", img: ryan},

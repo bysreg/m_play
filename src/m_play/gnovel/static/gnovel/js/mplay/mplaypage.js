@@ -63,6 +63,9 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
 	};
 
+	/**
+	 * @override
+	 */
 	MPlayPage.prototype._showDialog = function(message, x, y, params) {
 		params = params || {};
 		var flowElement = params.flowElement;
@@ -72,7 +75,7 @@ var MPLAY = MPLAY || {};
 		var relationshipThreshold = flowElement.relationshipThreshold || 0;
 		var expression = null;
 
-		int textId = 0;
+		var textId = 0;
 
 		// threshold values
 		if(typeof relationshipThreshold !== 'undefined') {
@@ -85,6 +88,16 @@ var MPLAY = MPLAY || {};
 		}
 
 		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
+	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._show = function(obj, params) {
+
+		// TODO : expression image thing here
+
+		GNOVEL.Page.prototype._show.call(this, obj, params);
 	};
 
 	MPLAY.MPlayPage = MPlayPage;

@@ -190,8 +190,13 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleShow = function(obj) {	
 		var img = obj.img;
+		var params = {};
 
-		this._page._show(img);
+		if(obj.waitUntilShown != null) {
+			params.waitUntilShown = obj.waitUntilShown;
+		}
+
+		this._page._show(img, params);
 	};
 
 	Flow.prototype._handleHide = function(obj) {
