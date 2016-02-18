@@ -94,6 +94,20 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._show = function(obj, params) {
+		params = params || {};
+
+		// position is specific to MPLAY, it is not part of GNOVEL
+		var position = params.flowElement.position; 
+
+		if(position === "left") {
+			obj.position.x = -300;
+		}
+		else if(position === "center") {
+			obj.position.x = 0;
+		}
+		else if(position === "right") {
+			obj.position.x = 450;
+		}
 
 		// TODO : expression image thing here
 
