@@ -101,12 +101,18 @@ var MPLAY = MPLAY || {};
 
 		if(position === "left") {
 			obj.position.x = -300;
-		}
-		else if(position === "center") {
+		} else if(position === "center") {
 			obj.position.x = 0;
-		}
-		else if(position === "right") {
+		} else if(position === "right") {
 			obj.position.x = 450;
+		}
+
+		if(params.flowElement.flip === true) {
+			obj.material.map.wrapS = THREE.RepeatWrapping;
+			obj.material.map.repeat.x = - 1;
+		}else{
+			obj.material.map.wrapS = THREE.ClampToEdgeWrapping;
+			obj.material.map.repeat.x = 1;
 		}
 
 		// TODO : expression image thing here

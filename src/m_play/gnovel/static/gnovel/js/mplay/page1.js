@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: priya, position: "left"},
 				{type: "dialog", speaker: "priya", text: "RYAN here helped me with some of my writing last semester. Always willing to be my study partner. I think I annoyed him most of the time. Anyway, nice to meet you"},
 				{type: "hide", img: priya},
-				{type: "show", img: cat, position: "right"},
+				{type: "show", img: cat, position: "right", flip: true},
 				{type: "dialog", speaker: "cat", text: "Hey I’m Cat. I’m in Tepper. I think I’m going to be in over my head a little here in a CS class It’s been an adjustment coming back to school."},
 				{type: "hide", img: cat},
 				{type: "show", img: ryan, position: "center"},
