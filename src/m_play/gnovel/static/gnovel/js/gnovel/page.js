@@ -239,7 +239,8 @@ var GNOVEL = GNOVEL || {};
 				// go to next flow
 				pageObj._flow._next();
 				pageObj._flow._exec();
-			}
+			},
+			duration: 500
 		});
 	};
 
@@ -259,7 +260,8 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 				}
-			}
+			},
+			duration: 500
 		});
 
 		if (!waitUntilHidden) {
