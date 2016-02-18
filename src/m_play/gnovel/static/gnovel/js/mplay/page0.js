@@ -78,8 +78,6 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan}, 
 				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 
 				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
-				{type: "dialog", speaker: "ryan", text: "xxxxxxx"},
-				{type: "dialog", speaker: "cat", text: "yeaooowwww"}, 
 				{type: "hide", img: ryan},
 				{type: "choices", choices : [{text: "good decision", go: "#integrityScore"}, {text : "bad decision", go : "#integrityScore", integrityScore: -1}], label: "choices"},
 				{type: "custom", label: "integrityScore", func: function(page) {
