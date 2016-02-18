@@ -18,12 +18,20 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	function onDocumentMouseMove( event, gnovelObj ) {
-		var mouseX = ( event.clientX - window.innerWidth / 2 ) / 4;
-		var mouseY = -( event.clientY - window.innerHeight / 2 ) / 4;
+		var mouseX = -( event.clientX - window.innerWidth / 2 ) / 4;
+		var mouseY = ( event.clientY - window.innerHeight / 2 ) / 4;
 		var camera = gnovelObj.getCamera();
 
-		camera.position.x += ( mouseX - camera.position.x ) * .002;
-		camera.position.y += ( mouseY - camera.position.y ) * .002;
+		camera.position.x += ( mouseX - camera.position.x ) * .015;
+		camera.position.y += ( mouseY - camera.position.y ) * .015;
+
+		if(camera.position.x < 0){
+			camera.position.x = Math.max( camera.position.x, -200);
+		}
+		else {
+			camera.position.x = Math.min( camera.position.x, 200);
+		}
+
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
 	};
 
