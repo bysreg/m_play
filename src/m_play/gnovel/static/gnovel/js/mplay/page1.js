@@ -25,10 +25,10 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uc final layers png.png");
 
 		//create images
-		this._professorImg = this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(75, -130, 180), 600, 750);
-		this._priyaImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
+		this._professorImg = this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -130, 180), 600, 750);
+		this._priyaImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -140, 120), 600, 750);
 		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(450, -130, 100), 600, 750);
+		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -130, 100), 600, 750);
 
 		this._talked = 0;
 

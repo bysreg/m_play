@@ -196,6 +196,9 @@ var GNOVEL = GNOVEL || {};
 			params.waitUntilShown = obj.waitUntilShown;
 		}
 
+		// pass the original flow element to params
+		params.flowElement = obj;
+
 		this._page._show(img, params);
 	};
 
