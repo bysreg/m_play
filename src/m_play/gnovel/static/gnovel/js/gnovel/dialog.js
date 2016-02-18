@@ -63,26 +63,23 @@ var GNOVEL = GNOVEL || {};
 			this._curTextBox.position.set(x, y + 20, z + 20);
 		}
 
-
-		if(GNOVEL.Dialog._textBg != null && this._hasTransition){	
-			this._page._removeFromScene(GNOVEL.Dialog._textBg);
-			GNOVEL.Dialog._textBg = null;
-			GNOVEL.Dialog._prevSpeaker = null;
+		if(Dialog._textBg != null && this._hasTransition){	
+			this._closeDialog();
 		}
 
 		// add background textbox
-		if(typeof GNOVEL.Dialog._textBg === "undefined" || GNOVEL.Dialog._textBg === null || this._hasTransition){
-			GNOVEL.Dialog._textBg = this._page.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
-			GNOVEL.Dialog._textBg.material.opacity = 0;
-			this._page._addToScene(GNOVEL.Dialog._textBg);
+		if(typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition){
+			Dialog._textBg = this._page.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+			Dialog._textBg.material.opacity = 0;
+			this._page._addToScene(Dialog._textBg);
 
-			this._page.tweenMat(GNOVEL.Dialog._textBg, {
+			this._page.tweenMat(Dialog._textBg, {
 			duration: 1000,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 			});
 
-			this._page.move(GNOVEL.Dialog._textBg, {
+			this._page.move(Dialog._textBg, {
 			duration: 1000,
 			x: x,
 			easing: TWEEN.Easing.Cubic.Out
@@ -96,7 +93,6 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
-
 		// move
 		this._page.move(this._curTextBox, {
 			duration: 1000,
@@ -104,7 +100,6 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
-
 		this._page._addToScene(this._curTextBox);
 	};
 
@@ -116,7 +111,7 @@ var GNOVEL = GNOVEL || {};
 
 		this._page._removeFromScene(this._curTextBox);
 		if(!this._isDialogNext()) {
-			this._page._removeFromScene(GNOVEL.Dialog._textBg);
+			this._closeDialog();
 		}
 		this._curTextBox = null;
 
@@ -131,6 +126,12 @@ var GNOVEL = GNOVEL || {};
 		}			
 
 		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
+	};
+
+	Dialog.prototype._closeDialog = function() {
+		this._page._removeFromScene(Dialog._textBg);
+		Dialog._textBg = null;
+		Dialog._prevSpeaker = null;
 	};
 
 	GNOVEL.Dialog = Dialog;
