@@ -74,13 +74,13 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(Dialog._textBg);
 
 			this._page.tweenMat(Dialog._textBg, {
-			duration: 1000,
+			duration: 500,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 			});
 
 			this._page.move(Dialog._textBg, {
-			duration: 1000,
+			duration: 500,
 			x: x,
 			easing: TWEEN.Easing.Cubic.Out
 			});
@@ -88,14 +88,14 @@ var GNOVEL = GNOVEL || {};
 
 		// alpha
 		this._page.tweenMat(this._curTextBox, {
-			duration: 1000,
+			duration: 500,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
 		// move
 		this._page.move(this._curTextBox, {
-			duration: 1000,
+			duration: 500,
 			x: x,
 			easing: TWEEN.Easing.Cubic.Out
 		});
