@@ -11,13 +11,15 @@ var GNOVEL = GNOVEL || {};
 	var Flow = function(page) {
 		this._page = page;
 		this._objs = [];
+
 		this._reset();
 	};
 
 	Flow.prototype._reset = function() {
 		this._flowCounter = 0;		
 		this._elements = null;
-		this._labels = [];		
+		this._labels = [];
+		this._storedData = [];		
 	};
 
 	Flow.DIALOG = "dialog";
@@ -27,6 +29,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.GOTO = "goto";
 	Flow.COMPARE = "compare";
 	Flow.JUMP = "jump";
+	Flow.CUSTOM = "custom";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -83,6 +86,9 @@ var GNOVEL = GNOVEL || {};
 			case Flow.JUMP:
 				this._handleJump(obj);
 				break;
+			case Flow.CUSTOM:
+				this._handleCustom(obj);
+				break;
 		}
 	};
 
@@ -112,21 +118,33 @@ var GNOVEL = GNOVEL || {};
 					// check if it starts with '#'
 					var c = obj[prop].charAt(0);
 					if(c == '#') {
-						var label = obj[prop].substring(1);
 						// search for that label in labels dictionary
+						
+						var label = obj[prop].substring(1);						
 						var value = this._labels[label];
 
-						if(value === null)
+						if(typeof value === 'undefined' || value === null)
 							console.log("cannot find " + label);
 
 						obj[prop] = value;
 					} else if(c == '%') {
-						var label = obj[prop].substring(1);
 						// search for that label in objs dictionary
+
+						var label = obj[prop].substring(1);						
 						var value = this._objs[label];
 
-						if(value === null)
+						if(typeof value === 'undefined' || value === null)
 							console.log("cannot find " + label);
+
+						obj[prop] = value;
+					} else if(c == '$') {
+						// search for that label in storedData dictionary
+						
+						var label = obj[prop].substring(1);
+						var value = this._storedData[label];
+
+						if(typeof value === 'undefined' || value === null)
+							console.log("no such data stored in" + label);
 
 						obj[prop] = value;
 					}
@@ -143,6 +161,9 @@ var GNOVEL = GNOVEL || {};
 		var y = obj.y || -250; // optional
 		var params = {};
 		params.speaker = obj.speaker;
+
+		// pass the original flow element to params
+		params.flowElement = obj;
 
 		this._page._showDialog(obj.text, x, y, params);
 	};
@@ -190,6 +211,7 @@ var GNOVEL = GNOVEL || {};
 
 		switch(transitionType) {
 			case "fade" :
+			default:
 				transitionType = GNOVEL.TransitionType.FADE;
 				break;
 		};
@@ -238,6 +260,26 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._setObjectTag = function(tag, obj) {
 		this._objs[tag] = obj;
+	};
+
+	Flow.prototype._handleCustom = function(obj) {
+		var label = obj.label;
+		var func = obj.func;
+
+		var data = func(this._page);
+
+		// if there is data to be stored
+		if(typeof data !== 'undefined') {
+			// and if there is label to identify where the data will be stored
+			if(typeof label !== 'undefined') {
+				// we will store the data into that label
+				console.log("data stored : " + data + " in label : " + label);
+				this._storedData[label] = data;		
+			}
+		}	
+
+		this._next();
+		this._exec();	
 	};
 
 	GNOVEL.Flow = Flow;
