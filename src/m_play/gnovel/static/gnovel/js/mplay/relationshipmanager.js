@@ -24,7 +24,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		return this._relationDict[name];
-	}
+	};
 
 	MPLAY.RelationshipManager = RelationshipManager;
 

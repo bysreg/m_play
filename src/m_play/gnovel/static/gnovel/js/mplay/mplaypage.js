@@ -63,5 +63,29 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
 	};
 
+	MPlayPage.prototype._showDialog = function(message, x, y, params) {
+		params = params || {};
+		var flowElement = params.flowElement;
+
+		var speaker = flowElement.speaker;
+		var relationshipScore = this._relationshipManager.getRelationship(speaker);
+		var relationshipThreshold = flowElement.relationshipThreshold || 0;
+		var expression = null;
+
+		int textId = 0;
+
+		// threshold values
+		if(typeof relationshipThreshold !== 'undefined') {
+			if(relationshipScore >= relationshipThreshold) {
+				message = flowElement.text;
+			}else{
+				message = flowElement.text2;
+				textId = 1;
+			}
+		}
+
+		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
+	};
+
 	MPLAY.MPlayPage = MPlayPage;
 }());
