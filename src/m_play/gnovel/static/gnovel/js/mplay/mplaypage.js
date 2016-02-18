@@ -63,5 +63,42 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
 	};
 
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._showDialog = function(message, x, y, params) {
+		params = params || {};
+		var flowElement = params.flowElement;
+
+		var speaker = flowElement.speaker;
+		var relationshipScore = this._relationshipManager.getRelationship(speaker);
+		var relationshipThreshold = flowElement.relationshipThreshold || 0;
+		var expression = null;
+
+		var textId = 0;
+
+		// threshold values
+		if(typeof relationshipThreshold !== 'undefined') {
+			if(relationshipScore >= relationshipThreshold) {
+				message = flowElement.text;
+			}else{
+				message = flowElement.text2;
+				textId = 1;
+			}
+		}
+
+		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
+	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._show = function(obj, params) {
+
+		// TODO : expression image thing here
+
+		GNOVEL.Page.prototype._show.call(this, obj, params);
+	};
+
 	MPLAY.MPlayPage = MPlayPage;
 }());
