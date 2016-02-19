@@ -72,7 +72,7 @@ var MPLAY = MPLAY || {};
 
 		var speaker = flowElement.speaker;
 		var relationshipScore = this._relationshipManager.getRelationship(speaker);
-		var relationshipThreshold = flowElement.relationshipThreshold || 0;
+		var relationshipThreshold = flowElement.relationshipThreshold;
 		var expression = null;
 
 		var textId = 0;

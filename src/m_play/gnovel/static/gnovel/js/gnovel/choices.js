@@ -188,18 +188,10 @@ var GNOVEL = GNOVEL || {};
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
 		if (intersects.length > 0) {
 			if(this._hoveredChoice != intersects[0].object){
-
 				this._hoveredChoice = intersects[0].object;
 				//do hover effect on intersected object
 				this._hoveredChoice.currentHex = this._hoveredChoice.material.color.getHex();
 				this._hoveredChoice.material.color.setHex(0xff0000);
-
-				for (var i = 0; i < this._choices.length; i++) {
-
-					if (this._choicesBox[i].children[0].name == intersects[0].object.name) {
-						console.log("clicked on " + i);
-					}
-				}
 			}
 
 			//on hover change mouse cursor to pointer
