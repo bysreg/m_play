@@ -70,7 +70,7 @@ var CanvasText = (function () {
           curlength += wordsArr[i].length + 1;
           if(curlength >= 72)
           {
-            curlength = 0;
+            curlength = wordsArr[i].length;
             line++;
             textArr[line] = "";
             textArr[line] = textArr[line] + wordsArr[i] + " ";
