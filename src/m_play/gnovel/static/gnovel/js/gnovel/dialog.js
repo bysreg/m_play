@@ -16,7 +16,7 @@ var GNOVEL = GNOVEL || {};
 		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._curTextBox = this._page.createTextBox(message, params || {});
-		this._nameBox = this._page.createTextBox(params.speaker, {});				
+		this._nameBox = this._page.createTextBox(params.speaker, {align: "left"});				
 		this._tweenComplete = false;
 
 		var curspk = params.speaker;
@@ -54,21 +54,21 @@ var GNOVEL = GNOVEL || {};
 		//tween from the left
 		if (x < 0) {
 			x = 0;
-			this._curTextBox.position.set(x - 100, y + 20, z + 20);
+			this._curTextBox.position.set(x - 100, y + 40, z + 20);
 		}
 		//tween from the right
 		else if (x > 0) {
 			x = 0;
-			this._curTextBox.position.set(x + 100, y + 20, z + 20);
+			this._curTextBox.position.set(x + 100, y + 40, z + 20);
 		} else {
-			this._curTextBox.position.set(x, y + 20, z + 20);
+			this._curTextBox.position.set(x, y + 40, z + 20);
 		}
 
 		if(Dialog._textBg != null && this._hasTransition){	
 			this._closeDialog();
 		}
 
-		this._nameBox.position.set(this._curTextBox.position.x - 380, this._curTextBox.position.y + 50, z + 20);
+		this._nameBox.position.set(this._curTextBox.position.x - 420, this._curTextBox.position.y + 30, z + 20);
 
 		// add background textbox
 		if(typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition){
