@@ -49,8 +49,10 @@ var CanvasText = (function () {
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
 
+      this.textHeight = getFontHeight(this.ctx.font);
+
       // calculate single line spacing
-      this.singlelineHeight = this.textHeight * 1.2;
+      this.singlelineHeight = this.textHeight * 2;
 
       this.ctx.font = ctxOptions.font;
       this.ctx.fillStyle = ctxOptions.fillStyle;
@@ -84,7 +86,7 @@ var CanvasText = (function () {
       var x =0, y = 0;
       for (var i = 0; i < textArr.length; i++) {
         this.ctx.fillText(textArr[i], x, y);
-        y += this.singlelineHeight * 0.3;
+        y += this.singlelineHeight;
       };
       
       return this.canvas;
