@@ -121,19 +121,27 @@ var GNOVEL = GNOVEL || {};
 		Dialog._prevSpeaker = this._params.speaker;
 
 		//remove mousedown listener
-		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
+
+		var textBoxObj = this._curTextBox;
+		var nameBoxObj = this._nameBox;
+		var dialog = this;		
 
 		this._page.tweenMat(this._curTextBox, {
 			duration: 500,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
-			removeAfterFadeOut: true
+			onComplete: function() {
+				dialog._page._removeFromScene(textBoxObj);
+			},
 		});
 		this._page.tweenMat(this._nameBox, {
 			duration: 500,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
-			removeAfterFadeOut: true
+			onComplete: function() {
+				dialog._page._removeFromScene(nameBoxObj);
+			},
 		});
 
 		if(!this._isDialogNext()) {
@@ -155,11 +163,15 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._closeDialog = function() {
+		var dialog = this;
+		var textBgObj = this._textBg;
 		this._page.tweenMat(Dialog._textBg, {
 			duration: 500,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
-			removeAfterFadeOut: true
+			onComplete: function() {
+				dialog._page._removeFromScene(textBgObj);
+			},
 		});
 		
 		Dialog._textBg = null;
