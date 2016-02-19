@@ -76,18 +76,38 @@ var MPLAY = MPLAY || {};
 		if(this._talked == 1) {
 			o = [
 				{type: "show", img: ryan, waitUntilShown: false}, 
-				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 
-				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
-				{type: "hide", img: ryan},
-				{type: "choices", choices : [{text: "good decision", go: "#integrityScore"}, {text : "bad decision", go : "#integrityScore", integrityScore: -1}], label: "choices"},
+				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 				
+				
+				{type: "choices", choices : 
+					[{text: "good decision (+1 relationship)", 
+						go: "#relationshipDialogue", 
+						relationship: {name:"ryan", score:1}}, 
+					{text : "bad decision(-1 relationship)", 
+						go : "#relationshipDialogue", 
+						relationship: {name:"ryan", score:-1}}]},
+
+				{type: "dialog", speaker: "ryan", 
+					label: "relationshipDialogue",
+					relationshipThreshold: 0, 
+					text: "you have a good relationship",
+					expression: "",  
+					
+					text2: "you have a bad relationship", 
+					expression2: ""},
+
+				{type: "choices", 
+					choices : 
+						[{text: "good decision (+1 integrity)", 
+							go: "#integrityScore", 
+						integrityScore: 1}, 
+						
+						{text : "bad decision(-1 integrity)", 
+							go : "#integrityScore", 
+							integrityScore: -1}]},
+
 				{type: "custom", label: "integrityScore", func: function(page) {
 					return page._integrityManager.getIntegrity();
 				}},
-				{type: "dialog", speaker: "ryan", relationshipThreshold: 0, 
-					text: "you have a good relationship",
-					expression: "",  
-					text2: "you have a bad relationship", 
-					expression2: ""},
 
 				{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: 0, goTrue: "#good", goFalse: "#bad"},
 				{type: "dialog", speaker: "ryan", text: "you have good ending", label: "good"}, 
