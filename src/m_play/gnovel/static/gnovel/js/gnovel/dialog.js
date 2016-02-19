@@ -123,8 +123,19 @@ var GNOVEL = GNOVEL || {};
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
-		this._page._removeFromScene(this._curTextBox);
-		this._page._removeFromScene(this._nameBox);
+		this._page.tweenMat(this._curTextBox, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			removeAfterFadeOut: true
+		});
+		this._page.tweenMat(this._nameBox, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			removeAfterFadeOut: true
+		});
+
 		if(!this._isDialogNext()) {
 			this._closeDialog();
 		}
@@ -144,7 +155,13 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._closeDialog = function() {
-		this._page._removeFromScene(Dialog._textBg);
+		this._page.tweenMat(Dialog._textBg, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			removeAfterFadeOut: true
+		});
+		
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
 	};
