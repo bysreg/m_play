@@ -15,7 +15,8 @@ var GNOVEL = GNOVEL || {};
 		this._y = y;
 		this._hasTransition = true;
 		this._mouseDownListener = null;
-		this._curTextBox = this._page.createTextBox(message, params || {});				
+		this._curTextBox = this._page.createTextBox(message, params || {});
+		this._nameBox = this._page.createTextBox(params.speaker, {});				
 		this._tweenComplete = false;
 
 		var curspk = params.speaker;
@@ -67,6 +68,8 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 
+		this._nameBox.position.set(this._curTextBox.position.x - 380, this._curTextBox.position.y + 50, z + 20);
+
 		// add background textbox
 		if(typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition){
 			Dialog._textBg = this._page.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
@@ -92,6 +95,11 @@ var GNOVEL = GNOVEL || {};
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 		});
+		this._page.tweenMat(this._nameBox, {
+			duration: 500,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 		
 		// move
 		this._page.move(this._curTextBox, {
@@ -99,8 +107,14 @@ var GNOVEL = GNOVEL || {};
 			x: x,
 			easing: TWEEN.Easing.Cubic.Out
 		});
+		this._page.move(this._nameBox, {
+			duration: 500,
+			x: this._nameBox.x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
 		
 		this._page._addToScene(this._curTextBox);
+		this._page._addToScene(this._nameBox);
 	};
 
 	Dialog.prototype._onComplete = function() {
@@ -110,6 +124,7 @@ var GNOVEL = GNOVEL || {};
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
 
 		this._page._removeFromScene(this._curTextBox);
+		this._page._removeFromScene(this._nameBox);
 		if(!this._isDialogNext()) {
 			this._closeDialog();
 		}
