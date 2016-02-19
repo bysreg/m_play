@@ -138,7 +138,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
+		var pageObj = this;
 		var duration = params.duration || 1000;
+		var removeAfterFadeOut = params.removeAfterFadeOut || false;
 
 		var tween = new TWEEN.Tween(obj.material)
 			.to({
@@ -147,6 +149,11 @@ var GNOVEL = GNOVEL || {};
 			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if (params.onComplete != null) {
 			tween.onComplete(params.onComplete);
+		}
+		if (params.removeAfterFadeOut) {
+			tween.onComplete( function () {
+				pageObj._removeFromScene(obj);
+			});
 		}
 		tween.start();
 	};
@@ -206,7 +213,6 @@ var GNOVEL = GNOVEL || {};
 				});
 				break;
 		}
-
 		return sprite;
 	};
 
