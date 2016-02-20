@@ -32,19 +32,19 @@ var MPLAY = MPLAY || {};
 		this._talked = 0;
 
 		var pageObj = this;
-		var io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
-			{x: -100, y: 200, width : 64, height : 64, onClick: function() {
-				pageObj._talked = 1;
-				pageObj._runFlow();
-			}});		
+		// var io1 = this.createInteractableObject(
+		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
+		// 	{x: -100, y: 200, width : 64, height : 64, onClick: function() {
+		// 		pageObj._talked = 1;
+		// 		pageObj._runFlow();
+		// 	}});		
 
-		var io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
-			{x: 100, y: 200, width : 64, height : 64, onClick: function() {
-				pageObj._talked = 2;
-				pageObj._runFlow();
-			}});
+		// var io2 = this.createInteractableObject(
+		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
+		// 	{x: 100, y: 200, width : 64, height : 64, onClick: function() {
+		// 		pageObj._talked = 2;
+		// 		pageObj._runFlow();
+		// 	}});
 
 		this._priyaImg.material.opacity = 0;
 		this._ryanImg.material.opacity = 0;

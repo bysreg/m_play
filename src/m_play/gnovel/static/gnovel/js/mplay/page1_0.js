@@ -46,7 +46,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Prof. Sweeney", text: "My aim in Programming and Society is to help you become a better programmer. Technology impacts how society operates. I will challenge you to look deeper into the programs, apps, and technologies that you use."},
 			{type: "dialog", speaker: "Prof. Sweeney", text: "The second half of each lesson will break into your assigned study groups. Please use this time wisely, you’ll have a group project later in the semester."}, 
 			{type: "hide", img: professor},
-			{type: "goto", page: 1},
+			{type: "goto", page: "scene 2.b"},
 		];
 
 		return o;

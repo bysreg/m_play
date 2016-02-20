@@ -224,7 +224,11 @@ var GNOVEL = GNOVEL || {};
 				break;
 		};
 
-		this._page.goToPage(pageIndex, transitionType, null);
+		if(typeof obj.page === 'string') {
+			this._page.goToPageByLabel(obj.page, transitionType, null);
+		} else {
+			this._page.goToPage(pageIndex, transitionType, null);
+		}		
 	};
 
 	Flow.prototype._handleCompare = function(obj) {

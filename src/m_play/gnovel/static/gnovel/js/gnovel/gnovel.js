@@ -19,6 +19,7 @@ var GNOVEL = GNOVEL || {};
 
 		this._scene = new THREE.Scene();
 		this._pages = [];
+		this._pageDict = {};
 		this._curPageIdx = 0;
 		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
 		this._stats = null;
@@ -79,11 +80,19 @@ var GNOVEL = GNOVEL || {};
 		return this._container;
 	};
 
-	Gnovel.prototype.addPage = function(pageType) {
+	Gnovel.prototype.addPage = function(label, pageType) {
 		var page = new pageType();
 		page._setPageId(this._pages.length);
+		page._setPageLabel(label);
 		page._owner = this;
 		this._pages.push(page);
+
+		if(!this._pageDict[label]) {
+			this._pageDict[label] = page;
+		}else{
+			// there is already a page called with that label
+			console.warn("there is already page called with that label");
+		}	
 	};
 
 	Gnovel.prototype._addToScene = function(page, o) {		
@@ -195,6 +204,13 @@ var GNOVEL = GNOVEL || {};
 
 		this._prevPage = curPage;
 		this._curPageIdx = pageIndex;
+	};
+
+	Gnovel.prototype.goToPageByLabel = function(pageLabel, transitionType, transitionParam) {
+		var nextPage = this._pageDict[pageLabel];
+		var nextPageIndex = nextPage.getPageId();
+
+		this.goToPage(nextPageIndex, transitionType, transitionParam);
 	};
 
 	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj) {

@@ -15,6 +15,7 @@ var GNOVEL = GNOVEL || {};
 		this._bg = null;
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
+		this._label = null;
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
 		this._interactableObjects = [];
@@ -163,6 +164,10 @@ var GNOVEL = GNOVEL || {};
 	 */
 	Page.prototype._setPageId = function(id) {
 		this._id = id;
+	};
+
+	Page.prototype._setPageLabel = function(label) {
+		this._label = label;
 	};
 
 	/**
@@ -354,6 +359,10 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
 		this._owner.goToPage(pageIndex, transitionType, transitionParam);
+	};
+
+	Page.prototype.goToPageByLabel = function(pageLabel, transitionType, transitionParam) {
+		this._owner.goToPageByLabel(pageLabel, transitionType, transitionParam);
 	};
 
 	Page.prototype._getFlow = function() {
