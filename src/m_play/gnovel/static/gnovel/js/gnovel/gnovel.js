@@ -150,9 +150,10 @@ var GNOVEL = GNOVEL || {};
 		this._scene.add(pageRoot);
 		page._onLoad();
 
+		// FIXME 
 		// wait for several seconds
 		var o = {val:0};
-		var loadDuration = 2;
+		var loadDuration = 3;
 		var tween = new TWEEN.Tween(o)
 			.to({
 				val: 1,
