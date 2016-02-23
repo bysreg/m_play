@@ -23,22 +23,10 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);		
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom.png");
-
-		//create images
-		this._professorImg = this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(75, -160, 180), 500, 858);
-
-		var pageObj = this;
-
-		this._professorImg.material.opacity = 0;
-
-		this._professor = "professor";
-
-		// add object tags
-		this._setObjectTag(this._professor, this._professorImg);
 	};
 
 	Page1_0.prototype._createFlowElements = function() {
-		var professor = "%professor";
+		var professor = "%" + this._professor;	
 		var o = null;
 
 		o = [

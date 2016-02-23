@@ -24,11 +24,6 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uc final layers png.png");
 
-		//create images
-		this._priyaImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 825);
-		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -110, 140), 600, 923);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(450, -130, 100), 600, 799);
-
 		this._talked = 0;
 
 		var pageObj = this;
@@ -45,26 +40,13 @@ var MPLAY = MPLAY || {};
 		// 		pageObj._talked = 2;
 		// 		pageObj._runFlow();
 		// 	}});
-
-		this._priyaImg.material.opacity = 0;
-		this._ryanImg.material.opacity = 0;
-		this._catImg.material.opacity = 0;
-
-		this._priya = "priya";
-		this._ryan = "ryan";
-		this._cat = "cat";
-
-		// add object tags
-		this._setObjectTag(this._priya, this._priyaImg);
-		this._setObjectTag(this._ryan, this._ryanImg);
-		this._setObjectTag(this._cat, this._catImg);
-
 	};
 
 	Page1_1.prototype._createFlowElements = function() {
-		var priya = "%priya";
-		var ryan = "%ryan";
-		var cat = "%cat";
+		var priya = "%" + this._priya;
+		var ryan = "%" + this._ryan;
+		var cat = "%" + this._cat;
+		
 		var o = null;
 		// variables from scene 1
 		var isPhonePickedUp = 1;
