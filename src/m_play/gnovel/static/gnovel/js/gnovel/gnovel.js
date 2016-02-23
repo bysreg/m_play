@@ -41,11 +41,15 @@ var GNOVEL = GNOVEL || {};
 		camera.position.z = 900;
 
 		var scene = this._scene;
+		var scene2 = this._scene2;
+		var scene3 = this._scene3;
 
 		var renderer = this._renderer;
 		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.autoClear = false;
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		container.appendChild(renderer.domElement);
+
 
 		// setup render loop
 		var render = function () {
@@ -95,24 +99,27 @@ var GNOVEL = GNOVEL || {};
 		}	
 	};
 
-	Gnovel.prototype._addToScene = function(page, o) {		
-		this._pageRootObject[page.getPageId()].add(o);				
+	Gnovel.prototype._addToScene = function(page, o) {
+		this._pageRootObject[page.getPageId()].add(o);
+
 	};
+
 
 	Gnovel.prototype._removeFromScene = function(page, o) {
 		this._pageRootObject[page.getPageId()].remove(o);
+
 	};
 
-	Gnovel.prototype._onMouseDown = function(event) {	
+	Gnovel.prototype._onMouseDown = function(event) {
 		if(!this._onStart) return;
 
-		//console.log("on mouse down");	
+		//console.log("on mouse down");
 		var page = this.getCurrentPage();
 		if(page != null) {
 			page._onMouseDown(event);
 		}
 
-		// notify all the listeners 
+		// notify all the listeners
 		for(var i=0;i<this._mouseDownListeners.length;i++) {
 			this._mouseDownListeners[i](event);
 		}
@@ -120,18 +127,19 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._onMouseMove = function(event) {
 		if(!this._onStart) return;
-		
-		//console.log("on mouse move");	
+
+		//console.log("on mouse move");
 		var page = this.getCurrentPage();
 		if(page != null) {
 			page._onMouseMove(event);
 		}
 
-		// notify all the listeners 
+		// notify all the listeners
 		for(var i=0;i<this._mouseMoveListeners.length;i++) {
 			this._mouseMoveListeners[i](event);
 		}
 	};
+
 
 	Gnovel.prototype.start = function() {
 		this._curPageIdx = 0;
@@ -144,6 +152,8 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._load = function(page) {
 		var pageRoot = new THREE.Object3D();
+	//	var pageOverlay1 = new THREE.Object3D();
+	//	var pageOverlay2 = new THREE.Object3D();
 		var gnovel = this;
 		pageRoot.name = "Page Root";
 		this._pageRootObject[page.getPageId()] = pageRoot;
@@ -162,12 +172,12 @@ var GNOVEL = GNOVEL || {};
 				_onStart(page);
 				gnovel._onStart = true;
 				console.log("gnovel started");
-			});		
-		tween.start();		
+			});
+		tween.start();
 	};
 
 	function _onStart(pageObj) {
-		pageObj._onStart();		
+		pageObj._onStart();
 		pageObj._runFlow();
 	};
 
@@ -250,7 +260,7 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.removeMouseMoveListener = function(obj) {
 		var index = GNOVEL.Util.findElement(this._mouseMoveListeners, obj);
-		if(index != -1) this._mouseMoveListeners.splice(index, 1);	
+		if(index != -1) this._mouseMoveListeners.splice(index, 1);
 	};
 
 	GNOVEL.Gnovel = Gnovel;

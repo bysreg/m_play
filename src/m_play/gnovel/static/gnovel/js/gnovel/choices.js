@@ -130,6 +130,7 @@ var GNOVEL = GNOVEL || {};
 	Choices.prototype._onChoiceComplete = function() {
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
+		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
 
 		// clean up all objects from scene
 		if (this._params.seconds != null && params.seconds > 0) {

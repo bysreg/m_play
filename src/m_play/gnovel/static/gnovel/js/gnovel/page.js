@@ -1,4 +1,4 @@
-// namespace 
+// namespace
 var GNOVEL = GNOVEL || {};
 
 (function() {
@@ -8,7 +8,7 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 * @class Page
 	 * @constructor
-	 * 
+	 *
 	 */
 	var Page = function() {
 		this._owner = null;
@@ -72,7 +72,7 @@ var GNOVEL = GNOVEL || {};
 		if (typeof position === 'undefined' || position === null) {
 			position = new THREE.Vector3(0, 0, 0);
 		}
-		
+
 		quad.position.set(position.x, position.y, position.z);
 
 		return quad;
@@ -103,7 +103,7 @@ var GNOVEL = GNOVEL || {};
 	}
 
 	/**
-	 * This function will be called right before page is displayed on screen	 
+	 * This function will be called right before page is displayed on screen
 	 */
 	Page.prototype._onLoad = function() {};
 
@@ -172,7 +172,7 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
-	 * @return {int} 
+	 * @return {int}
 	 */
 	Page.prototype.getPageId = function() {
 		return this._id;
@@ -183,7 +183,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.createTextBox = function(message, parameters) {
-		var textAlign = THREE_Text.textAlign;		
+		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
 		var msgAligh = parameters.align || "center";
 		switch(msgAligh){
@@ -248,7 +248,7 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._exec();
 		};
 
-		var dialog = new GNOVEL.Dialog(this, message, x, y, params);		
+		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 	};
 
 	Page.prototype._show = function(obj, params) {
