@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 
 		
 		var ryan = "%" + this._ryan;
-		var catsphone = "%" + this._yourphone;
+		var catsphone = "%" + this._catsphone;
 		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;		
 		var player = "yourname";
