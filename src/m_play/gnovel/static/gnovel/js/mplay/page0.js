@@ -21,16 +21,8 @@ var MPLAY = MPLAY || {};
 	 */
 	Page0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
-		this._state = 0
-		this._parentPosX = 0;
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
-
-		//create images
-		this._professorImg = this.createImage("/static/gnovel/res/textures/char/prof sweeney- thoughtful.png", new THREE.Vector3(75, -130, 180), 600, 750);
-		this._juliImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
-		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);		
 
 		this._talked = 0;
 
@@ -48,34 +40,17 @@ var MPLAY = MPLAY || {};
 				pageObj._talked = 2;
 				pageObj._runFlow();
 			}});		
-
-		this._professorImg.material.opacity = 0;
-		this._juliImg.material.opacity = 0;
-		this._ryanImg.material.opacity = 0;
-		this._catImg.material.opacity = 0;
-
-		this._professor = "professor";
-		this._juli = "juli";
-		this._ryan = "ryan";
-		this._cat = "cat";		
-
-		// add object tags
-		this._setObjectTag(this._professor, this._professorImg);
-		this._setObjectTag(this._juli, this._juliImg);
-		this._setObjectTag(this._ryan, this._ryanImg);
-		this._setObjectTag(this._cat, this._catImg);
 	};
 
 	Page0.prototype._createFlowElements = function() {
-		var professor = "%professor";
-		var juli = "%juli";
-		var ryan = "%ryan";
-		var cat = "%cat";
+		var professor = "%" + this._professor;		
+		var ryan = "%" + this._ryan;
+		var cat = "%" + this._cat;
 		var o = null;
 
 		if(this._talked == 1) {
 			o = [
-				{type: "show", img: ryan, waitUntilShown: false}, 
+				{type: "show", img: ryan, expression: "happy", waitUntilShown: false}, 
 				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 				
 				
 				{type: "choices", choices : 
@@ -119,6 +94,8 @@ var MPLAY = MPLAY || {};
 		else if(this._talked == 2) {
 			o = [
 				{type: "show", img: cat},
+				{type: "hide", img: cat},
+				{type: "show", img: cat, expression: "annoyed"},
 				{type: "dialog", speaker: "cat", text: "hi, i'm cat", label : "choice_number_1"}, 
 				{type: "hide", img: cat},				
 			];
