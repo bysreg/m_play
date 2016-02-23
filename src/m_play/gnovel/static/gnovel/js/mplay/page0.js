@@ -30,24 +30,24 @@ var MPLAY = MPLAY || {};
 		this._professorImg = this.createImage("/static/gnovel/res/textures/char/prof sweeney- thoughtful.png", new THREE.Vector3(75, -130, 180), 600, 750);
 		this._juliImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
 		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);		
+		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);
 
 		this._talked = 0;
 
 		var pageObj = this;
 		var io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
-			{x: -100, y: 200, width : 64, height : 64, onClick: function() {
+			"/static/gnovel/res/textures/char/thoughtful-julia.png",
+			{x: -100, y: 200, width : 100, height : 100, onClick: function() {
 				pageObj._talked = 1;
 				pageObj._runFlow();
-			}});		
+			}});
 
 		var io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
+			"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png",
 			{x: 100, y: 200, width : 64, height : 64, onClick: function() {
 				pageObj._talked = 2;
 				pageObj._runFlow();
-			}});		
+			}});
 
 		this._professorImg.material.opacity = 0;
 		this._juliImg.material.opacity = 0;
@@ -57,7 +57,7 @@ var MPLAY = MPLAY || {};
 		this._professor = "professor";
 		this._juli = "juli";
 		this._ryan = "ryan";
-		this._cat = "cat";		
+		this._cat = "cat";
 
 		// add object tags
 		this._setObjectTag(this._professor, this._professorImg);
@@ -75,8 +75,8 @@ var MPLAY = MPLAY || {};
 
 		if(this._talked == 1) {
 			o = [
-				{type: "show", img: ryan}, 
-				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"}, 
+				{type: "show", img: ryan},
+				{type: "dialog", speaker: "ryan", text: "hi, i'm ryan"},
 				{type: "dialog", speaker: "ryan", text: "bla bla blasba"},
 				{type: "hide", img: ryan},
 				{type: "choices", choices : [{text: "good decision", go: "#integrityScore"}, {text : "bad decision", go : "#integrityScore", integrityScore: -1}], label: "choices"},
@@ -85,20 +85,20 @@ var MPLAY = MPLAY || {};
 				}},
 
 				{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: 0, goTrue: "#good", goFalse: "#bad"},
-				{type: "dialog", speaker: "ryan", text: "you have good ending", label: "good"}, 
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000}, 
-				{type: "dialog", speaker: "ryan", text: "you have bad ending", label: "bad"}, 
+				{type: "dialog", speaker: "ryan", text: "you have good ending", label: "good"},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "dialog", speaker: "ryan", text: "you have bad ending", label: "bad"},
 				{type: "goto", page: 1},
 			];
-		}		
+		}
 		else if(this._talked == 2) {
 			o = [
 				{type: "show", img: cat},
-				{type: "dialog", speaker: "cat", text: "hi, i'm cat", label : "choice_number_1"}, 
-				{type: "hide", img: cat},				
+				{type: "dialog", speaker: "cat", text: "hi, i'm cat", label : "choice_number_1"},
+				{type: "hide", img: cat},
 			];
 		}
-		
+
 		return o;
 	};
 
@@ -108,10 +108,10 @@ var MPLAY = MPLAY || {};
 	// 		case 0:
 	// 			this._show(this._professor);
 	// 			break;
-	// 		case 1:				
+	// 		case 1:
 	// 			this._showDialog("And as we wrap up today's class, please be on the look out for the syllabus in your e-mail. It will outline the objectives for the course as well as the graded assignments.", 0, -220, 200);
 	// 			break;
-	// 		case 2:				
+	// 		case 2:
 	// 			this._showChoices(["library", "class"], {
 	// 				x: -200,
 	// 				z: 220,
@@ -232,11 +232,11 @@ var MPLAY = MPLAY || {};
 	// 			this._showDialog("This semester should be better though - I know what's coming.", this._parentPosX, -220, 200);
 	// 			break;
 	// 		case 33:
-	// 			// finish				
+	// 			// finish
 	// 			this.goToPage(1, GNOVEL.TransitionType.FADE);
 	// 			break;
 	// 		case 34:
-	// 			// finish				
+	// 			// finish
 	// 			this.goToPage(2, GNOVEL.TransitionType.FADE);
 	// 			break;
 	// 	}
