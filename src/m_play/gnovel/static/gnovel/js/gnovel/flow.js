@@ -190,8 +190,16 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleShow = function(obj) {	
 		var img = obj.img;
+		var params = {};
 
-		this._page._show(img);
+		if(obj.waitUntilShown != null) {
+			params.waitUntilShown = obj.waitUntilShown;
+		}
+
+		// pass the original flow element to params
+		params.flowElement = obj;
+
+		this._page._show(img, params);
 	};
 
 	Flow.prototype._handleHide = function(obj) {
@@ -216,7 +224,11 @@ var GNOVEL = GNOVEL || {};
 				break;
 		};
 
-		this._page.goToPage(pageIndex, transitionType, null);
+		if(typeof obj.page === 'string') {
+			this._page.goToPageByLabel(obj.page, transitionType, null);
+		} else {
+			this._page.goToPage(pageIndex, transitionType, null);
+		}		
 	};
 
 	Flow.prototype._handleCompare = function(obj) {

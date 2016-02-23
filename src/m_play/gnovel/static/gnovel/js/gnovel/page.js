@@ -15,6 +15,7 @@ var GNOVEL = GNOVEL || {};
 		this._bg = null;
 		this._iObjects = [];
 		this._id = -1; // id for gnovel
+		this._label = null;
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
 		this._interactableObjects = [];
@@ -138,6 +139,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
+		var pageObj = this;
 		var duration = params.duration || 1000;
 
 		var tween = new TWEEN.Tween(obj.material)
@@ -164,6 +166,10 @@ var GNOVEL = GNOVEL || {};
 		this._id = id;
 	};
 
+	Page.prototype._setPageLabel = function(label) {
+		this._label = label;
+	};
+
 	/**
 	 * Returns page identifier in Gnovel object. Returns -1 if it hasnt been added to any Gnovel object
 	 * @return {int}
@@ -179,13 +185,33 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.createTextBox = function(message, parameters) {
 		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
-		var sprite = new Text2D(message, {
-			align: textAlign.center,
-			font: '20px Arial',
-			fillStyle: '#FFFF00',
-			antialias: false
-		});
-
+		var msgAligh = parameters.align || "center";
+		switch(msgAligh){
+			case "left":
+				var sprite = new Text2D(message, {
+					align: textAlign.left,
+					font: '20px Arial',
+					fillStyle: '#FFFF00',
+					antialias: false
+				});
+				break;
+			case "right":
+				var sprite = new Text2D(message, {
+					align: textAlign.right,
+					font: '20px Arial',
+					fillStyle: '#FFFF00',
+					antialias: false
+				});
+				break;
+			case "center":
+				var sprite = new Text2D(message, {
+					align: textAlign.center,
+					font: '20px Arial',
+					fillStyle: '#FFFF00',
+					antialias: false
+				});
+				break;
+		}
 		return sprite;
 	};
 
@@ -225,8 +251,13 @@ var GNOVEL = GNOVEL || {};
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 	};
 
-	Page.prototype._show = function(obj) {
+	Page.prototype._show = function(obj, params) {
+		params = params || {};
 		var pageObj = this;
+		var waitUntilShown = true;
+		// if(params.waitUntilShown != null) {
+		// 	waitUntilShown = params.waitUntilShown;
+		// }
 
 		if (obj.parent === null) {
 			this._addToScene(obj);
@@ -236,11 +267,20 @@ var GNOVEL = GNOVEL || {};
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				// go to next flow
-				pageObj._flow._next();
-				pageObj._flow._exec();
-			}
+				// if(waitUntilShown) {
+					// go to next flow
+					pageObj._flow._next();
+					pageObj._flow._exec();
+				// }				
+			},
+			duration: 500
 		});
+
+		// if(!waitUntilShown) {
+		// 	// go to next flow
+		// 	pageObj._flow._next();
+		// 	pageObj._flow._exec();
+		// }
 	};
 
 	Page.prototype._hide = function(obj, params) {
@@ -259,7 +299,8 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 				}
-			}
+			},
+			duration: 500
 		});
 
 		if (!waitUntilHidden) {
@@ -318,6 +359,10 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
 		this._owner.goToPage(pageIndex, transitionType, transitionParam);
+	};
+
+	Page.prototype.goToPageByLabel = function(pageLabel, transitionType, transitionParam) {
+		this._owner.goToPageByLabel(pageLabel, transitionType, transitionParam);
 	};
 
 	Page.prototype._getFlow = function() {

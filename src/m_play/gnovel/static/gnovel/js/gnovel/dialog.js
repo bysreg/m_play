@@ -15,7 +15,8 @@ var GNOVEL = GNOVEL || {};
 		this._y = y;
 		this._hasTransition = true;
 		this._mouseDownListener = null;
-		this._curTextBox = this._page.createTextBox(message, params || {});				
+		this._curTextBox = this._page.createTextBox(message, params || {});
+		this._nameBox = this._page.createTextBox(params.speaker, {align: "left"});				
 		this._tweenComplete = false;
 
 		var curspk = params.speaker;
@@ -53,19 +54,21 @@ var GNOVEL = GNOVEL || {};
 		//tween from the left
 		if (x < 0) {
 			x = 0;
-			this._curTextBox.position.set(x - 100, y + 20, z + 20);
+			this._curTextBox.position.set(x - 100, y + 40, z + 20);
 		}
 		//tween from the right
 		else if (x > 0) {
 			x = 0;
-			this._curTextBox.position.set(x + 100, y + 20, z + 20);
+			this._curTextBox.position.set(x + 100, y + 40, z + 20);
 		} else {
-			this._curTextBox.position.set(x, y + 20, z + 20);
+			this._curTextBox.position.set(x, y + 40, z + 20);
 		}
 
 		if(Dialog._textBg != null && this._hasTransition){	
 			this._closeDialog();
 		}
+
+		this._nameBox.position.set(this._curTextBox.position.x - 420, this._curTextBox.position.y + 30, z + 20);
 
 		// add background textbox
 		if(typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition){
@@ -74,13 +77,13 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(Dialog._textBg);
 
 			this._page.tweenMat(Dialog._textBg, {
-			duration: 1000,
+			duration: 500,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 			});
 
 			this._page.move(Dialog._textBg, {
-			duration: 1000,
+			duration: 500,
 			x: x,
 			easing: TWEEN.Easing.Cubic.Out
 			});
@@ -88,28 +91,59 @@ var GNOVEL = GNOVEL || {};
 
 		// alpha
 		this._page.tweenMat(this._curTextBox, {
-			duration: 1000,
+			duration: 500,
+			opacity: 0.7,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this._page.tweenMat(this._nameBox, {
+			duration: 500,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
 		// move
 		this._page.move(this._curTextBox, {
-			duration: 1000,
+			duration: 500,
 			x: x,
+			easing: TWEEN.Easing.Cubic.Out
+		});
+		this._page.move(this._nameBox, {
+			duration: 500,
+			x: this._nameBox.x,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
 		this._page._addToScene(this._curTextBox);
+		this._page._addToScene(this._nameBox);
 	};
 
 	Dialog.prototype._onComplete = function() {
 		Dialog._prevSpeaker = this._params.speaker;
 
 		//remove mousedown listener
-		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);		
+		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 
-		this._page._removeFromScene(this._curTextBox);
+		var textBoxObj = this._curTextBox;
+		var nameBoxObj = this._nameBox;
+		var dialog = this;		
+
+		this._page.tweenMat(this._curTextBox, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				dialog._page._removeFromScene(textBoxObj);
+			},
+		});
+		this._page.tweenMat(this._nameBox, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				dialog._page._removeFromScene(nameBoxObj);
+			},
+		});
+
 		if(!this._isDialogNext()) {
 			this._closeDialog();
 		}
@@ -129,7 +163,17 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype._closeDialog = function() {
-		this._page._removeFromScene(Dialog._textBg);
+		var dialog = this;
+		var textBgObj = this._textBg;
+		this._page.tweenMat(Dialog._textBg, {
+			duration: 500,
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			onComplete: function() {
+				dialog._page._removeFromScene(textBgObj);
+			},
+		});
+		
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
 	};
