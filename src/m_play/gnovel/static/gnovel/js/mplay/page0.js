@@ -25,39 +25,32 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
 		//create images
-		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, 0, 40), 100, 183);
 
-		this._ryanImg.material.opacity = 0;
 		this._yourphoneImg.material.opacity = 0;
 		this._catsphoneImg.material.opacity = 0;
 		this._closephoneImg.material.opacity = 0;
 
-		var phone = this.createInteractableObject(
-			"/static/gnovel/res/textures/phone.png",
-			{x: -100, y: 200, width : 64, height : 64, onClick: function() {
-			}});
-
-		this._ryan = "ryan";
 		this._yourphone = "yourphone";
 		this._catsphone = "catsphone";
 		this._closephone = "closephone";
 
-		// add object tags
-		this._setObjectTag(this._ryan, this._ryanImg);
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._closephone, this._closephoneImg);
 	};
 
 	Page0.prototype._createFlowElements = function() {
-		var ryan = "%ryan";
-		var yourphone = "%yourphone";
-		var catsphone = "%catsphone";
-		var closephone = "%closephone";
+
+		var catsphone = "%" + this._yourphone;
+		var closephone = "%" + this._closephone;
+		var yourphone = "%" + this._yourphone;
+		var ryan = "%" + this._ryan;
+		var cat = "%" + this._cat;
 		var player = "yourname";
+
 		var o = null;
 
 		o = [
