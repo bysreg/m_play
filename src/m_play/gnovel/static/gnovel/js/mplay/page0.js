@@ -25,31 +25,28 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
 		//create images
-		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
+		
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, 0, 40), 100, 183);
 
-		this._ryanImg.material.opacity = 0;
 		this._yourphoneImg.material.opacity = 0;
 		this._catsphoneImg.material.opacity = 0;
 		this._closephoneImg.material.opacity = 0;
 
 
-		this._ryan = "ryan";
 		this._yourphone = "yourphone";
 		this._catsphone = "catsphone";
 		this._closephone = "closephone";
 
 		// add object tags
-		this._setObjectTag(this._ryan, this._ryanImg);
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._closephone, this._closephoneImg);
 	};
 
 	Page0.prototype._createFlowElements = function() {
-		var ryan = "%ryan";
+		var ryan = "%" + this._ryan;
 		var yourphone = "%yourphone";
 		var catsphone = "%catsphone";
 		var closephone = "%closephone";
@@ -79,6 +76,7 @@ var MPLAY = MPLAY || {};
 					{text : "Psyched to be working with you after graduation, Ryan!",
 						go: "#cheers"}]},
 			{type: "dialog", speaker: "ryan", text: "Cheers!  Congratulations!", label: "cheers"},
+			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
@@ -94,7 +92,9 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan},
 
 			// after transition
-			{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "timefade"},
+			{type: "dialog", speaker: "", text: "Time fade in Scottie’s Bar", label: "timefade"},
+
+			{type: "show", img: ryan, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
 			{type: "choices", 
 				choices : 
