@@ -271,7 +271,7 @@ var GNOVEL = GNOVEL || {};
 					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
-				// }				
+				// }
 			},
 			duration: 500
 		});
@@ -322,8 +322,13 @@ var GNOVEL = GNOVEL || {};
 			pageObj._removeFromScene(choicesBg);
 			var jumpIndex = jumpArr[resultId];
 
-			// go to next flow
-			pageObj._flow._jump(jumpIndex);
+			if(typeof jumpIndex === 'undefined') {
+				// go to next flow
+				pageObj._flow._next();
+			}else{
+				pageObj._flow._jump(jumpIndex);
+			}
+
 			pageObj._flow._exec();
 		};
 
