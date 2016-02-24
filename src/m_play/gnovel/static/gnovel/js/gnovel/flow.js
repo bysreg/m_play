@@ -16,10 +16,10 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Flow.prototype._reset = function() {
-		this._flowCounter = 0;		
+		this._flowCounter = 0;
 		this._elements = null;
 		this._labels = [];
-		this._storedData = [];		
+		this._storedData = [];
 	};
 
 	Flow.DIALOG = "dialog";
@@ -38,7 +38,7 @@ var GNOVEL = GNOVEL || {};
 			flowElements = [];
 
 		this._elements = flowElements;
-		this._processLabels();		
+		this._processLabels();
 	};
 
 	Flow.prototype._jump = function(index) {
@@ -56,7 +56,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.prototype._exec = function() {
 		var obj = this._elements[this._flowCounter];
 
-		// hack 
+		// hack
 		if(obj == null)
 			return;
 
@@ -69,7 +69,7 @@ var GNOVEL = GNOVEL || {};
 				this._handleDialog(obj);
 				break;
 			case Flow.CHOICES:
-				this._handleChoices(obj);				
+				this._handleChoices(obj);
 				break;
 			case Flow.SHOW:
 				this._handleShow(obj);
@@ -94,7 +94,7 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._next = function() {
 		this._flowCounter++;
-	};	
+	};
 
 	Flow.prototype._processLabels = function() {
 		for(var i = 0; i < this._elements.length;i++) {
@@ -111,16 +111,16 @@ var GNOVEL = GNOVEL || {};
 		for (var prop in obj) {
 			if(obj.hasOwnProperty(prop)) {
 				// check if this property's value start with '#'
-				// which would mark this value as a label of other 
+				// which would mark this value as a label of other
 				// flow element
-				
+
 				if(typeof (obj[prop]) === "string") {
 					// check if it starts with '#'
 					var c = obj[prop].charAt(0);
 					if(c == '#') {
 						// search for that label in labels dictionary
-						
-						var label = obj[prop].substring(1);						
+
+						var label = obj[prop].substring(1);
 						var value = this._labels[label];
 
 						if(typeof value === 'undefined' || value === null)
@@ -130,7 +130,7 @@ var GNOVEL = GNOVEL || {};
 					} else if(c == '%') {
 						// search for that label in objs dictionary
 
-						var label = obj[prop].substring(1);						
+						var label = obj[prop].substring(1);
 						var value = this._objs[label];
 
 						if(typeof value === 'undefined' || value === null)
@@ -139,7 +139,7 @@ var GNOVEL = GNOVEL || {};
 						obj[prop] = value;
 					} else if(c == '$') {
 						// search for that label in storedData dictionary
-						
+
 						var label = obj[prop].substring(1);
 						var value = this._storedData[label];
 
@@ -151,7 +151,7 @@ var GNOVEL = GNOVEL || {};
 				} else if(typeof(obj[prop]) === "object") {
 					// recurse to this object
 					this._processParameters(obj[prop]);
-				}				
+				}
 			}
 		}
 	};
@@ -169,6 +169,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Flow.prototype._handleChoices = function(obj) {
+		var params = {};
+		var page = this._page;
+
 		// collect choices' text to its own array
 		var choicesTextArr = [];
 		for(var i = 0; i < obj.choices.length; i++) {
@@ -182,13 +185,18 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		// pass the original flow element to params
-		var params = {};
 		params.flowElement = obj;
+
+		params.onChoiceComplete = function(resultId) {
+			if(obj.choices[resultId].onChoose && typeof obj.choices[resultId].onChoose === 'function') {
+				obj.choices[resultId].onChoose(page);
+			}
+		};
 
 		this._page._showChoices(choicesTextArr, params, jumpArr);
 	};
 
-	Flow.prototype._handleShow = function(obj) {	
+	Flow.prototype._handleShow = function(obj) {
 		var img = obj.img;
 		var params = {};
 
@@ -228,7 +236,7 @@ var GNOVEL = GNOVEL || {};
 			this._page.goToPageByLabel(obj.page, transitionType, null);
 		} else {
 			this._page.goToPage(pageIndex, transitionType, null);
-		}		
+		}
 	};
 
 	Flow.prototype._handleCompare = function(obj) {
@@ -286,12 +294,12 @@ var GNOVEL = GNOVEL || {};
 			if(typeof label !== 'undefined') {
 				// we will store the data into that label
 				console.log("data stored : " + data + " in label : " + label);
-				this._storedData[label] = data;		
+				this._storedData[label] = data;
 			}
-		}	
+		}
 
 		this._next();
-		this._exec();	
+		this._exec();
 	};
 
 	GNOVEL.Flow = Flow;

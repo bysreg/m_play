@@ -28,7 +28,7 @@ var MPLAY = MPLAY || {};
 		if(!MPlayPage._isCharInit) {
 			this._initChars();
 		}
-		
+
 		// set object tags for the characters, so that we can refer it in the flow
 		this._setObjectTag(MPlayPage._ryan.getName(), MPlayPage._ryan);
 		this._setObjectTag(MPlayPage._cat.getName(), MPlayPage._cat);
@@ -38,12 +38,12 @@ var MPLAY = MPLAY || {};
 		this._professor = MPlayPage._professor.getName();
 		this._ryan = MPlayPage._ryan.getName();
 		this._cat = MPlayPage._cat.getName();
-		this._priya = MPlayPage._priya.getName();		
+		this._priya = MPlayPage._priya.getName();
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
-	MPlayPage.prototype.constructor = MPlayPage;	
-	
+	MPlayPage.prototype.constructor = MPlayPage;
+
 	// class static variable
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
@@ -53,15 +53,15 @@ var MPLAY = MPLAY || {};
 	MPlayPage._ryan = null;
 	MPlayPage._cat = null;
 	MPlayPage._professor = null;
-	MPlayPage._priya = null;	
+	MPlayPage._priya = null;
 	MPlayPage._isCharInit = false;
 
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/neutral ryan png.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, 140), 600, 924.7), "Ryan");		
+		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, 140), 600, 924.7), "Ryan");
 
-		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Cat");		
-		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Cat");		
+		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Cat");
+		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -310, 140), 600, 1256), "Priya");
@@ -82,16 +82,16 @@ var MPLAY = MPLAY || {};
 		var integrityManager = this._integrityManager;
 		var relationshipManager = this._relationshipManager;
 
-		params.onChoiceComplete = function(resultId) {
+		var onChoiceComplete = function(resultId) {
 			// if flowElement is not defined and not null (not falsy)
 			if(flowElement != null) {
-				if(typeof flowElement.choices[resultId].integrityScore !== 'undefined' && 
+				if(typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
 					flowElement.choices[resultId].integrityScore != null) {
 
 					integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
 				}
-				
-				if(typeof flowElement.choices[resultId].relationship !== 'undefined' && 
+
+				if(typeof flowElement.choices[resultId].relationship !== 'undefined' &&
 					flowElement.choices[resultId].relationship != null) {
 
 					var name = flowElement.choices[resultId].relationship.name;
@@ -100,6 +100,17 @@ var MPLAY = MPLAY || {};
 				}
 			}
 		};
+
+		// if there is arelady params.onChoiceComlete defined
+		if(!params.onChoiceComplete) {
+			params.onChoiceComplete = onChoiceComplete;
+		}else{
+			var oriChoiceComplete = params.onChoiceComplete;
+			params.onChoiceComplete = function(resultId) {
+				oriChoiceComplete(resultId);
+				onChoiceComplete(resultId);
+			};
+		}
 
 		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
 	};
@@ -140,10 +151,10 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
-		var position = params.flowElement.position; 
+		var position = params.flowElement.position;
 
 		// check if the object is character
-		if(obj instanceof MPLAY.Character) {			
+		if(obj instanceof MPLAY.Character) {
 			img = obj.getImage(flowElement.expression);
 		}
 
