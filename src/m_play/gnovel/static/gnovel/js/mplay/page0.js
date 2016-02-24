@@ -29,6 +29,7 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, 0, 40), 100, 183);
 
+
 		this._yourphoneImg.material.opacity = 0;
 		this._catsphoneImg.material.opacity = 0;
 		this._closephoneImg.material.opacity = 0;
@@ -50,11 +51,11 @@ var MPLAY = MPLAY || {};
 
 	Page0.prototype._createFlowElements = function() {
 
-		var catsphone = "%" + this._yourphone;
-		var closephone = "%" + this._closephone;
-		var yourphone = "%" + this._yourphone;
+		
 		var ryan = "%" + this._ryan;
-		var cat = "%" + this._cat;
+		var catsphone = "%" + this._catsphone;
+		var closephone = "%" + this._closephone;
+		var yourphone = "%" + this._yourphone;		
 		var player = "yourname";
 
 		var o = null;
@@ -82,6 +83,7 @@ var MPLAY = MPLAY || {};
 					{text : "Psyched to be working with you after graduation, Ryan!",
 						go: "#cheers"}]},
 			{type: "dialog", speaker: "ryan", text: "Cheers!  Congratulations!", label: "cheers"},
+			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
@@ -97,7 +99,9 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan},
 
 			// after transition
-			{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "timefade"},
+			{type: "dialog", speaker: "", text: "Time fade in Scottie’s Bar", label: "timefade"},
+
+			{type: "show", img: ryan, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
 			{type: "choices",
 				choices :
