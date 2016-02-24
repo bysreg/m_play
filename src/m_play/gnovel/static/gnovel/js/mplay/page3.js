@@ -43,14 +43,14 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 		var io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/char/neutral ryan png.png",
-			{x: -300, y: 0, width : 128, height : 268, onClick: function() {
+			{x: -325, y: 0, width : 128, height : 268, onClick: function() {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 			}});
 
 		var io2 = this.createInteractableObject(
 			"/static/gnovel/res/textures/char/julia-happy-colored trim.png",
-			{x: 300, y: 0, width : 111, height : 268, onClick: function() {
+			{x: 450, y: 0, width : 111, height : 268, onClick: function() {
 				pageObj._talked = 2;
 				pageObj._runFlow();
 			}});
