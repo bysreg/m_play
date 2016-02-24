@@ -24,50 +24,174 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
-		//create images
-		this._professorImg = this.createImage("/static/gnovel/res/textures/char/prof sweeney- thoughtful.png", new THREE.Vector3(75, -130, 180), 600, 750);
-		this._juliImg = this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(-300, -140, 120), 600, 750);
-		this._ryanImg = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -80, 140), 600, 750);
-		this._catImg = this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(450, -130, 100), 600, 750);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 40), 250, 458);
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 
 
-		this._professorImg.material.opacity = 0;
-		this._juliImg.material.opacity = 0;
-		this._ryanImg.material.opacity = 0;
-		this._catImg.material.opacity = 0;
+		this._yourphoneImg.material.opacity = 0;
+		this._closephoneImg.material.opacity = 0;
 
-		this._professor = "professor";
-		this._juli = "juli";
-		this._ryan = "ryan";
-		this._cat = "cat";
-		
-		// add object tags
-		this._setObjectTag(this._professor, this._professorImg);
-		this._setObjectTag(this._juli, this._juliImg);
-		this._setObjectTag(this._ryan, this._ryanImg);
-		this._setObjectTag(this._cat, this._catImg);
+		this._yourphone = "yourphone";
+		this._closephone = "closephone";
+
+		// for images
+		this._setObjectTag(this._yourphone, this._yourphoneImg);
+		this._setObjectTag(this._closephone, this._closephoneImg);
+
+		this._talked = 0;
+
+		var pageObj = this;
+		var io1 = this.createInteractableObject(
+			"/static/gnovel/res/textures/char/neutral ryan png.png",
+			{x: -300, y: 0, width : 128, height : 268, onClick: function() {
+				pageObj._talked = 1;
+				pageObj._runFlow();
+			}});
+
+		var io2 = this.createInteractableObject(
+			"/static/gnovel/res/textures/char/julia-happy-colored trim.png",
+			{x: 300, y: 0, width : 111, height : 268, onClick: function() {
+				pageObj._talked = 2;
+				pageObj._runFlow();
+			}});
 	};
 
 	Page3.prototype._createFlowElements = function() {
-		var professor = "%professor";
-		var juli = "%juli";
-		var ryan = "%ryan";
-		var cat = "%cat";
+		// var professor = "%professor";
+		var priya = "%" + this._priya;
+		var ryan = "%" + this._ryan;
+		var cat = "%" + this._cat;
+		var closephone = "%" + this._closephone;
+		var yourphone = "%" + this._yourphone;
+		var player = "Honey";
+		var o = null;
 
-		var o = [
-			{type: "dialog", text: "... And as we wrap up today's class. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ornare enim. Praesent lectus diam, ornare iaculis purus aliquam, euismod mollis odio. Integer sed congue sapien. Vestibulum eget molestie lorem"}, 
-			{type: "choices", choices : [{text: "Not at all!", go: "#choice_number_1"}, {text : " Oh, what did you do before deciding to get your MBA?", go : "#choice_number_2"}]},
-			{type: "dialog", text: "you picked choice number 1", label : "choice_number_1"}, 
-			{type: "dialog", text: "you picked choice number 2", label : "choice_number_2"},			
-			{type: "show", img: professor},			
-			{type: "show", img: cat},
-			{type: "hide", img: professor, waitUntilHidden: false},
-			{type: "show", img: ryan}, 
-			{type: "hide", img: ryan},
-			{type: "hide", img: cat},
+		if(this._talked == 1) {
+			o = [
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Hey there!  Coming to join us?"},
+				{type: "choices",
+					choices :
+						[{text: "I need to study, but wanted to say hi first.",
+							go: "#study-r"},
+						{text: "I’m coming to say hi.  What are you two doing?",
+							go: "#sayhi-r"}]},
 
-			{type: "goto", page: 0, transition: "fade"},
-		];
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test.", label: "study-r"},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test.", label: "sayhi-r"},
+				
+				{type: "show", img: yourphone, position: "center", label: "email"},
+				{type: "dialog", speaker: "", text: "Your phone pings with an email."},
+				{type: "hide", img: yourphone, waitUntilHidden: false},
+				{type: "show", img: closephone, waitUntilShown: false},
+				{type: "dialog", speaker: "", text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
+				{type: "hide", img: closephone, waitUntilHidden: false},
+				{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester.  Could you send me some of your stuff from the class?  Like notes and old assignments?"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Ryan, I don’t know if you can look at " + player + "’s graded assignments."},
+				{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
+				{type: "dialog", speaker: "Priya", text: "I think so… but I don’t know."},
+				{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
+				{type: "choices", 
+					choices :
+						[{text: "You decide to give all your materials to Ryan – he would do the same for you. ",
+							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1}},
+						{text: "You hesitate… Hopefully he gets the message.",
+							go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
+						{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
+							go: "#notes", integrityScore: 1}]},
+
+				{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine. I'm just going to use it to catch up.", label: "materials"},
+				{type: "dialog", speaker: "Priya", text: "Ok... Hey guys I'll see you later.  I forgot, I have a thing…"},
+				{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well see you."},
+				{type: "hide", img: priya, waitUntilHidden: false},
+				{type: "dialog", speaker: "", text: "Priya leaves."},
+				{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+
+				{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "dialog", speaker: "", text: "Ryan leaves."},
+				{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
+				{type: "choices",
+					choices :
+						[{text: "I’m sure he just needs to cool off.",
+							go: "#lastflow-p"},
+						{text: "He’s just pissed at me, don’t worry about it.",
+							go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
+				{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later.", label: "lastflow-p"},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+
+				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
+				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
+
+			];
+		}
+
+		if(this._talked == 2) {
+			o = [
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Hi!  What’s going on?"},
+				{type: "choices",
+					choices :
+						[{text: "I need to study, but wanted to say hi first.",
+							go: "#study-p"},
+						{text: "I’m coming to say hi.  What are you two doing?",
+							go: "#sayhi-p"}]},
+
+				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study.  Your friend here keeps distracting me.", label: "study-p"},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "dialog", speaker: "Priya", text: "I’m trying to study.  Ryan is avoiding his Computer Graphics work.", label: "sayhi-p"},
+				
+				{type: "show", img: yourphone, position: "center", label: "email"},
+				{type: "dialog", speaker: "", text: "Your phone pings with an email."},
+				{type: "hide", img: yourphone, waitUntilHidden: false},
+				{type: "show", img: closephone, waitUntilShown: false},
+				{type: "dialog", speaker: "", text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
+				{type: "hide", img: closephone, waitUntilHidden: false},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester.  Could you send me some of your stuff from the class?  Like notes and old assignments?"},
+				{type: "dialog", speaker: "Priya", text: "Ryan, I don’t know if you can look at " + player + "’s graded assignments."},
+				{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
+				{type: "dialog", speaker: "Priya", text: "I think so… but I don’t know."},
+				{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
+				{type: "choices",
+					choices :
+						[{text: "You decide to give all your materials to Ryan – he would do the same for you. ",
+							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1}},
+						{text: "You hesitate… Hopefully he gets the message.",
+							go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
+						{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
+							go: "#notes", integrityScore: 1}]},
+
+				{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine. I'm just going to use it to catch up.", label: "materials"},
+				{type: "dialog", speaker: "Priya", text: "Ok... Hey guys I'll see you later.  I forgot, I have a thing…"},
+				{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well see you."},
+				{type: "hide", img: priya, waitUntilHidden: false},
+				{type: "dialog", speaker: "", text: "Priya leaves."},
+				{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+
+				{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "dialog", speaker: "", text: "Ryan leaves."},
+				{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
+				{type: "choices",
+					choices :
+						[{text: "I’m sure he just needs to cool off.",
+							go: "#lastflow-p"},
+						{text: "He’s just pissed at me, don’t worry about it.",
+							go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
+				{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later.", label: "lastflow-p"},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+
+				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
+				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
+			];
+		}
 
 		return o;
 	};
