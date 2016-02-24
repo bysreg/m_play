@@ -31,6 +31,7 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListeners = [];
 		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
+		this._savedData = {};
 
 		var gnovel = this;
 
@@ -96,7 +97,7 @@ var GNOVEL = GNOVEL || {};
 		}else{
 			// there is already a page called with that label
 			console.warn("there is already page called with that label");
-		}	
+		}
 	};
 
 	Gnovel.prototype._addToScene = function(page, o) {
@@ -160,7 +161,7 @@ var GNOVEL = GNOVEL || {};
 		this._scene.add(pageRoot);
 		page._onLoad();
 
-		// FIXME 
+		// FIXME
 		// wait for several seconds
 		var o = {val:0};
 		var loadDuration = 3;
@@ -261,6 +262,14 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype.removeMouseMoveListener = function(obj) {
 		var index = GNOVEL.Util.findElement(this._mouseMoveListeners, obj);
 		if(index != -1) this._mouseMoveListeners.splice(index, 1);
+	};
+
+	Gnovel.prototype.saveData = function(label, data) {
+		this._savedData[label] = data;
+	};
+
+	Gnovel.prototype.getSavedData = function (label) {
+		return this._savedData[label];
 	};
 
 	GNOVEL.Gnovel = Gnovel;
