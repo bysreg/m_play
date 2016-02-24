@@ -20,7 +20,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page1_1.prototype._onLoad = function() {
-		MPLAY.MPlayPage.prototype._onLoad.call(this);		
+		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uc final layers png.png");
 
@@ -28,14 +28,14 @@ var MPLAY = MPLAY || {};
 
 		var pageObj = this;
 		// var io1 = this.createInteractableObject(
-		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
+		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png",
 		// 	{x: -100, y: 200, width : 64, height : 64, onClick: function() {
 		// 		pageObj._talked = 1;
 		// 		pageObj._runFlow();
-		// 	}});		
+		// 	}});
 
 		// var io2 = this.createInteractableObject(
-		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png", 
+		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png",
 		// 	{x: 100, y: 200, width : 64, height : 64, onClick: function() {
 		// 		pageObj._talked = 2;
 		// 		pageObj._runFlow();
@@ -46,11 +46,14 @@ var MPLAY = MPLAY || {};
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
-		
+
 		var o = null;
+
+		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
+
 		// variables from scene 1
-		var isPhonePickedUp = 1;
-		var isPhoneWithYou = 0;
+		var isPhonePickedUp = (catsPhoneStatus > 0);
+		var isPhoneWithYou = (catsPhoneStatus == 2);
 		// player name which the player entered at the beginning of the game
 		var player = "Lindsey";
 		// this._talked = 1;

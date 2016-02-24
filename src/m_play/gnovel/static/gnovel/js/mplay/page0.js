@@ -37,9 +37,15 @@ var MPLAY = MPLAY || {};
 		this._catsphone = "catsphone";
 		this._closephone = "closephone";
 
+		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._closephone, this._closephoneImg);
+
+		// 0 means player does not pick up cat's phone
+		// 1 means player picks up cat's phone but it is not with him
+		// 2 means player picks up cat's phone and it is with him
+		this._catsPhoneStatus = 0;
 	};
 
 	Page0.prototype._createFlowElements = function() {
@@ -117,20 +123,39 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "ryan", text: "So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
 			{type: "jump", condition: true, goTrue: "#hidephone", goFalse: 1000},
 
+			// if phone is picked up
 			{type: "dialog", speaker: "ryan", text: "Oh no.  Looks like it’s dead.  Sucks to be that guy.", label: "pickupphone"},
 			{type: "choices",
 				choices :
-					[{text: "Let’s give it to the bartender to hold on to."},
-					{text : "I’ll bring it home to charge.  Maybe the owner will contact it."}]},
+					[{text: "Let’s give it to the bartender to hold on to.",
+						onChoose: function(page) {
+							console.log("bartender");
+							page._catsPhoneStatus = 1;
+						}},
+					{text : "I’ll bring it home to charge.  Maybe the owner will contact it.",
+						onChoose: function(page) {
+							console.log("you have the phone");
+							page._catsPhoneStatus = 2;
+						}}]},
 			{type: "dialog", speaker: "ryan", text: "That should score you some Karma points"},
 			{type: "jump", condition: true, goTrue: "#hidephone", goFalse: 1000},
 
+			// if phone is not picked up
 			{type: "dialog", speaker: "ryan", text: "Ha!  I didn’t know you were so mean.  Leave it, I guess.", label: "sellit"},
-			{type: "hide", img: catsphone, label: "hidephone"},
 
+			// ending
+			{type: "hide", img: catsphone, label: "hidephone"},
+			{type: "goto", page: "scene 2.a"},
 		];
 
 		return o;
+	};
+
+	/**
+	 * @override
+	 */
+	Page0.prototype._onUnload = function() {
+		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 	};
 
 	MPLAY.Page0 = Page0;
