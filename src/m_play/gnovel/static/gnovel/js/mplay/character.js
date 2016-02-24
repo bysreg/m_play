@@ -42,8 +42,8 @@ var MPLAY = MPLAY || {};
 	Character.prototype.getVisibleImage = function() {
 		if(this._img.material.opacity > 0) return this._img;
 
-		for(var img in this._expression){
-			if(img.material.opacity > 0) {
+		for(var expression in this._expression){
+			if(this._expression[expression].material.opacity > 0) {
 				return img;
 			}
 		}
