@@ -55,7 +55,7 @@ var MPLAY = MPLAY || {};
 		var catsphone = "%" + this._catsphone;
 		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;		
-		var player = "yourname";
+		var player = "Lindsey";
 
 		var o = null;
 
