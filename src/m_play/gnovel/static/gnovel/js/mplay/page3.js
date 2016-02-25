@@ -157,7 +157,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: priya, waitUntilHidden: false},
 				{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study."},
-				{type: "hide", img: priya, waitUntilHidden: false},
+				{type: "hide", img: priya},
 				{type: "show", img: priya, expression: "neutral", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},

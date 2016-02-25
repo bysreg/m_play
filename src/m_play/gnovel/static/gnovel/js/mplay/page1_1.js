@@ -97,6 +97,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: ryan},
 				{type: "show", img: priya, expression: "happy", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "What are the chances!"},
+				{type: "goto", page: "scene 4"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 
 				// if you have the phone with you
@@ -108,6 +109,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: cat, label: "hidecat", waitUntilHidden: false, flip: true},
 				{type: "show", img: ryan, waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger"},
+				{type: "goto", page: "scene 4"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 
 				// if you left the phone at the bar
@@ -117,6 +119,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: cat, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Hopefully it’s still there.  I’ll call them."},
 				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "goto", page: "scene 4"},
 			];
 		
 		return o;
