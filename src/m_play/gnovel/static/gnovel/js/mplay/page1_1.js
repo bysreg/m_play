@@ -22,7 +22,13 @@ var MPLAY = MPLAY || {};
 	Page1_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/uc final layers png.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
+
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._addToScene(background2);
+
+		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		this._addToScene(background3);
 
 		this._talked = 0;
 

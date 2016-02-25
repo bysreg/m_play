@@ -68,7 +68,7 @@ var GNOVEL = GNOVEL || {};
 		this._hoveredChoice = hoveredChoice;
 		var startx = this._params.x || -200;
 		var starty = this._params.y || -190;
-		var startz = this._params.z || 220;
+		var startz = this._params.z || this._page.getChoicesLayer();
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {
 				fontsize: 46,

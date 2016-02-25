@@ -46,7 +46,7 @@ var GNOVEL = GNOVEL || {};
 	Dialog.prototype._init = function() {
 		var x = this._x;
 		var y = this._y;
-		var z = 200;	
+		var z = this._page.getDialogLayer();	
 
 		/**
 		 *@function temporary tween decision on left & right.  should ultimately be based upon parent character's position

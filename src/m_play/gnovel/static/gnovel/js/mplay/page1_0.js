@@ -22,7 +22,10 @@ var MPLAY = MPLAY || {};
 	Page1_0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);		
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
+
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background2Layer), 1920, 1080);
+		this._addToScene(background2);
 	};
 
 	Page1_0.prototype._createFlowElements = function() {

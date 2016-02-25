@@ -24,6 +24,17 @@ var MPLAY = MPLAY || {};
 			this._relationshipManager = new MPLAY.RelationshipManager();
 		}
 
+		// override inherited variable
+		this._backgroundLayer = -80;
+
+		// z orders		
+		this._background2Layer = -40;
+		this._background3Layer = 0;
+		this._interactableObjectLayer = 150;
+		this._characterLayer = 140;
+		this._character2Layer = 250;
+		this._character3Layer = 300;
+
 		// instantiate characters, if it is not instantiated yet
 		if(!MPlayPage._isCharInit) {
 			this._initChars();
@@ -39,6 +50,12 @@ var MPLAY = MPLAY || {};
 		this._ryan = MPlayPage._ryan.getName();
 		this._cat = MPlayPage._cat.getName();
 		this._priya = MPlayPage._priya.getName();
+
+		// hide all characters
+		MPlayPage._professor.hideAllImages();
+		MPlayPage._ryan.hideAllImages();
+		MPlayPage._cat.hideAllImages();
+		MPlayPage._priya.hideAllImages();
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -57,18 +74,18 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isCharInit = false;
 
 	MPlayPage.prototype._initChars = function() {
-		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -310, 140), 600, 1253), "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, 140), 600, 923), "Ryan");
+		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1253), "Ryan");
+		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 923), "Ryan");
 
-		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, 140), 941, 1253), "Cat");
-		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, 140), 911, 1253), "Cat");
+		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 941, 1253), "Cat");
+		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, this._characterLayer), 911, 1253), "Cat");
 
-		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, 140), 700, 963), "Priya");
-		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -350, 140), 600, 1448), "Priya");
+		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, this._characterLayer), 700, 963), "Priya");
+		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -350, this._characterLayer), 600, 1448), "Priya");
 
-		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, 140), 600, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -310, 140), 600, 1143), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("disappointed", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, 140), 600, 1450), "Prof. Sweeney");
+		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1143), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("disappointed", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 600, 1450), "Prof. Sweeney");
 
 		MPlayPage._isCharInit = true;
 	};
@@ -165,6 +182,9 @@ var MPLAY = MPLAY || {};
 		} else if(position === "right") {
 			img.position.x = 450;
 		}
+
+		console.log("test bg : " + this._bg.localToWorld(this._bg.position).z);
+		console.log("test : " + img.localToWorld(img.position).z);
 
 		if(params.flowElement.flip === true) {
 			img.material.map.wrapS = THREE.RepeatWrapping;
