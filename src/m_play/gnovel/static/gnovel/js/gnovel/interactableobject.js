@@ -22,7 +22,8 @@ var GNOVEL = GNOVEL || {};
 		// for now we require width and height in params
 		var x = params.x || 0;
 		var y = params.y || 0;
-		var pos = new THREE.Vector3(x, y, 100);
+		var z = params.z || 100;
+		var pos = new THREE.Vector3(x, y, z);
 		var mouse = new THREE.Vector2(), hoveredObj;
 		var offset = new THREE.Vector3(.2, .2, .2);
 
