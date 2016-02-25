@@ -29,7 +29,7 @@ var MPLAY = MPLAY || {};
 
 		// z orders		
 		this._background2Layer = -40;
-		this._background3Layer = 0;
+		this._background3Layer = 30;
 		this._interactableObjectLayer = 150;
 		this._characterLayer = 140;
 		this._character2Layer = 250;

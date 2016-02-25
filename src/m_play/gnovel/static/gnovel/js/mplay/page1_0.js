@@ -24,7 +24,7 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background2Layer), 1920, 1080);
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background2);
 	};
 
