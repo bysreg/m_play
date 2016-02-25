@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 
 		for(var expression in this._expression){
 			if(this._expression[expression].material.opacity > 0) {
-				return img;
+				return this._expression[expression];
 			}
 		}
 
