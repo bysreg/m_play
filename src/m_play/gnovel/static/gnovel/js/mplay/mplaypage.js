@@ -24,9 +24,12 @@ var MPLAY = MPLAY || {};
 			this._relationshipManager = new MPLAY.RelationshipManager();
 		}
 
+		// override inherited variable
+		this._backgroundLayer = -80;
+
 		// z orders		
-		this._background2Layer = 50;
-		this._background3Layer = 100;
+		this._background2Layer = -40;
+		this._background3Layer = 0;
 		this._interactableObjectLayer = 150;
 		this._characterLayer = 140;
 		this._character2Layer = 250;

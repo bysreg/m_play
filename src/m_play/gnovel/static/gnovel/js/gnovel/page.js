@@ -53,6 +53,7 @@ var GNOVEL = GNOVEL || {};
 		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
 		var quad = new THREE.Mesh(plane, material);
 		quad.name = "Background";		
+		quad.position.z = this.getBackgroundLayer();
 
 		// add this to the scene
 		this._addToScene(quad);
