@@ -22,17 +22,17 @@ var GNOVEL = GNOVEL || {};
 		var mouseY = ( event.clientY - window.innerHeight / 2 ) / 4;
 		var camera = gnovelObj.getCamera();
 
-		camera.position.x += ( mouseX - camera.position.x ) * .01;
-		camera.position.y += ( mouseY - camera.position.y ) * .01;
+		camera.position.x += ( mouseX - camera.position.x ) * .005;
+		camera.position.y += ( mouseY - camera.position.y ) * .005;
 
 		if(camera.position.x < 0){
 			camera.position.x = Math.max( camera.position.x, -200);
 		}
 		else {
-			camera.position.x = Math.min( camera.position.x, 200);
-		}
+			camera.position.x = Math.min( camera.position.x, 100);
+		}		
 
-		camera.lookAt(new THREE.Vector3(0, 0, 0));
+		camera.lookAt(new THREE.Vector3(0, 0, 400));
 	};
 
 	GNOVEL.MouseMovedCamera = MouseMovedCamera;
