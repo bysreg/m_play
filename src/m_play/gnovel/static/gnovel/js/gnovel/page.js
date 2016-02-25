@@ -320,7 +320,7 @@ var GNOVEL = GNOVEL || {};
 					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
-					this._removeFromScene(obj);
+					pageObj._removeFromScene(obj);
 				}
 			},
 			duration: 500
@@ -330,7 +330,7 @@ var GNOVEL = GNOVEL || {};
 			// go to next flow
 			pageObj._flow._next();
 			pageObj._flow._exec();
-			this._removeFromScene(obj);
+			pageObj._removeFromScene(obj);
 		}
 	};
 
