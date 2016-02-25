@@ -73,7 +73,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: closephone},
 			{type: "dialog", speaker: "Your phone", text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG"},
 			{type: "hide", img: closephone, waitUntilHiden: false},
-			{type: "show", img: ryan, position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Congratulations! I am so happy you got the job - referring you was a good call.  We can continue the magic as cubicle neighbors after graduation."},
 			{type: "choices",
 				choices :
@@ -86,7 +86,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
-			{type: "show", img: ryan, position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :
@@ -140,7 +140,10 @@ var MPLAY = MPLAY || {};
 							console.log("you have the phone");
 							page._catsPhoneStatus = 2;
 						}}]},
-			{type: "dialog", speaker: "ryan", text: "That should score you some Karma points"},
+			
+			{type: "hide", img: ryan},
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "ryan", text: "That should score you some Karma points! Anyway, congrats again on the job!"},
 			{type: "jump", condition: true, goTrue: "#hidephone", goFalse: 1000},
 
 			// if phone is not picked up
