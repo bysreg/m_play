@@ -21,7 +21,7 @@ var GNOVEL = GNOVEL || {};
 		this._pages = [];
 		this._pageDict = {};
 		this._curPageIdx = 0;
-		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2000);
 		this._stats = null;
 		this._container = document.createElement('div'); // html div container
 		this._prevPage = null;
@@ -156,7 +156,7 @@ var GNOVEL = GNOVEL || {};
 	//	var pageOverlay1 = new THREE.Object3D();
 	//	var pageOverlay2 = new THREE.Object3D();
 		var gnovel = this;
-		pageRoot.name = "Page Root";
+		pageRoot.name = "Page Root " + page.getPageLabel();
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		this._scene.add(pageRoot);
 		page._onLoad();
@@ -188,6 +188,7 @@ var GNOVEL = GNOVEL || {};
 		// remove all objects added to scene
 		var rootObj = this._pageRootObject[page.getPageId()];
 		this._scene.remove(rootObj);
+
 		this._pageRootObject[page.getPageId()] = null;
 	};
 

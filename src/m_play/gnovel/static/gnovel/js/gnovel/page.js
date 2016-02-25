@@ -27,6 +27,11 @@ var GNOVEL = GNOVEL || {};
 
 		this._result = {};
 
+		// layers
+		this._backgroundLayer = 0;
+		this._dialogLayer = 200;
+		this._choicesLayer = 220;
+
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
 		window.addEventListener("scenePause", this.onPause.bind(this));
@@ -47,7 +52,7 @@ var GNOVEL = GNOVEL || {};
 		});
 		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
 		var quad = new THREE.Mesh(plane, material);
-		quad.name = "Background";
+		quad.name = "Background";		
 
 		// add this to the scene
 		this._addToScene(quad);
@@ -57,6 +62,18 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.getBackground = function() {
 		return this._bg;
+	};
+
+	Page.prototype.getBackgroundLayer = function() {
+		return this._backgroundLayer;
+	};
+
+	Page.prototype.getChoicesLayer = function() {
+		return this._choicesLayer;
+	};
+
+	Page.prototype.getDialogLayer = function() {
+		return this._choicesLayer;
 	};
 
 	Page.prototype.createImage = function(path, position, width, height) {
@@ -178,6 +195,10 @@ var GNOVEL = GNOVEL || {};
 		return this._id;
 	};
 
+	Page.prototype.getPageLabel = function() {
+		return this._label;
+	};
+
 	Page.prototype.getOwner = function() {
 		return this._owner;
 	};
@@ -259,7 +280,7 @@ var GNOVEL = GNOVEL || {};
 		// 	waitUntilShown = params.waitUntilShown;
 		// }
 
-		if (obj.parent === null) {
+		if (obj.parent === null || obj.parent.name !== this._getRootObject().name) {
 			this._addToScene(obj);
 		}
 
