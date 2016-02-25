@@ -51,6 +51,15 @@ var MPLAY = MPLAY || {};
 		return null;
 	};
 
+	// hide instantly all images of this character
+	Character.prototype.hideAllImages = function() {
+		this._img.material.opacity = 0;
+
+		for(var expression in this._expression){
+			this._expression[expression].material.opacity = 0;			
+		}
+	}
+
 	MPLAY.Character = Character;
 
 }());
