@@ -29,7 +29,6 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, 0, 40), 100, 183);
 
-
 		this._yourphoneImg.material.opacity = 0;
 		this._catsphoneImg.material.opacity = 0;
 		this._closephoneImg.material.opacity = 0;
@@ -149,7 +148,7 @@ var MPLAY = MPLAY || {};
 
 			// ending
 			{type: "hide", img: catsphone, label: "hidephone"},
-			{type: "goto", page: "scene 2.a"},
+			{type: "goto", page: "scene 2.b"},
 		];
 
 		return o;

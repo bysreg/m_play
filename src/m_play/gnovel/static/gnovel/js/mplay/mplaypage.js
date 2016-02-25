@@ -71,18 +71,18 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isCharInit = false;
 
 	MPlayPage.prototype._initChars = function() {
-		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/neutral ryan png.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 924.7), "Ryan");
+		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1253), "Ryan");
+		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 923), "Ryan");
 
-		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Cat");
-		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Cat");
+		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 941, 1253), "Cat");
+		MPlayPage._cat.setExpression("annoyed", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -310, this._characterLayer), 911, 1253), "Cat");
 
-		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Priya");
-		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Priya");
+		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, this._characterLayer), 700, 963), "Priya");
+		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -350, this._characterLayer), 600, 1448), "Priya");
 
-		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("disappointed", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1256), "Prof. Sweeney");
+		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1143), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("disappointed", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 600, 1450), "Prof. Sweeney");
 
 		MPlayPage._isCharInit = true;
 	};
