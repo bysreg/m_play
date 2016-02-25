@@ -277,9 +277,9 @@ var GNOVEL = GNOVEL || {};
 		params = params || {};
 		var pageObj = this;
 		var waitUntilShown = true;
-		// if(params.waitUntilShown != null) {
-		// 	waitUntilShown = params.waitUntilShown;
-		// }
+		if(params.waitUntilShown != null) {
+			waitUntilShown = params.waitUntilShown;
+		}
 
 		if (obj.parent === null || obj.parent.name !== this._getRootObject().name) {
 			this._addToScene(obj);
@@ -289,20 +289,20 @@ var GNOVEL = GNOVEL || {};
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
-				// if(waitUntilShown) {
+				if(waitUntilShown) {
 					// go to next flow					
 					pageObj._flow._next();
 					pageObj._flow._exec();
-				// }
+				}
 			},
-			duration: 500
+			duration: 800
 		});
 
-		// if(!waitUntilShown) {
-		// 	// go to next flow
-		// 	pageObj._flow._next();
-		// 	pageObj._flow._exec();
-		// }
+		if(!waitUntilShown) {
+			// go to next flow
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		}
 	};
 
 	Page.prototype._hide = function(obj, params) {
@@ -323,7 +323,7 @@ var GNOVEL = GNOVEL || {};
 					pageObj._removeFromScene(obj);
 				}
 			},
-			duration: 500
+			duration: 800
 		});
 
 		if (!waitUntilHidden) {

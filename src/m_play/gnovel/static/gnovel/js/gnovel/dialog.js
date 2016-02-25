@@ -77,41 +77,41 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(Dialog._textBg);
 
 			this._page.tweenMat(Dialog._textBg, {
-			duration: 500,
+			duration: 800,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 			});
 
-			this._page.move(Dialog._textBg, {
-			duration: 500,
-			x: x,
-			easing: TWEEN.Easing.Cubic.Out
-			});
+			// this._page.move(Dialog._textBg, {
+			// duration: 500,
+			// x: x,
+			// easing: TWEEN.Easing.Cubic.Out
+			// });
 		}
 
 		// alpha
 		this._page.tweenMat(this._curTextBox, {
-			duration: 500,
+			duration: 800,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		this._page.tweenMat(this._nameBox, {
-			duration: 500,
+			duration: 800,
 			opacity: 0.7,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		
-		// move
-		this._page.move(this._curTextBox, {
-			duration: 500,
-			x: x,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-		this._page.move(this._nameBox, {
-			duration: 500,
-			x: this._nameBox.x,
-			easing: TWEEN.Easing.Cubic.Out
-		});
+		// // move
+		// this._page.move(this._curTextBox, {
+		// 	duration: 800,
+		// 	x: x,
+		// 	easing: TWEEN.Easing.Cubic.Out
+		// });
+		// this._page.move(this._nameBox, {
+		// 	duration: 800,
+		// 	x: this._nameBox.x,
+		// 	easing: TWEEN.Easing.Cubic.Out
+		// });
 		
 		this._page._addToScene(this._curTextBox);
 		this._page._addToScene(this._nameBox);
@@ -128,7 +128,7 @@ var GNOVEL = GNOVEL || {};
 		var dialog = this;		
 
 		this._page.tweenMat(this._curTextBox, {
-			duration: 500,
+			duration: 800,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
@@ -136,7 +136,7 @@ var GNOVEL = GNOVEL || {};
 			},
 		});
 		this._page.tweenMat(this._nameBox, {
-			duration: 500,
+			duration: 800,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
@@ -166,7 +166,7 @@ var GNOVEL = GNOVEL || {};
 		var dialog = this;
 		var textBgObj = this._textBg;
 		this._page.tweenMat(Dialog._textBg, {
-			duration: 500,
+			duration: 800,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
