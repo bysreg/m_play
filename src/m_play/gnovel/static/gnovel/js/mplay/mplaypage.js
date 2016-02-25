@@ -183,9 +183,6 @@ var MPLAY = MPLAY || {};
 			img.position.x = 450;
 		}
 
-		console.log("test bg : " + this._bg.localToWorld(this._bg.position).z);
-		console.log("test : " + img.localToWorld(img.position).z);
-
 		if(params.flowElement.flip === true) {
 			img.material.map.wrapS = THREE.RepeatWrapping;
 			img.material.map.repeat.x = - 1;
