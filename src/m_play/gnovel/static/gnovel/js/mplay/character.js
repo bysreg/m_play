@@ -14,6 +14,9 @@ var MPLAY = MPLAY || {};
 
 		// make the default image to be transparent
 		this._img.material.opacity = 0;
+
+		// make the texture double sided, so that we can flip it
+		this._img.material.side = THREE.DoubleSide;
 	};
 
 	Character.prototype.getImage = function(expression) {

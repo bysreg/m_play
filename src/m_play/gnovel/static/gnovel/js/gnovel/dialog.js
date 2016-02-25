@@ -72,7 +72,7 @@ var GNOVEL = GNOVEL || {};
 
 		// add background textbox
 		if(typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition){
-			Dialog._textBg = this._page.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z), 900, 145.5);
+			Dialog._textBg = this._page.createImage("/static/gnovel/res/textures/blue_box.png", new THREE.Vector3(this._curTextBox.position.x, y, z - 20), 900, 145.5);
 			Dialog._textBg.material.opacity = 0;
 			this._page._addToScene(Dialog._textBg);
 

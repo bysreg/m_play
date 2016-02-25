@@ -290,7 +290,7 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
 				// if(waitUntilShown) {
-					// go to next flow
+					// go to next flow					
 					pageObj._flow._next();
 					pageObj._flow._exec();
 				// }
@@ -320,6 +320,7 @@ var GNOVEL = GNOVEL || {};
 					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
+					this._removeFromScene(obj);
 				}
 			},
 			duration: 500
@@ -329,6 +330,7 @@ var GNOVEL = GNOVEL || {};
 			// go to next flow
 			pageObj._flow._next();
 			pageObj._flow._exec();
+			this._removeFromScene(obj);
 		}
 	};
 

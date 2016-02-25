@@ -184,11 +184,17 @@ var MPLAY = MPLAY || {};
 		}
 
 		if(params.flowElement.flip === true) {
-			img.material.map.wrapS = THREE.RepeatWrapping;
-			img.material.map.repeat.x = - 1;
+		// 	console.log("flipped");
+		// 	img.material.map.wrapS = THREE.RepeatWrapping;
+		// 	img.material.map.repeat.x = - 1;
+			img.scale.x = -1;
+			//img.material.needsUpdate = true;
 		}else{
-			img.material.map.wrapS = THREE.ClampToEdgeWrapping;
-			img.material.map.repeat.x = 1;
+		// 	console.log("normal");
+		// 	img.material.map.wrapS = THREE.ClampToEdgeWrapping;
+		// 	img.material.map.repeat.x = 1;		
+			img.scale.x = 1;
+			//img.material.needsUpdate = true;
 		}
 
 		GNOVEL.Page.prototype._show.call(this, img, params);
