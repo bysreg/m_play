@@ -95,9 +95,9 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "We left it with the bartender."},
 				{type: "hide", img: ryan},
-				{type: "show", img: priya, expression: "happy", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "What are the chances!"},
-				{type: "goto", page: "scene 4"},
+				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
+				{type: "show", img: priya, expression: "happy", waitUntilShown: false},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 
 				// if you have the phone with you
@@ -109,8 +109,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: cat, label: "hidecat", waitUntilHidden: false, flip: true},
 				{type: "show", img: ryan, waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger"},
-				{type: "goto", page: "scene 4"},
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 
 				// if you left the phone at the bar
 				{type: "show", img: ryan, label: "phone_notpicked"},
@@ -119,7 +118,11 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: cat, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Hopefully it’s still there.  I’ll call them."},
 				{type: "hide", img: cat, waitUntilHidden: false},
-				{type: "goto", page: "scene 4"},
+
+				{type: "choices", choices : [{text: "Grab a coffee at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go to the gym.", go : "#gogym", integrityScore: 0, relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}], label: "aside1"},
+				{type: "goto", page: "scene 3.a", label: "gocafe"},
+				{type: "goto", page: "scene 3.b", label: "gogym"},
+				{type: "goto", page: "scene 4", label: "gohome"},
 			];
 		
 		return o;
