@@ -120,7 +120,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: priya, waitUntilHidden: false},
 				{type: "dialog", speaker: "", text: "Priya leaves."},
 				{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 				{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
 				{type: "hide", img: ryan, waitUntilHidden: false},
@@ -135,10 +135,15 @@ var MPLAY = MPLAY || {};
 						{text: "He’s just pissed at me, don’t worry about it.",
 							go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
 				{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later.", label: "lastflow-p"},
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "jump", condition: true, goTrue: "#aside2", goFalse: "aside2"},
 
 				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
 				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
+
+				{type: "choices", choices : [{text: "Grab some food at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+				{type: "goto", page: "scene 5.a", label: "gocafe"},
+				{type: "goto", page: "scene 5.b", label: "gobar"},
+				// {type: "goto", page: "scene 6", label: "gohome"},
 
 			];
 		}
@@ -207,7 +212,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: priya, waitUntilHidden: false},
 				{type: "dialog", speaker: "", text: "Priya leaves."},
 				{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 				{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
 				{type: "hide", img: ryan, waitUntilHidden: false},
@@ -222,10 +227,15 @@ var MPLAY = MPLAY || {};
 						{text: "He’s just pissed at me, don’t worry about it.",
 							go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
 				{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later.", label: "lastflow-p"},
-				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+				{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
 				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
+
+				{type: "choices", choices : [{text: "Grab some food at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+				{type: "goto", page: "scene 5.a", label: "gocafe"},
+				{type: "goto", page: "scene 5.b", label: "gobar"},
+				// {type: "goto", page: "scene 6", label: "gohome"},
 			];
 		}
 
