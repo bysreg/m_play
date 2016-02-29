@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "1)	Oh yeah, no worries.", go: "#failed"}, {text : "2)	Yeah, you were right, it’s not worth the risk.  What happened to your roommate? ", relationship: {name: "priya", score: 1}, go : "#failed2"}]},
 			{type: "dialog", speaker: "Priya", text: "She failed her course, and almost got kicked out of school.  She would have lost her visa.  Ever since then, I don’t ask for that stuff.", label: "failed2"},
 
-			{type: "goto", page: "scene 6", label: "gonextscene"},
+			{type: "goto", page: "scene 6.a", label: "gonextscene"},
 		];
 
 		return o;

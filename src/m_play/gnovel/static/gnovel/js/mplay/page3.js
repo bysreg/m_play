@@ -235,7 +235,7 @@ var MPLAY = MPLAY || {};
 				{type: "choices", choices : [{text: "Grab some food at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
 				{type: "goto", page: "scene 5.a", label: "gocafe"},
 				{type: "goto", page: "scene 5.b", label: "gobar"},
-				// {type: "goto", page: "scene 6", label: "gohome"},
+				{type: "goto", page: "scene 6.a", label: "gohome"},
 			];
 		}
 

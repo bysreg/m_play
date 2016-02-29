@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "Ah no it was just this thing with Ryan… It’s ok.", go: "#itsok"}, {text : "Oh it’s nothing.", go : "#itsok"}]},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen."},
 
-			{type: "goto", page: "scene 6", label: "gonextscene"},
+			{type: "goto", page: "scene 6.a", label: "gonextscene"},
 		];
 
 		return o;
