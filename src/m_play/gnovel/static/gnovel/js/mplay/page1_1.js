@@ -22,30 +22,7 @@ var MPLAY = MPLAY || {};
 	Page1_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
-
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		this._addToScene(background2);
-
-		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-		this._addToScene(background3);
-
-		this._talked = 0;
-
-		var pageObj = this;
-		// var io1 = this.createInteractableObject(
-		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png",
-		// 	{x: -100, y: 200, width : 64, height : 64, onClick: function() {
-		// 		pageObj._talked = 1;
-		// 		pageObj._runFlow();
-		// 	}});
-
-		// var io2 = this.createInteractableObject(
-		// 	"/static/gnovel/res/textures/Perspective-Button-Stop-icon.png",
-		// 	{x: 100, y: 200, width : 64, height : 64, onClick: function() {
-		// 		pageObj._talked = 2;
-		// 		pageObj._runFlow();
-		// 	}});
+		this.setupUcBackground();
 	};
 
 	Page1_1.prototype._createFlowElements = function() {

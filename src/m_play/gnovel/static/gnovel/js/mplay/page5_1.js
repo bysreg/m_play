@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page5_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+		this.setupLibraryBackground();
 
 		var z = this.getBackgroundLayer() + 50;
 		var pageObj = this;

@@ -22,11 +22,10 @@ var MPLAY = MPLAY || {};
 	Page3.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);		
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+		this.setupLibraryBackground();
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
-
 
 		this._yourphoneImg.material.opacity = 0;
 		this._closephoneImg.material.opacity = 0;

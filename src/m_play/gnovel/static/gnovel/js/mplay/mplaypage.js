@@ -225,5 +225,26 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._hide.call(this, img, params);
 	};
 
+	MPlayPage.prototype.setupClassBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
+
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		this._addToScene(background2);
+	};
+
+	MPlayPage.prototype.setupUcBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
+
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._addToScene(background2);
+
+		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		this._addToScene(background3);
+	};
+
+	MPlayPage.prototype.setupLibraryBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+	};
+
 	MPLAY.MPlayPage = MPlayPage;
 }());

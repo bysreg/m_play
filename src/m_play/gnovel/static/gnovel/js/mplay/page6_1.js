@@ -29,7 +29,7 @@ var MPLAY = MPLAY || {};
 	Page6_1.prototype._createFlowElements = function() {
 
 		var ryan = "%" + this._ryan;
-		var player = "Lindsey";
+		var player = this._player;
 
 		var o = null;
 
