@@ -51,6 +51,8 @@ var MPLAY = MPLAY || {};
 		this._cat = MPlayPage._cat.getName();
 		this._priya = MPlayPage._priya.getName();
 
+		this._player = "Lindsey"; // FIXME: hardcoded for now
+
 		// hide all characters
 		MPlayPage._professor.hideAllImages();
 		MPlayPage._ryan.hideAllImages();

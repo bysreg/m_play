@@ -64,7 +64,7 @@ var MPLAY = MPLAY || {};
 		var cat = "%" + this._cat;
 		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;
-		var player = "Honey";
+		var player = this._player;
 		var o = null;
 
 		if(this._talked == 1) {

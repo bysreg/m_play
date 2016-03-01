@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 		// var isPhonePickedUp = 1;
 		// var isPhoneWithYou = 0;
 		// player name which the player entered at the beginning of the game
-		var player = "Lindsey";
+		var player = this._player;
 		// this._talked = 1;
 
 			o = [
