@@ -246,5 +246,9 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
 	};
 
+	MPlayPage.prototype.getIntegrityManager = function() {
+		return this._integrityManager;
+	};
+
 	MPLAY.MPlayPage = MPlayPage;
 }());
