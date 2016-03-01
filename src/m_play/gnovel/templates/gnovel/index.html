@@ -44,7 +44,10 @@
 		<script src="{% static 'gnovel/js/mplay/page4_0.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page4_1.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page5_0.js' %}"></script>
-		<script src="{% static 'gnovel/js/mplay/page5_1.js' %}"></script>		
+		<script src="{% static 'gnovel/js/mplay/page5_1.js' %}"></script>	
+		<script src="{% static 'gnovel/js/mplay/page6_0.js' %}"></script>		
+		<script src="{% static 'gnovel/js/mplay/page6_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page6_2.js' %}"></script>
 
 		<script>
 			var gnovel = new GNOVEL.Gnovel();
@@ -64,7 +67,9 @@
 			gnovel.addPage("scene 5.b", MPLAY.Page4_1);
 			gnovel.addPage("scene 6.a", MPLAY.Page5_0);
 			gnovel.addPage("scene 6.b", MPLAY.Page5_1);
-
+			gnovel.addPage("scene 7.a", MPLAY.Page6_0);
+			gnovel.addPage("scene 7.b", MPLAY.Page6_1);
+			gnovel.addPage("scene 7.c", MPLAY.Page6_2);
 
 			// start gnovel
 			gnovel.start();

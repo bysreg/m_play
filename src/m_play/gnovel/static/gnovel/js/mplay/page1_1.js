@@ -60,11 +60,7 @@ var MPLAY = MPLAY || {};
 		// variables from scene 1
 		var isPhonePickedUp = (catsPhoneStatus > 0);
 		var isPhoneWithYou = (catsPhoneStatus == 2);
-		// var isPhonePickedUp = 1;
-		// var isPhoneWithYou = 0;
-		// player name which the player entered at the beginning of the game
 		var player = this._player;
-		// this._talked = 1;
 
 			o = [
 				// transition of this flow doesn't work
