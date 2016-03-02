@@ -15,12 +15,12 @@ var MPLAY = MPLAY || {};
 		this._relationshipManager = null;
 
 		// we will only have one instance of IntegrityManager
-		if(MPlayPage._integrityManager == null) {
+		if (MPlayPage._integrityManager == null) {
 			this._integrityManager = new MPLAY.IntegrityManager();
 		}
 
 		// we will also have only one instance of RelationshipManager
-		if(MPlayPage._relationshipManager == null) {
+		if (MPlayPage._relationshipManager == null) {
 			this._relationshipManager = new MPLAY.RelationshipManager();
 		}
 
@@ -36,7 +36,7 @@ var MPLAY = MPLAY || {};
 		this._character3Layer = 300;
 
 		// instantiate characters, if it is not instantiated yet
-		if(!MPlayPage._isCharInit) {
+		if (!MPlayPage._isCharInit) {
 			this._initChars();
 		}
 
@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1253), "Ryan");
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");		
+		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");
 
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 941, 1253), "Cat");
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -310, this._characterLayer), 911, 1253), "Cat");
@@ -106,14 +106,14 @@ var MPLAY = MPLAY || {};
 
 		var onChoiceComplete = function(resultId) {
 			// if flowElement is not defined and not null (not falsy)
-			if(flowElement != null) {
-				if(typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
+			if (flowElement != null) {
+				if (typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
 					flowElement.choices[resultId].integrityScore != null) {
 
 					integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
 				}
 
-				if(typeof flowElement.choices[resultId].relationship !== 'undefined' &&
+				if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
 					flowElement.choices[resultId].relationship != null) {
 
 					var name = flowElement.choices[resultId].relationship.name;
@@ -124,9 +124,9 @@ var MPLAY = MPLAY || {};
 		};
 
 		// if there is arelady params.onChoiceComlete defined
-		if(!params.onChoiceComplete) {
+		if (!params.onChoiceComplete) {
 			params.onChoiceComplete = onChoiceComplete;
-		}else{
+		} else {
 			var oriChoiceComplete = params.onChoiceComplete;
 			params.onChoiceComplete = function(resultId) {
 				oriChoiceComplete(resultId);
@@ -152,10 +152,10 @@ var MPLAY = MPLAY || {};
 		var textId = 0;
 
 		// threshold values
-		if(typeof relationshipThreshold !== 'undefined') {
-			if(relationshipScore >= relationshipThreshold) {
+		if (typeof relationshipThreshold !== 'undefined') {
+			if (relationshipScore >= relationshipThreshold) {
 				message = flowElement.text;
-			}else{
+			} else {
 				message = flowElement.text2;
 				textId = 1;
 			}
@@ -171,30 +171,41 @@ var MPLAY = MPLAY || {};
 		params = params || {};
 		var flowElement = params.flowElement;
 		var img = obj;
+		var pageObj = this;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
 		var position = params.flowElement.position;
 
 		// check if the object is character
-		if(obj instanceof MPLAY.Character) {
+		if (obj instanceof MPLAY.Character) {
 			img = obj.getImage(flowElement.expression);
 		}
 
-		if(position === "left") {
+		if (position === "left") {
 			img.position.x = -300;
-		} else if(position === "center") {
+		} else if (position === "center") {
 			img.position.x = 0;
-		} else if(position === "right") {
+		} else if (position === "right") {
 			img.position.x = 450;
 		}
 
-		if(params.flowElement.flip === true) {
-			img.scale.x = -1;			
-		}else{		
-			img.scale.x = 1;			
-		}
+		if (params.flowElement.flip === true) {
+			img.scale.x = -1;
+		} else {
+			img.scale.x = 1;
+		}		
 
-		GNOVEL.Page.prototype._show.call(this, img, params);
+		// check if the object is character
+		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
+			var characterTweenParam = {}
+			characterTweenParam.onComplete = function() {
+				GNOVEL.Page.prototype._show.call(pageObj, img, params)
+			};
+
+			obj.fadeVisibleImages(this, characterTweenParam);
+		}else{
+			GNOVEL.Page.prototype._show.call(this, img, params);
+		}		
 	};
 
 	/**
@@ -206,12 +217,12 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 
 		// check if the object is character
-		if(obj instanceof MPLAY.Character) {
+		if (obj instanceof MPLAY.Character) {
 			// search for texture that has opacity not zero
 			img = obj.getVisibleImage();
 
 			// if null, then we are just going to hide the default image
-			if(img === null) {
+			if (img === null) {
 				img = obj.getImage(null);
 			}
 		}
