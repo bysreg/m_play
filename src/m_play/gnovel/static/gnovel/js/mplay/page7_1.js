@@ -106,9 +106,13 @@ var MPLAY = MPLAY || {};
 
 			// decline
 			{type: "nothing", label: "decline"},						
+			
 			{type: "show", img: priya, position: "left", expression: "sad", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Please try to talk him out of it."},
+
+			{type: "show", img: ryan, expression: "angry", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Priya, lay off."},
+			
 			{type: "compare", leftop: "$integrityScore", operator: "greater", rightop: integrityThreshold, goTrue: "#go9e", goFalse: "#go9f"},
 			{type: "goto", page: "scene 9.e", label: "go9e"},
 			{type: "goto", page: "scene 9.f", label: "go9f"},	
