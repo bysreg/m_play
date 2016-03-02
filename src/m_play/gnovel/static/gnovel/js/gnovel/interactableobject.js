@@ -17,6 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._mouseMoveListener = null;
 		this._img = null;
 		this._params = params;
+		this._enabled = true;
 
 		// create the image
 		// for now we require width and height in params
@@ -61,8 +62,8 @@ var GNOVEL = GNOVEL || {};
 
 		//need to add the highlight shapes to the img object
 		this._page._addToScene(this._img);
-		this._page._addToScene(this._highlightShape);
-		this._page._addToScene(this._highlightShape2);
+		//this._page._addToScene(this._highlightShape);
+		//this._page._addToScene(this._highlightShape2);
 
 		var io = this;
 		this._mouseDownListener = function(event) {
@@ -80,6 +81,8 @@ var GNOVEL = GNOVEL || {};
 
 	InteractableObject.prototype._onMouseDown = function(event) {
 		event.preventDefault();
+
+		if(!this._enabled) return;
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
 		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
@@ -106,6 +109,8 @@ var GNOVEL = GNOVEL || {};
 
 	InteractableObject.prototype._onMouseMove = function(event){
 		event.preventDefault();
+
+		if(!this._enabled) return;
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
 		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
@@ -171,6 +176,14 @@ var GNOVEL = GNOVEL || {};
 		}
 
 
+	};
+
+	InteractableObject.prototype.getImage = function() {
+		return this._img;
+	};
+
+	InteractableObject.prototype.setEnable = function(value) {
+		this._enabled = value;
 	};
 
 	GNOVEL.InteractableObject = InteractableObject;

@@ -41,18 +41,41 @@ var MPLAY = MPLAY || {};
 
 		var z = this.getBackgroundLayer() + 50;
 		var pageObj = this;
-		var io1 = this.createInteractableObject(
+
+		var onInteractableObjectClicked = function(io) {
+			// disable interactable object
+			pageObj._io1.setEnable(false);
+			pageObj._io2.setEnable(false);
+
+			// fade all interactable objects
+			pageObj.tweenMat(pageObj._io1.getImage(), {
+				opacity: 0,
+				easing: TWEEN.Easing.Cubic.Out,
+				duration: 800
+			});
+			pageObj.tweenMat(pageObj._io2.getImage(), {
+				opacity: 0,
+				easing: TWEEN.Easing.Cubic.Out,
+				duration: 800
+			});
+		};
+
+		this._io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/ryan-clickable-lib.png",
-			{x: -215, y: -185, z: z, width : 250, height : 431, onClick: function() {
+			{x: -215, y: -185, z: z, width : 250, height : 431, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
+
+				onInteractableObjectClicked(io);
 			}});
 
-		var io2 = this.createInteractableObject(
+		this._io2 = this.createInteractableObject(
 			"/static/gnovel/res/textures/priya-clickable-lib.png",
-			{x: 400, y: -220, z: z, width : 280, height : 414, onClick: function() {
+			{x: 400, y: -220, z: z, width : 280, height : 414, onClick: function(io) {
 				pageObj._talked = 2;
 				pageObj._runFlow();
+
+				onInteractableObjectClicked(io);
 			}});
 	};
 
