@@ -61,7 +61,38 @@ var MPLAY = MPLAY || {};
 		for(var expression in this._expression){
 			this._expression[expression].material.opacity = 0;			
 		}
-	}
+	};
+
+	// fade all visible images of this character
+	Character.prototype.fadeVisibleImages = function(page, params) {
+		if(this._img.material.opacity == 1) {
+			var img = this._img;
+			page.tweenMat(this._img, {
+				opacity: 0,
+				easing: TWEEN.Easing.Cubic.Out,
+				onComplete: function() {					
+					page._removeFromScene(img);
+					params.onComplete();
+				},
+				duration: 800
+			});
+		}
+
+		for(var expression in this._expression){
+			if(this._expression[expression].material.opacity == 1) {
+				var img = this._expression[expression]
+				page.tweenMat(this._expression[expression], {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					onComplete: function() {
+						page._removeFromScene(img);
+						params.onComplete();
+					},
+					duration: 800
+				});
+			}
+		}
+	};
 
 	MPLAY.Character = Character;
 
