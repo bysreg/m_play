@@ -133,6 +133,10 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
 				dialog._page._removeFromScene(textBoxObj);
+
+				if (dialog._params.onComplete != null) {
+					dialog._params.onComplete(dialog);
+				}
 			},
 		});
 		this._page.tweenMat(this._nameBox, {
@@ -148,10 +152,6 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 		this._curTextBox = null;
-
-		if (this._params.onComplete != null) {
-			this._params.onComplete(this);
-		}
 	};
 
 	Dialog.prototype._isDialogNext = function() {
