@@ -295,7 +295,7 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._exec();
 				}
 			},
-			duration: 800
+			duration: params.duration || 800;
 		});
 
 		if(!waitUntilShown) {
@@ -323,7 +323,7 @@ var GNOVEL = GNOVEL || {};
 					pageObj._removeFromScene(obj);
 				}
 			},
-			duration: 800
+			duration: params.duration || 800;
 		});
 
 		if (!waitUntilHidden) {

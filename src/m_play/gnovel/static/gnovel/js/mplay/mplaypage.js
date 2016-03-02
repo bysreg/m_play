@@ -198,7 +198,7 @@ var MPLAY = MPLAY || {};
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
-			var characterTweenParam = {}
+			var characterTweenParam = {};
 			characterTweenParam.onComplete = function() {
 				GNOVEL.Page.prototype._show.call(pageObj, img, params)
 			};
