@@ -74,7 +74,7 @@ var MPLAY = MPLAY || {};
 					page._removeFromScene(img);
 					params.onComplete();
 				},
-				duration: 800
+				duration: params.duration || 800,
 			});
 		}
 
@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 						page._removeFromScene(img);
 						params.onComplete();
 					},
-					duration: 800
+					duration: params.duration || 800,
 				});
 			}
 		}
