@@ -35,8 +35,10 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Priya", text: "Oh, hey, I didn’t know you hang out here too! Ryan told me you got a job lined up. Congrats!"},
 			{type: "choices", choices : [{text: "Thanks!", go: "#sweet"}, {text : "Thanks! Ryan interned there this summer and referred me.", go : "#sweet"}]},
+			
+			{type: "nothing", label: "sweet"},
 			{type: "show", img: priya, position: "center"},
-			{type: "dialog", speaker: "Priya", text: "That’s so sweet! Last semester, Ryan was my date to the Indian Grad Association’s banquet. He’s such a good sport. Really goes out of his way for his friends.", label: "sweet"},
+			{type: "dialog", speaker: "Priya", text: "That’s so sweet! Last semester, Ryan was my date to the Indian Grad Association’s banquet. He’s such a good sport. Really goes out of his way for his friends."},
 			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: "priya", score: "1"}, go : "#close"}]},
 			
 			{type: "nothing", label: "nice"},
