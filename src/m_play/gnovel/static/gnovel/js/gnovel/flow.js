@@ -30,6 +30,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.COMPARE = "compare";
 	Flow.JUMP = "jump";
 	Flow.CUSTOM = "custom";
+	Flow.NOTHING = "nothing"; // TODO: do nothing, 
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -88,6 +89,9 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.CUSTOM:
 				this._handleCustom(obj);
+				break;
+			case Flow.NOTHING:
+				this._handleNothing(obj);
 				break;
 		}
 	};
@@ -276,7 +280,12 @@ var GNOVEL = GNOVEL || {};
 			this._jump(obj.goFalse);
 		}
 		this._exec();
-	}
+	};
+
+	Flow.prototype._handleNothing = function(obj) {
+		this._next();
+		this._exec();	
+	};
 
 	Flow.prototype._setObjectTag = function(tag, obj) {
 		this._objs[tag] = obj;
