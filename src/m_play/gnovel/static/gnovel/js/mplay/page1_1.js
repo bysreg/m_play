@@ -92,7 +92,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Cat", text: "Hopefully it’s still there.  I’ll call them."},
 				{type: "hide", img: cat, waitUntilHidden: false},
 
-				{type: "choices", choices : [{text: "Grab a coffee at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go to the gym.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}], label: "aside1"},
+				{type: "choices", choices : [{text: "Grab a coffee at the café – you run into Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go to the gym – you run into Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}], label: "aside1"},
 				{type: "goto", page: "scene 3.a", label: "gocafe"},
 				{type: "goto", page: "scene 3.b", label: "gogym"},
 				{type: "goto", page: "scene 4", label: "gohome"},

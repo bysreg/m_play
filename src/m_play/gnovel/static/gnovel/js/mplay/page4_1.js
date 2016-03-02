@@ -32,16 +32,21 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show", img: cat, position: "center"},
+			{type: "show", img: cat, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Cat", text: "Oh hey!  I'm just finishing up here, but what's new with you?"},
-			{type: "choices", choices : [{text: "Not much.  How are you doing?", go: "#hrudoing"}, {text : "Nothing much.", go : "#nothingmuch"}]},
+			{type: "choices", choices : [{text: "Not much. How are you doing?", go: "#hrudoing"}, {text : "Nothing much.", go : "#nothingmuch"}]},
 
-			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little.  The job hunt is stressful, and I’m worried about my GPA.", label: "hrudoing"},
+			{type: "nothing", label: "hrudoing"},
+			// should be a sad cat here.
+			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my GPA."},
+			
 			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", relationship: {name: "cat", score: "1"}, go : "#beok"}]},
-			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok.  But then again, I’m saying this after a glass of wine.  Ask me again in May.", label: "beok"},
+			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok.  But then again, I’m saying this after a glass of wine. Ask me again in May.", label: "beok"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
-			{type: "dialog", speaker: "Cat", text: "Stuff... sounds serious.  Can I help?", label: "nothingmuch"},
+			{type: "nothing", label: "nothingmuch"},
+			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "dialog", speaker: "Cat", text: "Stuff... sounds serious.  Can I help?"},
 			{type: "choices", choices : [{text: "Ah no it was just this thing with Ryan… It’s ok.", go: "#itsok"}, {text : "Oh it’s nothing.", go : "#itsok"}]},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen."},
 
