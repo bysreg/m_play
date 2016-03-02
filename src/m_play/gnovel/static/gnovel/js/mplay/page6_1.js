@@ -42,6 +42,8 @@ var MPLAY = MPLAY || {};
 					[{text: "Yeah. I'm with you. Feeling bad about our grade on that project."},
 					{text : "Are you ok?"}]},
 			{type: "dialog", speaker: "ryan", text: "Eh, yeah. I'm still sort of pissed. We had to rush Priya’s part of the project, and I feel like that's why we got that crappy grade. We both need to do well in this class… You know what? It’ll be ok, we just need to make it through the final, and we’ll be starting our jobs in no time."},
+
+			{type: "goto", page: "scene 8.a"},
 		];
 
 		return o;

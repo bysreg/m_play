@@ -152,7 +152,18 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Worth a try."},
 
 			// {type: "goto", page: "scene 7", label: "gonextscene"},
-			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000, label: "gonextscene"},
+			//{type: "jump", condition: true, goTrue: 1000, goFalse: 1000, label: "gonextscene"},
+			{type: "choices", choices : [
+				{text: "Go to the gym", 
+					go: "#gogym"}, 
+				{text : "Go get a drink at Scottie’s Bar.", 
+					go : "#gobar"}, 
+				{text: "Go home and study for the finals.", 
+					go: "#gohome"}], label: "gonextscene"},
+
+			{type: "goto", page: "scene 7.a", label: "gogym"},
+			{type: "goto", page: "scene 7.b", label: "gobar"},
+			{type: "goto", page: "scene 7.c", label: "gohome"},
 		];
 
 		return o;

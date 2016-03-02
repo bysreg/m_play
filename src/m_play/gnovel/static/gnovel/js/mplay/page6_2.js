@@ -35,6 +35,8 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it. Your project grade: B-"},			
+
+			{type: "goto", page: "scene 8.a"},
 		];
 
 		return o;

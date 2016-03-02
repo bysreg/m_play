@@ -35,6 +35,8 @@ var MPLAY = MPLAY || {};
 		o = [
 			{type: "show", img: professor, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},			
+			
+			{type: "goto", page: "scene 8.b"},
 		];
 
 		return o;
