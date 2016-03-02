@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1253), "Ryan");
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 600, 923), "Ryan");		
+		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");		
 
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 941, 1253), "Cat");
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -310, this._characterLayer), 911, 1253), "Cat");
@@ -189,17 +189,9 @@ var MPLAY = MPLAY || {};
 		}
 
 		if(params.flowElement.flip === true) {
-		// 	console.log("flipped");
-		// 	img.material.map.wrapS = THREE.RepeatWrapping;
-		// 	img.material.map.repeat.x = - 1;
-			img.scale.x = -1;
-			//img.material.needsUpdate = true;
-		}else{
-		// 	console.log("normal");
-		// 	img.material.map.wrapS = THREE.ClampToEdgeWrapping;
-		// 	img.material.map.repeat.x = 1;		
-			img.scale.x = 1;
-			//img.material.needsUpdate = true;
+			img.scale.x = -1;			
+		}else{		
+			img.scale.x = 1;			
 		}
 
 		GNOVEL.Page.prototype._show.call(this, img, params);
