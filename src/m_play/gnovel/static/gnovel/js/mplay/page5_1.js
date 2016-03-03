@@ -137,7 +137,16 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
 				{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
 				{type: "hide", img: ryan, waitUntilHidden: false},
+				
 				// text exchange here
+				{type: "dialog", speaker: "Phone - Ryan", text: "P – there’s a violation with your part of the project."},
+				{type: "dialog", speaker: "Phone - Priya", text: "k…"},
+				{type: "dialog", speaker: "Phone - Ryan", text: "Did u use codeHub for ur code?"},
+				{type: "dialog", speaker: "Phone - Priya", text: "Yes – I used c-h to work thru the problem."},
+				{type: "dialog", speaker: "Phone - Ryan", text: "srsly?"},
+				{type: "dialog", speaker: "Phone - Priya", text: "It’s common for programmers… did it @ undergrad."},
+				{type: "dialog", speaker: "Phone - Ryan", text: "k..."},
+
 				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},
 				{type: "hide", img: cat, waitUntilHidden: false},
