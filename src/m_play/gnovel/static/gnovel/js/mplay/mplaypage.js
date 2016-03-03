@@ -257,5 +257,9 @@ var MPLAY = MPLAY || {};
 		return this._integrityManager;
 	};
 
+	MPlayPage.prototype.getRelationshipManager = function() {
+		return this._relationshipManager;
+	};
+
 	MPLAY.MPlayPage = MPlayPage;
 }());

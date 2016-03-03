@@ -135,6 +135,9 @@ var MPLAY = MPLAY || {};
 								go: "#submit" }]},
 
 				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("cat", 1);
+				}},
 				{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
 				{type: "hide", img: ryan, waitUntilHidden: false},
 				
