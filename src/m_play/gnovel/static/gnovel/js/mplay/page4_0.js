@@ -29,7 +29,10 @@ var MPLAY = MPLAY || {};
 	Page4_0.prototype._createFlowElements = function() {
 		var priya = "%" + this._priya;
 
-		var isAssignmentGiven = 1;
+		var cgAssignmentStatus = this._owner.getSavedData("cgAssignmentStatus");
+
+		// variables from scene 2
+		var isAssignmentGiven = (cgAssignmentStatus > 0);
 
 		var o = null;
 
