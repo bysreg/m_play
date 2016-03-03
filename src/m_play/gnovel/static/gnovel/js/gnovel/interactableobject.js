@@ -142,7 +142,7 @@ var GNOVEL = GNOVEL || {};
 		}
 			//add outline effect on hover
 			this._pick();
-			console.log("interactable object is hovered");
+			// console.log("interactable object is hovered");
 	};
 
 /**

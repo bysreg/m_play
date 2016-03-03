@@ -20,18 +20,21 @@ var GNOVEL = GNOVEL || {};
 		this._scene = new THREE.Scene();
 		this._pages = [];
 		this._pageDict = {};
-		this._curPageIdx = 0;
-		this._camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2000);
+		this._curPageIdx = 0;		
 		this._stats = null;
 		this._container = document.createElement('div'); // html div container
 		this._prevPage = null;
-		this._pageRootObject = {curPage : null, prevPage : null};
-		this._renderer = new THREE.WebGLRenderer();
+		this._pageRootObject = {curPage : null, prevPage : null};		
 		this._raycaster = new THREE.Raycaster();
 		this._mouseDownListeners = [];
 		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
-		this._savedData = {};
+		this._savedData = {};		
+
+		this._width = window.innerWidth;
+		this._height = window.innerHeight;
+		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 2000);
+		this._renderer = new THREE.WebGLRenderer();
 
 		var gnovel = this;
 
@@ -41,16 +44,15 @@ var GNOVEL = GNOVEL || {};
 		var camera = this._camera;
 		camera.position.z = 900;
 
-		var scene = this._scene;
-		var scene2 = this._scene2;
-		var scene3 = this._scene3;
+		var scene = this._scene;		
 
 		var renderer = this._renderer;
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.autoClear = false;
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setSize(this._width, this._height);
+		renderer.domElement.style.width = "100%";
+		renderer.domElement.style.height = "auto";		
 		container.appendChild(renderer.domElement);
-
 
 		// setup render loop
 		var render = function () {
@@ -64,13 +66,10 @@ var GNOVEL = GNOVEL || {};
 		};
 		render();
 
-		var onWindowResize = function() {
-			camera.aspect = window.innerWidth / window.innerHeight;
-			camera.updateProjectionMatrix();
-
-			renderer.setSize(window.innerWidth, window.innerHeight);
-		};
-		window.addEventListener('resize', onWindowResize, false);
+		// var onWindowResize = function() {
+		// 	//gnovel._updateCameraAndRenderer();
+		// };
+		// window.addEventListener('resize', onWindowResize, false);
 
 		var listener = new THREE.AudioListener();
 		camera.add(listener);
@@ -80,8 +79,15 @@ var GNOVEL = GNOVEL || {};
 		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
 	};
 
-	Gnovel.prototype.getContainer = function()
-	{
+	Gnovel.prototype.setSize = function(width, height) {
+		this._width = width;
+		this._height = height;
+		this._renderer.setSize(width, height)
+		this._renderer.domElement.style.width = "100%";
+		this._renderer.domElement.style.height = "auto";	
+	};
+
+	Gnovel.prototype.getContainer = function() {
 		return this._container;
 	};
 
@@ -102,13 +108,10 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._addToScene = function(page, o) {
 		this._pageRootObject[page.getPageId()].add(o);
-
 	};
-
 
 	Gnovel.prototype._removeFromScene = function(page, o) {
 		this._pageRootObject[page.getPageId()].remove(o);
-
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {
@@ -140,7 +143,6 @@ var GNOVEL = GNOVEL || {};
 			this._mouseMoveListeners[i](event);
 		}
 	};
-
 
 	Gnovel.prototype.start = function() {
 		this._curPageIdx = 0;
