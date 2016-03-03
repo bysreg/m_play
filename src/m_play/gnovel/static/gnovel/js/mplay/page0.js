@@ -22,22 +22,23 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/Bar_Linework.png");
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
-		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, 0, 40), 100, 183);
+		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, -100, this.getBackgroundLayer()+10), 70, 133);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
 		//this._transitionBgImg = this.createImage("/static/gnovel/res/textures/test1.jpg", new THREE.Vector3(480, 0, 40), 100, 183);
-		this._transitionBgImg.position.z = this.getBackgroundLayer() + 10;
+		this._transitionBgImg.position.z = 0;
 
 		this._yourphoneImg.material.opacity = 0;
-		this._catsphoneImg.material.opacity = 0;
+		this._catsphoneImg.material.opacity = 1;
 		this._closephoneImg.material.opacity = 0;
 		this._transitionBgImg.material.opacity = 0;
+		//this._catsphoneImg.rotation.x = -1;
 
 		this._yourphone = "yourphone";
 		this._catsphone = "catsphone";
@@ -70,6 +71,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
+			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "choices",
 				choices :
@@ -107,14 +109,15 @@ var MPLAY = MPLAY || {};
 						relationship: {name: "ryan", score: 1},
 						go: "#gotjob"}]},
 			{type: "dialog", speaker: "ryan", text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great.", label: "gotjob"},
-			{type: "hide", img: ryan},
 
 			//during transition
-			{type: "show", img: transitionBg, waitUntilShown:false, label: "timefade"},
+			{type:"nothing", label: "timefade"},
+			{type: "hide", img: ryan},
+			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "Time fade in Scottie’s Bar"},
+			{type: "dialog", speaker: "", text: "A few drinks later"},
 			{type: "hide", img: transitionBg},
-
+			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
 			{type: "choices",
@@ -130,8 +133,7 @@ var MPLAY = MPLAY || {};
 			/**
 			* FIXME angle camera towards phone
 			*/
-			{type: "show", img: catsphone},
-			{type: "show", img: ryan, position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, position: "center"},
 			{type: "dialog", speaker: "ryan", text: "Looks like someone left their phone."},
 			// this choice affects scene 2
 			{type: "choices",
@@ -139,19 +141,19 @@ var MPLAY = MPLAY || {};
 					[{text: "That sucks for them.",
 						integrityScore:0,
 						go: "#sucks"},
-					{text: "Pick up the phone to see if there’s any contact information.",
+					{text: "Let's give it to the bartender.",
 						integrityScore:1,
 						go: "#pickupphone"},
 					{text: "Let’s sell it on Ebay!",
 						integrityScore:-1,
 						go: "#sellit"}]},
 
-			{type: "dialog", speaker: "ryan", text: "So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
+			{type: "dialog", speaker: "ryan", text: "Let’s give it to the bartender.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			// if phone is picked up
-			{type: "dialog", speaker: "ryan", text: "Oh no.  Looks like it’s dead.  Sucks to be that guy.", label: "pickupphone"},
-			{type: "choices",
+			//{type: "dialog", speaker: "ryan", text: "That should score you some Karma points!  Anyway, congrats again on the job.", label: "pickupphone"},
+			/*{type: "choices",
 				choices :
 					[{text: "Let’s give it to the bartender to hold on to.",
 						onChoose: function(page) {
@@ -162,9 +164,9 @@ var MPLAY = MPLAY || {};
 						onChoose: function(page) {
 							console.log("you have the phone");
 							page._catsPhoneStatus = 2;
-						}}]},
+						}}]},*/
 
-			{type: "hide", img: ryan},
+			{type:"nothing", label: "pickupphone"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "That should score you some Karma points! Anyway, congrats again on the job!"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},

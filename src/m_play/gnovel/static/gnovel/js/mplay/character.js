@@ -40,6 +40,8 @@ var MPLAY = MPLAY || {};
 		img.material.opacity = 0;
 
 		this._expression[expression] = img;
+
+		img.material.side = THREE.DoubleSide;
 	};
 
 	Character.prototype.getVisibleImage = function() {

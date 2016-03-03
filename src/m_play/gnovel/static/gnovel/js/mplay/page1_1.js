@@ -41,8 +41,9 @@ var MPLAY = MPLAY || {};
 
 			o = [
 				//FIXME transition of this flow doesn't work
+				//FIXME Adjust positions for characters too!
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  She’s here from India,and an excellent study buddy."},
+				{type: "dialog", speaker: "Ryan", position: "left", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  She’s here from India,and an excellent study buddy."},
 				// transition of this flow doesn't work
 				{type: "hide", img: ryan, waitUntilHidden: false},
 				// transition of this flow doesn't work
@@ -53,20 +54,17 @@ var MPLAY = MPLAY || {};
 				// transition of this flow doesn't work
 				//FIXME add expression:"sad",
 				{type: "show", img: cat, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Cat", text: "Hey, my name is Cat.  Uhh… I’m in the business school.  Nice to meet you guys… sorry I’m a little all over the place.  I lost my phone yesterday –"},
-				{type: "hide", img: cat, waitUntilHidden: false, flip: true},
+				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat.  Uhh… I’m in the business school.  Nice to meet you guys… sorry I’m a little all over the place.  I lost my phone yesterday –"},
 				{type: "compare", leftop: isPhonePickedUp, operator: "equal", rightop: 1, goTrue: "#phone_picked", goFalse: "#phone_picked"},
 
 				// if you picked up the phone
-				{type: "show", img: ryan, expression: "thoughtful", label: "phone_picked", waitUntilShown: false},
+				{type: "show", img: ryan, expression: "thoughtful", position: "left", label: "phone_picked", waitUntilShown: false},
 				{type: "compare", leftop: isPhoneWithYou, operator: "equal", rightop: 1, goTrue: "#phone_withyou", goFalse: "#phone_withryan"},
 				// and Ryan left it with the bartender
 				{type: "dialog", speaker: "Ryan", text: "Were you at Scottie's Bar yesterday?  We found a phone there.", label: "phone_withryan"},
-				{type: "hide", img: ryan, waitUntilHidden: false},
-				{type: "show", img: cat, waitUntilShown: false, flip: true},
+				{type: "show", img: cat, expression: "happy", position: "right", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Oh my God, do you guys have it with you?"},
-				{type: "hide", img: cat, waitUntilHidden: false, flip: true},
-				{type: "show", img: ryan, waitUntilShown: false},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "We left it with the bartender."},
 				{type: "hide", img: ryan},
 				{type: "show", img: priya, expression: "happy", waitUntilShown: false},
@@ -77,13 +75,12 @@ var MPLAY = MPLAY || {};
 				//if You left it with the bartender
 
 				// if you have the phone with you
-				{type: "dialog", speaker: "Ryan", expression:"thoughtful", text: "Were you at Scottie's Bar yesterday?  We found a phone there – " + player + ", left it with the bartender?", label: "phone_withyou"},
-				{type: "hide", img: ryan, waitUntilHidden: false},
-				{type: "show", img: cat, expression: "happy",waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Ryan", position: "left", expression:"thoughtful", text: "Were you at Scottie's Bar yesterday?  We found a phone there – " + player + ", left it with the bartender?", label: "phone_withyou"},
+				{type: "show", img: cat, position: "right", expression: "happy", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", relationship: {name: "cat", score: 1}, text: "Oh my God, you guys have it with you?!  You both are lifesavers!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#hidecat", relationship: {name:"cat", score:0}}, {text : "Happy to help!", go : "#hidecat", integrityScore: 0, relationship: {name:"cat", score:0}}], label: "choices"},
-				{type: "hide", img: cat, label: "hidecat", waitUntilHidden: false, flip: true},
-				{type: "show", img: ryan, waitUntilShown: false},
+				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver", relationship: {name:"cat", score:0}}, {text : "Happy to help!", go : "#lifesaver", integrityScore: 0, relationship: {name:"cat", score:0}}], label: "choices"},
+				{type: "nothing", label:"lifesaver"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger"},
 				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 
