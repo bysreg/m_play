@@ -31,7 +31,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show", img: professor, position: "center"},
+			{type: "show", img: professor, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Prof. Sweeney", text: "I hope you're making good progress on the projects!  Please make sure you get plenty of rest and build in lots of time to complete it.  It will probably take longer than you think it will.  Dismissed."},
 
 			{type: "goto", page: "scene 6.b"},

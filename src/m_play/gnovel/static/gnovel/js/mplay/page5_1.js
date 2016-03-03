@@ -24,21 +24,55 @@ var MPLAY = MPLAY || {};
 
 		this.setupLibraryBackground();
 
+		this._talked = 0;
+
 		var z = this.getBackgroundLayer() + 50;
 		var pageObj = this;
-		var io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/ryan-clickable-lib.png",
-			{x: -215, y: -185, z: z, width : 250, height : 431, onClick: function() {
+
+		this._sitryan = this.createImage("/static/gnovel/res/textures/ryan-clickable-lib.png", new THREE.Vector3(-215, -185, z), 250, 431);
+		this._addToScene(this._sitryan);
+
+		this._io1 = this.createInteractableObject(
+			"/static/gnovel/res/textures/cat-lib.png",
+			{x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
 				pageObj._talked = 1;
-				// pageObj._runFlow();
+				pageObj._runFlow();
+
+				pageObj._io1.setEnable(false);
+				pageObj._io2.setEnable(false);
+				pageObj.tweenMat(pageObj._io1.getImage(), {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800
+				});
+				pageObj.tweenMat(pageObj._io2.getImage(), {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800
+				});
+				pageObj.tweenMat(pageObj._sitryan, {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800
+				});
+				pageObj._removeFromScene(pageObj._sitryan);
 			}});
 
-		var io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/cat-lib.png",
-			{x: 65, y: -160, z: z, width : 280, height : 526, onClick: function() {
+		this._io2 = this.createInteractableObject(
+			"/static/gnovel/res/textures/phone.png",
+			{x: -140, y: -320, z: z+150, width : 250, height : 458, onClick: function(io) {
 				pageObj._talked = 2;
-				// pageObj._runFlow();
+				pageObj._runFlow();
+
+				pageObj._io1.setEnable(false);
+				pageObj._io2.setEnable(false);
+				pageObj.tweenMat(pageObj._io2.getImage(), {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800
+				});
 			}});
+
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 
@@ -58,113 +92,191 @@ var MPLAY = MPLAY || {};
 
 		var o = null;
 
-		o = [
-			{type: "choices",
-					choices :
-						[{text: "Read a text on your phone",
-							go: "#text"},
-						{text: "Talk to Cat and Ryan",
-							go: "#talk"}]},
+		if (this._talked == 1) {
+			o = [
+				// {type: "show", img: yourphone, position: "center"},
+				// {type: "dialog", speaker: "Mom", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
+				// {type: "hide", img: yourphone, waitUntilHidden: false},
+				// {type: "jump", condition: true, goTrue: "#ryantalk", goFalse: "#ryantalk"},
 
-			{type: "show", img: yourphone, position: "center"},
-			{type: "dialog", speaker: "Mom", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
-			{type: "hide", img: yourphone, waitUntilHidden: false},
-			{type: "jump", condition: true, goTrue: "#ryantalk", goFalse: "#ryantalk"},
+				{type: "show", img: cat, expression: "happy", position: "left"},
+				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "What’s wrong?"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source… I found it on a codeHub forum online."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. She would never cheat."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Technically it’s plagiarism. What should we do, we have to submit the project in 2 hours!"},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "choices",
+						choices :
+							[{text: "Well, let's just ask her about it.",
+								integrityScore: 1, 
+								relationship: {name: "ryan", score: 1},  // how to add two relationship scores
+								go: "#ask"},
+							{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
+								integrityScore: 0, 
+								go: "#redo"},
+							{text: "Let’s just submit it, I’m sure it’s fine.",
+								integrityScore: -1,
+								go: "#submit" }]},
 
-			{type: "show", img: cat, position: "left", waitUntilShown: false, label: "talk"},
-			{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			
-			{type: "show", img: ryan, position: "right", waitUntilShown: false, label: "ryantalk"},
-			{type: "dialog", speaker: "Ryan", text: "We all set, Cat? Priya texted me saying she got her stuff to you this morning."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "What’s wrong?"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source… I found it on a codeHub forum online."},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. She would never cheat."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Technically it’s plagiarism. What should we do, we have to submit the project it 2 hours!"},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "choices",
-					choices :
-						[{text: "Well, let's just ask her about it.",
-							integrityScore: 1, 
-							relationship: {name: "priya", score: 1},  // how to add two relationship scores
-							go: "#ask"},
-						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
-							integrityScore: 0, 
-							go: "#redo"},
-						{text: "Let’s just submit it, I’m sure it’s fine.",
-							integrityScore: -1,
-							go: "#submit" }]},
+				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
+				{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				// text exchange here
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "choices",
+						choices :
+							[{text: "I agree, she needs to redo it.  We can’t submit plagiarized work.",
+								go: "#gonextscene"},
+							{text: "You text Priya “P, this is [YOU].  U need to meet us @ lib.  We need to fix ur part b/c we can’t use c-h to submit.  We’ll help u.” –",
+								relationship: {name: "priya", score: 1},
+								go: "#gonextscene"}]},
 
-			{type: "show", img: ryan, position: "right", waitUntilShown: false, label: "ask"},
-			{type: "dialog", speaker: "Ryan", text: "Well, Priya is on her way anyway.  We can talk to her when she –"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			// shit when did priya come
-			{type: "show", img: priya, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Hey guys. What's going on?"},
-			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Priya, there's a problem with your part of the project."},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: priya, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Ok..."},
-			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Did you use codeHub at all when you were working on your part of the code?"},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: priya, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Yes, I used codeHub to help me work through the problem. It's a fairly common practice for programmers. I did it in undergrad all the time."},
-			{type: "choices",
-					choices :
-						[{text: "I think you need to redo it.  We can’t submit plagiarized work.",
-							go: "#gonextscene"},
-						{text: "Since we only have a few hours, let’s get started.  We’ll help you finish it in time.",
-							relationship: {name: "priya", score: 1},
-							go: "#gonextscene"}]},
+				{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, label: "redo"},
+				{type: "dialog", speaker: "Ryan", text: "Seems like we should tell Priya,"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
+				{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
-			{type: "show", img: ryan, position: "right", waitUntilShown: false, label: "redo"},
-			{type: "dialog", speaker: "Ryan", text: "Seems like we should tell Priya,"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
-			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
+				// should be a sad cat here.
+				{type: "show", img: cat, position: "left", waitUntilShown: false, label: "submit"},
+				{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Yeah, seems like if Cat caught it, Sweeney will definitely catch it."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "thoughtful", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Maybe we can adjust her work enough to make it work?"},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Worth a try."},
 
-			{type: "show", img: cat, position: "left", waitUntilShown: false, label: "submit"},
-			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Yeah, seems like if Cat caught it, Sweeney will definitely catch it."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Maybe we can adjust her work enough to make it work?"},
-			{type: "hide", img: cat, waitUntilHidden: false},
-			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Worth a try."},
+				{type: "choices", choices : [
+					{text: "Go to the gym", 
+						go: "#gogym"}, 
+					{text : "Go get a drink at Scottie’s Bar.", 
+						go : "#gobar"}, 
+					{text: "Go home and study for the finals.", 
+						go: "#gohome"}], label: "gonextscene"},
 
-			// {type: "goto", page: "scene 7", label: "gonextscene"},
-			//{type: "jump", condition: true, goTrue: 1000, goFalse: 1000, label: "gonextscene"},
-			{type: "choices", choices : [
-				{text: "Go to the gym", 
-					go: "#gogym"}, 
-				{text : "Go get a drink at Scottie’s Bar.", 
-					go : "#gobar"}, 
-				{text: "Go home and study for the finals.", 
-					go: "#gohome"}], label: "gonextscene"},
+				{type: "goto", page: "scene 7.a", label: "gogym"},
+				{type: "goto", page: "scene 7.b", label: "gobar"},
+				{type: "goto", page: "scene 7.c", label: "gohome"},
+			];
+		};
+		if (this._talked == 2) {
+			o = [
+				{type: "show", img: yourphone, position: "center"},
+				{type: "dialog", speaker: "Mom", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
+				{type: "hide", img: yourphone, waitUntilHidden: false},
+				{type: "custom", func: function(page) {
+					var pageObj = page;
+					pageObj.tweenMat(pageObj._io1.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800
+					});
+					pageObj._removeFromScene(pageObj._sitryan);
+				}},
+				
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "What’s wrong?"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source… I found it on a codeHub forum online."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. She would never cheat."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Technically it’s plagiarism. What should we do, we have to submit the project in 2 hours!"},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "choices",
+						choices :
+							[{text: "Well, let's just ask her about it.",
+								integrityScore: 1, 
+								relationship: {name: "ryan", score: 1},  // how to add two relationship scores
+								go: "#ask"},
+							{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
+								integrityScore: 0, 
+								go: "#redo"},
+							{text: "Let’s just submit it, I’m sure it’s fine.",
+								integrityScore: -1,
+								go: "#submit" }]},
 
-			{type: "goto", page: "scene 7.a", label: "gogym"},
-			{type: "goto", page: "scene 7.b", label: "gobar"},
-			{type: "goto", page: "scene 7.c", label: "gohome"},
-		];
+				{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
+				{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				// text exchange here
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "choices",
+						choices :
+							[{text: "I agree, she needs to redo it.  We can’t submit plagiarized work.",
+								go: "#gonextscene"},
+							{text: "You text Priya “P, this is [YOU].  U need to meet us @ lib.  We need to fix ur part b/c we can’t use c-h to submit.  We’ll help u.” –",
+								relationship: {name: "priya", score: 1},
+								go: "#gonextscene"}]},
+
+				{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, label: "redo"},
+				{type: "dialog", speaker: "Ryan", text: "Seems like we should tell Priya,"},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
+				{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
+
+				// should be a sad cat here.
+				{type: "show", img: cat, position: "left", waitUntilShown: false, label: "submit"},
+				{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Yeah, seems like if Cat caught it, Sweeney will definitely catch it."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "show", img: cat, expression: "thoughtful", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Cat", text: "Maybe we can adjust her work enough to make it work?"},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show", img: ryan, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Worth a try."},
+
+				{type: "choices", choices : [
+					{text: "Go to the gym", 
+						go: "#gogym"}, 
+					{text : "Go get a drink at Scottie’s Bar.", 
+						go : "#gobar"}, 
+					{text: "Go home and study for the finals.", 
+						go: "#gohome"}], label: "gonextscene"},
+
+				{type: "goto", page: "scene 7.a", label: "gogym"},
+				{type: "goto", page: "scene 7.b", label: "gobar"},
+				{type: "goto", page: "scene 7.c", label: "gohome"},
+			];
+		};
+
 
 		return o;
 	}

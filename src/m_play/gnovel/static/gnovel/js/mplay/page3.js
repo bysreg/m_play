@@ -77,6 +77,8 @@ var MPLAY = MPLAY || {};
 
 				onInteractableObjectClicked(io);
 			}});
+
+		this._cgAssignmentStatus = 0;
 	};
 
 	Page3.prototype._createFlowElements = function() {
@@ -131,7 +133,11 @@ var MPLAY = MPLAY || {};
 				{type: "choices",
 					choices :
 						[{text: "You decide to give all your materials to Ryan.",
-							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1}},
+							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1},
+							onChoose: function(page){
+								console.log("you give ryan cg assignments");
+								page._cgAssignmentStatus = 1;
+							}},
 						{text: "You hesitate… Hopefully he gets the message.",
 							go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
 						{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
@@ -170,7 +176,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
 				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
 
-				{type: "choices", choices : [{text: "Grab some food at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+				{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
 				{type: "goto", page: "scene 5.a", label: "gocafe"},
 				{type: "goto", page: "scene 5.b", label: "gobar"},
 				// {type: "goto", page: "scene 6", label: "gohome"},
@@ -261,7 +267,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
 				{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
 
-				{type: "choices", choices : [{text: "Grab some food at the café.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+				{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
 				{type: "goto", page: "scene 5.a", label: "gocafe"},
 				{type: "goto", page: "scene 5.b", label: "gobar"},
 				{type: "goto", page: "scene 6.a", label: "gohome"},
@@ -269,6 +275,13 @@ var MPLAY = MPLAY || {};
 		}
 
 		return o;
+	};
+
+	/**
+	 * @override
+	 */
+	Page3.prototype._onUnload = function() {
+		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 	};
 
 
