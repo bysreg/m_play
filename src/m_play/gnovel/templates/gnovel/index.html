@@ -9,6 +9,8 @@
 				body { margin: 0; overflow: hidden;}
 				canvas { width: 100%; height: 100% }
 			</style>
+
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
 	</head>
 	<body>
 		<!-- change this to three.min.js in the release -->
@@ -62,6 +64,8 @@
 		<script>
 			var gnovel = new GNOVEL.Gnovel();
 			var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
+
+			gnovel.setSize(1920, 1080);			
 
 			// for debugging
 			gnovel.seeStats();

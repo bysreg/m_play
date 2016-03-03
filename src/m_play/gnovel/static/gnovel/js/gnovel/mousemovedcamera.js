@@ -25,13 +25,10 @@ var GNOVEL = GNOVEL || {};
 		camera.position.x += ( mouseX - camera.position.x ) * .005;
 		camera.position.y += ( mouseY - camera.position.y ) * .005;
 
-		if(camera.position.x < 0){
-			camera.position.x = Math.max( camera.position.x, -200);
-		}
-		else {
-			camera.position.x = Math.min( camera.position.x, 100);
-		}		
+		camera.position.x = THREE.Math.clamp(camera.position.x, -60, 60);
+		camera.position.y = THREE.Math.clamp(camera.position.y, -18, 18);
 
+		// console.log(mouseY + " " + camera.position.y);
 		camera.lookAt(new THREE.Vector3(0, 0, 400));
 	};
 
