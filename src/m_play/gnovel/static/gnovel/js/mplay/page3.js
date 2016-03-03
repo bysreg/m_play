@@ -20,7 +20,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page3.prototype._onLoad = function() {
-		MPLAY.MPlayPage.prototype._onLoad.call(this);		
+		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupLibraryBackground();
 
@@ -100,11 +100,19 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-r"}]},
 
-				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test.", label: "study-r"},
-				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+							{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, label:"study-r"},
+							{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
+							{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
+							{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
+							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+							{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+							{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test.", label: "sayhi-r"},
-				
+							{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-r"},
+							{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
+							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+							{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
+
 				{type: "show", img: yourphone, position: "center", label: "email"},
 				{type: "dialog", speaker: "", text: "Your phone pings with an email."},
 				{type: "hide", img: yourphone, waitUntilHidden: false},
@@ -120,7 +128,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "I think so… but I don’t know."},
 				{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
-				{type: "choices", 
+				{type: "choices",
 					choices :
 						[{text: "You decide to give all your materials to Ryan.",
 							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1}},
@@ -136,7 +144,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, expression: "neutral", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "I'm just going to use it to catch up."},
 				{type: "hide", img: priya, waitUntilHidden: false},
-				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},					
+				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Ok... Hey guys I'll see you later.  I forgot, I have a thing…"},
 				{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well see you."},
 				{type: "hide", img: priya, waitUntilHidden: false},
@@ -181,22 +189,20 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-p"}]},
 
-				{type: "hide", img: priya, waitUntilHidden: false},
-				{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study."},
-				{type: "hide", img: priya},
-				{type: "show", img: priya, expression: "neutral", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me."},
-				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+							{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, label:"study-p"},
+							{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
+							{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
+							{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
+							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+							{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+							{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-				{type: "hide", img: priya, waitUntilHidden: false, label: "sayhi-p"},
-				{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "I’m trying to study."},
-				{type: "hide", img: priya, waitUntilHidden: false},
-				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "Ryan is avoiding his Computer Graphics work."},
+							{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-p"},
+							{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work"},
+							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+							{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
 
-				
+
 				{type: "show", img: yourphone, position: "center", label: "email"},
 				{type: "dialog", speaker: "", text: "Your phone pings with an email."},
 				{type: "hide", img: yourphone, waitUntilHidden: false},
@@ -204,15 +210,19 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "", text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
 				{type: "hide", img: closephone, waitUntilHidden: false},
 
-				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "show", img: ryan, expression:"thoughtful", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester.  Could you send me some of your stuff from the class?  Like notes and old assignments?"},
+				{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Ryan, I don’t know if you can look at " + player + "’s graded assignments."},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
 				{type: "hide", img: priya, waitUntilHidden: false},
 				{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "I think so… but I don’t know."},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
-				{type: "choices", 
+				//FIXME make this a TIMED choice
+				{type: "choices",
 					choices :
 						[{text: "You decide to give all your materials to Ryan.",
 							go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1}},
@@ -221,14 +231,11 @@ var MPLAY = MPLAY || {};
 						{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
 							go: "#notes", integrityScore: 1}]},
 
-				{type: "hide", img: ryan, waitUntilHidden: false, label: "materials"},
-				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false, label:"materials"},
 				{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine."},
-				{type: "hide", img: ryan, waitUntilHidden: false},
 				{type: "show", img: ryan, expression: "neutral", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "I'm just going to use it to catch up."},
-				{type: "hide", img: priya, waitUntilHidden: false},
-				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},				
+				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Ok... Hey guys I'll see you later.  I forgot, I have a thing…"},
 				{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well see you."},
 				{type: "hide", img: priya, waitUntilHidden: false},

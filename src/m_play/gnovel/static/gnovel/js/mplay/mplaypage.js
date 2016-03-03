@@ -27,7 +27,7 @@ var MPLAY = MPLAY || {};
 		// override inherited variable
 		this._backgroundLayer = -80;
 
-		// z orders		
+		// z orders
 		this._background2Layer = -40;
 		this._background3Layer = 30;
 		this._interactableObjectLayer = 150;
@@ -193,7 +193,7 @@ var MPLAY = MPLAY || {};
 			img.scale.x = -1;
 		} else {
 			img.scale.x = 1;
-		}		
+		}
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
@@ -205,7 +205,7 @@ var MPLAY = MPLAY || {};
 			obj.fadeVisibleImages(this, characterTweenParam);
 		}else{
 			GNOVEL.Page.prototype._show.call(this, img, params);
-		}		
+		}
 	};
 
 	/**

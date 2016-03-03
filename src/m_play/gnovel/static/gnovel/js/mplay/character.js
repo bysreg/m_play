@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 		this._img.material.opacity = 0;
 
 		for(var expression in this._expression){
-			this._expression[expression].material.opacity = 0;			
+			this._expression[expression].material.opacity = 0;
 		}
 	};
 
@@ -70,11 +70,11 @@ var MPLAY = MPLAY || {};
 			page.tweenMat(this._img, {
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
-				onComplete: function() {					
+				onComplete: function() {
 					page._removeFromScene(img);
 					params.onComplete();
 				},
-				duration: 800
+				duration: 400
 			});
 		}
 
@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 						page._removeFromScene(img);
 						params.onComplete();
 					},
-					duration: 800
+					duration: 400
 				});
 			}
 		}
