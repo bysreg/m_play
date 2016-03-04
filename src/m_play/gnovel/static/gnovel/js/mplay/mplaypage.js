@@ -279,19 +279,27 @@ var MPLAY = MPLAY || {};
 		params.showSpeaker = false;
 		params.charLine = 22;
 		params.bgWidth = 300;
+		params.bgHeight = 145;
+		params.bgOffsetY = -30;
+		params.msgOffsetZ = -38;
 		params.dontRemove = true;
 		params.createNewBg = true;
 
 		message = obj.text;
 		var x = 0;
-		var y = -250;
+		var y = 100;
 
 		if (typeof obj.y !== 'undefined') {
 			y = obj.y;
 		}
-
 		if (typeof obj.x !== 'undefined') {
 			x = obj.x;
+		}
+		if(typeof obj.bgWidth !== 'undefined') {
+			params.bgWidth = obj.bgWidth;
+		}
+		if(typeof obj.bgHeight !== 'undefined') {
+			params.bgHeight = obj.bgHeight;
 		}
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);

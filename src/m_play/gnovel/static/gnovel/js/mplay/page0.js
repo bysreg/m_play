@@ -59,7 +59,6 @@ var MPLAY = MPLAY || {};
 
 	Page0.prototype._createFlowElements = function() {
 
-
 		var ryan = "%" + this._ryan;
 		var catsphone = "%" + this._catsphone;
 		var closephone = "%" + this._closephone;
@@ -81,10 +80,18 @@ var MPLAY = MPLAY || {};
 						go: "#talktoryan",
 					relationship: {name: "ryan", score: 1}}]},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
+			
+			// phone email exchange begins			
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
 			{type: "show", img: closephone},
-			{type: "dialog", speaker: "Your phone", text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG"},
-			{type: "hide", img: closephone, waitUntilHiden: false},
+			{type: "phone_textbox",
+				label: "email", 
+				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
+				bgHeight: 200},
+			{type: "hide_phone_textbox", dialog: "$email"},
+			{type: "hide", img: closephone},
+			// phone email exchange ends
+
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "ryan", text: "Congratulations! I am so happy you got the job - referring you was a good call.  You’ll love it – my internship there last summer was a blast."},
 			{type: "choices",

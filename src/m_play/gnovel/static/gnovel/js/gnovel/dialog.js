@@ -22,6 +22,8 @@ var GNOVEL = GNOVEL || {};
 		this._bgHeight = params.bgHeight || 145.5;
 		this._bgPath = params.bgPath || "/static/gnovel/res/textures/blue_box.png";
 		this._dontRemove = params.dontRemove || false;
+		this._bgOffsetY = params.bgOffsetY || 0;
+		this._msgOffsetZ = params.msgOffsetZ || 0;
 		this._textBg = null;
 
 		this._messageText = this._page.createTextBox(message, params || {});
@@ -62,7 +64,7 @@ var GNOVEL = GNOVEL || {};
 		var y = this._y;
 		var z = this._page.getDialogLayer();
 
-		this._messageText.position.set(x, y + 40, z + 20);
+		this._messageText.position.set(x, y + 40, z + 20 + this._msgOffsetZ);
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
 			// if current speaker is different than the previous speaker, then we need to 
@@ -74,7 +76,9 @@ var GNOVEL = GNOVEL || {};
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {
-			Dialog._textBg = this._page.createImage(this._bgPath, new THREE.Vector3(this._messageText.position.x, y, z - 20),
+			Dialog._textBg = this._page.createImage(
+				this._bgPath, 
+				new THREE.Vector3(this._messageText.position.x, y + this._bgOffsetY, z - 20),
 				this._bgWidth, this._bgHeight);
 
 			Dialog._textBg.material.opacity = 0;
