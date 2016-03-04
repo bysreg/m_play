@@ -23,6 +23,10 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
+		this._yourphone = "yourphone";
+		this._setObjectTag(this._yourphone, this._yourphoneImg);
 	};
 
 	PageTest.prototype._createFlowElements = function() {
@@ -36,23 +40,16 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			
-			{type: "dialog", speaker: "Your phone", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  She’s here from India,and an excellent study buddy."},
-			{type: "dialog", speaker: "Your phone", text: "Ryan here helped me so much last semester.  Always goes out of his way.  Nice to meet you."},
-			{type: "dialog", speaker: "Your phone", text: "Hey, my name is Cat.  Uhh… I’m in the business school.  Nice to meet you guys… sorry I’m a little all over the place.  I lost my phone yesterday –"},
-			{type: "dialog", speaker: "Your phone", text: "Were you at Scottie's Bar yesterday?  We found a phone there."},
-			{type: "dialog", speaker: "Your phone", text: "Oh my God, do you guys have it with you?"},
-
+			{type: "show", img: yourphone, position: "center"},
+			{type: "phone_textbox", label: "textbox1", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!", 
+				y: 100},
+			{type: "phone_textbox", label: "textbox2", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!", 
+				y: -45},
+			{type: "hide_phone_textbox", dialog: "$textbox2"},
+			{type: "hide_phone_textbox", dialog: "$textbox1"},
 		];
 
 		return o;
-	};
-
-	/**
-	 * @override
-	 */
-	PageTest.prototype._onUnload = function() {
-		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 	};
 
 	MPLAY.PageTest = PageTest;

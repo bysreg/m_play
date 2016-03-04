@@ -61,6 +61,7 @@ var MPLAY = MPLAY || {};
 
 		// add custom flow handler
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
+		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -81,7 +82,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -320, this._characterLayer), 600, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -320, this._characterLayer), 870, 1339), "Ryan");
-		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 677, 1339), "Ryan");		
+		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 677, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -320, this._characterLayer), 586, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");
 
@@ -204,13 +205,15 @@ var MPLAY = MPLAY || {};
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
-			var characterTweenParam = {duration:200};
+			var characterTweenParam = {
+				duration: 200
+			};
 			characterTweenParam.onComplete = function() {
 				GNOVEL.Page.prototype._show.call(pageObj, img, params)
 			};
 
 			obj.fadeVisibleImages(this, characterTweenParam);
-		}else{
+		} else {
 			GNOVEL.Page.prototype._show.call(this, img, params);
 		}
 	};
@@ -275,12 +278,35 @@ var MPLAY = MPLAY || {};
 		params.flowElement = obj;
 		params.showSpeaker = false;
 		params.charLine = 22;
+		params.bgWidth = 300;
+		params.dontRemove = true;
+		params.createNewBg = true;
 
 		message = obj.text;
-		var x = obj.x || 0;
-		var y = obj.y || -250;		
+		var x = 0;
+		var y = -250;
 
-		GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
+		if (typeof obj.y !== 'undefined') {
+			y = obj.y;
+		}
+
+		if (typeof obj.x !== 'undefined') {
+			x = obj.x;
+		}
+
+		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
+		flow._storeFlowData(dialog);
+	};
+
+	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {				
+		var dialog = obj.dialog;
+		var duration = obj.duration || 800;
+		var pageObj = flow._getPage();
+
+		dialog._closeDialog();
+
+		flow._next();
+		flow._exec();		
 	};
 
 	MPLAY.MPlayPage = MPlayPage;
