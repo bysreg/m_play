@@ -33,7 +33,7 @@ var GNOVEL = GNOVEL || {};
 
 		this._width = window.innerWidth;
 		this._height = window.innerHeight;
-		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 2000);
+		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
 		this._renderer = new THREE.WebGLRenderer();
 
 		var gnovel = this;
