@@ -40,6 +40,8 @@ var MPLAY = MPLAY || {};
 		img.material.opacity = 0;
 
 		this._expression[expression] = img;
+
+		img.material.side = THREE.DoubleSide;
 	};
 
 	Character.prototype.getVisibleImage = function() {
@@ -59,7 +61,7 @@ var MPLAY = MPLAY || {};
 		this._img.material.opacity = 0;
 
 		for(var expression in this._expression){
-			this._expression[expression].material.opacity = 0;			
+			this._expression[expression].material.opacity = 0;
 		}
 	};
 
@@ -70,7 +72,7 @@ var MPLAY = MPLAY || {};
 			page.tweenMat(this._img, {
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
-				onComplete: function() {					
+				onComplete: function() {
 					page._removeFromScene(img);
 					params.onComplete();
 				},

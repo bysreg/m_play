@@ -27,7 +27,7 @@ var MPLAY = MPLAY || {};
 		// override inherited variable
 		this._backgroundLayer = -80;
 
-		// z orders		
+		// z orders
 		this._background2Layer = -40;
 		this._background3Layer = 30;
 		this._interactableObjectLayer = 150;
@@ -80,6 +80,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -310, this._characterLayer), 870, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 677, 1339), "Ryan");		
 		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 586, 1339), "Ryan");
+		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");
 
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 395, 1253), "Cat");
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -310, this._characterLayer), 600, 1178), "Cat");
@@ -88,6 +89,8 @@ var MPLAY = MPLAY || {};
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -280, this._characterLayer), 600, 1203), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -350, this._characterLayer), 499, 1203), "Priya");
 		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, this._characterLayer), 807, 1203), "Priya");
+		//Add priya's sad image when ready
+		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, this._characterLayer), 700, 963), "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
@@ -194,11 +197,11 @@ var MPLAY = MPLAY || {};
 			img.scale.x = -1;
 		} else {
 			img.scale.x = 1;
-		}		
+		}
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
-			var characterTweenParam = {};
+			var characterTweenParam = {duration:200};
 			characterTweenParam.onComplete = function() {
 				GNOVEL.Page.prototype._show.call(pageObj, img, params)
 			};
@@ -206,7 +209,7 @@ var MPLAY = MPLAY || {};
 			obj.fadeVisibleImages(this, characterTweenParam);
 		}else{
 			GNOVEL.Page.prototype._show.call(this, img, params);
-		}		
+		}
 	};
 
 	/**
