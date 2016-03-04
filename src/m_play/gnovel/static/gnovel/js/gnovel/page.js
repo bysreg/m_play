@@ -265,6 +265,7 @@ var GNOVEL = GNOVEL || {};
 		};
 
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
+		return dialog;
 	};
 
 	Page.prototype._show = function(obj, params) {
