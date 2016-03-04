@@ -1,4 +1,4 @@
-// Modified by Emily
+// Modified by Emily & bysreg
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.THREE_Text = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -11,6 +11,7 @@ var fontHeightCache = {};
 
 // Modified drawText function which supports multiline text
 var CanvasText = (function () {
+
   function CanvasText() {
     _classCallCheck(this, CanvasText);
 
@@ -30,12 +31,14 @@ var CanvasText = (function () {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.font = ctxOptions.font;
+      this.ctx.charLine = ctxOptions.charLine || 72;
 
       // Check if the text is long enough to split into multiple lines.
-      if(text.length > 72)
+      if(text.length > this.ctx.charLine)
       {
         // calculate text width for multiline textbox 
-        var hlpArr = text.match(/.{1,72}/g);
+        var regex = new RegExp(".{1," + this.ctx.charLine + "}", "g");        
+        var hlpArr = text.match(regex);        
         this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
         this.textHeight = hlpArr.length * getFontHeight(this.ctx.font);
       }
@@ -62,7 +65,7 @@ var CanvasText = (function () {
       // textArr is an array of text lines
       var textArr = new Array();
       textArr[0] = text;
-      if(text.length > 72)
+      if(text.length > this.ctx.charLine)
       {        
         var wordsArr = text.split(" ");
         var line = 0, curlength = 0;
@@ -70,7 +73,7 @@ var CanvasText = (function () {
         // split text into single words first, and then add them to text lines one by one.
         for (var i = 0; i < wordsArr.length; i++) {
           curlength += wordsArr[i].length + 1;
-          if(curlength >= 72)
+          if(curlength >= this.ctx.charLine)
           {
             curlength = wordsArr[i].length;
             line++;
@@ -156,7 +159,7 @@ var SpriteText2D = (function (_THREE$Object3D) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SpriteText2D).call(this));
 
     _this._font = options.font || '30px Arial';
-    _this._fillStyle = options.fillStyle || '#FFFFFF';
+    _this._fillStyle = options.fillStyle || '#FFFFFF';    
 
     _this.canvas = new CanvasText();
 
@@ -174,7 +177,7 @@ var SpriteText2D = (function (_THREE$Object3D) {
     value: function updateText() {
       this.canvas.drawText(this._text, {
         font: this._font,
-        fillStyle: this._fillStyle
+        fillStyle: this._fillStyle        
       });
 
       // cleanup previous texture
@@ -295,6 +298,7 @@ var Text2D = (function (_THREE$Object3D) {
 
     _this._font = options.font || '30px Arial';
     _this._fillStyle = options.fillStyle || '#FFFFFF';
+    _this._charLine = options.charLine || 72;
 
     _this.canvas = new CanvasText();
 
@@ -315,7 +319,8 @@ var Text2D = (function (_THREE$Object3D) {
 
       this.canvas.drawText(this._text, {
         font: this._font,
-        fillStyle: this._fillStyle
+        fillStyle: this._fillStyle,
+        charLine: this._charLine
       });
 
       this.texture = new THREE.Texture(this.canvas.canvas);

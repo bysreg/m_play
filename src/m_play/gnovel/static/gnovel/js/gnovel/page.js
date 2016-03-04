@@ -207,33 +207,27 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.createTextBox = function(message, parameters) {
 		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
-		var msgAligh = parameters.align || "center";
-		switch(msgAligh){
+		var msgAlign = parameters.align || "center";
+		switch(msgAlign){
 			case "left":
-				var sprite = new Text2D(message, {
-					align: textAlign.left,
-					font: '20px Arial',
-					fillStyle: '#FFFF00',
-					antialias: false
-				});
+				msgAlign = textAlign.left;
 				break;
 			case "right":
-				var sprite = new Text2D(message, {
-					align: textAlign.right,
-					font: '20px Arial',
-					fillStyle: '#FFFF00',
-					antialias: false
-				});
+				msgAlign = textAlign.right;
 				break;
 			case "center":
-				var sprite = new Text2D(message, {
-					align: textAlign.center,
-					font: '20px Arial',
-					fillStyle: '#FFFF00',
-					antialias: false
-				});
+				msgAlign = textAlign.center;
 				break;
 		}
+
+		var sprite = new Text2D(message, {
+			align: msgAlign,
+			font: '20px Arial',
+			fillStyle: '#FFFF00',
+			antialias: false, 
+			charLine: parameters.charLine,
+		});
+
 		return sprite;
 	};
 

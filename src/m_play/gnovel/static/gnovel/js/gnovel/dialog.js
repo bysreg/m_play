@@ -14,10 +14,13 @@ var GNOVEL = GNOVEL || {};
 		this._x = x;
 		this._y = y;
 		this._hasTransition = true;
-		this._mouseDownListener = null;
-		this._curTextBox = this._page.createTextBox(message, params || {});
-		this._nameBox = this._page.createTextBox(params.speaker, {align: "left"});				
+		this._mouseDownListener = null;			
 		this._tweenComplete = false;
+		this._showSpeaker = params.showSpeaker || true;
+		this._charLine = params.charLine || 72;
+
+		this._curTextBox = this._page.createTextBox(message, params || {});
+		this._nameBox = this._page.createTextBox(params.speaker, {align: "left", charLine: this._charLine});	
 
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
@@ -114,7 +117,9 @@ var GNOVEL = GNOVEL || {};
 		// });
 		
 		this._page._addToScene(this._curTextBox);
-		this._page._addToScene(this._nameBox);
+
+		if(this._showSpeaker)
+			this._page._addToScene(this._nameBox);
 	};
 
 	Dialog.prototype._onComplete = function() {
