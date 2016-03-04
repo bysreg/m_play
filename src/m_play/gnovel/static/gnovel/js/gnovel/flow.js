@@ -176,7 +176,7 @@ var GNOVEL = GNOVEL || {};
 		var y = obj.y || -250; // optional
 		var params = {};
 		params.speaker = obj.speaker;
-		params.charLine = obj.charLine;
+		params.charLine = obj.charLine;		
 
 		// pass the original flow element to params
 		params.flowElement = obj;
@@ -313,9 +313,8 @@ var GNOVEL = GNOVEL || {};
 		if(typeof data !== 'undefined') {
 			// and if there is label to identify where the data will be stored
 			if(typeof label !== 'undefined') {
-				// we will store the data into that label
-				console.log("data stored : " + data + " in label : " + label);
-				this._storedData[label] = data;
+				// we will store the data into that label					
+				this._storeFlowData(data);
 			}
 		}
 
@@ -325,6 +324,13 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._addCustomHandler = function(type, handler) {
 		this._customHandlers[type] = handler;
+	};
+
+	Flow.prototype._storeFlowData = function(data) {
+		var label = this._elements[this._flowCounter].label;
+
+		this._storedData[label] = data;
+		console.log("data stored : " + data + " in label : " + label);
 	};
 
 	GNOVEL.Flow = Flow;
