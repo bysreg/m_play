@@ -77,9 +77,9 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -320, this._characterLayer), 600, 1339), "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -310, this._characterLayer), 870, 1339), "Ryan");
+		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -320, this._characterLayer), 870, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 677, 1339), "Ryan");		
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -210, this._characterLayer), 586, 1339), "Ryan");
+		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -320, this._characterLayer), 586, 1339), "Ryan");
 		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -210, this._characterLayer), 641, 1400), "Ryan");
 
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -310, this._characterLayer), 395, 1253), "Cat");
