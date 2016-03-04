@@ -22,8 +22,7 @@ var MPLAY = MPLAY || {};
 	Page6_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		// FIXME : should be SCOTTIE's Bar
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setupBarBackground();
 	};
 
 	Page6_1.prototype._createFlowElements = function() {

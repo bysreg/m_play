@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/Bar_Linework.png");
+		this.setupBarBackground();
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);

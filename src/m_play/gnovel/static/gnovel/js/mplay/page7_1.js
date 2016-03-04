@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page7_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupClassBackground();
+		this.setupLibraryBackground();
 	};
 
 	Page7_1.prototype._createFlowElements = function() {

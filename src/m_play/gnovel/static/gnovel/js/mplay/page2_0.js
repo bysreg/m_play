@@ -23,7 +23,6 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
-
 	};
 
 	Page2_0.prototype._createFlowElements = function() {
