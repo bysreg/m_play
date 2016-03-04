@@ -11,6 +11,7 @@ var GNOVEL = GNOVEL || {};
 	var Flow = function(page) {
 		this._page = page;
 		this._objs = [];
+		this._customHandlers = {};
 
 		this._reset();
 	};
@@ -30,7 +31,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.COMPARE = "compare";
 	Flow.JUMP = "jump";
 	Flow.CUSTOM = "custom";
-	Flow.NOTHING = "nothing"; // TODO: do nothing, 
+	Flow.NOTHING = "nothing";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -40,6 +41,10 @@ var GNOVEL = GNOVEL || {};
 
 		this._elements = flowElements;
 		this._processLabels();
+	};
+
+	Flow.prototype._getPage = function() {
+		return this._page;
 	};
 
 	Flow.prototype._jump = function(index) {
@@ -92,6 +97,12 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.NOTHING:
 				this._handleNothing(obj);
+				break;
+			default:
+				// if we have custom handler for that flow element
+				if(this._customHandlers[type]) {
+					this._customHandlers[type](obj, this);
+				}
 				break;
 		}
 	};
@@ -154,7 +165,7 @@ var GNOVEL = GNOVEL || {};
 					}
 				} else if(typeof(obj[prop]) === "object") {
 					// recurse to this object
-					this._processParameters(obj[prop]);
+					this._processParameters(obj[prop], this);
 				}
 			}
 		}
@@ -310,6 +321,10 @@ var GNOVEL = GNOVEL || {};
 
 		this._next();
 		this._exec();
+	};
+
+	Flow.prototype._addCustomHandler = function(type, handler) {
+		this._customHandlers[type] = handler;
 	};
 
 	GNOVEL.Flow = Flow;

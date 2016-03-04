@@ -58,6 +58,9 @@ var MPLAY = MPLAY || {};
 		MPlayPage._ryan.hideAllImages();
 		MPlayPage._cat.hideAllImages();
 		MPlayPage._priya.hideAllImages();
+
+		// add custom flow handler
+		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -265,6 +268,19 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.getRelationshipManager = function() {
 		return this._relationshipManager;
+	};
+
+	MPlayPage.prototype._handlePhoneTextBox = function(obj, flow) {
+		var params = {};
+		params.flowElement = obj;
+		params.showSpeaker = false;
+		params.charLine = 22;
+
+		message = obj.text;
+		var x = obj.x || 0;
+		var y = obj.y || -250;		
+
+		GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
 
 	MPLAY.MPlayPage = MPlayPage;
