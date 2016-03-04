@@ -55,13 +55,14 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs.  There is an appeals process as well, but before we go down that road, I'd like to hear from you.", label: "second"},
 
 			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please tell me your side of the story."},
+			{type: "hide", img: this._professor}, 
 
-			{type: "dialog", speaker: "Context", text: "You receive an email. It reads: ..."},
-			{type: "dialog", speaker: this._professor, text: "After much deliberation, I have come up with my own solution to address your violation:"},
-			{type: "dialog", speaker: this._professor, text: "As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the final, with the highest possible grade starting at the class average, an 80%."},
-			{type: "dialog", speaker: this._professor, text: "As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  Since I believe you did not consciously act in bad faith, I will not be moving forward with proceedings for this violation.  Please take this as a learning experience to reflect on your actions."},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "You receive an email. It reads: ..."},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "After much deliberation, I have come up with my own solution to address your violation:"},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the final, with the highest possible grade starting at the class average, an 80%."},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  Since I believe you did not consciously act in bad faith, I will not be moving forward with proceedings for this violation.  Please take this as a learning experience to reflect on your actions."},
 
-			{type: "dialog", speaker: "Context", text: "You receive a text from Ryan:"},
+			{type: "dialog", speaker: "Text - Ryan", text: "You receive a text from Ryan:"},
 			{type: "dialog", speaker: this._ryan, text: "Hey!!  I passed too!  Got the same grade as you C.  Happy it turned out ok for us.  Definitely not taking any more advice from my bro anytime soon…"},
 
 			]; 

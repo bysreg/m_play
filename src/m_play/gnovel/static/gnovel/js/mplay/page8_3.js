@@ -55,13 +55,13 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs.  There is an appeals process as well, but before we go down that road, I'd like to hear from you.", label: "second"},
 
 			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please tell me your side of the story."},
+			{type: "hide", img: this._professor},
 
-			{type: "dialog", speaker: "Context", text: "You receive an email. It reads: ..."},
-			{type: "dialog", speaker: this._professor, text: "After much deliberation, I have decided on the following to address your violation:"},
-			{type: "dialog", speaker: this._professor, text: "As a consequence of unauthorized possession and use of last year’s exam, you will receive a 0 on the final. As we discussed in our meeting, I am extremely disappointed.  I will be in touch about the possibility of moving forward with proceedings for this violation. Prof. Sweeney"},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "You receive an email. It reads: ..."},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "After much deliberation, I have decided on the following to address your violation:"},
+			{type: "dialog", speaker: "Email - Prof. Sweeney", text: "As a consequence of unauthorized possession and use of last year’s exam, you will receive a 0 on the final. As we discussed in our meeting, I am extremely disappointed.  I will be in touch about the possibility of moving forward with proceedings for this violation. Prof. Sweeney"},
 
-			{type: "hide", img: professor},
-			{type: "dialog", speaker: "Context", text: "You receive a text from Ryan:"},
+			{type: "dialog", speaker: "Text - Ryan", text: "You receive a text from Ryan:"},
 
 			{type: "dialog", speaker: this._ryan, text: "You get Sweeney’s email?... Shit, what now? If we fail the class, don’t know about the job…  You ok?"},
 		]; 
