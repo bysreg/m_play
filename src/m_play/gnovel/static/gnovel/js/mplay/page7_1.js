@@ -31,7 +31,7 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var player = this._player; // player's name
 
-		var integrityThreshold = 3;
+		var integrityThreshold = 0;
 
 		var o = null;
 
@@ -79,7 +79,7 @@ var MPLAY = MPLAY || {};
 					go: "#decline"} ]},
 
 			// holdoff jump			
-			{type: "compare", label: "holdoff", leftop: "$integrityScore", operator: "greater", rightop: integrityThreshold, goTrue: "#good_integrity", goFalse: "#poor_integrity"},
+			{type: "compare", label: "holdoff", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#good_integrity", goFalse: "#poor_integrity"},
 
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
@@ -100,7 +100,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "I can't keep arguing with you both. Do what you want."},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "She'll get over it. This whole thing has been blown so out of proportion."}, 
-			{type: "compare", leftop: "$integrityScore", operator: "greater", rightop: integrityThreshold, goTrue: "#go9c", goFalse: "#go9d"},
+			{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#go9c", goFalse: "#go9d"},
 			{type: "goto", page: "scene 9.c", label: "go9c"},
 			{type: "goto", page: "scene 9.d", label: "go9d"},			
 
@@ -113,7 +113,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "angry", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Priya, lay off."},
 			
-			{type: "compare", leftop: "$integrityScore", operator: "greater", rightop: integrityThreshold, goTrue: "#go9e", goFalse: "#go9f"},
+			{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#go9e", goFalse: "#go9f"},
 			{type: "goto", page: "scene 9.e", label: "go9e"},
 			{type: "goto", page: "scene 9.f", label: "go9f"},	
 		];
