@@ -25,7 +25,8 @@ var GNOVEL = GNOVEL || {};
 		var y = params.y || 0;
 		var z = params.z || 100;
 		var pos = new THREE.Vector3(x, y, z);
-		var mouse = new THREE.Vector2(), hoveredObj;
+		var mouse = new THREE.Vector2(),
+			hoveredObj;
 		var offset = new THREE.Vector3(.2, .2, .2);
 
 		this._mouse = mouse;
@@ -37,9 +38,9 @@ var GNOVEL = GNOVEL || {};
 		//this._img.highlightShape2 = highlightShape2;
 
 		//basic outline image that has textuer of image but with larger scale and diff color
-		var highlightShape = new THREE.Mesh(this._img.geometry,new THREE.MeshPhongMaterial({
-			color:0xffff00,
-			emissive:0xffff00,//required for overriding textures basic color
+		var highlightShape = new THREE.Mesh(this._img.geometry, new THREE.MeshPhongMaterial({
+			color: 0xffff00,
+			emissive: 0xffff00, //required for overriding textures basic color
 			shading: THREE.FlatShading,
 			transparent: this._img.material.transparent,
 			map: this._img.material.map,
@@ -48,7 +49,7 @@ var GNOVEL = GNOVEL || {};
 		}));
 
 		//copy of image that will render on tope of outline image
-		var highlightShape2 = new THREE.Mesh(this._img.geometry,new THREE.MeshBasicMaterial({
+		var highlightShape2 = new THREE.Mesh(this._img.geometry, new THREE.MeshBasicMaterial({
 			transparent: this._img.material.transparent,
 			map: this._img.material.map
 		}));
@@ -82,7 +83,7 @@ var GNOVEL = GNOVEL || {};
 	InteractableObject.prototype._onMouseDown = function(event) {
 		event.preventDefault();
 
-		if(!this._enabled) return;
+		if (!this._enabled) return;
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
 		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
@@ -96,7 +97,7 @@ var GNOVEL = GNOVEL || {};
 			console.log("interactable object is clicked");
 
 			//run onClick function in the page
-			if(this._params.onClick != null) {
+			if (this._params.onClick != null) {
 				this._params.onClick(this);
 			}
 		}
@@ -105,12 +106,20 @@ var GNOVEL = GNOVEL || {};
 	InteractableObject.prototype.remove = function() {
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
+		this._page._removeFromScene(this._img);
 	};
 
-	InteractableObject.prototype._onMouseMove = function(event){
+	InteractableObject.prototype._onMouseMove = function(event) {
 		event.preventDefault();
 
-		if(!this._enabled) return;
+		if (!this._enabled) {
+			if (this._hoveredObj) {
+				this._hoveredObj.material.color.setHex(this._hoveredObj.currentHex);
+				this._page._owner.getContainer().style.cursor = 'auto';
+			}
+			this._hoveredObj = null;	
+			return;
+		}			
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
 		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
@@ -119,60 +128,57 @@ var GNOVEL = GNOVEL || {};
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects([this._img], true);
 		if (intersects.length > 0) {
-			if(this._hoveredObj != intersects[0].object){
+			if (this._hoveredObj != intersects[0].object) {
 
 				this._hoveredObj = intersects[0].object;
 				//do hover effect on intersected object
 				this._hoveredObj.currentHex = this._hoveredObj.material.color.getHex();
 				//this._hoveredObj.material.color.setHex(0xff0000);
-
 			}
 
 			//on hover change mouse cursor to pointer
 			this._page._owner.getContainer().style.cursor = 'pointer';
-		}
-		else{
+		} else {
 			//reset hover effect, and set back to normal
-			if(this._hoveredObj)
-			{
+			if (this._hoveredObj) {
 				this._hoveredObj.material.color.setHex(this._hoveredObj.currentHex);
-					this._page._owner.getContainer().style.cursor = 'auto';
+				this._page._owner.getContainer().style.cursor = 'auto';
 			}
 			this._hoveredObj = null;
 		}
-			//add outline effect on hover
-			this._pick();
-			// console.log("interactable object is hovered");
+		//add outline effect on hover
+		this._pick();
+		// console.log("interactable object is hovered");
 	};
 
-/**
-*@function check to add outline effect on mouse hover
-*
-*/
-	InteractableObject.prototype._pick = function(){
+	/**
+	 *@function check to add outline effect on mouse hover
+	 *
+	 */
+	InteractableObject.prototype._pick = function() {
 		var data = this._hoveredObj;
-		if(data){
-			if(data.position && data.rotation && data.scale){
-					this._highlightShape.position.copy(data.position);
-					//this._highlightShape.position.multiplyScalar(0);
-					this._highlightShape.position.setZ(data.position.z+1);
-					this._highlightShape.rotation.copy(data.rotation);
-					this._highlightShape.scale.copy(data.scale).add(this._offset.clone().multiplyScalar(0.001 *
-						(this._page._owner.getCamera().position.distanceTo(data.position)))); // hack to make size about the same regardless of disance from camera
-					//set object to render
-					this._highlightShape.visible = true;
+		if (data) {
+			if (data.position && data.rotation && data.scale) {
+				this._highlightShape.position.copy(data.position);
+				//this._highlightShape.position.multiplyScalar(0);
+				this._highlightShape.position.setZ(data.position.z + 1);
+				this._highlightShape.rotation.copy(data.rotation);
+				this._highlightShape.scale.copy(data.scale).add(this._offset.clone().multiplyScalar(0.001 *
+					(this._page._owner.getCamera().position.distanceTo(data.position)))); // hack to make size about the same regardless of disance from camera
+				//set object to render
+				this._highlightShape.visible = true;
 
-					this._highlightShape2.position.copy(data.position);
-					//this._highlightShape2.position.add(0);
-					this._highlightShape2.position.setZ(data.position.z+2);
-					this._highlightShape2.rotation.copy(data.rotation);
-					this._highlightShape2.scale.copy(data.scale);
-					this._highlightShape2.visible = true;
-					this._highlightShape2.material.color.copy(data.material.color);
+				this._highlightShape2.position.copy(data.position);
+				//this._highlightShape2.position.add(0);
+				this._highlightShape2.position.setZ(data.position.z + 2);
+				this._highlightShape2.rotation.copy(data.rotation);
+				this._highlightShape2.scale.copy(data.scale);
+				this._highlightShape2.visible = true;
+				this._highlightShape2.material.color.copy(data.material.color);
 			}
-		} else{
-				this._highlightShape.visible = false;
-				this._highlightShape2.visible = false;
+		} else {
+			this._highlightShape.visible = false;
+			this._highlightShape2.visible = false;
 		}
 
 

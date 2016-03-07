@@ -43,19 +43,27 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._io1.getImage(), {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800
+					duration: 800, 
+					onComplete: function() {
+						pageObj._io1.remove();
+					},
 				});
 				pageObj.tweenMat(pageObj._io2.getImage(), {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800
+					duration: 800,
+					onComplete: function() {
+						pageObj._io2.remove();
+					},
 				});
 				pageObj.tweenMat(pageObj._sitryan, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800
-				});
-				pageObj._removeFromScene(pageObj._sitryan);
+					duration: 800, 
+					onComplete: function() {
+						pageObj._removeFromScene(pageObj._sitryan);
+					},
+				});				
 			}});
 
 		this._io2 = this.createInteractableObject(
@@ -69,7 +77,10 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._io2.getImage(), {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800
+					duration: 800, 
+					onComplete: function() {
+						pageObj._io2.remove();
+					},
 				});
 			}});
 
