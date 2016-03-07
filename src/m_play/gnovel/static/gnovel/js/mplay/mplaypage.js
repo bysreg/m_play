@@ -265,6 +265,18 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/Bar_Linework.png");
 	};
 
+	MPlayPage.prototype.setupCafeBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+	};
+
+	MPlayPage.prototype.setupGymBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+	};
+
+	MPlayPage.prototype.setupHomeBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+	};
+
 	MPlayPage.prototype.getIntegrityManager = function() {
 		return this._integrityManager;
 	};
@@ -282,6 +294,7 @@ var MPLAY = MPLAY || {};
 		params.bgHeight = 145;
 		params.bgOffsetY = -30;
 		params.msgOffsetZ = -38;
+		params.msgOffsetY = 0;
 		params.dontRemove = true;
 		params.createNewBg = true;
 
@@ -309,6 +322,12 @@ var MPLAY = MPLAY || {};
 		}
 		if(typeof obj.charLine !== 'undefined') {
 			params.charLine = obj.charLine;
+		}
+		if(typeof obj.msgOffsetY !== 'undefined') {
+			params.msgOffsetY = obj.msgOffsetY;
+		}
+		if(typeof obj.msgOffsetZ !== 'undefined') {
+			params.msgOffsetZ = obj.msgOffsetZ;
 		}
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);

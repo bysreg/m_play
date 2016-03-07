@@ -23,17 +23,33 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupBarBackground();
+
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);				
+		this._closephoneImg.material.opacity = 0;
+
+		this._setObjectTag(this._closephone, this._closephoneImg);	
 	};
 
 	Page6_1.prototype._createFlowElements = function() {
 
 		var ryan = "%" + this._ryan;
 		var player = this._player;
+		var closephone = "%" + this._closephone;
 
 		var o = null;
 
 		o = [
-			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it. Your project grade: B-"},			
+			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
+			
+			// phone email exchange begins
+			{type: "show", img: closephone, waitUntilShown: false},
+			{type: "phone_textbox", 
+				label: "email",
+				text: "Your project grade: B-"},
+			{type: "hide_phone_textbox", dialog: "$email"},
+			{type: "hide", img: closephone},
+			// phone email exchange ends
+
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Hey there. I was feeling down, so I decided to hit the gym to get out some frustration. You got the email right? About our grade?"},
 			{type: "choices",

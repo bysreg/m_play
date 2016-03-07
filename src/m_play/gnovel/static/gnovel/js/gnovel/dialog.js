@@ -24,6 +24,7 @@ var GNOVEL = GNOVEL || {};
 		this._dontRemove = params.dontRemove || false;
 		this._bgOffsetY = params.bgOffsetY || 0;
 		this._msgOffsetZ = params.msgOffsetZ || 0;
+		this._msgOffsetY = params.msgOffsetY || 0;
 		this._textBg = null;
 
 		this._messageText = this._page.createTextBox(message, params || {});
@@ -64,7 +65,7 @@ var GNOVEL = GNOVEL || {};
 		var y = this._y;
 		var z = this._page.getDialogLayer();
 
-		this._messageText.position.set(x, y + 40, z + 20 + this._msgOffsetZ);
+		this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
 			// if current speaker is different than the previous speaker, then we need to 
