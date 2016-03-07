@@ -75,13 +75,14 @@ var MPLAY = MPLAY || {};
 
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
-
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);				
+		this._closephoneImg.material.opacity = 0;
 
 		this._yourphone = "yourphone";
 
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
-
+		this._setObjectTag(this._closephone, this._closephoneImg);	
 	};
 
 	Page5_1.prototype._createFlowElements = function() {
@@ -89,6 +90,7 @@ var MPLAY = MPLAY || {};
 		var cat = "%" + this._cat;
 		var priya = "%" + this._priya;
 		var yourphone = "%" + this._yourphone;
+		var closephone = "%" + this._closephone;
 
 		var o = null;
 
@@ -186,11 +188,6 @@ var MPLAY = MPLAY || {};
 
 		if (this._talked == 1) {
 			o = [
-				// {type: "show", img: yourphone, position: "center"},
-				// {type: "dialog", speaker: "Mom", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
-				// {type: "hide", img: yourphone, waitUntilHidden: false},
-				// {type: "jump", condition: true, goTrue: "#ryantalk", goFalse: "#ryantalk"},
-
 				{type: "show", img: cat, expression: "happy", position: "left"},
 				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
 				{type: "hide", img: cat, waitUntilHidden: false},
@@ -200,9 +197,16 @@ var MPLAY = MPLAY || {};
 		};
 		if (this._talked == 2) {
 			o = [
-				{type: "show", img: yourphone, position: "center"},
-				{type: "dialog", speaker: "Mom", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
-				{type: "hide", img: yourphone, waitUntilHidden: false},
+
+				// phone text exchange begins
+				{type: "show", img: closephone, position: "center"},
+				{type: "phone_textbox", 
+					label: "mom_text",
+					text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
+				{type: "hide_phone_textbox", dialog: "$mom_text"},
+				{type: "hide", img: closephone},
+				// phone text exchange ends
+
 				{type: "custom", func: function(page) {
 					var pageObj = page;
 					pageObj.tweenMat(pageObj._io1.getImage(), {
