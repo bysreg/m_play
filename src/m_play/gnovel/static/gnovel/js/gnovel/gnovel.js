@@ -44,7 +44,9 @@ var GNOVEL = GNOVEL || {};
 		var camera = this._camera;
 		camera.position.z = 900;
 
-		var scene = this._scene;		
+		var scene = this._scene;
+
+		scene.add(camera);		
 
 		var renderer = this._renderer;
 		renderer.setPixelRatio(window.devicePixelRatio);
