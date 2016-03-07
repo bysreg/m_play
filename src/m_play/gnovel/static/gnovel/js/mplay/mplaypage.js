@@ -192,7 +192,7 @@ var MPLAY = MPLAY || {};
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
-			img.position.x = 0;
+			img.position.x = 0;			
 		} else if (position === "right") {
 			img.position.x = 450;
 		}
@@ -300,6 +300,15 @@ var MPLAY = MPLAY || {};
 		}
 		if(typeof obj.bgHeight !== 'undefined') {
 			params.bgHeight = obj.bgHeight;
+		}
+		if(typeof obj.bgOffsetY !== 'undefined') {
+			params.bgOffsetY = obj.bgOffsetY;
+		}
+		if(typeof obj.bgOffsetZ !== 'undefined') {
+			params.bgOffsetZ = obj.bgOffsetZ;
+		}
+		if(typeof obj.charLine !== 'undefined') {
+			params.charLine = obj.charLine;
 		}
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
