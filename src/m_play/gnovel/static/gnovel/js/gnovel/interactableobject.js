@@ -9,6 +9,7 @@ var GNOVEL = GNOVEL || {};
 	 * @class InteractableObject
 	 * @constructor
 	 *
+	 * path also can be object, if it is object, then it will use that object as the image
 	 */
 	var InteractableObject = function(path, page, params) {
 		params = params || {};
@@ -32,7 +33,12 @@ var GNOVEL = GNOVEL || {};
 		this._mouse = mouse;
 		this._hoveredObj = hoveredObj;
 
-		this._img = this._page.createImage(path, pos, this._params.width, this._params.height);
+		if(typeof path === 'object') {
+			this._img = path;
+			this._img.position.set(pos.x, pos.y, pos.z);
+		}else{
+			this._img = this._page.createImage(path, pos, this._params.width, this._params.height);
+		}		
 
 		//this._img.hightlightShape = highlightShape;
 		//this._img.highlightShape2 = highlightShape2;
