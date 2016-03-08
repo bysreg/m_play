@@ -36,6 +36,9 @@ var MPLAY = MPLAY || {};
 		this._character3Layer = 300;
 		this._uiLayer = 250;
 
+		// for logging
+		this._choiceNumber = 0;		
+
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
 			this._initChars();
@@ -161,6 +164,20 @@ var MPLAY = MPLAY || {};
 		this._initPhoneNotification();
 	};
 
+	MPlayPage.prototype.log = function(type, action_number, action_value) {
+		$.post("/gnovel/log/", 
+		{ 	name: this._player,
+			scene: this.getPageLabel(),
+			type: type,
+			action_number: action_number, 
+			action_value: action_value,
+		})
+		// .done(function(data) {
+		// 	console.log(data);
+		// })
+		;
+	};
+
 	/**
 	 * @override
 	 */
@@ -169,6 +186,7 @@ var MPLAY = MPLAY || {};
 		var flowElement = params.flowElement;
 		var integrityManager = this._integrityManager;
 		var relationshipManager = this._relationshipManager;
+		var pageObj = this;
 
 		var onChoiceComplete = function(resultId) {
 			// if flowElement is not defined and not null (not falsy)
@@ -186,6 +204,10 @@ var MPLAY = MPLAY || {};
 					var score = flowElement.choices[resultId].relationship.score;
 					relationshipManager.addRelationship(name, score);
 				}
+
+				var choiceValue = flowElement.choices[resultId].text;
+				pageObj.log("choice", pageObj._choiceNumber, choiceValue);
+				pageObj._choiceNumber++;
 			}
 		};
 

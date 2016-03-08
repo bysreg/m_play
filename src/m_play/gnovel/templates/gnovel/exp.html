@@ -4,163 +4,107 @@
 <html>
 	<head>
 		<meta charset=utf-8>
-		<title>Morality Play</title>
-		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
-		</style>
+			<title>Morality Play</title>
+			<style>
+				body { margin: 0; overflow: hidden;}
+				canvas { width: 100%; height: 100% }
+			</style>
+
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
 	</head>
 	<body>
-		<script src="{% static 'gnovel/js/third_party/three.min.js' %}"></script>
-		<script src="{% static 'gnovel/js/m_PageManager.js' %}"></script>
-		<script src="{% static 'gnovel/js/m_Transition.js' %}"></script>
-		<script src="{% static 'gnovel/js/iObject.js' %}"></script>
+		<!-- change this to three.min.js in the release -->
+		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
 		<script src="{% static 'gnovel/js/third_party/Tween.js' %}"></script>
+		<script src="{% static 'gnovel/js/third_party/stats.min.js' %}"></script>
+		<script src="{% static 'gnovel/js/third_party/three-text2d.js' %}"></script>
+		<script src="{% static 'gnovel/js/third_party/jquery-2.2.1.min.js' %}"></script>
+
+		<!-- Gnovel library source files -->
+		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/transition.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/mousemovedcamera.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/choices.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/flow.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/dialog.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/interactableobject.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/util.js' %}"></script>
+
+		<!-- MPlay source files (not including pages) -->
+		<script src="{% static 'gnovel/js/mplay/integritymanager.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/relationshipmanager.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/character.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/mplaypage.js' %}"></script>
+
+		<!-- pages -->
+		<script src="{% static 'gnovel/js/mplay/page0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page1_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page1_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page2_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page2_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page3.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page4_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page4_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page5_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page5_1.js' %}"></script>	
+		<script src="{% static 'gnovel/js/mplay/page6_0.js' %}"></script>		
+		<script src="{% static 'gnovel/js/mplay/page6_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page6_2.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page7_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page7_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_0.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_1.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_2.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_3.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_4.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/page8_5.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/pagetest.js' %}"></script>
+
 		<script>
-			var mouse, prevIntersect;
-			var raycaster;
-			var renderer;
-			var objClicked = false;
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-			//create a wrapper with all selectable objects and add to scene			
-			var pageManager = new gnovel.PageManager();
-			var transition = new gnovel.Transitions();
-
-			init();
-			animate();
-
-			function init()
-			{
-				camera.position.set(0,0,5);
-
-				raycaster = new THREE.Raycaster();
-				mouse = new THREE.Vector2();
-				renderer = new THREE.WebGLRenderer();
-				renderer.setClearColor(0xf0f0f0);
-				renderer.setSize(window.innerWidth, window.innerHeight);
-				document.body.appendChild(renderer.domElement);
-
-				document.addEventListener('mousedown', onMouseDown, false);
-				document.addEventListener('mousemove', onMouseMove, false);
-
-				//array of interactive objects.
-				//add object to array if it wants to be detected by mouse
-				scene.interactObjs = [];
-
-				var geometry = new THREE.PlaneGeometry(12, 7);//new THREE.BoxGeometry(1,1,1);
-				var texture = THREE.ImageUtils.loadTexture( "{% static 'gnovel/res/textures/steven_universeXworlds8.jpg' %}" );
-				var material = new THREE.MeshBasicMaterial( {map: texture, transparent:true, opacity:1 } );
-				//static is for static objects
-
-				//add first page to scene
-				var object = new gnovel.iObject("2","cube","static", geometry, material);// new THREE.Mesh(geometry,material);
-				object.name = "page1";				
-				scene.add(object);
-				scene.interactObjs.push(object);
-				pageManager.push(object,null);
-				scene.add(pageManager);
-			}
-
-			function onMouseDown(event)
-			{
-				var clickedObj;
-				event.preventDefault();
-				//why?
-				mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-				mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-
-				//update picking ray with camera and mouse pos
-				raycaster.setFromCamera(mouse, camera);
-
-				//create array of objects intersected with
-				var intersects = raycaster.intersectObjects(scene.interactObjs,true); //should be an array of custom objects
-				if(intersects.length > 0)
-				{
-					console.log("clicked");
-					for(var i in intersects)
-					{
-						console.log(intersects[i].object);
-					}
-					clickedObj = intersects[0].object;
-					clickedObj.material.color.setHex(Math.random() * 0xffffff | 0x80000000);
-					//an interactive object has been clicked
-					objClicked = true;
-
-					//create new page
-					var geometry = new THREE.PlaneGeometry(12, 7);
-					var texture = THREE.ImageUtils.loadTexture( "{% static 'gnovel/res/textures/steven_universeXworlds11.jpg' %}" );
-					var material = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity:1} );
-					var object = new gnovel.iObject("1","cube","static", geometry, material);//new THREE.Mesh(geometry,material);
-					object.name = "page2";					
-					scene.add(object);
-					scene.interactObjs.push(object);
-					transition.time = 1000;
-					pageManager.push(object,transition);
-								
-				}
-
-				return intersects[0]; //should return the 1st object found on click
-			}
-
-			function onMouseMove(event)
-			{
-				event.preventDefault();
-				//why?
-				mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-				mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-			}
-
-			//mouse hover effect
-			function hoverEffect(intersects)
-			{
-				if(intersects.length > 0)
-				{
-					//if intersected object is not the same as the previous object
-					if(prevIntersect != intersects[0].object )
-					{
-						if(prevIntersect)
-					    	prevIntersect.material.color.setHex(prevIntersect.currentHex); //reset hex color of previous object
-					  	prevIntersect = intersects[0].object;
-						//currentHex is a created variable that just holds that currentHex value
-						prevIntersect.currentHex = prevIntersect.material.color.getHex();
-						prevIntersect.material.color.setHex(0xf0e611);
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) == (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
 					}
 				}
-				else
-				{
-					if(prevIntersect)
-						prevIntersect.material.color.setHex(prevIntersect.currentHex);  //reset hex color
-					prevIntersect = null; //nothing has been hovered over last
+				return cookieValue;
+			}
+			
+			var csrftoken = getCookie('csrftoken');
+
+			function csrfSafeMethod(method) {
+				// these HTTP methods do not require CSRF protection
+				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
+			$.ajaxSetup({
+				beforeSend: function(xhr, settings) {
+					if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+						xhr.setRequestHeader("X-CSRFToken", csrftoken);
+					}
 				}
-			};
+			});
 
-			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-			}
-			window.addEventListener( 'resize', onWindowResize, false );
-
-			function animate() {
-				requestAnimationFrame(animate); //only plays while on tab
-				TWEEN.update();
-				render();
-			}
-
-			function render()
-			{
-				//update picking ray with camera and mouse pos
-				raycaster.setFromCamera(mouse,camera);
-
-				//check for mouse hover over interactable objects
-				var intersects = raycaster.intersectObjects(scene.interactObjs); //should be an array of custom objects
-				//display mouse hover effect
-				hoverEffect(intersects);
-				renderer.render(scene, camera);
-			}
+			$.post("/gnovel/log/", 
+				{ 	name: "test",
+					scene: "scenetest",
+					type: "testtest",
+					action_number: 84, 
+					action_value: "42",
+				}).
+				done(function(data) {
+					console.log(data);
+				});
 
 		</script>
+
+		{{ text }}
 	</body>
 </html>
