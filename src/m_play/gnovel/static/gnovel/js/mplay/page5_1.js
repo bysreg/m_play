@@ -39,7 +39,7 @@ var MPLAY = MPLAY || {};
 				pageObj._runFlow();
 
 				pageObj._io1.setEnable(false);
-				pageObj._io2.setEnable(false);
+				
 				pageObj.tweenMat(pageObj._io1.getImage(), {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
@@ -48,14 +48,8 @@ var MPLAY = MPLAY || {};
 						pageObj._io1.remove();
 					},
 				});
-				pageObj.tweenMat(pageObj._io2.getImage(), {
-					opacity: 0,
-					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800,
-					onComplete: function() {
-						pageObj._io2.remove();
-					},
-				});
+
+				pageObj._removePhoneNotification();
 				pageObj.tweenMat(pageObj._sitryan, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
@@ -65,25 +59,6 @@ var MPLAY = MPLAY || {};
 					},
 				});				
 			}});
-
-		this._io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/phone.png",
-			{x: -140, y: -320, z: z+150, width : 250, height : 458, onClick: function(io) {
-				pageObj._talked = 2;
-				pageObj._runFlow();
-
-				pageObj._io1.setEnable(false);
-				pageObj._io2.setEnable(false);
-				pageObj.tweenMat(pageObj._io2.getImage(), {
-					opacity: 0,
-					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800, 
-					onComplete: function() {
-						pageObj._io2.remove();
-					},
-				});
-			}});
-
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);				
@@ -96,6 +71,14 @@ var MPLAY = MPLAY || {};
 		this._setObjectTag(this._closephone, this._closephoneImg);	
 	};
 
+	Page5_1.prototype._onStart = function() {
+		var pageObj = this;
+		this._showPhoneNotification({onClick: function() {
+			pageObj._talked = 2;
+			pageObj._runFlow();
+		}});
+	};
+
 	Page5_1.prototype._createFlowElements = function() {
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
@@ -106,7 +89,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		var common = [
-			{type: "show", img: ryan, position: "right", waitUntilShown: false},
+			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
@@ -144,7 +127,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			
-			// text exchange here
+			// phone exchange begins
 			{type: "dialog", speaker: "Phone - Ryan", text: "P – there’s a violation with your part of the project."},
 			{type: "dialog", speaker: "Phone - Priya", text: "k…"},
 			{type: "dialog", speaker: "Phone - Ryan", text: "Did u use codeHub for ur code?"},
@@ -152,6 +135,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Phone - Ryan", text: "srsly?"},
 			{type: "dialog", speaker: "Phone - Priya", text: "It’s common for programmers… did it @ undergrad."},
 			{type: "dialog", speaker: "Phone - Ryan", text: "k..."},
+			// phone exchange ends
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},

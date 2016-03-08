@@ -100,12 +100,10 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		var common = [
-			{type: "show", img: yourphone, position: "center", label: "email"},
-			{type: "dialog", speaker: "", text: "Your phone pings with an email. You open it."},
-			{type: "hide", img: yourphone, waitUntilHidden: false},							
+			{type: "show_phone_notif"},			
 
 			// phone email exchange begins
-			{type: "show", img: closephone, waitUntilShown: false},
+			{type: "show", img: closephone},
 			{type: "phone_textbox", 
 				label: "email",
 				bgOffsetY: -230,

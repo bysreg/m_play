@@ -37,7 +37,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Your phone", text: "Hey, remember how my brother took this class last year? Well, he gave me some of his stuff from last year, nothing graded. Might help, what do you think?"},
+			{type: "dialog", speaker: this._ryan, text: "Hey, remember how my brother took this class last year? Well, he gave me some of his stuff from last year, nothing graded. Might help, what do you think?"},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			
 			{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},

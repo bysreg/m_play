@@ -26,7 +26,7 @@ var MPLAY = MPLAY || {};
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._yourphone = "yourphone";
-		this._setObjectTag(this._yourphone, this._yourphoneImg);
+		this._setObjectTag(this._yourphone, this._yourphoneImg);		
 	};
 
 	PageTest.prototype._createFlowElements = function() {
@@ -40,6 +40,8 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type: "show_phone_notif"},
+
 			{type: "show", img: yourphone, position: "center"},
 			{type: "phone_textbox", label: "textbox1", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!", 
 				y: 100},
