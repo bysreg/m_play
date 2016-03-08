@@ -34,6 +34,7 @@ var MPLAY = MPLAY || {};
 		this._characterLayer = 140;
 		this._character2Layer = 250;
 		this._character3Layer = 300;
+		this._uiLayer = 250;
 
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
@@ -57,11 +58,13 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.hideAllImages();
 		MPlayPage._ryan.hideAllImages();
 		MPlayPage._cat.hideAllImages();
-		MPlayPage._priya.hideAllImages();
+		MPlayPage._priya.hideAllImages();		
 
 		// add custom flow handler
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
+		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
+		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -101,6 +104,61 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 426, 1030), "Prof. Sweeney");
 
 		MPlayPage._isCharInit = true;
+	};
+
+	MPlayPage.prototype._initPhoneNotification = function() {
+		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notification.png", new THREE.Vector3(0, 0, 0), 150, 95);
+	};
+
+	MPlayPage.prototype._showPhoneNotification = function(params) {
+		var pageObj = this;
+
+		this._notifIo = this.createInteractableObject(
+			this._phoneNotifImg,
+			//"/static/gnovel/res/textures/ui/phone_notification.png",
+			{x: -440, y: -240, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 95, 
+				onClick: function(io) {					
+					if(params.onClick) {
+						params.onClick();
+						pageObj._removePhoneNotification();
+					}						
+				}
+			});
+
+		this._notifIo.getImage().material.opacity = 0;	
+
+		this._owner.getCamera().add(this._notifIo.getImage());
+		this.tweenMat(this._notifIo.getImage(), {
+			opacity: 1, 
+			easing: TWEEN.Easing.Cubic.Out, 
+			duration: 800,
+		});
+	};
+
+	MPlayPage.prototype._removePhoneNotification = function() {
+		var pageObj = this;
+
+		// disable interactable object
+		pageObj._notifIo.setEnable(false);			
+
+		// fade this phone notification
+		pageObj.tweenMat(pageObj._notifIo.getImage(), {
+			opacity: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			duration: 800,
+			onComplete: function() {
+				pageObj._notifIo.remove();
+				// remove from camera
+				pageObj._owner.getCamera().remove(pageObj._notifIo.getImage());
+			},
+		});
+	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._onLoad = function() {
+		this._initPhoneNotification();
 	};
 
 	/**
@@ -344,6 +402,24 @@ var MPLAY = MPLAY || {};
 		flow._next();
 		flow._exec();		
 	};
+
+	MPlayPage.prototype._handleShowPhoneNotif = function(obj, flow) {				
+		var pageObj = flow._getPage();
+		pageObj._owner.getCamera().add(pageObj._notifIo.getImage());
+		pageObj.tweenMat(pageObj._notifIo.getImage(), {
+			opacity: 1, 
+			easing: TWEEN.Easing.Cubic.Out, 
+			duration: 800,
+		});
+	};	
+
+	MPlayPage.prototype._handleHidePhoneNotif = function(obj, flow) {				
+		var pageObj = flow._getPage();
+		pageObj._removePhoneNotification();
+
+		pageObj._flow._next();
+		pageObj._flow._exec();
+	};	
 
 	MPLAY.MPlayPage = MPlayPage;
 }());
