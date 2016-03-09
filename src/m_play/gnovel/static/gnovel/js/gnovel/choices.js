@@ -70,21 +70,7 @@ var GNOVEL = GNOVEL || {};
 		var starty = this._params.y || -190;
 		var startz = this._params.z || this._page.getChoicesLayer();
 		for (var i = 0; i < this._choices.length; i++) {
-			textbox = this._page.createTextBox(this._choices[i], {
-				fontsize: 46,
-				borderColor: {
-					r: 255,
-					g: 255,
-					b: 255,
-					a: 0.8
-				},
-				backgroundColor: {
-					r: 255,
-					g: 255,
-					b: 255,
-					a: 0.8
-				}
-			});
+			textbox = this._page.createTextBox(this._choices[i], {});
 			textbox.position.set(200 + startx, i * -40 + starty, startz + 10);
 			textbox.name = "choices";
 
@@ -94,6 +80,7 @@ var GNOVEL = GNOVEL || {};
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
+
 		//if location type, show
 		if (this._params.type == "location") {
 			//show UI images to click on
