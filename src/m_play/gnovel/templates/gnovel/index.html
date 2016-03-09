@@ -10,9 +10,10 @@
 				canvas { width: 100%; height: 100% }
 			</style>
 
-			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
-	</head>
-	<body>
+			<!--<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>-->
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/screen-style.css' %}"/>
+		</meta>
+
 		<!-- change this to three.min.js in the release -->
 		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
 		<script src="{% static 'gnovel/js/third_party/Tween.js' %}"></script>
@@ -62,15 +63,7 @@
 		<script src="{% static 'gnovel/js/mplay/pagetest.js' %}"></script>
 
 		<script>
-			var gnovel = new GNOVEL.Gnovel();
-			var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
-
-			gnovel.setSize(1920, 1080);			
-
-			// for debugging
-			gnovel.seeStats();
-
-			function getCookie(name) {
+			var getCookie = function(name) {
 				var cookieValue = null;
 				if (document.cookie && document.cookie != '') {
 					var cookies = document.cookie.split(';');
@@ -84,50 +77,63 @@
 					}
 				}
 				return cookieValue;
-			}
-			
-			var csrftoken = getCookie('csrftoken');
+			};
 
-			function csrfSafeMethod(method) {
+			var csrfSafeMethod = function(method) {
 				// these HTTP methods do not require CSRF protection
 				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-			}
-			$.ajaxSetup({
-				beforeSend: function(xhr, settings) {
-					if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-						xhr.setRequestHeader("X-CSRFToken", csrftoken);
+			};
+
+			var init = function() {
+				var gnovel = new GNOVEL.Gnovel();
+				var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
+
+				//gnovel.setSize(1920, 1080);		
+				//gnovel.setMaxWidth(1920);	
+
+				// for debugging
+				gnovel.seeStats();
+
+				var csrftoken = getCookie('csrftoken');
+				$.ajaxSetup({
+					beforeSend: function(xhr, settings) {
+						if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+							xhr.setRequestHeader("X-CSRFToken", csrftoken);
+						}
 					}
-				}
-			});
+				});
 
-			// add pages
-			gnovel.addPage("scene 1", MPLAY.Page0);
-			gnovel.addPage("scene 2.a", MPLAY.Page1_0);
-			gnovel.addPage("scene 2.b", MPLAY.Page1_1);
-			gnovel.addPage("scene 3.a", MPLAY.Page2_0);
-			gnovel.addPage("scene 3.b", MPLAY.Page2_1);
-			
-			gnovel.addPage("scene 4", MPLAY.Page3);
-			gnovel.addPage("scene 5.a", MPLAY.Page4_0);
-			gnovel.addPage("scene 5.b", MPLAY.Page4_1);
-			gnovel.addPage("scene 6.a", MPLAY.Page5_0);
-			gnovel.addPage("scene 6.b", MPLAY.Page5_1);
-			gnovel.addPage("scene 7.a", MPLAY.Page6_0);
-			gnovel.addPage("scene 7.b", MPLAY.Page6_1);
-			gnovel.addPage("scene 7.c", MPLAY.Page6_2);
-			gnovel.addPage("scene 8.a", MPLAY.Page7_0);
-			gnovel.addPage("scene 8.b", MPLAY.Page7_1);
-			gnovel.addPage("scene 9.a", MPLAY.Page8_0);
-			gnovel.addPage("scene 9.b", MPLAY.Page8_1);
-			gnovel.addPage("scene 9.c", MPLAY.Page8_2);
-			gnovel.addPage("scene 9.d", MPLAY.Page8_3);
-			gnovel.addPage("scene 9.e", MPLAY.Page8_4);
-			gnovel.addPage("scene 9.f", MPLAY.Page8_5);
-			gnovel.addPage("test", MPLAY.PageTest);
+				// add pages
+				gnovel.addPage("scene 1", MPLAY.Page0);
+				gnovel.addPage("scene 2.a", MPLAY.Page1_0);
+				gnovel.addPage("scene 2.b", MPLAY.Page1_1);
+				gnovel.addPage("scene 3.a", MPLAY.Page2_0);
+				gnovel.addPage("scene 3.b", MPLAY.Page2_1);
+				
+				gnovel.addPage("scene 4", MPLAY.Page3);
+				gnovel.addPage("scene 5.a", MPLAY.Page4_0);
+				gnovel.addPage("scene 5.b", MPLAY.Page4_1);
+				gnovel.addPage("scene 6.a", MPLAY.Page5_0);
+				gnovel.addPage("scene 6.b", MPLAY.Page5_1);
+				gnovel.addPage("scene 7.a", MPLAY.Page6_0);
+				gnovel.addPage("scene 7.b", MPLAY.Page6_1);
+				gnovel.addPage("scene 7.c", MPLAY.Page6_2);
+				gnovel.addPage("scene 8.a", MPLAY.Page7_0);
+				gnovel.addPage("scene 8.b", MPLAY.Page7_1);
+				gnovel.addPage("scene 9.a", MPLAY.Page8_0);
+				gnovel.addPage("scene 9.b", MPLAY.Page8_1);
+				gnovel.addPage("scene 9.c", MPLAY.Page8_2);
+				gnovel.addPage("scene 9.d", MPLAY.Page8_3);
+				gnovel.addPage("scene 9.e", MPLAY.Page8_4);
+				gnovel.addPage("scene 9.f", MPLAY.Page8_5);
+				gnovel.addPage("test", MPLAY.PageTest);
 
-			// start gnovel
-			gnovel.start();
+				// start gnovel
+				gnovel.start();
+			};
 		</script>
+	</head>
+	<body onLoad="init();">
 
 		{{ text }}
 	</body>
