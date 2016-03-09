@@ -1,8 +1,3 @@
-mkdir -p ../../static
-
-# copy all static files to the static folder defined in settings.py
-python3 ../src/m_play/manage.py collectstatic
-
 sudo /etc/init.d/nginx restart
 cd ../src/m_play/
 
