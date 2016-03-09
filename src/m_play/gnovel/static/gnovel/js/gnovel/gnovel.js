@@ -39,10 +39,7 @@ var GNOVEL = GNOVEL || {};
 		var canvas = document.getElementById("application-canvas");
 		this._renderer = new THREE.WebGLRenderer({canvas: canvas});
 
-		var gnovel = this;
-
-		//var container = this._container;
-		//document.body.appendChild( container );
+		var gnovel = this;		
 
 		var camera = this._camera;
 		camera.position.z = 900;
@@ -52,11 +49,7 @@ var GNOVEL = GNOVEL || {};
 		scene.add(camera);		
 		
 		this._renderer.setPixelRatio(window.devicePixelRatio);
-		this._renderer.autoClear = false;
-		// renderer.setSize(this._width, this._height);
-		// renderer.domElement.style.width = "100%";
-		// renderer.domElement.style.height = "auto";		
-		//container.appendChild(renderer.domElement);
+		this._renderer.autoClear = false;		
 
 		// setup render loop
 		var render = function () {
@@ -70,25 +63,12 @@ var GNOVEL = GNOVEL || {};
 		};
 		render();
 
-		// var onWindowResize = function() {
-		// 	//gnovel._updateCameraAndRenderer();
-		// };
-		// window.addEventListener('resize', onWindowResize, false);
-
 		var listener = new THREE.AudioListener();
 		camera.add(listener);
 
 		var gnovel = this;
 		document.addEventListener('mousedown', function(event) { gnovel._onMouseDown(event); }, false);
 		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
-	};
-
-	Gnovel.prototype.setSize = function(width, height) {
-		this._width = width;
-		this._height = height;
-		this._renderer.setSize(width, height)
-		this._renderer.domElement.style.width = "100%";
-		this._renderer.domElement.style.height = "auto";	
 	};
 
 	Gnovel.prototype.getContainer = function() {
