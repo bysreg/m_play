@@ -12,6 +12,7 @@
 
 			<!--<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>-->
 			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/screen-style.css' %}"/>
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/main-style.css' %}"/>
 		</meta>
 
 		<!-- change this to three.min.js in the release -->
@@ -133,8 +134,13 @@
 			};
 		</script>
 	</head>
-	<body onLoad="init();">
-
+	<body onload='init();'>
 		{{ text }}
+
+		<div id='container'>
+	        <canvas id='application-canvas' tabindex='1' class='fill-mode-KEEP_ASPECT' width='1920' height='1080' style='background-color: whitvisibility: visible; -webkit-user-select: none;'>
+	            JavaScript Not Enabled.
+	        </canvas>
+		</div>
 	</body>
 </html>

@@ -22,7 +22,7 @@ var GNOVEL = GNOVEL || {};
 		this._pageDict = {};
 		this._curPageIdx = 0;		
 		this._stats = null;
-		this._container = document.createElement('div'); // html div container
+		this._container = document.getElementById("container");
 		this._prevPage = null;
 		this._pageRootObject = {curPage : null, prevPage : null};		
 		this._raycaster = new THREE.Raycaster();
@@ -34,12 +34,15 @@ var GNOVEL = GNOVEL || {};
 		this._width = window.innerWidth;
 		this._height = window.innerHeight;
 		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
-		this._renderer = new THREE.WebGLRenderer();
+		this._renderer = null;
+
+		var canvas = document.getElementById("application-canvas");
+		this._renderer = new THREE.WebGLRenderer({canvas: canvas});
 
 		var gnovel = this;
 
-		var container = this._container;
-		document.body.appendChild( container );
+		//var container = this._container;
+		//document.body.appendChild( container );
 
 		var camera = this._camera;
 		camera.position.z = 900;
@@ -47,20 +50,19 @@ var GNOVEL = GNOVEL || {};
 		var scene = this._scene;
 
 		scene.add(camera);		
-
-		var renderer = this._renderer;
-		renderer.setPixelRatio(window.devicePixelRatio);
-		renderer.autoClear = false;
-		renderer.setSize(this._width, this._height);
-		renderer.domElement.style.width = "100%";
-		renderer.domElement.style.height = "auto";		
-		container.appendChild(renderer.domElement);
+		
+		this._renderer.setPixelRatio(window.devicePixelRatio);
+		this._renderer.autoClear = false;
+		// renderer.setSize(this._width, this._height);
+		// renderer.domElement.style.width = "100%";
+		// renderer.domElement.style.height = "auto";		
+		//container.appendChild(renderer.domElement);
 
 		// setup render loop
 		var render = function () {
 			requestAnimationFrame(render);
 			TWEEN.update();
-			renderer.render(scene, camera);
+			gnovel._renderer.render(scene, camera);
 
 			if(gnovel._stats !== null) {
 				gnovel._stats.update();
