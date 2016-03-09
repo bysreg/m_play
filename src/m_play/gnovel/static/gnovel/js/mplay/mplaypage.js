@@ -38,6 +38,7 @@ var MPLAY = MPLAY || {};
 
 		// for logging
 		this._choiceNumber = 0;		
+		this._ioNumber = 0; // io stands for interactable object
 
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
@@ -176,6 +177,34 @@ var MPLAY = MPLAY || {};
 		// 	console.log(data);
 		// })
 		;
+	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype.createInteractableObject = function(obj, params) {
+		var pageObj = this;
+		var onClick = function(io) {
+			if(typeof obj === 'object') {
+				pageObj.log("interactable", pageObj._ioNumber, "phone notification");
+			}else{
+				pageObj.log("interactable", pageObj._ioNumber, obj);
+			}
+
+			pageObj._ioNumber++;
+		};
+
+		if(params.onClick) {
+			var oriClick = params.onClick;
+			params.onClick = function(io) {
+				onClick(io);
+				oriClick(io);
+			};
+		}else{
+			params.onClick = onClick;
+		}		
+
+		return GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
 	};
 
 	/**

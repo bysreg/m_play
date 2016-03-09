@@ -96,8 +96,8 @@ var GNOVEL = GNOVEL || {};
 		return quad;
 	};
 
-	Page.prototype.createInteractableObject = function(path, params) {
-		var ret = new GNOVEL.InteractableObject(path, this, params);
+	Page.prototype.createInteractableObject = function(obj, params) {
+		var ret = new GNOVEL.InteractableObject(obj, this, params);
 		this._interactableObjects.push(ret);
 		return ret;
 	};

@@ -25,7 +25,6 @@ var GNOVEL = GNOVEL || {};
 		this._bgOffsetY = params.bgOffsetY || 0;
 		this._msgOffsetZ = params.msgOffsetZ || 0;
 		this._msgOffsetY = params.msgOffsetY || 0;
-		this._textBg = null;
 
 		this._messageText = this._page.createTextBox(message, params || {});
 		this._nameText = this._page.createTextBox(params.speaker, {
@@ -90,7 +89,6 @@ var GNOVEL = GNOVEL || {};
 				easing: TWEEN.Easing.Cubic.Out
 			});
 
-			this._textBg = Dialog._textBg;
 		}
 
 		// fade in text and speaker
@@ -170,9 +168,9 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._closeDialog = function() {
 		var dialog = this;
-		var textBgObj = this._textBg;
+		var textBgObj = Dialog._textBg;
 
-		this._page.tweenMat(this._textBg, {
+		this._page.tweenMat(Dialog._textBg, {
 			duration: 800,
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
@@ -207,7 +205,6 @@ var GNOVEL = GNOVEL || {};
 
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
-		this._textBg = null;
 	};
 
 	GNOVEL.Dialog = Dialog;

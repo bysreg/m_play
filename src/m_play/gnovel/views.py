@@ -34,7 +34,7 @@ def log(request):
 		action_value = request.POST['action_value']
 
 	if name is not None:
-		Log.objects.create(name=name, scene=scene, action_number=action_number, action_value=action_value)		
+		Log.objects.create(name=name, scene=scene, type=type, action_number=action_number, action_value=action_value)		
 		return HttpResponse(json.dumps({'status_code': 1}))
 
 	return HttpResponse(json.dumps({'status_code': -1}))
