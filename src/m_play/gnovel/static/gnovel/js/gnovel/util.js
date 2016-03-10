@@ -19,4 +19,12 @@ var GNOVEL = GNOVEL || {};
 		return index;
 	};
 
+	GNOVEL.Util.hasParam = function(obj, param, defaultValue) {
+		if(obj.hasOwnProperty(param)) {
+			return obj[param];
+		}else{
+			return defaultValue;
+		}
+	};
+
 }());

@@ -37,7 +37,7 @@ var GNOVEL = GNOVEL || {};
 		this._renderer = null;
 
 		var canvas = document.getElementById("application-canvas");
-		this._renderer = new THREE.WebGLRenderer({canvas: canvas});
+		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});
 
 		var gnovel = this;		
 

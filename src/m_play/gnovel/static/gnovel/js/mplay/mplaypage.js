@@ -84,7 +84,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage._cat = null;
 	MPlayPage._professor = null;
 	MPlayPage._priya = null;
-	MPlayPage._isCharInit = false;
+	MPlayPage._isCharInit = false;	
 
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -320, this._characterLayer), 600, 1339), "Ryan");
@@ -165,6 +165,12 @@ var MPLAY = MPLAY || {};
 		this._initPhoneNotification();
 	};
 
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._onStart = function() {		
+	};
+
 	MPlayPage.prototype.log = function(type, action_number, action_value) {
 		$.post("/gnovel/log/", 
 		{ 	name: this._player,
@@ -217,7 +223,57 @@ var MPLAY = MPLAY || {};
 		var relationshipManager = this._relationshipManager;
 		var pageObj = this;
 
+		var choicesTextBg = [];
+
+		params.x = -350;
+		params.y = -100;
+		params.gapX = 350;
+		params.gapY = 0;
+		params.charLine = 30;
+		params.posArr = {};
+
+		var oneLineY = -220;
+		var twoLineY = -200;
+		var threeLineY = -180;
+
+		var oneLineSize = {width: 209.875, height: 29.6875};
+
+		if(choicesArr.length == 2) {
+			params.x = -180;
+			params.gapX = 400;
+		}
+
+		for(var i=0;i<choicesArr.length;i++) {
+			var choiceText = choicesArr[i];
+			params.posArr[i] = new THREE.Vector3();
+			params.posArr[i].x = params.x;				
+
+			var textBg = null;
+
+			if(choiceText.length < 30) {
+				params.posArr[i].y = oneLineY;
+
+				textBg = this.createImage("/static/gnovel/res/textures/ui/text1line.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);								
+			}else if(choiceText.length>=30 && choiceText.length<60){
+				params.posArr[i].y = twoLineY;
+
+				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);				
+			}else if(choiceText.length>=60) {				
+				params.posArr[i].y = threeLineY;
+
+				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
+			}
+
+			this._addToScene(textBg);
+			choicesTextBg.push(textBg);			
+		}			
+
 		var onChoiceComplete = function(resultId) {
+			
+			for(var i=0;i<choicesTextBg.length;i++) {
+				pageObj._removeFromScene(choicesTextBg[i]);
+			}
+
 			// if flowElement is not defined and not null (not falsy)
 			if (flowElement != null) {
 				if (typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
@@ -251,7 +307,7 @@ var MPLAY = MPLAY || {};
 			};
 		}
 
-		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
+		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);		
 	};
 
 	/**

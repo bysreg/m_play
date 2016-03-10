@@ -40,15 +40,14 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_phone_notif"},
-
-			{type: "show", img: yourphone, position: "center"},
-			{type: "phone_textbox", label: "textbox1", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!", 
-				y: 100},
-			{type: "phone_textbox", label: "textbox2", text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!", 
-				y: -45},
-			{type: "hide_phone_textbox", dialog: "$textbox2"},
-			{type: "hide_phone_textbox", dialog: "$textbox1"},
+			{type: "choices", choices : [
+				{text: "Go to the gymklgask", 
+					}, 
+				{text : "Go to the gymklgasakwgawjga wjlbgawjlbgawjlgbaljb", 
+					}, 
+				// {text: "Go to the gymklgaskalgnaglna aklgnaklgnaklgnakgnek agbajgbajlgba agawlbgwjalb ajog aogna ", 
+				// 	}
+					],},
 		];
 
 		return o;

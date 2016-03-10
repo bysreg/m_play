@@ -3,6 +3,7 @@ var GNOVEL = GNOVEL || {};
 
 (function() {
 	"use strict";
+
 	/**
 	 *@param{page = ; type = the type of choice-dialogue, action, location; }
 	 *choices = array of choices possible
@@ -19,17 +20,16 @@ var GNOVEL = GNOVEL || {};
 		this._params = params || {};
 		this._mouseDownListener = null;
 		this._mouseMoveListener = null;
+		this._mouse = new THREE.Vector2();
+		this._hoveredChoice = null;
 
-		this._choicesBox = [];
-		this._uiElements = [];
+		this._choicesBox = [];		
 		this._choosed = false;
 
 		this._init();
-
-		if (params != null) {
-			if (params.seconds != null && params.seconds > 0) {
-				this._countdown();
-			}
+		
+		if (this._params.hasOwnProperty('seconds') && this._params.seconds > 0) {
+			this._countdown();
 		}
 
 		var choices = this;
@@ -62,16 +62,27 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(timer);
 		}
 
-		var textbox;
-		var mouse = new THREE.Vector2(), hoveredChoice;
-		this._mouse = mouse;
-		this._hoveredChoice = hoveredChoice;
-		var startx = this._params.x || -200;
-		var starty = this._params.y || -190;
-		var startz = this._params.z || this._page.getChoicesLayer();
+		var textbox = null;	
+		var hasParam = GNOVEL.Util.hasParam;			
+		var startx = hasParam(this._params, 'x', 0);
+		var starty = hasParam(this._params, 'y', -190);
+		var startz = hasParam(this._params, 'z', this._page.getChoicesLayer() + 10);
+		var gapY = hasParam(this._params, 'gapY', -40);
+		var gapX = hasParam(this._params, 'gapX', 0);
+		var posArr = hasParam(this._params, 'pos', null);
+		var charLine = this._params.charLine;
+
 		for (var i = 0; i < this._choices.length; i++) {
-			textbox = this._page.createTextBox(this._choices[i], {});
-			textbox.position.set(200 + startx, i * -40 + starty, startz + 10);
+			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine});			
+
+			var x = startx;
+			var y = starty;			
+			if(this._params.posArr!==null) {
+				x = this._params.posArr[i].x;
+				y = this._params.posArr[i].y;				
+			}
+
+			textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
@@ -85,9 +96,7 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.type == "location") {
 			//show UI images to click on
 			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png", new THREE.Vector3(100, -100, 200), 100, 100);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);
-			this._uiElements.push(loc1);
-			this._uiElements.push(loc2);
+			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);			
 			this._page._addToScene(loc1);
 			this._page._addToScene(loc2);
 		}
@@ -104,7 +113,7 @@ var GNOVEL = GNOVEL || {};
 			z: -100
 		}, this._params.seconds * 1000).onComplete(function() {
 			if (choices._choosed) {
-				// do nothing, because we already call _Page3 on mouse down
+				// do nothing
 			} else {
 				// auto select the first option
 				choices._result.choiceId = 0;

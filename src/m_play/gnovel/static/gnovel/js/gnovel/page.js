@@ -79,11 +79,11 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.createImage = function(path, position, width, height) {
 		var texture = THREE.ImageUtils.loadTexture(path);
-			var material = new THREE.MeshBasicMaterial({
-				color: 0xffffff,
-				transparent: true,
-				map: texture
-			});
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xffffff,
+			transparent: true,
+			map: texture
+		});
 		var plane = new THREE.PlaneBufferGeometry(width, height);
 		var quad = new THREE.Mesh(plane, material);
 
@@ -223,7 +223,7 @@ var GNOVEL = GNOVEL || {};
 		var sprite = new Text2D(message, {
 			align: msgAlign,
 			font: '20px Arial',
-			fillStyle: '#FFFF00',
+			fillStyle: '#000000',
 			antialias: false, 
 			charLine: parameters.charLine,
 		});
@@ -332,13 +332,9 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
 		params = params || {};
 		var pageObj = this;
-		var choicesBg = this.createImage("/static/gnovel/res/textures/choice_box.png",
-			new THREE.Vector3(params.x + 200, -250, 190), 900, 145.5);
-		choicesBg.material.opacity = 0.7;
 
 		// if params.onChoiceComplete is not null then we add another onChoiceComplete
-		var onChoiceComplete = function(resultId) {
-			pageObj._removeFromScene(choicesBg);
+		var onChoiceComplete = function(resultId) {			
 			var jumpIndex = jumpArr[resultId];
 
 			if(typeof jumpIndex === 'undefined') {
@@ -363,8 +359,7 @@ var GNOVEL = GNOVEL || {};
 			};
 		}
 
-		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
-		this._addToScene(choicesBg);
+		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);		
 	};
 
 
