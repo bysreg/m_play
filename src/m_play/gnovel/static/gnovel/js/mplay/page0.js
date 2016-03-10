@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 						go: "#lookatphone"},
 					{text: "Talk to Ryan First",
 						go: "#talktoryan",
-					relationship: {name: "ryan", score: 1}}]},
+					relationship: {name: this._ryan, score: 1}}]},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
 			
 			// phone email exchange begins			
@@ -93,29 +93,29 @@ var MPLAY = MPLAY || {};
 			// phone email exchange ends
 
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "ryan", text: "Congratulations! I am so happy you got the job - referring you was a good call.  You’ll love it – my internship there last summer was a blast."},
+			{type: "dialog", speaker: this._ryan, text: "Congratulations! I am so happy you got the job - referring you was a good call.  You’ll love it – my internship there last summer was a blast."},
 			{type: "choices",
 				choices :
 					[{text: "Yeah!  Thanks again for forwarding my resume.",
 						go: "#cheers"},
 					{text : "Psyched to be working with you after graduation, Ryan!",
-						relationship: {name: "ryan", score: 1},
+						relationship: {name: this._ryan, score: 1},
 						go: "#cheers"}]},
-			{type: "dialog", speaker: "ryan", text: "Cheers!  Congratulations!", label: "cheers"},
+			{type: "dialog", speaker: this._ryan, text: "Cheers!  Congratulations!", label: "cheers"},
 			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "ryan", text: "Check your phone, check your phone!"},
+			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :
 					[{text: "What?! Just tell me!",
 						go: "#gotjob"},
 					{text : "Good news?!",
-						relationship: {name: "ryan", score: 1},
+						relationship: {name: this._ryan, score: 1},
 						go: "#gotjob"}]},
-			{type: "dialog", speaker: "ryan", text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great.", label: "gotjob"},
+			{type: "dialog", speaker: this._ryan, text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great.", label: "gotjob"},
 
 			//during transition
 			{type:"nothing", label: "timefade"},
@@ -126,22 +126,22 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "ryan", text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
+			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
 			{type: "choices",
 				choices :
 					[{text: "Should be good.",
 						go: "#mentionpriya"},
 					{text : "Glad we’re in it together.",
-						relationship: {name: "ryan", score: 1},
+						relationship: {name: this._ryan, score: 1},
 						go: "#mentionpriya"}]},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false, label: "mentionpriya"},
-			{type: "dialog", speaker: "ryan", text: "I think it's cross listed CS and psych or something.  My friend Priya is in it too.  She's really nice, I’ll introduce you guys." },
+			{type: "dialog", speaker: this._ryan, text: "I think it's cross listed CS and psych or something.  My friend Priya is in it too.  She's really nice, I’ll introduce you guys." },
 			// see a phone on the table.
 			/**
 			* FIXME angle camera towards phone
 			*/
 			{type: "show", img: ryan, position: "center"},
-			{type: "dialog", speaker: "ryan", text: "Looks like someone left their phone."},
+			{type: "dialog", speaker: this._ryan, text: "Looks like someone left their phone."},
 			// this choice affects scene 2
 			{type: "choices",
 				choices :
@@ -155,11 +155,11 @@ var MPLAY = MPLAY || {};
 						integrityScore:-1,
 						go: "#sellit"}]},
 
-			{type: "dialog", speaker: "ryan", text: "Let’s give it to the bartender.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
+			{type: "dialog", speaker: this._ryan, text: "Let’s give it to the bartender.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			// if phone is picked up
-			//{type: "dialog", speaker: "ryan", text: "That should score you some Karma points!  Anyway, congrats again on the job.", label: "pickupphone"},
+			//{type: "dialog", speaker: this._ryan, text: "That should score you some Karma points!  Anyway, congrats again on the job.", label: "pickupphone"},
 			/*{type: "choices",
 				choices :
 					[{text: "Let’s give it to the bartender to hold on to.",
@@ -175,11 +175,11 @@ var MPLAY = MPLAY || {};
 
 			{type:"nothing", label: "pickupphone"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "ryan", text: "That should score you some Karma points! Anyway, congrats again on the job!"},
+			{type: "dialog", speaker: this._ryan, text: "That should score you some Karma points! Anyway, congrats again on the job!"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			// if phone is not picked up
-			{type: "dialog", speaker: "ryan", expression: "thoughtful", text: "Ha!  I didn’t know you were so mean.  Let's just give it to the bartender.", label: "sellit"},
+			{type: "dialog", speaker: this._ryan, expression: "thoughtful", text: "Ha!  I didn’t know you were so mean.  Let's just give it to the bartender.", label: "sellit"},
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
