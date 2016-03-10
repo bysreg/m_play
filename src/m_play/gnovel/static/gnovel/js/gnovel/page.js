@@ -52,7 +52,7 @@ var GNOVEL = GNOVEL || {};
 		});
 		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
 		var quad = new THREE.Mesh(plane, material);
-		quad.name = "Background";		
+		quad.name = "Background";
 		quad.position.z = this.getBackgroundLayer();
 
 		// add this to the scene
@@ -222,9 +222,9 @@ var GNOVEL = GNOVEL || {};
 
 		var sprite = new Text2D(message, {
 			align: msgAlign,
-			font: '20px Arial',
+			font: '20px NoteWorthy Bold',
 			fillStyle: '#000000',
-			antialias: false, 
+			antialias: false,
 			charLine: parameters.charLine,
 		});
 
@@ -285,7 +285,7 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out,
 			onComplete: function() {
 				if(waitUntilShown) {
-					// go to next flow					
+					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
 				}
@@ -334,7 +334,7 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 
 		// if params.onChoiceComplete is not null then we add another onChoiceComplete
-		var onChoiceComplete = function(resultId) {			
+		var onChoiceComplete = function(resultId) {
 			var jumpIndex = jumpArr[resultId];
 
 			if(typeof jumpIndex === 'undefined') {
@@ -359,7 +359,7 @@ var GNOVEL = GNOVEL || {};
 			};
 		}
 
-		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);		
+		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
 	};
 
 

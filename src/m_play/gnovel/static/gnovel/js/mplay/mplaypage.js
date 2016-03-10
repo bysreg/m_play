@@ -37,7 +37,7 @@ var MPLAY = MPLAY || {};
 		this._uiLayer = 250;
 
 		// for logging
-		this._choiceNumber = 0;		
+		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
 		// instantiate characters, if it is not instantiated yet
@@ -62,7 +62,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.hideAllImages();
 		MPlayPage._ryan.hideAllImages();
 		MPlayPage._cat.hideAllImages();
-		MPlayPage._priya.hideAllImages();		
+		MPlayPage._priya.hideAllImages();
 
 		// add custom flow handler
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
@@ -84,7 +84,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage._cat = null;
 	MPlayPage._professor = null;
 	MPlayPage._priya = null;
-	MPlayPage._isCharInit = false;	
+	MPlayPage._isCharInit = false;
 
 	MPlayPage.prototype._initChars = function() {
 		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -320, this._characterLayer), 600, 1339), "Ryan");
@@ -120,21 +120,21 @@ var MPLAY = MPLAY || {};
 		this._notifIo = this.createInteractableObject(
 			this._phoneNotifImg,
 			//"/static/gnovel/res/textures/ui/phone_notification.png",
-			{x: -440, y: -240, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 95, 
-				onClick: function(io) {					
+			{x: -440, y: -240, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 95,
+				onClick: function(io) {
 					if(params.onClick) {
 						params.onClick();
 						pageObj._removePhoneNotification();
-					}						
+					}
 				}
 			});
 
-		this._notifIo.getImage().material.opacity = 0;	
+		this._notifIo.getImage().material.opacity = 0;
 
 		this._owner.getCamera().add(this._notifIo.getImage());
 		this.tweenMat(this._notifIo.getImage(), {
-			opacity: 1, 
-			easing: TWEEN.Easing.Cubic.Out, 
+			opacity: 1,
+			easing: TWEEN.Easing.Cubic.Out,
 			duration: 800,
 		});
 	};
@@ -143,7 +143,7 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 
 		// disable interactable object
-		pageObj._notifIo.setEnable(false);			
+		pageObj._notifIo.setEnable(false);
 
 		// fade this phone notification
 		pageObj.tweenMat(pageObj._notifIo.getImage(), {
@@ -168,15 +168,15 @@ var MPLAY = MPLAY || {};
 	/**
 	 * @override
 	 */
-	MPlayPage.prototype._onStart = function() {		
+	MPlayPage.prototype._onStart = function() {
 	};
 
 	MPlayPage.prototype.log = function(type, action_number, action_value) {
-		$.post("/gnovel/log/", 
+		$.post("/gnovel/log/",
 		{ 	name: this._player,
 			scene: this.getPageLabel(),
 			type: type,
-			action_number: action_number, 
+			action_number: action_number,
 			action_value: action_value,
 		})
 		// .done(function(data) {
@@ -208,7 +208,7 @@ var MPLAY = MPLAY || {};
 			};
 		}else{
 			params.onClick = onClick;
-		}		
+		}
 
 		return GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
 	};
@@ -246,30 +246,30 @@ var MPLAY = MPLAY || {};
 		for(var i=0;i<choicesArr.length;i++) {
 			var choiceText = choicesArr[i];
 			params.posArr[i] = new THREE.Vector3();
-			params.posArr[i].x = params.x;				
+			params.posArr[i].x = params.x;
 
 			var textBg = null;
 
 			if(choiceText.length < 30) {
 				params.posArr[i].y = oneLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/text1line.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);								
+				textBg = this.createImage("/static/gnovel/res/textures/ui/text1line_wOutline.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);
 			}else if(choiceText.length>=30 && choiceText.length<60){
 				params.posArr[i].y = twoLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);				
-			}else if(choiceText.length>=60) {				
+				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);
+			}else if(choiceText.length>=60) {
 				params.posArr[i].y = threeLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
+				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
 			}
 
 			this._addToScene(textBg);
-			choicesTextBg.push(textBg);			
-		}			
+			choicesTextBg.push(textBg);
+		}
 
 		var onChoiceComplete = function(resultId) {
-			
+
 			for(var i=0;i<choicesTextBg.length;i++) {
 				pageObj._removeFromScene(choicesTextBg[i]);
 			}
@@ -307,7 +307,7 @@ var MPLAY = MPLAY || {};
 			};
 		}
 
-		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);		
+		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
 	};
 
 	/**
@@ -357,7 +357,7 @@ var MPLAY = MPLAY || {};
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
-			img.position.x = 0;			
+			img.position.x = 0;
 		} else if (position === "right") {
 			img.position.x = 450;
 		}
@@ -499,7 +499,7 @@ var MPLAY = MPLAY || {};
 		flow._storeFlowData(dialog);
 	};
 
-	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {				
+	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {
 		var dialog = obj.dialog;
 		var duration = obj.duration || 800;
 		var pageObj = flow._getPage();
@@ -507,25 +507,25 @@ var MPLAY = MPLAY || {};
 		dialog._closeDialog();
 
 		flow._next();
-		flow._exec();		
+		flow._exec();
 	};
 
-	MPlayPage.prototype._handleShowPhoneNotif = function(obj, flow) {				
+	MPlayPage.prototype._handleShowPhoneNotif = function(obj, flow) {
 		var pageObj = flow._getPage();
-		
+
 		pageObj._showPhoneNotification({onClick:function() {
 			flow._next();
 			flow._exec();
 		}});
-	};	
+	};
 
-	MPlayPage.prototype._handleHidePhoneNotif = function(obj, flow) {				
+	MPlayPage.prototype._handleHidePhoneNotif = function(obj, flow) {
 		var pageObj = flow._getPage();
 		pageObj._removePhoneNotification();
 
 		pageObj._flow._next();
 		pageObj._flow._exec();
-	};	
+	};
 
 	MPLAY.MPlayPage = MPlayPage;
 }());
