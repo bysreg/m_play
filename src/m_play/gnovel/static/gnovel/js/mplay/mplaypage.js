@@ -512,12 +512,11 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._handleShowPhoneNotif = function(obj, flow) {				
 		var pageObj = flow._getPage();
-		pageObj._owner.getCamera().add(pageObj._notifIo.getImage());
-		pageObj.tweenMat(pageObj._notifIo.getImage(), {
-			opacity: 1, 
-			easing: TWEEN.Easing.Cubic.Out, 
-			duration: 800,
-		});
+		
+		pageObj._showPhoneNotification({onClick:function() {
+			flow._next();
+			flow._exec();
+		}});
 	};	
 
 	MPlayPage.prototype._handleHidePhoneNotif = function(obj, flow) {				

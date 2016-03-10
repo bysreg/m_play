@@ -100,12 +100,13 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		var common = [
+			{type: "nothing", label: "email"},
+			//{type: "hide", img: ryan},
 			{type: "show_phone_notif"},			
 
 			// phone email exchange begins
 			{type: "show", img: closephone},
-			{type: "phone_textbox", 
-				label: "email",
+			{type: "phone_textbox", 				
 				bgOffsetY: -230,
 				bgHeight: 600,
 				bgWidth: 400,
@@ -190,18 +191,18 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-r"}]},
 
-							{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true, label:"study-r"},
-							{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
-							{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
-							{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
-							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-							{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
-							{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+				{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true, label:"study-r"},
+				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
+				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-							{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-r"},
-							{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
-							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-							{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-r"},
+				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
 
 							
 			];
