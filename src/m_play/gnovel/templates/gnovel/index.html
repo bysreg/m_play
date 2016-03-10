@@ -9,18 +9,20 @@
 				body { margin: 0; overflow: hidden;}
 				canvas { width: 100%; height: 100% }
 			</style>
-
-			<!--<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>-->
+			
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>
 			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/screen-style.css' %}"/>
-			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/main-style.css' %}"/>
+			<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/main-style.css' %}"/>			
 		</meta>
 
-		<!-- change this to three.min.js in the release -->
-		<script src="{% static 'gnovel/js/third_party/three.js' %}"></script>
-		<script src="{% static 'gnovel/js/third_party/Tween.js' %}"></script>
-		<script src="{% static 'gnovel/js/third_party/stats.min.js' %}"></script>
-		<script src="{% static 'gnovel/js/third_party/three-text2d.js' %}"></script>
-		<script src="{% static 'gnovel/js/third_party/jquery-2.2.1.min.js' %}"></script>
+		<!-- Third Party library files -->
+		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/Tween.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/stats.min.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three-text2d.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/jquery-2.2.1.min.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
 
 		<!-- Gnovel library source files -->
 		<script src="{% static 'gnovel/js/gnovel/gnovel.js' %}"></script>
@@ -40,6 +42,7 @@
 		<script src="{% static 'gnovel/js/mplay/mplaypage.js' %}"></script>
 
 		<!-- pages -->
+		<script src="{% static 'gnovel/js/mplay/pagename.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page0.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page1_0.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/page1_1.js' %}"></script>
@@ -102,6 +105,7 @@
 				});
 
 				// add pages
+				// gnovel.addPage("enter name", MPLAY.PageName);
 				gnovel.addPage("scene 1", MPLAY.Page0);
 				gnovel.addPage("scene 2.a", MPLAY.Page1_0);
 				gnovel.addPage("scene 2.b", MPLAY.Page1_1);
