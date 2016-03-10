@@ -144,7 +144,7 @@ var MPLAY = MPLAY || {};
 					choices :
 						[{text: "I agree, she needs to redo it.  We can’t submit plagiarized work.",
 							go: "#gonextscene"},
-						{text: "You text Priya “P, this is [YOU].  U need to meet us @ lib.  We need to fix ur part b/c we can’t use c-h to submit.  We’ll help u.” –",
+						{text: "You text Priya “P, this is " + this._player + ".  U need to meet us @ lib.  We need to fix ur part b/c we can’t use c-h to submit.  We’ll help u.” –",
 							relationship: {name: "priya", score: 1},
 							go: "#gonextscene"}]},
 
