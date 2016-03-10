@@ -22,9 +22,12 @@ var GNOVEL = GNOVEL || {};
 		this._bgHeight = params.bgHeight || 145.5;
 		this._bgPath = params.bgPath || "/static/gnovel/res/textures/blue_box.png";
 		this._dontRemove = params.dontRemove || false;
+		this._bgOffsetX = params.bgOffsetX || 0;
 		this._bgOffsetY = params.bgOffsetY || 0;
 		this._msgOffsetZ = params.msgOffsetZ || 0;
 		this._msgOffsetY = params.msgOffsetY || 0;
+		this._speakerOffsetX = params.speakerOffsetX || 0;
+		this._speakerOffsetY = params.speakerOffsetY || 0;
 
 		this._messageText = this._page.createTextBox(message, params || {});
 		this._nameText = this._page.createTextBox(params.speaker, {
@@ -72,13 +75,13 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 
-		this._nameText.position.set(this._messageText.position.x - 420, this._messageText.position.y + 30, z + 20);
+		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {
 			Dialog._textBg = this._page.createImage(
 				this._bgPath, 
-				new THREE.Vector3(this._messageText.position.x, y + this._bgOffsetY, z - 20),
+				new THREE.Vector3(this._messageText.position.x + this._bgOffsetX, y + this._bgOffsetY, z - 20),
 				this._bgWidth, this._bgHeight);
 
 			Dialog._textBg.material.opacity = 0;
