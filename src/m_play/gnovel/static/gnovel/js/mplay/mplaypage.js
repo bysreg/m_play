@@ -334,6 +334,13 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
+		params.bgPath = "/static/gnovel/res/textures/ui/textmultiline_wOutline.png";
+		params.bgOffsetY = 10;
+		params.bgOffsetX = 20;
+		y = -200;
+		params.speakerOffsetX = -30;
+		params.speakerOffsetY = 10;
+
 		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
 	};
 
