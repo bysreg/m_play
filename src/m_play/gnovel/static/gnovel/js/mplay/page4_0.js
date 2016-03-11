@@ -22,8 +22,7 @@ var MPLAY = MPLAY || {};
 	Page4_0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
-
+		this.setupCafeBackground();
 	};
 
 	Page4_0.prototype._createFlowElements = function() {
