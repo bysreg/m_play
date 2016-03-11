@@ -105,7 +105,7 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 426, 1030), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 426, 1030), "Prof. Sweeney");		
 
 		MPlayPage._isCharInit = true;
 	};
@@ -190,6 +190,10 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
+		
+		var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
+		this._addToScene(tripledot)
+
 		var onClick = function(io) {
 			if(typeof obj === 'object') {
 				pageObj.log("interactable", pageObj._ioNumber, "phone notification");
@@ -198,7 +202,8 @@ var MPLAY = MPLAY || {};
 			}
 
 			pageObj._ioNumber++;
-		};
+			pageObj._removeFromScene(tripledot);
+		};		
 
 		if(params.onClick) {
 			var oriClick = params.onClick;
