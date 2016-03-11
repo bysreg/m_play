@@ -234,8 +234,11 @@ var MPLAY = MPLAY || {};
 					go: "#gohome"}], label: "gonextscene"},
 
 			{type: "goto", page: "scene 7.a", label: "gogym"},
+			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 			{type: "goto", page: "scene 7.b", label: "gobar"},
+			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 			{type: "goto", page: "scene 7.c", label: "gohome"},
+			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 		];
 
 		if (this._talked == 1) {

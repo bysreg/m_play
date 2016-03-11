@@ -27,9 +27,11 @@ var GNOVEL = GNOVEL || {};
 
 		var curPageRootObj = currentPage._getRootObject();
 		var nextPageRootObj = nextPage._getRootObject();
-		this._runOnHierarchy(curPageRootObj, toObjOut, params);
-		this._runOnHierarchy(nextPageRootObj, toObjIn, params);
 
+		this._runOnHierarchy(curPageRootObj, toObjOut);
+
+		// only apply params to object in 
+		this._runOnHierarchy(nextPageRootObj, toObjIn, params);
 	};
 	
 	Transition.prototype._runOnHierarchy = function(h, toObj, params) {
