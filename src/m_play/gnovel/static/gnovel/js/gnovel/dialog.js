@@ -28,6 +28,7 @@ var GNOVEL = GNOVEL || {};
 		this._msgOffsetY = params.msgOffsetY || 0;
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
+		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
 
 		this._messageText = this._page.createTextBox(message, params || {});
 		this._nameText = this._page.createTextBox(params.speaker, {
@@ -72,6 +73,7 @@ var GNOVEL = GNOVEL || {};
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
 			// if current speaker is different than the previous speaker, then we need to 
 			// close the previous dialog box if it still exists
+			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
 			this._closeDialog();
 		}
 
@@ -92,6 +94,7 @@ var GNOVEL = GNOVEL || {};
 				easing: TWEEN.Easing.Cubic.Out
 			});
 
+			this._textBg = Dialog._textBg;
 		}
 
 		// fade in text and speaker
@@ -152,7 +155,13 @@ var GNOVEL = GNOVEL || {};
 			this._messageText = null;
 
 			if (!this._isDialogNext()) {
-				this._closeDialog();
+				if(this._textBg != null) {
+					this._closeDialog();
+				}
+				if(Dialog._textBg != null) {
+					this._textBg =Dialog._textBg;
+					this._closeDialog();
+				}
 			}
 		} else {
 			if (dialog._params.onComplete != null) {
@@ -171,16 +180,18 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._closeDialog = function() {
 		var dialog = this;
-		var textBgObj = Dialog._textBg;
+		var textBgObj = this._textBg;
 
-		this._page.tweenMat(Dialog._textBg, {
+		if(this._textBg != null){
+			this._page.tweenMat(this._textBg, {
 			duration: 800,
 			opacity: 0,
-			easing: TWEEN.Easing.Cubic.Out,
-			onComplete: function() {
-				dialog._page._removeFromScene(textBgObj);
-			},
-		});
+				easing: TWEEN.Easing.Cubic.Out,
+				onComplete: function() {
+					dialog._page._removeFromScene(textBgObj);
+				},
+			});
+		}		
 
 		if (this._messageText !== null) {
 			var msgTextObj = this._messageText;
@@ -192,6 +203,7 @@ var GNOVEL = GNOVEL || {};
 					dialog._page._removeFromScene(msgTextObj);
 				},
 			});
+			this._messageText = null;
 		}
 
 		if (this._nameText !== null) {
@@ -204,10 +216,12 @@ var GNOVEL = GNOVEL || {};
 					dialog._page._removeFromScene(nameTextObj);
 				},
 			});
+			this._nameText = null;
 		}
 
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
+		this._textBg = null;
 	};
 
 	GNOVEL.Dialog = Dialog;
