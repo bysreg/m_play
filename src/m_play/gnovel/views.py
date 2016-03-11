@@ -8,7 +8,15 @@ from django.template import RequestContext, Template
 import json
 
 def index(request):
-	context = {}
+	context = {'name': "Lindsey"}
+	name=None
+
+	if request.method == 'POST':
+		name = request.POST['username']
+
+	if name is not None:
+		context['name'] = name;
+		
 	return render(request, 'gnovel/index.html', context)
 
 def exp(request):
@@ -38,3 +46,7 @@ def log(request):
 		return HttpResponse(json.dumps({'status_code': 1}))
 
 	return HttpResponse(json.dumps({'status_code': -1}))
+
+def intro(request):
+	context = {}
+	return render(request, 'gnovel/intro.html', context)

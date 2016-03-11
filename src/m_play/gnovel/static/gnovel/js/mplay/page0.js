@@ -30,8 +30,7 @@ var MPLAY = MPLAY || {};
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, -100, this.getBackgroundLayer()+10), 70, 133);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
-		this._transitionBgImg = new THREE.Mesh(geometry,material);
-		//this._transitionBgImg = this.createImage("/static/gnovel/res/textures/test1.jpg", new THREE.Vector3(480, 0, 40), 100, 183);
+		this._transitionBgImg = new THREE.Mesh(geometry,material);		
 		this._transitionBgImg.position.z = 0;
 
 		this._yourphoneImg.material.opacity = 0;
