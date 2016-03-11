@@ -201,9 +201,15 @@ var MPLAY = MPLAY || {};
 				pageObj.log("interactable", pageObj._ioNumber, obj);
 			}
 
-			pageObj._ioNumber++;
-			pageObj._removeFromScene(tripledot);
+			pageObj._ioNumber++;			
 		};		
+
+		var onEnableChange = function(io) {
+			if(!io.isEnabled()) {
+				pageObj._removeFromScene(tripledot);
+			}
+		};
+		params.onEnableChange = onEnableChange;
 
 		if(params.onClick) {
 			var oriClick = params.onClick;

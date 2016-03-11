@@ -196,6 +196,16 @@ var GNOVEL = GNOVEL || {};
 
 	InteractableObject.prototype.setEnable = function(value) {
 		this._enabled = value;
+
+		var hasParam = GNOVEL.Util.hasParam;
+
+		if(hasParam(this._params, "onEnableChange", false)) {
+			this._params.onEnableChange(this);
+		}
+	};
+
+	InteractableObject.prototype.isEnabled = function() {
+		return this._enabled;
 	};
 
 	GNOVEL.InteractableObject = InteractableObject;
