@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page2_0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setupCafeBackground();
 	};
 
 	Page2_0.prototype._createFlowElements = function() {
@@ -32,7 +32,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type: "show", img: priya, expression: "happy", position: "center"},
-			{type: "dialog", speaker: "Priya", text: "Oh, hey!  You decided to come here too. Ryan told me you got a job lined up.  Congrats!"},
+			{type: "dialog", speaker: "Priya", text: "Oh, hey, I didn’t know you hang out here too!  Ryan told me you got a job lined up.  Congrats!"},
 			{type: "choices", choices : [{text: "Thanks!", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}]},
 
 			{type: "nothing", label: "sweet"},

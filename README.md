@@ -59,3 +59,4 @@ sensitive_config should contain one json oject with this property:
 - tween.js 16.3.4 (https://github.com/tweenjs/tween.js)
 - stats r14 (https://github.com/mrdoob/stats.js)
 - jquery 2.2.1
+- Bootstrap 3.3.6

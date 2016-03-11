@@ -438,7 +438,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/caf full png.png");
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
