@@ -197,6 +197,7 @@ var GNOVEL = GNOVEL || {};
 		// load the next page first
 		this._load(nextPage);
 
+		this._onStart = false;
 		var transition = new GNOVEL.Transition(1000);
 		var gnovel = this;
 		transition.run(curPage, nextPage, {onComplete : function() {gnovel._onPageTransitionComplete(gnovel);}});
