@@ -155,8 +155,8 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", expression: "angry", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "dialog", speaker: "", text: "Ryan leaves."},
-			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset.", flip: true},
+			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false, flip: true},
+			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices",
 				choices :
 					[{text: "I’m sure he just needs to cool off.",
