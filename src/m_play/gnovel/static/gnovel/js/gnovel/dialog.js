@@ -90,7 +90,7 @@ var GNOVEL = GNOVEL || {};
 			this._page._addToScene(Dialog._textBg);
 			this._page.tweenMat(Dialog._textBg, {
 				duration: 800,
-				opacity: 0.7,
+				opacity: 1,
 				easing: TWEEN.Easing.Cubic.Out
 			});
 
@@ -100,12 +100,12 @@ var GNOVEL = GNOVEL || {};
 		// fade in text and speaker
 		this._page.tweenMat(this._messageText, {
 			duration: 800,
-			opacity: 0.7,
+			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 		this._page.tweenMat(this._nameText, {
 			duration: 800,
-			opacity: 0.7,
+			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out
 		});
 
