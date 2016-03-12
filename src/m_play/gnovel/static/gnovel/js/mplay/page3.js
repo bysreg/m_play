@@ -103,13 +103,14 @@ var MPLAY = MPLAY || {};
 			// phone email exchange begins
 			{type: "show", img: closephone},
 			{type: "phone_textbox",
+				label: "email_textbox",
 				bgOffsetY: -230,
 				bgHeight: 600,
 				bgWidth: 400,
 				y: 250,
 				charLine: 37,
 				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
-			{type: "hide_phone_textbox", dialog: "$email"},
+			{type: "hide_phone_textbox", dialog: "$email_textbox"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
