@@ -44,6 +44,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, expression: "happy"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!  I think I’m going to stick with my business classes next semester…"},
 
+			{type: "goto", page: "scene ending"},
 		]; 
 
 		return o;

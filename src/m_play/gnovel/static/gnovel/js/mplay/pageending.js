@@ -34,5 +34,18 @@ var MPLAY = MPLAY || {};
 		this._addToScene(quad);
 	};
 
+	/**
+	 * @override
+	 */
+	PageEnding.prototype._createFlowElements = function() {
+		var o = null;
+
+		o = [
+			{type: "dialog", speaker: "", text: "This is our current prototype's ending. Thank you for playing!"},
+		];
+
+		return o;
+	};
+
 	MPLAY.PageEnding = PageEnding;
 }());

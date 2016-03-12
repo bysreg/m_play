@@ -53,6 +53,8 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "I guess you're in the clear."},
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
 			{type: "dialog", speaker: this._priya, text: "Let’s hope."},
+
+			{type: "goto", page: "scene ending"},
 		]; 
 
 		return o;

@@ -67,6 +67,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Text - Ryan", text: "You receive a text from Ryan:"},
 			{type: "dialog", speaker: this._ryan, text: "Hey!!  I passed too!  Got the same grade as you C.  Happy it turned out ok for us.  Definitely not taking any more advice from my bro anytime soon…"},
 
+			{type: "goto", page: "scene ending"},
 			]; 
 
 		return o;

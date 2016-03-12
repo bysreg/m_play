@@ -43,6 +43,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, expression: "angry"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened.  You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 
+			{type: "goto", page: "scene ending"},
 		]; 
 
 		return o;

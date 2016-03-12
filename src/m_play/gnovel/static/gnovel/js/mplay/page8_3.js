@@ -66,6 +66,8 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Text - Ryan", text: "You receive a text from Ryan:"},
 
 			{type: "dialog", speaker: this._ryan, text: "You get Sweeney’s email?... Shit, what now? If we fail the class, don’t know about the job…  You ok?"},
+
+			{type: "goto", page: "scene ending"},
 		]; 
 
 		return o;
