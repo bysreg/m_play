@@ -51,16 +51,16 @@ var MPLAY = MPLAY || {};
 			pageObj.tweenMat(pageObj._io1.getImage(), {
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
-				duration: 800, 
+				duration: 800,
 				onComplete: function() {
 					// remove this io
 					pageObj._io1.remove();
-				}, 
+				},
 			});
 			pageObj.tweenMat(pageObj._io2.getImage(), {
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
-				duration: 800, 
+				duration: 800,
 				onComplete: function() {
 					// remove this io
 					pageObj._io2.remove();
@@ -102,19 +102,18 @@ var MPLAY = MPLAY || {};
 		var common = [
 			{type: "nothing", label: "email"},
 			//{type: "hide", img: ryan},
-			{type: "show_phone_notif"},			
+			{type: "show_phone_notif"},
 
 			// phone email exchange begins
 			{type: "show", img: closephone},
-			{type: "phone_textbox", 
-				label: "email_box", 				
+			{type: "phone_textbox",
 				bgOffsetY: -230,
 				bgHeight: 600,
 				bgWidth: 400,
 				y: 250,
 				charLine: 37,
 				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
-			{type: "hide_phone_textbox", dialog: "$email_box"},
+			{type: "hide_phone_textbox", dialog: "$email"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
@@ -205,7 +204,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
 
-							
+
 			];
 			o = o.concat(common);
 		}else if(this._talked == 2) {
