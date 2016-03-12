@@ -23,11 +23,6 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupBarBackground();
-
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);				
-		this._closephoneImg.material.opacity = 0;
-
-		this._setObjectTag(this._closephone, this._closephoneImg);	
 	};
 
 	Page6_1.prototype._createFlowElements = function() {

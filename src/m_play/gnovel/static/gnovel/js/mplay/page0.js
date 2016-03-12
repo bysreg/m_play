@@ -25,8 +25,7 @@ var MPLAY = MPLAY || {};
 		this.setupBarBackground();
 
 		//create images
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);		
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, -100, this.getBackgroundLayer()+10), 70, 133);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
@@ -34,20 +33,16 @@ var MPLAY = MPLAY || {};
 		this._transitionBgImg.position.z = 0;
 
 		this._yourphoneImg.material.opacity = 0;
-		this._catsphoneImg.material.opacity = 1;
-		this._closephoneImg.material.opacity = 0;
-		this._transitionBgImg.material.opacity = 0;
-		//this._catsphoneImg.rotation.x = -1;
+		this._catsphoneImg.material.opacity = 1;		
+		this._transitionBgImg.material.opacity = 0;		
 
 		this._yourphone = "yourphone";
-		this._catsphone = "catsphone";
-		this._closephone = "closephone";
+		this._catsphone = "catsphone";		
 		this._transitionBg = "transitionbg";
 
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
-		this._setObjectTag(this._catsphone, this._catsphoneImg);
-		this._setObjectTag(this._closephone, this._closephoneImg);
+		this._setObjectTag(this._catsphone, this._catsphoneImg);		
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
 		// 0 means player does not pick up cat's phone

@@ -24,18 +24,14 @@ var MPLAY = MPLAY || {};
 
 		this.setupLibraryBackground();
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);		
 
-		this._yourphoneImg.material.opacity = 0;
-		this._closephoneImg.material.opacity = 0;
+		this._yourphoneImg.material.opacity = 0;		
 
-		this._yourphone = "yourphone";
-		this._closephone = "closephone";
+		this._yourphone = "yourphone";		
 
 		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);
-		this._setObjectTag(this._closephone, this._closephoneImg);
+		this._setObjectTag(this._yourphone, this._yourphoneImg);		
 
 		this._talked = 0;
 

@@ -61,14 +61,11 @@ var MPLAY = MPLAY || {};
 			}});
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);				
-		this._closephoneImg.material.opacity = 0;
 
 		this._yourphone = "yourphone";
 
 		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);
-		this._setObjectTag(this._closephone, this._closephoneImg);	
+		this._setObjectTag(this._yourphone, this._yourphoneImg);		
 	};
 
 	Page5_1.prototype._onStart = function() {
