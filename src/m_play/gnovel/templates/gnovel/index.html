@@ -134,6 +134,7 @@
 	</head>
 	<body onload='init();'>
 		{{ text }}
+		{% csrf_token %}
 		<div id='username' style="display: none;">{{ name }}</div>
 		<div id='container'>
 	        <canvas id='application-canvas' tabindex='1' class='fill-mode-KEEP_ASPECT' width='1920' height='1080' style='background-color: whitvisibility: visible; -webkit-user-select: none;'>

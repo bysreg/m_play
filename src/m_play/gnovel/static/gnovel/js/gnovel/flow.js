@@ -161,7 +161,7 @@ var GNOVEL = GNOVEL || {};
 						var value = this._storedData[label];
 
 						if(typeof value === 'undefined' || value === null)
-							console.log("no such data stored in" + label);
+							console.log("no such data stored in " + label);
 
 						obj[prop] = value;
 					}
