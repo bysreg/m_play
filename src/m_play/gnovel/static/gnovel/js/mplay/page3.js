@@ -216,7 +216,7 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-p"}]},
 
-							{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, label:"study-p"},
+							{type: "show", img: priya, expression:"thoughtful", position: "right", flip: true, waitUntilShown: false, label:"study-p"},
 							{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
 							{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
 							{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
