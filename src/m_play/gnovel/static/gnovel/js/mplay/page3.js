@@ -156,7 +156,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "dialog", speaker: "", text: "Ryan leaves."},
 			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
+			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset.", flip: true},
 			{type: "choices",
 				choices :
 					[{text: "I’m sure he just needs to cool off.",
@@ -164,7 +164,7 @@ var MPLAY = MPLAY || {};
 					{text: "He’s just pissed at me, don’t worry about it.",
 						go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
 			{type: "nothing", label: "lastflow-p"},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false},
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later." },
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
