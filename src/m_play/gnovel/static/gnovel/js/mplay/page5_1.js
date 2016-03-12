@@ -118,7 +118,8 @@ var MPLAY = MPLAY || {};
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
-							go: "#submit" }]},
+							go: "#submit" }],
+					seconds: 10},
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
 			{type: "custom", func: function(page) {

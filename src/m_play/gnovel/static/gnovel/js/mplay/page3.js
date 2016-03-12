@@ -140,7 +140,8 @@ var MPLAY = MPLAY || {};
 					{text: "You hesitate… Hopefully he gets the message.",
 						go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
 					{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
-						go: "#notes", integrityScore: 1}]},
+						go: "#notes", integrityScore: 1}],
+				seconds: 10},
 
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false, label:"materials"},
 			{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine."},
