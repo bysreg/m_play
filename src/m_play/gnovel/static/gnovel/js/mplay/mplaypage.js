@@ -68,7 +68,8 @@ var MPLAY = MPLAY || {};
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
-		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
+		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);		
+		this._flow._addCustomHandler("show_context", this._handleShowContext);		
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -110,8 +111,13 @@ var MPLAY = MPLAY || {};
 		MPlayPage._isCharInit = true;
 	};
 
-	MPlayPage.prototype._initPhoneNotification = function() {
+	MPlayPage.prototype._initPhoneNotification = function() {		
 		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notification.png", new THREE.Vector3(0, 0, 0), 150, 95);
+
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
+		this._closephoneImg.material.opacity = 0;
+		this._closephone = "closephone";
+		this._setObjectTag(this._closephone, this._closephoneImg);
 	};
 
 	MPlayPage.prototype._showPhoneNotification = function(params) {
@@ -261,19 +267,19 @@ var MPLAY = MPLAY || {};
 
 			var textBg = null;
 
-			if(choiceText.length < 30) {
-				params.posArr[i].y = oneLineY;
+			// if(choiceText.length < 30) {
+			// 	params.posArr[i].y = oneLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/text1line_wOutline.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);
-			}else if(choiceText.length>=30 && choiceText.length<60){
+			// 	textBg = this.createImage("/static/gnovel/res/textures/ui/text1line_wOutline.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);
+			// }else if(choiceText.length>=30 && choiceText.length<60){
 				params.posArr[i].y = twoLineY;
 
 				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);
-			}else if(choiceText.length>=60) {
-				params.posArr[i].y = threeLineY;
+			// }else if(choiceText.length>=60) {
+				// params.posArr[i].y = threeLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
-			}
+				// textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
+			// }
 
 			this._addToScene(textBg);
 			choicesTextBg.push(textBg);
@@ -353,7 +359,7 @@ var MPLAY = MPLAY || {};
 		params.speakerOffsetY = 10;
 
 		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
-	};
+	};	
 
 	/**
 	 * @override
@@ -543,6 +549,26 @@ var MPLAY = MPLAY || {};
 
 		pageObj._flow._next();
 		pageObj._flow._exec();
+	};
+
+	MPlayPage.prototype._handleShowContext = function(obj, flow) {
+		var pageObj = flow._getPage();
+		var params = {};
+		params.flowElement = obj;
+		params.showSpeaker = false;
+		params.charLine = 60;
+		params.speaker = "Context";
+
+		message = obj.text;
+		var x = 0;
+		var y = 100;
+
+		params.bgPath = "/static/gnovel/res/textures/ui/textmultiline_wOutline.png";
+		params.bgOffsetY = 10;
+		params.bgOffsetX = 20;
+
+		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
+		flow._storeFlowData(dialog);	
 	};
 
 	MPLAY.MPlayPage = MPlayPage;
