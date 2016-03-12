@@ -88,22 +88,16 @@ var MPLAY = MPLAY || {};
 		var common = [
 			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
-			{type: "hide", img: cat, waitUntilHidden: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "What’s wrong?"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: cat, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source… I found it on a codeHub forum online."},
-			{type: "hide", img: cat, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. She would never cheat."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Technically it’s plagiarism. What should we do, we have to submit the project in 2 hours!"},
-			{type: "hide", img: cat, waitUntilHidden: false},
 			{type: "choices",
 					choices :
 						[{text: "Well, let's just ask her about it.",
@@ -115,14 +109,16 @@ var MPLAY = MPLAY || {};
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
-							go: "#submit" }]},
+							go: "#submit" }],
+					seconds: 10},
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
 			{type: "custom", func: function(page) {
 				page.getRelationshipManager().addRelationship("cat", 1);
 			}},
-			{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "hide", img: cat, waitUntilHiden: false},
+			{type: "dialog", speaker: "Ryan", text: "I'll text her."},
+			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			
 			// phone exchange begins
 			{type: "show", img: closephone},
@@ -193,34 +189,47 @@ var MPLAY = MPLAY || {};
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},
-			{type: "hide", img: cat, waitUntilHidden: false},
+			{type:"hide", img: cat, waitUntilHiden: false},
+			{type:"hide", img: ryan},
 			{type: "choices",
 					choices :
 						[{text: "I agree, she needs to redo it.  We can’t submit plagiarized work.",
-							go: "#gonextscene"},
+							go: "#finish_project_Priya"},
 						{text: "You text Priya “P, this is " + this._player + ".  U need to meet us @ lib.  We need to fix ur part b/c we can’t use c-h to submit.  We’ll help u.” –",
 							relationship: {name: "priya", score: 1},
-							go: "#gonextscene"}]},
-
-			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, label: "redo"},
-			{type: "dialog", speaker: "Ryan", text: "Seems like we should tell Priya,"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
+							go: "#finish_project_Priya"}]},
+			{type: "nothing", label: "finish_project_Priya"},
+			{type: "dialog", speaker:"", text: "Priya joins you all shortly and you work late to finish the project."},
+			{type: "show", img: cat, expression: "happy", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Finally done.  Where are you headed off to now " + this._player + " ?"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
-			// should be a sad cat here.
+
+			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true, label: "redo"},
+			{type: "dialog", speaker: "Ryan", text: "Seems like we should tell Priya,"},
+			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
+			{type: "hide", img: ryan, waitUntilHiden: false},
+			{type: "hide", img: cat},
+			{type: "dialog", speaker: "", text: "You all work together to finish the project."},
+			{type: "show", img: cat, expression: "happy", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Finally done.  Where are you headed off to now " + this._player + " ?"},
+			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
+
+			// FIXME should be a sad cat here.
 			{type: "show", img: cat, position: "left", waitUntilShown: false, label: "submit"},
 			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
-			{type: "hide", img: cat, waitUntilHidden: false},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Yeah, seems like if Cat caught it, Sweeney will definitely catch it."},
-			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: cat, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Maybe we can adjust her work enough to make it work?"},
-			{type: "hide", img: cat, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Worth a try."},
+			{type: "hide", img: ryan, waitUntilHiden: false},
+			{type: "hide", img: cat},
+			{type: "dialog", speaker: "", text: "You all work together to finish the project."},
+			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Finally done.  Where are you headed off to now " + this._player + " ?"},
 
 			{type: "choices", choices : [
 				{text: "Go to the gym", 
@@ -242,7 +251,6 @@ var MPLAY = MPLAY || {};
 			o = [
 				{type: "show", img: cat, expression: "happy", position: "left"},
 				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
-				{type: "hide", img: cat, waitUntilHidden: false},
 			];
 
 			o = o.concat(common);

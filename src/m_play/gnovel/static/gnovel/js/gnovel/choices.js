@@ -47,18 +47,18 @@ var GNOVEL = GNOVEL || {};
 	Choices.prototype._init = function() {
 		// add timer progress bar and choicesboxes
 		var timer_material = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			opacity: 0.2,
+			color: 0xff5d87,
+			opacity: 1.0,
 			transparent: true
 		});
 
 		if (this._params.seconds > 0) {
-			var timer_plane = new THREE.PlaneBufferGeometry(20, 8);
+			var timer_plane = new THREE.PlaneBufferGeometry(800, 20);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
-			timer.position.x = -390;
-			timer.position.y = -350;
-			timer.position.z = 75;
+			timer.position.x = 0;
+			timer.position.y = -280;
+			timer.position.z = 240;
 			this._page._addToScene(timer);
 		}
 
@@ -106,12 +106,17 @@ var GNOVEL = GNOVEL || {};
 	 * This function will only be called by this class when params.seconds > 0
 	 */
 	Choices.prototype._countdown = function() {
+
 		var choices = this;
-		var tween = new TWEEN.Tween(this.timer.position).to({
-			x: 390,
-			y: -350,
-			z: -100
-		}, this._params.seconds * 1000).onComplete(function() {
+		var duration = this._params.seconds * 1000 || 1000;
+
+		var tween = new TWEEN.Tween(this.timer.scale)
+			.to({
+				x: 0,
+				y: 1,
+				z: 1,
+			}, duration)
+			.easing(TWEEN.Easing.Linear.None).onComplete(function() {
 			if (choices._choosed) {
 				// do nothing
 			} else {
@@ -129,8 +134,8 @@ var GNOVEL = GNOVEL || {};
 		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
 
 		// clean up all objects from scene
-		if (this._params.seconds != null && params.seconds > 0) {
-			this._page._removeFromScene(timer.timer);
+		if (this._params.seconds != null && this._params.seconds > 0) {
+			this._page._removeFromScene(this.timer);
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {

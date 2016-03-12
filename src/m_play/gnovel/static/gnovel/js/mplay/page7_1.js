@@ -76,7 +76,8 @@ var MPLAY = MPLAY || {};
 					go : "#dontsay"}, 
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.", 
 					integrityScore: 0, 
-					go: "#decline"} ]},
+					go: "#decline"} ],
+				seconds: 10},
 
 			// holdoff jump			
 			{type: "compare", label: "holdoff", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#good_integrity", goFalse: "#poor_integrity"},

@@ -41,7 +41,8 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [
 				{text: "I can explain-"}, 
 				{text: "But Professor-"},
-				]}, 
+				],
+			seconds: 5}, 
 
 
 			{type: "dialog", speaker: this._professor, text: "Now, I know that wasn't the case on this year's exam.  Can you both explain how you made last year's mistake on this year's exam?", label: "first"},
@@ -49,7 +50,8 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [
 				{text: "You see-"}, 
 				{text: "We just-"},
-				]}, 
+				],
+			seconds: 5}, 
 
 
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs.  There is an appeals process as well, but before we go down that road, I'd like to hear from you.", label: "second"},

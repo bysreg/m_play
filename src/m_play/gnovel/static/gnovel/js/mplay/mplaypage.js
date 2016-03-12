@@ -106,7 +106,7 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -350, this._characterLayer), 426, 1030), "Prof. Sweeney");		
+		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");		
 
 		MPlayPage._isCharInit = true;
 	};

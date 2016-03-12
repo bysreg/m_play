@@ -205,6 +205,9 @@ var GNOVEL = GNOVEL || {};
 		// pass the original flow element to params
 		params.flowElement = obj;
 
+		// check wether the choices is time-based
+		params.seconds = obj.seconds || 0;
+
 		params.onChoiceComplete = function(resultId) {
 			if(obj.choices[resultId].onChoose && typeof obj.choices[resultId].onChoose === 'function') {
 				obj.choices[resultId].onChoose(page);
