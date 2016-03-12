@@ -77,6 +77,8 @@ var MPLAY = MPLAY || {};
 			{type: "hide_phone_textbox", dialog: "$text_box"},
 			{type: "hide", img: closephone},
 			// phone text exchange ends
+			
+			{type: "goto", page: "scene ending"},
 		]; 
 
 		return o;

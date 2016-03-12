@@ -10,7 +10,7 @@ var GNOVEL = GNOVEL || {};
 	 */
 	var Dialog = function(page, message, x, y, params) {
 		this._page = page;
-		this._params = params;
+		this._params = params || {};
 		this._x = x;
 		this._y = y;
 		this._hasTransition = true;
@@ -29,12 +29,9 @@ var GNOVEL = GNOVEL || {};
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
 		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
-
-		this._messageText = this._page.createTextBox(message, params || {});
-		this._nameText = this._page.createTextBox(params.speaker, {
-			align: "left",
-			charLine: this._charLine
-		});
+		this._message = message;
+		this._messageText = null;
+		this._nameText = null;
 
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
@@ -66,9 +63,7 @@ var GNOVEL = GNOVEL || {};
 	Dialog.prototype._init = function() {
 		var x = this._x;
 		var y = this._y;
-		var z = this._page.getDialogLayer();
-
-		this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+		var z = this._page.getDialogLayer();		
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
 			// if current speaker is different than the previous speaker, then we need to 
@@ -77,6 +72,13 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 
+		this._messageText = this._page.createTextBox(this._message, this._params);
+		this._nameText = this._page.createTextBox(this._params.speaker, {
+			align: "left",
+			charLine: this._charLine
+		});
+
+		this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 
 		// add background textbox
