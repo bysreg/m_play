@@ -207,7 +207,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.createTextBox = function(message, parameters) {
 		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
-		var msgAlign = parameters.align || "center";
+		var msgAlign = parameters.align || "center";		
 		switch(msgAlign){
 			case "left":
 				msgAlign = textAlign.left;

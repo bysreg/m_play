@@ -102,7 +102,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
 		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		//Add priya's sad image when ready
-		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -280, this._characterLayer), 700, 963), "Priya");
+		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/final sad priya png.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
@@ -474,14 +474,17 @@ var MPLAY = MPLAY || {};
 		return this._relationshipManager;
 	};
 
+	// this function is callable, so this may not be referring to MPlayPage class
 	MPlayPage.prototype._handlePhoneTextBox = function(obj, flow) {
+		var hasParam = GNOVEL.Util.hasParam;
 		var params = {};
 		params.flowElement = obj;
 		params.showSpeaker = false;
 		params.charLine = 22;
 		params.bgWidth = 300;
 		params.bgHeight = 145;
-		params.bgOffsetY = -30;
+		params.bgOffsetY = -30;		
+		params.bgOffsetX = 0;	
 		params.msgOffsetZ = -38;
 		params.msgOffsetY = 0;
 		params.dontRemove = true;
@@ -490,6 +493,7 @@ var MPLAY = MPLAY || {};
 		message = obj.text;
 		var x = 0;
 		var y = 100;
+		var z = flow._getPage().getDialogLayer();
 
 		if (typeof obj.y !== 'undefined') {
 			y = obj.y;
@@ -517,10 +521,36 @@ var MPLAY = MPLAY || {};
 		}
 		if(typeof obj.msgOffsetZ !== 'undefined') {
 			params.msgOffsetZ = obj.msgOffsetZ;
+		}		
+		params.bgPath = hasParam(obj, "bgPath", null);
+		if(typeof obj.bgOffsetX !== 'undefined') {
+			params.bgOffsetX = obj.bgOffsetX;
 		}
+		if(typeof obj.dontShowBg !== 'undefined') {
+			params.dontShowBg = obj.dontShowBg;
+		}
+		if(typeof obj.messageAlign !== 'undefined') {
+			params.messageAlign = obj.messageAlign;
+		}
+		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
 
-		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
+		var pageObj = flow._getPage();
+
+		if(params.waitUntilShown) {
+			params.onComplete = function() {
+				// go to next flow
+				pageObj._flow._next();
+				pageObj._flow._exec();
+			}
+		}
+		
+		var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
+
+		if(!params.waitUntilShown) {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		}
 	};
 
 	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {
