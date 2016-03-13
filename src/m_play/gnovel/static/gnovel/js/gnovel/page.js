@@ -190,6 +190,7 @@ var GNOVEL = GNOVEL || {};
 				opacity: 0.3,
 			}, duration)
 
+//chaining used to call tween functions back and forth infinitely
 		tweenFlashForward.chain(tweenFlashBack);
 		tweenFlashBack.chain(tweenFlashForward);
 
