@@ -89,8 +89,6 @@ var GNOVEL = GNOVEL || {};
 	InteractableObject.prototype._onMouseDown = function(event) {
 		event.preventDefault();
 
-		createjs.Sound.play("Clicking");
-
 		if (!this._enabled) return;
 
 		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;

@@ -67,7 +67,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
-				createjs.Sound.play("Message");
+				page.getOwner().getSoundManager().play("Message");
 			}},
 			{type: "choices",
 				choices :

@@ -36,7 +36,6 @@ var GNOVEL = GNOVEL || {};
 		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
 		this._renderer = null;
 
-		// sound test
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
 					{id:"Clicking", src:"clicking.ogg"},
@@ -44,11 +43,10 @@ var GNOVEL = GNOVEL || {};
 					{id:"Message", src:"message.ogg"},
 					{id:"Text", src:"text.ogg"}
 					];
+		this._soundManager = createjs.Sound;
 
-		createjs.Sound.alternateExtensions = ["mp3"];
-		// createjs.Sound.on("fileload", this.handleLoad);
-		createjs.Sound.registerSounds(this._sounds, this._audioPath);
-		// sound test	
+		this._soundManager.alternateExtensions = ["mp3"];
+		this._soundManager.registerSounds(this._sounds, this._audioPath);
 
 		var canvas = document.getElementById("application-canvas");
 		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});
@@ -113,6 +111,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {
+		
+		this._soundManager.play("Clicking");
+
 		if(!this._onStart) return;
 
 		//console.log("on mouse down");
@@ -274,9 +275,9 @@ var GNOVEL = GNOVEL || {};
 		return this._savedData[label];
 	};
 
-	// Gnovel.prototype.handleLoad = function(event) {
-	// 	// createjs.Sound.play(event.src);
-	// };
+	Gnovel.prototype.getSoundManager = function () {
+		return this._soundManager;
+	};
 
 	GNOVEL.Gnovel = Gnovel;
 }());
