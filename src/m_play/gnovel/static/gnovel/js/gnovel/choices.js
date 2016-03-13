@@ -129,6 +129,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Choices.prototype._onChoiceComplete = function() {
+		// play clicking sfx
+		createjs.Sound.play("Clicking");
+
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);

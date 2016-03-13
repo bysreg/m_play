@@ -66,6 +66,9 @@ var MPLAY = MPLAY || {};
 			// need a flow here to show a buzzing phone before choices
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
+			{type: "custom", func: function(page) {
+				createjs.Sound.play("Message");
+			}},
 			{type: "choices",
 				choices :
 					[{text: "Look at your Phone ",

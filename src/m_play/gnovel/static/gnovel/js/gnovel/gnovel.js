@@ -29,12 +29,26 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListeners = [];
 		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
-		this._savedData = {};		
+		this._savedData = {};	
 
 		this._width = window.innerWidth;
 		this._height = window.innerHeight;
 		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
 		this._renderer = null;
+
+		// sound test
+		this._audioPath = "/static/gnovel/res/sounds/";
+		this._sounds = [
+					{id:"Clicking", src:"clicking.ogg"},
+					{id:"Timer", src:"timer.ogg"},
+					{id:"Message", src:"message.ogg"},
+					{id:"Text", src:"text.ogg"}
+					];
+
+		createjs.Sound.alternateExtensions = ["mp3"];
+		// createjs.Sound.on("fileload", this.handleLoad);
+		createjs.Sound.registerSounds(this._sounds, this._audioPath);
+		// sound test	
 
 		var canvas = document.getElementById("application-canvas");
 		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});
@@ -259,6 +273,10 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype.getSavedData = function (label) {
 		return this._savedData[label];
 	};
+
+	// Gnovel.prototype.handleLoad = function(event) {
+	// 	// createjs.Sound.play(event.src);
+	// };
 
 	GNOVEL.Gnovel = Gnovel;
 }());

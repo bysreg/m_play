@@ -143,6 +143,8 @@ var MPLAY = MPLAY || {};
 			easing: TWEEN.Easing.Cubic.Out,
 			duration: 800,
 		});
+
+		createjs.Sound.play("Message");
 	};
 
 	MPlayPage.prototype._removePhoneNotification = function() {
@@ -521,6 +523,8 @@ var MPLAY = MPLAY || {};
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
+
+		createjs.Sound.play("Text");
 	};
 
 	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {
