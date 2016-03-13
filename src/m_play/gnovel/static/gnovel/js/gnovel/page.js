@@ -25,6 +25,8 @@ var GNOVEL = GNOVEL || {};
 		this._curSpeker = null;
 		this._preSpeaker = null;
 
+		this._bgSound = null;
+
 		this._result = {};
 
 		// layers
