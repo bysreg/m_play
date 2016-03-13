@@ -100,9 +100,8 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
-		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
-		//Add priya's sad image when ready
-		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/final sad priya png.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
+		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");		
+		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad priya.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
@@ -489,7 +488,7 @@ var MPLAY = MPLAY || {};
 		params.bgHeight = 145;
 		params.bgOffsetY = -30;		
 		params.bgOffsetX = 0;	
-		params.msgOffsetZ = -38;
+		params.msgOffsetZ = -25;
 		params.msgOffsetY = 0;
 		params.dontRemove = true;
 		params.createNewBg = true;
