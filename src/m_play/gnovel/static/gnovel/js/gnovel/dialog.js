@@ -32,6 +32,7 @@ var GNOVEL = GNOVEL || {};
 		this._message = message;
 		this._messageText = null;
 		this._nameText = null;
+		this._messageAlign = params.messageAlign || "center";
 
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
@@ -72,7 +73,7 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 
-		this._messageText = this._page.createTextBox(this._message, this._params);
+		this._messageText = this._page.createTextBox(this._message, {align: this._messageAlign, charLine: this._charLine});
 		this._nameText = this._page.createTextBox(this._params.speaker, {
 			align: "left",
 			charLine: this._charLine
@@ -88,11 +89,17 @@ var GNOVEL = GNOVEL || {};
 				new THREE.Vector3(this._messageText.position.x + this._bgOffsetX, y + this._bgOffsetY, z - 20),
 				this._bgWidth, this._bgHeight);
 
-			Dialog._textBg.material.opacity = 0;
-			this._page._addToScene(Dialog._textBg);
+			var opacityDest = 1;
+			if(this._params.dontShowBg) {
+				opacityDest = 0;				
+			}else{
+				this._page._addToScene(Dialog._textBg);
+			}
+
+			Dialog._textBg.material.opacity = 0;			
 			this._page.tweenMat(Dialog._textBg, {
 				duration: 800,
-				opacity: 1,
+				opacity: opacityDest,
 				easing: TWEEN.Easing.Cubic.Out
 			});
 
@@ -100,11 +107,13 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		// fade in text and speaker
+		this._messageText.material.opacity = 0;
 		this._page.tweenMat(this._messageText, {
 			duration: 800,
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out
 		});
+		this._nameText.material.opacity = 0;
 		this._page.tweenMat(this._nameText, {
 			duration: 800,
 			opacity: 1,
