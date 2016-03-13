@@ -29,7 +29,8 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListeners = [];
 		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
-		this._savedData = {};		
+		this._savedData = {};
+		this._onMouseDownProcessing = false;
 
 		this._width = window.innerWidth;
 		this._height = window.innerHeight;
@@ -101,16 +102,28 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype._onMouseDown = function(event) {
 		if(!this._onStart) return;
 
+		// if we are still processing a onMouseDown event, then don't process
+		if(this._onMouseDownProcessing) {
+			return;
+		}
+
+		this._onMouseDownProcessing = true;
+
 		//console.log("on mouse down");
 		var page = this.getCurrentPage();
 		if(page != null) {
 			page._onMouseDown(event);
 		}
 
+		// copy the current listeners
+		var listenersCopy = this._mouseDownListeners.slice();
+
 		// notify all the listeners
-		for(var i=0;i<this._mouseDownListeners.length;i++) {
-			this._mouseDownListeners[i](event);
+		for(var i=0;i<listenersCopy.length;i++) {
+			listenersCopy[i](event);
 		}
+
+		this._onMouseDownProcessing = false;
 	};
 
 	Gnovel.prototype._onMouseMove = function(event) {
