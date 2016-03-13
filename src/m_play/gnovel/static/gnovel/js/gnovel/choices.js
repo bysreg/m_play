@@ -53,12 +53,12 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		if (this._params.seconds > 0) {
-			var timer_plane = new THREE.PlaneBufferGeometry(800, 20);
+			var timer_plane = new THREE.PlaneBufferGeometry(800, 15);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
 			timer.position.x = 0;
 			timer.position.y = -280;
-			timer.position.z = 240;
+			timer.position.z = 260;
 			this._page._addToScene(timer);
 		}
 
@@ -82,7 +82,7 @@ var GNOVEL = GNOVEL || {};
 				y = this._params.posArr[i].y;				
 			}
 
-			textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
+			textbox.position.set(x + (i * gapX), y + (i * gapY) + 20, startz);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
