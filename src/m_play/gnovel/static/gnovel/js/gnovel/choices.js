@@ -53,12 +53,12 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		if (this._params.seconds > 0) {
-			var timer_plane = new THREE.PlaneBufferGeometry(800, 20);
+			var timer_plane = new THREE.PlaneBufferGeometry(800, 15);
 			var timer = new THREE.Mesh(timer_plane, timer_material);
 			this.timer = timer;
 			timer.position.x = 0;
 			timer.position.y = -280;
-			timer.position.z = 240;
+			timer.position.z = 260;
 			this._page._addToScene(timer);
 		}
 
@@ -82,11 +82,18 @@ var GNOVEL = GNOVEL || {};
 				y = this._params.posArr[i].y;				
 			}
 
-			textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
+			textbox.position.set(x + (i * gapX), y + (i * gapY) + 20, startz);
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
 			textbox.children[0].name = "choice_" + i;
+
+			textbox.material.opacity = 0;			
+			this._page.tweenMat(textbox, {
+				duration: 800,
+				opacity: 1,
+				easing: TWEEN.Easing.Cubic.Out
+			});
 
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
@@ -127,7 +134,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		});
 		tween.onStart(function() {
-			pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
+			pageObj._timerInstance = pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
 		});
 		tween.start();
 	};
@@ -141,7 +148,7 @@ var GNOVEL = GNOVEL || {};
 		// clean up all objects from scene
 		if (this._params.seconds != null && this._params.seconds > 0) {
 			this._page._removeFromScene(this.timer);
-			this._page.getOwner().getSoundManager().stop("Timer");
+			this._page._timerInstance.stop();
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {

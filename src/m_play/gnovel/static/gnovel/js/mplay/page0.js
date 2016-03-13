@@ -26,7 +26,7 @@ var MPLAY = MPLAY || {};
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);		
-		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/cat's phone.png", new THREE.Vector3(480, -100, this.getBackgroundLayer()+10), 70, 133);
+		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);		

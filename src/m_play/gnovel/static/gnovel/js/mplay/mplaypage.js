@@ -284,6 +284,14 @@ var MPLAY = MPLAY || {};
 				// textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
 			// }
 
+			textBg.material.opacity = 0;
+
+			this.tweenMat(textBg, {
+				duration: 800,
+				opacity: 1,
+				easing: TWEEN.Easing.Cubic.Out
+			});
+
 			this._addToScene(textBg);
 			choicesTextBg.push(textBg);
 		}

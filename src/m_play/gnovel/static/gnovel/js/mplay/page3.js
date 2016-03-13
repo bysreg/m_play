@@ -179,7 +179,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
 			{type: "dialog", speaker: "Priya", text: "Yeah, it’s in the syllabus Sweeney just sent out.  If you do, you probably won’t get caught, but..."},
 			{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
-			//FIXME make this a TIMED choice
+			
 			{type: "choices",
 				choices :
 					[{text: "You decide to give all your materials to Ryan.",
@@ -208,8 +208,9 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
+			{type: "nothing", label: "hesitate"},	
 			{type: "show", img: ryan, position: "left", expression:"angry", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later.", label: "hesitate"},
+			{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "dialog", speaker: "", text: "Ryan leaves."},
 			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false, flip: true},
@@ -273,8 +274,6 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
-
-
 			];
 			o = o.concat(common);
 		}else if(this._talked == 2) {
