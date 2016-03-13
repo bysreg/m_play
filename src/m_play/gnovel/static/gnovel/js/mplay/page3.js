@@ -24,14 +24,22 @@ var MPLAY = MPLAY || {};
 
 		this.setupLibraryBackground();
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);		
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
 
-		this._yourphoneImg.material.opacity = 0;		
+		this._yourphoneImg.material.opacity = 0;
 
-		this._yourphone = "yourphone";		
+		this._yourphone = "yourphone";
+
+		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
+		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
+		this._transitionBgImg = new THREE.Mesh(geometry,material);
+		this._transitionBgImg.position.z = 150;
+
+		this._transitionBg = "transitionbg";
 
 		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);		
+		this._setObjectTag(this._yourphone, this._yourphoneImg);
+		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
 		this._talked = 0;
 
@@ -93,10 +101,11 @@ var MPLAY = MPLAY || {};
 		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;
 		var player = this._player;
+		var transitionBg = "%" + this._transitionBg;
 		var o = null;
 
 		var common = [
-			{type: "nothing", label: "email"},			
+			{type: "nothing", label: "email"},
 			{type: "show_phone_notif"},
 
 			// phone email exchange begins
@@ -112,9 +121,9 @@ var MPLAY = MPLAY || {};
 				bgPath: "/static/gnovel/res/textures/Email-graphic.png",
 				waitUntilShown: false,
 				text: ""},
-			{type: "phone_textbox", 
-				label: "address_from", 
-				bgHeight: 10, 
+			{type: "phone_textbox",
+				label: "address_from",
+				bgHeight: 10,
 				bgWidth: 10,
 				x: -200,
 				y: 230,
@@ -123,9 +132,9 @@ var MPLAY = MPLAY || {};
 				messageAlign: "left",
 				waitUntilShown: false,
 				},
-			{type: "phone_textbox", 
-				label: "address_to", 
-				bgHeight: 10, 
+			{type: "phone_textbox",
+				label: "address_to",
+				bgHeight: 10,
 				bgWidth: 10,
 				x: -200,
 				y: 200,
@@ -134,12 +143,12 @@ var MPLAY = MPLAY || {};
 				messageAlign: "left",
 				waitUntilShown: false,
 				},
-			{type: "phone_textbox", 
-				label: "email_subject", 
-				bgHeight: 10, 
+			{type: "phone_textbox",
+				label: "email_subject",
+				bgHeight: 10,
 				bgWidth: 10,
 				x: -200,
-				y: 100,				
+				y: 100,
 				dontShowBg: true,
 				charLine: 40,
 				text: "Subject: [ProgSoc] Class Update",
@@ -147,18 +156,18 @@ var MPLAY = MPLAY || {};
 				waitUntilShown: false,
 				},
 			{type: "phone_textbox",
-				label: "email_textbox",				
+				label: "email_textbox",
 				bgHeight: 10,
 				bgWidth: 10,
 				y: 40,
 				charLine: 37,
-				dontShowBg: true,				
+				dontShowBg: true,
 				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$phone_bg"},
 			{type: "hide_phone_textbox", dialog: "$address_from"},
 			{type: "hide_phone_textbox", dialog: "$address_to"},
 			{type: "hide_phone_textbox", dialog: "$email_subject"},
-			{type: "hide_phone_textbox", dialog: "$email_textbox"},			
+			{type: "hide_phone_textbox", dialog: "$email_textbox"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
@@ -167,8 +176,8 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "Ryan, I don’t know if you can look at " + player + "’s graded assignments."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},			
-			{type: "dialog", speaker: "Priya", text: "Yeah, it’s in the syllabus Sweeney just sent out.  If you do, you probably won’t get caught, but..."},			
+			{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
+			{type: "dialog", speaker: "Priya", text: "Yeah, it’s in the syllabus Sweeney just sent out.  If you do, you probably won’t get caught, but..."},
 			{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
 			//FIXME make this a TIMED choice
 			{type: "choices",
@@ -220,9 +229,24 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
 
 			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
-			{type: "goto", page: "scene 5.a", label: "gocafe"},
-			{type: "goto", page: "scene 5.b", label: "gobar"},
-			{type: "goto", page: "scene 6.a", label: "gohome"},
+
+			{type: "nothing", label: "gocafe"},
+			{type: "show", img: transitionBg, waitUntilShown:false},
+			// after transition
+			{type: "dialog", speaker: "", text: "You head to the cafe"},
+			{type: "goto", page: "scene 5.a"},
+
+			{type: "nothing", label: "gobar"},
+			{type: "show", img: transitionBg, waitUntilShown:false},
+			// after transition
+			{type: "dialog", speaker: "", text: "You head to the bar"},
+			{type: "goto", page: "scene 5.b"},
+
+			{type: "nothing", label: "gohome"},
+			{type: "show", img: transitionBg, waitUntilShown:false},
+			// after transition
+			{type: "dialog", speaker: "", text: "You head to the bar"},
+			{type: "goto", page: "scene 6.a"},
 
 		];
 
@@ -279,7 +303,7 @@ var MPLAY = MPLAY || {};
 			];
 			o = o.concat(common);
 		}
-		
+
 		return o;
 	};
 

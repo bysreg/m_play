@@ -23,20 +23,28 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupClassBackground();
+		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
+		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
+		this._transitionBgImg = new THREE.Mesh(geometry,material);
+		this._transitionBgImg.position.z = 150;
+
+		this._transitionBg = "transitionbg";
+		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 	};
 
 	Page7_0.prototype._createFlowElements = function() {
 
-		var professor = "%" + this._professor;	
+		var professor = "%" + this._professor;
 		var player = this._player;
 		var closephone = "%" + this._closephone;
+		var transitionBg = "%" + this._transitionBg;
 
 		var o = null;
 
 		o = [
 			//{type: "show", img: professor, position: "center", waitUntilShown: false},
-			//{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},			
-			// {type: "show_phone_notif"},	
+			//{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},
+			// {type: "show_phone_notif"},
 
 			// phone email exchange begins
 			{type: "show", img: closephone},
@@ -51,7 +59,9 @@ var MPLAY = MPLAY || {};
 			{type: "hide_phone_textbox", dialog: "$email_box"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
-
+			{type: "show", img: transitionBg, waitUntilShown:false},
+			// after transition
+			{type: "dialog", speaker: "", text: "A few weeks pass, and it’s the end of the semester!  The group preparing for the final in the library."},
 			{type: "goto", page: "scene 8.b"},
 		];
 
