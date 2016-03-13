@@ -107,6 +107,7 @@ var GNOVEL = GNOVEL || {};
 	 */
 	Choices.prototype._countdown = function() {
 
+		var pageObj = this._page;
 		var choices = this;
 		var duration = this._params.seconds * 1000 || 1000;
 
@@ -125,10 +126,14 @@ var GNOVEL = GNOVEL || {};
 				choices._onChoiceComplete(choices._result.choiceId);
 			}
 		});
+		tween.onStart(function() {
+			pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
+		});
 		tween.start();
 	};
 
 	Choices.prototype._onChoiceComplete = function() {
+
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
 		this._page.getOwner().removeMouseMoveListener(this._mouseMoveListener);
@@ -136,6 +141,7 @@ var GNOVEL = GNOVEL || {};
 		// clean up all objects from scene
 		if (this._params.seconds != null && this._params.seconds > 0) {
 			this._page._removeFromScene(this.timer);
+			this._page.getOwner().getSoundManager().stop("Timer");
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {
