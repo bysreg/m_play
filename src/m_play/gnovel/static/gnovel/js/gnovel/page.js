@@ -171,6 +171,31 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
+	Page.prototype.tweenFlash = function(obj, params) {
+
+		var pageObj = this;
+		var duration = params.duration || 1000;
+
+		var tweenFlashForward = new TWEEN.Tween(obj.material)
+			.to({
+				opacity: 1,
+			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None);
+		if (params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+
+		var tweenFlashBack = new TWEEN.Tween(obj.material)
+			.to({
+				opacity: 0.3,
+			}, duration)
+
+		tweenFlashForward.chain(tweenFlashBack);
+		tweenFlashBack.chain(tweenFlashForward);
+
+		tweenFlashForward.start();
+	};
+
 	Page.prototype.onPause = function(evt) {};
 	Page.prototype.onResume = function(evt) {};
 	Page.prototype.onEnter = function(evt) {};

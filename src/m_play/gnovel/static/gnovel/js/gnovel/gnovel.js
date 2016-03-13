@@ -37,6 +37,18 @@ var GNOVEL = GNOVEL || {};
 		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
 		this._renderer = null;
 
+		this._audioPath = "/static/gnovel/res/sounds/";
+		this._sounds = [
+					{id:"Clicking", src:"clicking.ogg"},
+					{id:"Timer", src:"timer.ogg"},
+					{id:"Message", src:"message.ogg"},
+					{id:"Text", src:"text.ogg"}
+					];
+		this._soundManager = createjs.Sound;
+
+		this._soundManager.alternateExtensions = ["mp3"];
+		this._soundManager.registerSounds(this._sounds, this._audioPath);
+
 		var canvas = document.getElementById("application-canvas");
 		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});
 
@@ -100,6 +112,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {
+		
+		this._soundManager.play("Clicking");
+
 		if(!this._onStart) return;
 
 		// if we are still processing a onMouseDown event, then don't process
@@ -271,6 +286,10 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.getSavedData = function (label) {
 		return this._savedData[label];
+	};
+
+	Gnovel.prototype.getSoundManager = function () {
+		return this._soundManager;
 	};
 
 	GNOVEL.Gnovel = Gnovel;

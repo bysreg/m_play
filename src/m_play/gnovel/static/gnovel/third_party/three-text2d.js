@@ -28,7 +28,7 @@ var CanvasText = (function () {
   _createClass(CanvasText, [{
     key: 'drawText',
     value: function drawText(text, ctxOptions) {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.font = ctxOptions.font;
       this.ctx.charLine = ctxOptions.charLine || 72;
@@ -303,7 +303,7 @@ var Text2D = (function (_THREE$Object3D) {
     _this.canvas = new CanvasText();
 
     _this.align = options.align || textAlign.center;
-    _this.side = options.side || THREE.DoubleSide;
+    _this.side = options.side || THREE.FrontSide;
 
     // this._textAlign = options.align || "center"
     // this.anchor = Label.fontAlignAnchor[ this._textAlign ]

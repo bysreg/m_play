@@ -99,8 +99,8 @@ var MPLAY = MPLAY || {};
 		MPlayPage._cat.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -160, this._characterLayer), 324, 785), "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
-		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/julia-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
-		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-julia.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
+		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
+		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		//Add priya's sad image when ready
 		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/final sad priya png.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
 
@@ -112,7 +112,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._initPhoneNotification = function() {		
-		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notification.png", new THREE.Vector3(0, 0, 0), 150, 95);
+		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
 
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._closephoneImg.material.opacity = 0;
@@ -126,7 +126,7 @@ var MPLAY = MPLAY || {};
 		this._notifIo = this.createInteractableObject(
 			this._phoneNotifImg,
 			//"/static/gnovel/res/textures/ui/phone_notification.png",
-			{x: -440, y: -240, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 95,
+			{x: -440, y: -220, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 155,
 				onClick: function(io) {
 					if(params.onClick) {
 						params.onClick();
@@ -138,11 +138,15 @@ var MPLAY = MPLAY || {};
 		this._notifIo.getImage().material.opacity = 0;
 
 		this._owner.getCamera().add(this._notifIo.getImage());
-		this.tweenMat(this._notifIo.getImage(), {
-			opacity: 1,
+
+		//Flashes image
+		this.tweenFlash(this._notifIo.getImage(), {
+			//opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
 			duration: 800,
 		});
+
+		this.getOwner().getSoundManager().play("Message");
 	};
 
 	MPlayPage.prototype._removePhoneNotification = function() {
@@ -551,6 +555,8 @@ var MPLAY = MPLAY || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		}
+
+		flow._getPage().getOwner().getSoundManager().play("Text");
 	};
 
 	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {
