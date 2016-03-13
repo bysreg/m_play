@@ -88,6 +88,13 @@ var GNOVEL = GNOVEL || {};
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
 			textbox.children[0].name = "choice_" + i;
 
+			textbox.material.opacity = 0;			
+			this._page.tweenMat(textbox, {
+				duration: 800,
+				opacity: 1,
+				easing: TWEEN.Easing.Cubic.Out
+			});
+
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
