@@ -71,6 +71,7 @@ var MPLAY = MPLAY || {};
 	Page5_1.prototype._onStart = function() {
 		var pageObj = this;
 		this._showPhoneNotification({onClick: function() {
+			pageObj._io1.setEnable(false);
 			pageObj._talked = 2;
 			pageObj._runFlow();
 		}});
