@@ -39,11 +39,11 @@ var MPLAY = MPLAY || {};
 				pageObj._runFlow();
 
 				pageObj._io1.setEnable(false);
-				
+
 				pageObj.tweenMat(pageObj._io1.getImage(), {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800, 
+					duration: 800,
 					onComplete: function() {
 						pageObj._io1.remove();
 					},
@@ -53,11 +53,11 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._sitryan, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800, 
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromScene(pageObj._sitryan);
 					},
-				});				
+				});
 			}});
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
@@ -65,7 +65,8 @@ var MPLAY = MPLAY || {};
 		this._yourphone = "yourphone";
 
 		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);		
+		this._setObjectTag(this._yourphone, this._yourphoneImg);
+
 	};
 
 	Page5_1.prototype._onStart = function() {
@@ -102,11 +103,11 @@ var MPLAY = MPLAY || {};
 			{type: "choices",
 					choices :
 						[{text: "Well, let's just ask her about it.",
-							integrityScore: 1, 
+							integrityScore: 1,
 							relationship: {name: "ryan", score: 1},  // how to add two relationship scores
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
-							integrityScore: 0, 
+							integrityScore: 0,
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
@@ -120,7 +121,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "dialog", speaker: "Ryan", text: "I'll text her."},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			
+
 			// phone exchange begins
 			{type: "show", img: closephone},
 			{type: "phone_textbox",
@@ -185,7 +186,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide_phone_textbox", dialog: "$text4"},
 			{type: "hide_phone_textbox", dialog: "$text5"},
 			{type: "hide_phone_textbox", dialog: "$text6"},
-			{type: "hide_phone_textbox", dialog: "$text7"},			
+			{type: "hide_phone_textbox", dialog: "$text7"},
 			{type: "hide", img: closephone},
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
@@ -233,11 +234,11 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Finally done.  Where are you headed off to now " + this._player + " ?"},
 
 			{type: "choices", choices : [
-				{text: "Go to the gym", 
-					go: "#gogym"}, 
-				{text : "Go get a drink at Scottie’s Bar.", 
-					go : "#gobar"}, 
-				{text: "Go home and study for the finals.", 
+				{text: "Go to the gym",
+					go: "#gogym"},
+				{text : "Go get a drink at Scottie’s Bar.",
+					go : "#gobar"},
+				{text: "Go home and study for the finals.",
 					go: "#gohome"}], label: "gonextscene"},
 
 			{type: "goto", page: "scene 7.a", label: "gogym"},
@@ -261,7 +262,7 @@ var MPLAY = MPLAY || {};
 
 				// phone text exchange begins
 				{type: "show", img: closephone, position: "center"},
-				{type: "phone_textbox", 
+				{type: "phone_textbox",
 					label: "mom_text",
 					text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!!"},
 				{type: "hide_phone_textbox", dialog: "$mom_text"},
@@ -270,6 +271,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "custom", func: function(page) {
 					var pageObj = page;
+					pageObj._io1.setEnable(false);
 					pageObj.tweenMat(pageObj._io1.getImage(), {
 						opacity: 0,
 						easing: TWEEN.Easing.Cubic.Out,

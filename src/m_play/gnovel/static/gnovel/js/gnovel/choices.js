@@ -134,7 +134,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		});
 		tween.onStart(function() {
-			pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
+			pageObj._timerInstance = pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
 		});
 		tween.start();
 	};
@@ -148,7 +148,7 @@ var GNOVEL = GNOVEL || {};
 		// clean up all objects from scene
 		if (this._params.seconds != null && this._params.seconds > 0) {
 			this._page._removeFromScene(this.timer);
-			this._page.getOwner().getSoundManager().stop("Timer");
+			this._page._timerInstance.stop();
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {

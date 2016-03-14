@@ -38,13 +38,13 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},
-			{type: "phone_textbox", 
+			{type: "phone_textbox",
 				label: "email",
 				text: "Your project grade: B-"},
 			{type: "hide_phone_textbox", dialog: "$email"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
-			
+
 			{type: "goto", page: "scene 8.a"},
 		];
 

@@ -29,29 +29,30 @@ var MPLAY = MPLAY || {};
 
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
-		var professor = "%" + this._professor;	
-		var player = this._player;		
+		var professor = "%" + this._professor;
+		var player = this._player;
 
 		var o = null;
 
-		o = [			
+		o = [
+			{type: "dialog", speaker: "", text: "A few days after the test, you and Ryan are called into Professor Sweeney’s office"},	
 			{type: "show", img: professor, expression: "sad"},
 			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the exam.  You see, last year there was an error on one of the prompts."},
-			
+
 			{type: "choices", choices : [
-				{text: "I can explain-"}, 
+				{text: "I can explain-"},
 				{text: "But Professor-"},
 				],
-			seconds: 5}, 
+			seconds: 5},
 
 
 			{type: "dialog", speaker: this._professor, text: "Now, I know that wasn't the case on this year's exam.  Can you both explain how you made last year's mistake on this year's exam?", label: "first"},
-			
+
 			{type: "choices", choices : [
-				{text: "You see-"}, 
+				{text: "You see-"},
 				{text: "We just-"},
 				],
-			seconds: 5}, 
+			seconds: 5},
 
 
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs.  There is an appeals process as well, but before we go down that road, I'd like to hear from you.", label: "second"},
@@ -68,7 +69,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "You get Sweeney’s email?... Shit, what now? If we fail the class, don’t know about the job…  You ok?"},
 
 			{type: "goto", page: "scene ending"},
-		]; 
+		];
 
 		return o;
 	};
