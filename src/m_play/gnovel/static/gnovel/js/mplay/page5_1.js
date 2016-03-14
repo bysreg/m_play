@@ -62,7 +62,6 @@ var MPLAY = MPLAY || {};
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 
-
 		this._yourphone = "yourphone";
 
 		// for images
@@ -85,10 +84,10 @@ var MPLAY = MPLAY || {};
 		var yourphone = "%" + this._yourphone;
 		var closephone = "%" + this._closephone;
 
-
 		var o = null;
 
-		var common = [,
+		var common = [
+			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
@@ -271,6 +270,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "custom", func: function(page) {
 					var pageObj = page;
+					pageObj._io1.setEnable(false);
 					pageObj.tweenMat(pageObj._io1.getImage(), {
 						opacity: 0,
 						easing: TWEEN.Easing.Cubic.Out,
