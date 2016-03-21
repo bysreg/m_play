@@ -50,26 +50,6 @@ var MPLAY = MPLAY || {};
 			// disable interactable object
 			pageObj._io1.setEnable(false);
 			pageObj._io2.setEnable(false);
-
-			// fade all interactable objects
-			pageObj.tweenMat(pageObj._io1.getImage(), {
-				opacity: 0,
-				easing: TWEEN.Easing.Cubic.Out,
-				duration: 800,
-				onComplete: function() {
-					// remove this io
-					pageObj._io1.remove();
-				},
-			});
-			pageObj.tweenMat(pageObj._io2.getImage(), {
-				opacity: 0,
-				easing: TWEEN.Easing.Cubic.Out,
-				duration: 800,
-				onComplete: function() {
-					// remove this io
-					pageObj._io2.remove();
-				},
-			});
 		};
 
 		this._io1 = this.createInteractableObject(
@@ -79,6 +59,16 @@ var MPLAY = MPLAY || {};
 				pageObj._runFlow();
 
 				onInteractableObjectClicked(io);
+
+				pageObj.tweenMat(pageObj._io1.getImage(), {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						// remove this io
+						pageObj._io1.remove();
+					},
+				});
 			}});
 
 		this._io2 = this.createInteractableObject(
@@ -88,6 +78,16 @@ var MPLAY = MPLAY || {};
 				pageObj._runFlow();
 
 				onInteractableObjectClicked(io);
+
+				pageObj.tweenMat(pageObj._io2.getImage(), {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						// remove this io
+						pageObj._io2.remove();
+					},
+				});
 			}});
 
 		this._cgAssignmentStatus = 0;
@@ -262,7 +262,19 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-r"}]},
 
-				{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true, label:"study-r"},
+				{type: "nothing", label: "study-r"},
+				{type: "custom", func: function(pageObj) {
+					pageObj.tweenMat(pageObj._io2.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							// remove this io
+							pageObj._io2.remove();
+						},
+					});
+				}},
+				{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
 				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
@@ -270,7 +282,19 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-				{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-r"},
+				{type: "nothing", label: "sayhi-r"},
+				{type: "custom", func: function(pageObj) {
+					pageObj.tweenMat(pageObj._io2.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							// remove this io
+							pageObj._io2.remove();
+						},
+					});
+				}},
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
@@ -287,18 +311,42 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-p"}]},
 
-							{type: "show", img: priya, expression:"thoughtful", position: "right", flip: true, waitUntilShown: false, label:"study-p"},
-							{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
-							{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
-							{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
-							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-							{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
-							{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+				{type: "nothing", label: "study-p"},				
+				{type: "show", img: priya, expression:"thoughtful", position: "right", flip: true, waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
+				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
+				{type: "custom", func: function(pageObj) {
+					pageObj.tweenMat(pageObj._io1.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							// remove this io
+							pageObj._io1.remove();
+						},
+					});
+				}},
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-							{type: "show", img: priya, position: "right", waitUntilShown: false, label: "sayhi-p"},
-							{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work"},
-							{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-							{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
+				{type: "nothing", label: "sayhi-p"},				
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work"},
+				{type: "custom", func: function(pageObj) {
+					pageObj.tweenMat(pageObj._io1.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							// remove this io
+							pageObj._io1.remove();
+						},
+					});
+				}},
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
 			];
 			o = o.concat(common);
 		}
