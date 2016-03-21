@@ -79,8 +79,21 @@ var GNOVEL = GNOVEL || {};
 			charLine: this._charLine
 		});
 
-		this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
-		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
+		var textHeight = this._messageText.canvas.textHeight;
+		if (textHeight > 23) {
+			if (textHeight > 46) {
+				this._messageText.position.set(x, y + 50 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+				this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 20 + this._speakerOffsetY, z + 20);
+			}else {
+				this._messageText.position.set(x, y + 45 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+				this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
+			}
+		}else {
+			this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
+		}
+		
+		
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {

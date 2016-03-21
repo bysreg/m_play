@@ -32,6 +32,7 @@ var CanvasText = (function () {
 
       this.ctx.font = ctxOptions.font;
       this.ctx.charLine = ctxOptions.charLine || 72;
+      this.fontHeight = getFontHeight(this.ctx.font);
 
       // Check if the text is long enough to split into multiple lines.
       if(text.length > this.ctx.charLine)
@@ -40,22 +41,22 @@ var CanvasText = (function () {
         var regex = new RegExp(".{1," + this.ctx.charLine + "}", "g");        
         var hlpArr = text.match(regex);        
         this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
-        this.textHeight = hlpArr.length * getFontHeight(this.ctx.font);
+        this.textHeight = hlpArr.length * this.fontHeight;
       }
       else
       {
         this.textWidth = Math.ceil(this.ctx.measureText(text).width);
-        this.textHeight = getFontHeight(this.ctx.font);
+        this.textHeight = this.fontHeight;
       }
       
 
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
 
-      this.textHeight = getFontHeight(this.ctx.font);
+      // this.textHeight = getFontHeight(this.ctx.font);
 
       // calculate single line spacing
-      this.singlelineHeight = this.textHeight * 2;
+      this.singlelineHeight = this.fontHeight;
 
       this.ctx.font = ctxOptions.font;
       this.ctx.fillStyle = ctxOptions.fillStyle;
