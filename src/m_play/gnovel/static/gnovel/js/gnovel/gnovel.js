@@ -50,6 +50,7 @@ var GNOVEL = GNOVEL || {};
 
 		this._soundManager.alternateExtensions = ["mp3"];
 		this._soundManager.registerSounds(this._sounds, this._audioPath);
+		this._ambient = null;
 
 		var canvas = document.getElementById("application-canvas");
 		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});

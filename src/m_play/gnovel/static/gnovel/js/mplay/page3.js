@@ -22,6 +22,8 @@ var MPLAY = MPLAY || {};
 	Page3.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
+		// this._ambientInstance = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
+
 		this.setupLibraryBackground();
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
@@ -359,8 +361,9 @@ var MPLAY = MPLAY || {};
 	 */
 	Page3.prototype._onUnload = function() {
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
+		this._owner._ambient.stop();
+		// this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
 	};
-
 
 	MPLAY.Page3 = Page3;
 }());

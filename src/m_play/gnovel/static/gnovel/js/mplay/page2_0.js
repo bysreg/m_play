@@ -52,7 +52,18 @@ var MPLAY = MPLAY || {};
 		];
 
 		return o;
-	}
+	};
+
+	/**
+	 * @override
+	 */
+	Page2_0.prototype._onUnload = function() {
+		if (this._owner._ambient != null) {
+			this._owner._ambient.stop();
+			this._owner._ambient = null;
+		}		
+		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
+	};
 
 	MPLAY.Page2_0 = Page2_0;
 }());
