@@ -43,7 +43,7 @@ var GNOVEL = GNOVEL || {};
 					{id:"Timer", src:"timer.ogg"},
 					{id:"Message", src:"message.ogg"},
 					{id:"Text", src:"text.ogg"},
-
+					{id:"UC-bg", src:"uc-ambient.ogg"},
 					{id:"Library-bg", src:"lib-ambient.ogg"}
 					];
 		this._soundManager = createjs.Sound;

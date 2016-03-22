@@ -111,7 +111,37 @@ var MPLAY = MPLAY || {};
 			];
 
 		return o;
-	}
+	};
+
+	/**
+	 * @override
+	 */
+	Page1_1.prototype._onUnload = function() {
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}
+
+		var curId = this.getPageId();
+
+		// gohome (go to library scene)
+		if (this._owner._curPageIdx == curId + 3) {
+			this._nextAmbient = "Library-bg";
+		}
+
+		// // go to the cafe
+		// if (this._owner._curPageIdx == curId + 1) {
+		// 	this._nextAmbient = "Cafe-bg";
+		// }
+
+		// // go to the gym
+		// if (this._owner._curPageIdx == curId + 2) {
+		// 	this._nextAmbient = "Gym-bg";
+		// }	
+		// this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+
+		// this._tweenVolumeIn();
+	};
+
 
 	MPLAY.Page1_1 = Page1_1;
 }());
