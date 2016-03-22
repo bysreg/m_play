@@ -68,8 +68,8 @@ var MPLAY = MPLAY || {};
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
-		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);		
-		this._flow._addCustomHandler("show_context", this._handleShowContext);		
+		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
+		this._flow._addCustomHandler("show_context", this._handleShowContext);
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -100,17 +100,17 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
-		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");		
+		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad priya.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");		
+		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");
 
 		MPlayPage._isCharInit = true;
 	};
 
-	MPlayPage.prototype._initPhoneNotification = function() {		
+	MPlayPage.prototype._initPhoneNotification = function() {
 		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
 
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
@@ -199,7 +199,7 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
-		
+
 		var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
 		this._addToScene(tripledot)
 
@@ -210,8 +210,8 @@ var MPLAY = MPLAY || {};
 				pageObj.log("interactable", pageObj._ioNumber, obj);
 			}
 
-			pageObj._ioNumber++;			
-		};		
+			pageObj._ioNumber++;
+		};
 
 		var onEnableChange = function(io) {
 			if(!io.isEnabled()) {
@@ -281,7 +281,7 @@ var MPLAY = MPLAY || {};
 			// }else if(choiceText.length>=60) {
 				// params.posArr[i].y = threeLineY;
 
-				// textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);				
+				// textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);
 			// }
 
 			textBg.material.opacity = 0;
@@ -370,7 +370,7 @@ var MPLAY = MPLAY || {};
 		params.speakerOffsetY = 10;
 
 		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
-	};	
+	};
 
 	/**
 	 * @override
@@ -494,8 +494,8 @@ var MPLAY = MPLAY || {};
 		params.charLine = 22;
 		params.bgWidth = 300;
 		params.bgHeight = 145;
-		params.bgOffsetY = -30;		
-		params.bgOffsetX = 0;	
+		params.bgOffsetY = -30;
+		params.bgOffsetX = 0;
 		params.msgOffsetZ = -25;
 		params.msgOffsetY = 0;
 		params.dontRemove = true;
@@ -532,7 +532,7 @@ var MPLAY = MPLAY || {};
 		}
 		if(typeof obj.msgOffsetZ !== 'undefined') {
 			params.msgOffsetZ = obj.msgOffsetZ;
-		}		
+		}
 		params.bgPath = hasParam(obj, "bgPath", null);
 		if(typeof obj.bgOffsetX !== 'undefined') {
 			params.bgOffsetX = obj.bgOffsetX;
@@ -554,7 +554,7 @@ var MPLAY = MPLAY || {};
 				pageObj._flow._exec();
 			}
 		}
-		
+
 		var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
 
@@ -600,18 +600,21 @@ var MPLAY = MPLAY || {};
 		params.flowElement = obj;
 		params.showSpeaker = false;
 		params.charLine = 60;
-		params.speaker = "Context";
+		//params.speaker = "Context";
+		params.width = 100;
 
 		message = obj.text;
-		var x = 0;
-		var y = 100;
+		var x = -450;
+		var y = 200;
 
 		params.bgPath = "/static/gnovel/res/textures/ui/textmultiline_wOutline.png";
-		params.bgOffsetY = 10;
-		params.bgOffsetX = 20;
+		params.bgWidth = 250;
+		params.bgHeight = 75;
+		params.bgOffsetY = 40;
+		params.bgOffsetX = -40;
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
-		flow._storeFlowData(dialog);	
+		flow._storeFlowData(dialog);
 	};
 
 	MPLAY.MPlayPage = MPlayPage;
