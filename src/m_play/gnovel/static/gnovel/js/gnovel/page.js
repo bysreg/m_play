@@ -416,5 +416,27 @@ var GNOVEL = GNOVEL || {};
 		return this._flow;
 	};
 
+	Page.prototype._tweenVolumeIn = function() {
+		var duration = 3000;
+		var tween = new createjs.Tween.get(this._owner._ambient)
+						.to({
+							volume: 1.0
+						}, duration);
+	};
+
+	Page.prototype._tweenVolumeOut = function() {
+		var duration = 1000;
+		var pageObj = this;
+		var tween = new createjs.Tween.get(this._owner._ambient)
+						.to({
+							volume: 0.0
+						}, duration)
+						.call(handleComplete);
+		function handleComplete() {
+			pageObj._owner._ambient.stop();
+			pageObj._owner._ambient = null;
+		};
+	};
+
 	GNOVEL.Page = Page;
 }());

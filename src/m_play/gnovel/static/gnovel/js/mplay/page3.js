@@ -361,8 +361,9 @@ var MPLAY = MPLAY || {};
 	 */
 	Page3.prototype._onUnload = function() {
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
-		this._owner._ambient.stop();
-		// this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}		
 	};
 
 	MPLAY.Page3 = Page3;
