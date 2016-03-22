@@ -25,7 +25,7 @@ var GNOVEL = GNOVEL || {};
 		camera.position.x += ( mouseX - camera.position.x ) * .005;
 		camera.position.y += ( mouseY - camera.position.y ) * .005;
 
-		camera.position.x = THREE.Math.clamp(camera.position.x, -60, 60);
+		camera.position.x = THREE.Math.clamp(camera.position.x, 0, 10);
 		camera.position.y = THREE.Math.clamp(camera.position.y, -18, 18);
 
 		// console.log(mouseY + " " + camera.position.y);

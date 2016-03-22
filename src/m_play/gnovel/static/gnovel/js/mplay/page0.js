@@ -25,24 +25,24 @@ var MPLAY = MPLAY || {};
 		this.setupBarBackground();
 
 		//create images
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);		
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
-		this._transitionBgImg = new THREE.Mesh(geometry,material);		
+		this._transitionBgImg = new THREE.Mesh(geometry,material);
 		this._transitionBgImg.position.z = 0;
 
 		this._yourphoneImg.material.opacity = 0;
-		this._catsphoneImg.material.opacity = 1;		
-		this._transitionBgImg.material.opacity = 0;		
+		this._catsphoneImg.material.opacity = 1;
+		this._transitionBgImg.material.opacity = 0;
 
 		this._yourphone = "yourphone";
-		this._catsphone = "catsphone";		
+		this._catsphone = "catsphone";
 		this._transitionBg = "transitionbg";
 
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
-		this._setObjectTag(this._catsphone, this._catsphoneImg);		
+		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
 		// 0 means player does not pick up cat's phone
@@ -64,6 +64,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
+			{type: "show_context", text:"meanwhile in japan", waitUntilShown:false},
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -77,12 +78,12 @@ var MPLAY = MPLAY || {};
 						go: "#talktoryan",
 					relationship: {name: this._ryan, score: 1}}]},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
-			
-			// phone email exchange begins			
+
+			// phone email exchange begins
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
 			{type: "show", img: closephone},
 			{type: "phone_textbox",
-				label: "email", 
+				label: "email",
 				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
 				bgHeight: 200},
 			{type: "hide_phone_textbox", dialog: "$email"},
