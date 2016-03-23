@@ -54,7 +54,18 @@ var MPLAY = MPLAY || {};
 		];
 
 		return o;
-	}
+	};
+
+	Page4_1.prototype._onUnload = function() {
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}
+	};
+
+	Page4_1.prototype._onStart = function() {
+		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
+	};
 
 	MPLAY.Page4_1 = Page4_1;
 }());

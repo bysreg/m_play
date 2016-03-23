@@ -54,6 +54,17 @@ var MPLAY = MPLAY || {};
 		];
 
 		return o;
+	};
+
+	Page4_0.prototype._onStart = function() {
+		// this._owner._ambient = this._owner.getSoundManager().play("Cafe-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		// this._tweenVolumeIn();
+	};
+
+	Page4_0.prototype._onUnload = function() {
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}
 	}
 
 	MPLAY.Page4_0 = Page4_0;
