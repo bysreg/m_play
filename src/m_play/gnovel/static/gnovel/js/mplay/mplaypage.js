@@ -601,14 +601,16 @@ var MPLAY = MPLAY || {};
 		params.showSpeaker = false;
 		params.charLine = 60;
 		//params.speaker = "Context";
-		params.width = 100;
+		params.width = 200;
+		params.font = "30px SF_Toontime Bold Italic";
+
 
 		message = obj.text;
-		var x = -450;
-		var y = 200;
+		var x = -400;
+		var y = 230;
 
-		params.bgPath = "/static/gnovel/res/textures/ui/textmultiline_wOutline.png";
-		params.bgWidth = 250;
+		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
+		params.bgWidth = 400;
 		params.bgHeight = 75;
 		params.bgOffsetY = 40;
 		params.bgOffsetX = -40;

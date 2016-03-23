@@ -18,6 +18,7 @@ var GNOVEL = GNOVEL || {};
 		this._tweenComplete = false;
 		this._showSpeaker = params.showSpeaker || true;
 		this._charLine = params.charLine || 72;
+		this._font = params.font || "20px NoteWorthy Bold";
 		this._bgWidth = params.bgWidth || 900;
 		this._bgHeight = params.bgHeight || 145.5;
 		this._bgPath = params.bgPath || "/static/gnovel/res/textures/blue_box.png";
@@ -64,16 +65,21 @@ var GNOVEL = GNOVEL || {};
 	Dialog.prototype._init = function() {
 		var x = this._x;
 		var y = this._y;
-		var z = this._page.getDialogLayer();		
+		var z = this._page.getDialogLayer();
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
-			// if current speaker is different than the previous speaker, then we need to 
+			// if current speaker is different than the previous speaker, then we need to
 			// close the previous dialog box if it still exists
 			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
 			this._closeDialog();
 		}
 
-		this._messageText = this._page.createTextBox(this._message, {align: this._messageAlign, charLine: this._charLine});
+		this._messageText = this._page.createTextBox(this._message, {
+			align: this._messageAlign,
+			charLine: this._charLine,
+			font: this._font,
+		});
+
 		this._nameText = this._page.createTextBox(this._params.speaker, {
 			align: "left",
 			charLine: this._charLine
@@ -92,24 +98,24 @@ var GNOVEL = GNOVEL || {};
 			this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
 			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 		}
-		
-		
+
+
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {
 			Dialog._textBg = this._page.createImage(
-				this._bgPath, 
+				this._bgPath,
 				new THREE.Vector3(this._messageText.position.x + this._bgOffsetX, y + this._bgOffsetY, z - 20),
 				this._bgWidth, this._bgHeight);
 
 			var opacityDest = 1;
 			if(this._params.dontShowBg) {
-				opacityDest = 0;				
+				opacityDest = 0;
 			}else{
 				this._page._addToScene(Dialog._textBg);
 			}
 
-			Dialog._textBg.material.opacity = 0;			
+			Dialog._textBg.material.opacity = 0;
 			this._page.tweenMat(Dialog._textBg, {
 				duration: 800,
 				opacity: opacityDest,
@@ -191,7 +197,7 @@ var GNOVEL = GNOVEL || {};
 			if (dialog._params.onComplete != null) {
 				dialog._params.onComplete(dialog);
 			}
-		}		
+		}
 	};
 
 	Dialog.prototype._isDialogNext = function() {
@@ -215,7 +221,7 @@ var GNOVEL = GNOVEL || {};
 					dialog._page._removeFromScene(textBgObj);
 				},
 			});
-		}		
+		}
 
 		if (this._messageText !== null) {
 			var msgTextObj = this._messageText;
