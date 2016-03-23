@@ -39,11 +39,16 @@ var GNOVEL = GNOVEL || {};
 
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
+					// SFX
 					{id:"Clicking", src:"clicking.ogg"},
 					{id:"Timer", src:"timer.ogg"},
 					{id:"Message", src:"message.ogg"},
 					{id:"Text", src:"text.ogg"},
 
+					// ambient
+					{id:"Bar-bg", src:"bar-ambient.ogg"},
+					{id:"Classroom-bg", src:"classroom-ambient.ogg"},
+					{id:"UC-bg", src:"uc-ambient.ogg"},
 					{id:"Library-bg", src:"lib-ambient.ogg"}
 					];
 		this._soundManager = createjs.Sound;

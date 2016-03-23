@@ -22,6 +22,9 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
+		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		// this._tweenVolumeIn();
+
 		this.setupBarBackground();
 
 		//create images
@@ -193,6 +196,15 @@ var MPLAY = MPLAY || {};
 	 */
 	Page0.prototype._onUnload = function() {
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
+
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}
+	};
+
+	Page0.prototype._onStart = function() {
+		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
 	};
 
 	MPLAY.Page0 = Page0;

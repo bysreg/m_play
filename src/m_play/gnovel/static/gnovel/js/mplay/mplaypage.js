@@ -462,7 +462,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupBarBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/Bar_Linework.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {

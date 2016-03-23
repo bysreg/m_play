@@ -74,5 +74,16 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
+	Page8_3.prototype._onUnload = function() {
+		if (this._owner._ambient != null) {
+			this._tweenVolumeOut();
+		}
+	};
+
+	Page8_3.prototype._onStart = function() {
+		this._owner._ambient = this._owner.getSoundManager().play("Classroom-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
+	};
+
 	MPLAY.Page8_3 = Page8_3;
 }());

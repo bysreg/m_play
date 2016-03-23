@@ -25,14 +25,15 @@ var GNOVEL = GNOVEL || {};
 		this._curSpeker = null;
 		this._preSpeaker = null;
 
-		this._bgSound = null;
-
 		this._result = {};
 
 		// layers
 		this._backgroundLayer = 0;
 		this._dialogLayer = 200;
 		this._choicesLayer = 220;
+
+		// ambient plays at next page
+		this._nextAmbient = null;
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
