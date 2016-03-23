@@ -43,11 +43,15 @@ var MPLAY = MPLAY || {};
 	/**
 	 * @override
 	 */
+	Page1_0.prototype._onStart = function() {
+		this._owner._ambient = this._owner.getSoundManager().play("Classroom-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
+	};
+
 	Page1_0.prototype._onUnload = function() {
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
-		}		
-		this._nextAmbient = "UC-bg";
+		}	
 	};
 
 	MPLAY.Page1_0 = Page1_0;

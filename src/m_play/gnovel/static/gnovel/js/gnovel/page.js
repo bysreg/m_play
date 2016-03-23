@@ -436,10 +436,6 @@ var GNOVEL = GNOVEL || {};
 		function handleComplete() {
 			pageObj._owner._ambient.stop();
 			pageObj._owner._ambient = null;
-			if (pageObj._nextAmbient != null) {
-				pageObj._owner._ambient = pageObj._owner.getSoundManager().play(pageObj._nextAmbient, {interrupt: pageObj._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-				pageObj._tweenVolumeIn();
-			}			
 		};
 	};
 

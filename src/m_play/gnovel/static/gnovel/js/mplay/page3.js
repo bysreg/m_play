@@ -366,5 +366,10 @@ var MPLAY = MPLAY || {};
 		}		
 	};
 
+	Page3.prototype._onStart = function() {
+		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
+	};
+
 	MPLAY.Page3 = Page3;
 }());

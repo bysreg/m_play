@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page2_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setupBarBackground();
 
 	};
 
@@ -59,8 +59,11 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}		
-		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+	};
 
+	Page2_1.prototype._onStart = function() {
+
+		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 
