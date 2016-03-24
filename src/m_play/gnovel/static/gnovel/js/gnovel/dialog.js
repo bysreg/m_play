@@ -13,6 +13,7 @@ var GNOVEL = GNOVEL || {};
 		this._params = params || {};
 		this._x = x;
 		this._y = y;
+		this._type = params.type;
 		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._tweenComplete = false;
@@ -115,14 +116,24 @@ var GNOVEL = GNOVEL || {};
 				this._page._addToScene(Dialog._textBg);
 			}
 
-			Dialog._textBg.material.opacity = 0;
-			this._page.tweenMat(Dialog._textBg, {
-				duration: 800,
-				opacity: opacityDest,
-				easing: TWEEN.Easing.Cubic.Out
-			});
+			//slide in animation for context box
+			if(this._type == "context") {
+				this._page.tweenPos(Dialog._textBg,{
+					duration:4000,
+				});
 
-			this._textBg = Dialog._textBg;
+				this._textBg = Dialog._textBg;
+			}
+			else {
+				Dialog._textBg.material.opacity = 0;
+				this._page.tweenMat(Dialog._textBg, {
+					duration: 800,
+					opacity: opacityDest,
+					easing: TWEEN.Easing.Cubic.Out
+				});
+
+				this._textBg = Dialog._textBg;
+			}
 		}
 
 		// fade in text and speaker

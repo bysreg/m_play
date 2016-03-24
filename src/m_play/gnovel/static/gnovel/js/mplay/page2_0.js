@@ -31,6 +31,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type:"show_context", text:"At the cafe..."},
 			{type: "show", img: priya, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Priya", text: "Oh, hey, I didn’t know you hang out here too!  Ryan told me you got a job lined up.  Congrats!"},
 			{type: "choices", choices : [{text: "Thanks!", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}]},
@@ -60,7 +61,7 @@ var MPLAY = MPLAY || {};
 	Page2_0.prototype._onUnload = function() {
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
-		}		
+		}
 	};
 
 	Page2_0.prototype._onStart = function() {

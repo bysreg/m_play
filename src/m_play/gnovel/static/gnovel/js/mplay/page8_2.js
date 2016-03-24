@@ -35,7 +35,8 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "dialog", speaker: "", text: "A few days after the test, you and Ryan are called into Professor Sweeney’s office"},
+			{type: "show_context", text: "A few days after the test,"},
+			{type: "show_context", text: "Professor Sweeny calls you and Ryan to his office"},
 			{type: "show", img: professor, expression: "sad"},
 			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the exam.  You see, last year there was an error on one of the prompts."},
 

@@ -217,6 +217,9 @@ var MPLAY = MPLAY || {};
 			if(!io.isEnabled()) {
 				pageObj._removeFromScene(tripledot);
 			}
+			if(io.isEnabled()) {
+				pageObj._addToScene(tripledot);
+			}
 		};
 		params.onEnableChange = onEnableChange;
 
@@ -597,23 +600,26 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._handleShowContext = function(obj, flow) {
 		var pageObj = flow._getPage();
 		var params = {};
+	//	params.type = "context";
 		params.flowElement = obj;
 		params.showSpeaker = false;
-		params.charLine = 60;
+		params.charLine = 27;
+		params.messageAlign = "left";
 		//params.speaker = "Context";
-		params.width = 200;
-		params.font = "30px SF_Toontime Bold Italic";
+		params.width = 100;
+		params.font = "25px SF_Toontime Bold Italic";
 
 
 		message = obj.text;
-		var x = -400;
+		var x = -520
 		var y = 230;
 
 		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
-		params.bgWidth = 400;
-		params.bgHeight = 75;
+		params.bgWidth = 520;
+		params.bgHeight = 90;
 		params.bgOffsetY = 40;
-		params.bgOffsetX = -40;
+		params.bgOffsetX = 100;
+
 
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);

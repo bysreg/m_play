@@ -8,7 +8,7 @@ body {
 	height: 100%;
 	overflow: hidden;
 	background-color: #354144;
-	font-family: Noteworthy Bold!important, Helvetica, Bevan, SF_Toontime Bold Italic, arial, sans-serif;
+	font-family: NoteWorthy Bold, SF_Toontime Bold Italic, Helvetica, arial, sans-serif;
 	position: relative;
 }
 
@@ -51,13 +51,6 @@ canvas:focus {
 @font-face{
 	font-family: 'Arvo', serif;
 	font-family: 'Droid Sans', sans-serif;
-	
-	font-family: 'NoteWorthy Light';
-	src: url('../font/noteworthyFontFace.ttf') format('truetype');
-	font-style:normal;
-    	-webkit-font-smoothing: antialiased;
-    	-webkit-text-stroke-width: 0.2px;
-	-moz-osx-font-smoothing: grayscale;
 
 	font-family: 'NoteWorthy Bold';
 	src: url('../font/noteworthyBoldFontFace.ttf') format('truetype');

@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page8_4.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupClassBackground();
+		this.setupCafeBackground();
 	};
 
 	Page8_4.prototype._createFlowElements = function() {
@@ -36,7 +36,8 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "dialog", speaker: "", text: "A few days after the test, you run into Priya and Cat at the Café"},
+			{type: "show_context", text: "A few days after the test..."},
+			{type: "show_context", text:"you run into Priya and Cat at the Café"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "Did you hear about Ryan?  He got in trouble for using that exam."},
 

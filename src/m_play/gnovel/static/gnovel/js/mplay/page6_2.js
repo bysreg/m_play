@@ -34,6 +34,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type:"show_context", text:"You head home..."},
 			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
 
 			// phone email exchange begins

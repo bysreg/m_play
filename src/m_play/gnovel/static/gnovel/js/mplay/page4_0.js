@@ -36,6 +36,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type: "show_context", text:"At the library..."},
 			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#assignment_given", goFalse: "#assignment_notgiven"},
 
 			{type: "show", img: priya, expression: "thoughtful", position: "center", label: "assignment_given"},
@@ -43,7 +44,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "I’m sorry to hear about your roommate.", go: "#failed"}, {text : "Don’t worry about that.  What ended up happening to your roommate?", go : "#failed1"}]},
 			{type: "dialog", speaker: "Priya", text: "She failed her course, and almost got kicked out of school.  She would have lost her visa.  Be careful next time, ok?", label: "failed1"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
-			
+
 			{type: "show", img: priya, position: "center", label: "assignment_notgiven"},
 			{type: "dialog", speaker: "Priya", text: "I wanted to thank you for not giving Ryan the old CG homeworks.  My roommate got in trouble for something like that."},
 			{type: "choices", choices : [{text: "Oh yeah, no worries.", go: "#failed"}, {text : "Yeah, you were right, it’s not worth the risk.  What happened to your roommate? ", relationship: {name: "priya", score: 1}, go : "#failed2"}]},

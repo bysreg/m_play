@@ -52,7 +52,7 @@ var MPLAY = MPLAY || {};
 			o = [
 				//FIXME transition of this flow doesn't work
 				//FIXME Adjust positions for characters too!
-				{type: "dialog", speaker: "", text: "You meet with the study group at the UC"},
+				{type: "show_context", text: "You meet with the study group at the UC", waitUntilShown: true},
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", position: "left", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  She’s here from India,and an excellent study buddy."},
 				// transition of this flow doesn't work

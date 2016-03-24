@@ -32,20 +32,21 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type:"show_context", text:"At the bar..."},
 			{type: "show", img: cat, position: "center"},
 			{type: "dialog", speaker: "Cat", text: "Oh, hey. I just finished up my workout. I'm trying to train for a 10K."},
 			{type: "choices", choices : [{text: "That's cool... Yeah, I'll hit some of the cardio machines too.", go: "#catnext"}, {text : "Wow!  10K… seems intense", go : "#catnext"}]},
 			{type: "dialog", speaker: "Cat", text: "Yeah, the training is hard to keep up on. By the way, thanks again for the phone thing.", label: "catnext"},
 			{type: "choices", choices : [{text: "No problem!  How are you otherwise?", relationship: {name: "cat", score: 1}, go: "#howru"}, {text : "No problem!  I don’t want to keep you.  See you later.", go : "#cu"}]},
-			
+
 			{type: "nothing", label: "howru"},
 			{type: "show", img: cat, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Cat", text: "The transition's been tough. Everyone here is so young!  Like, Priya's straight from undergrad.  Oh well.  Gotta run.  See you later."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
-			
+
 			{type: "nothing", label: "cu"},
 			{type: "dialog", speaker: "Cat", text: "See you later."},
-			
+
 			{type: "goto", page: "scene 4", label: "gonextscene"},
 		];
 
@@ -58,7 +59,7 @@ var MPLAY = MPLAY || {};
 	Page2_1.prototype._onUnload = function() {
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
-		}		
+		}
 	};
 
 	Page2_1.prototype._onStart = function() {

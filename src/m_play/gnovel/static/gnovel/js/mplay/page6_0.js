@@ -21,8 +21,8 @@ var MPLAY = MPLAY || {};
 	 */
 	Page6_0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
-		
-		this.setupGymBackground();		
+
+		this.setupGymBackground();
 	};
 
 	Page6_0.prototype._createFlowElements = function() {
@@ -34,11 +34,12 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type:"show_context", text:"at the gym..."},
 			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
-			
+
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},
-			{type: "phone_textbox", 
+			{type: "phone_textbox",
 				label: "email",
 				text: "Your project grade: B-"},
 			{type: "hide_phone_textbox", dialog: "$email"},

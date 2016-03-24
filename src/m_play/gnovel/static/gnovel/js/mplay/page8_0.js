@@ -43,7 +43,8 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "dialog", speaker: "", text: "A few days after the test, you run into Ryan at the UC"},
+			{type: "show_context", text: "A few days after the test... "},
+			{type: "show_context", text: "you run into Ryan at the UC"},
 			{type: "show", img: ryan, expression: "happy"},
 			{type: "dialog", speaker: this._ryan, text: "Hey!  Glad I caught you.  I wanted to let you know that I ended up doing ok on that test.  Probably not my best work, but what can you do."},
 			{type: "dialog", speaker: this._ryan, text: "Oh! Got to run - I'm meeting Priya for a drink.  I have to go apologize to her - maybe grovel a little."},

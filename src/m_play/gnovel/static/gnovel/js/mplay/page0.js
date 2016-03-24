@@ -67,8 +67,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
-			{type: "show_context", text:"meanwhile in japan", waitUntilShown:false},
-			{type: "show_context", text:"meanwhile in japan", waitUntilShown:false},
+			{type: "show_context", text:"You arrive at the bar", waitUntilShown:false},
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -124,7 +123,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "A few drinks later"},
+			{type: "show_context", text: "A few drinks later"},
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},

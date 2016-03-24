@@ -32,6 +32,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type: "show_context", "text": "At the Scottie's..."},
 			{type: "show", img: cat, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Cat", text: "Oh hey!  I'm just finishing up here, but what's new with you?"},
 			{type: "choices", choices : [{text: "Not much. How are you doing?", go: "#hrudoing"}, {text : "Nothing much.", go : "#nothingmuch"}]},
@@ -39,7 +40,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "hrudoing"},
 			// should be a sad cat here.
 			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my GPA."},
-			
+
 			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", relationship: {name: "cat", score: "1"}, go : "#beok"}]},
 			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok.  But then again, I’m saying this after a glass of wine. Ask me again in May.", label: "beok"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},

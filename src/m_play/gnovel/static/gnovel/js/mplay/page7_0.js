@@ -42,6 +42,8 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type:"show_context", text:"A month passes and the semester is almost over..."},
+			{type:"show_context", text:"You go to your final lecture."},
 			//{type: "show", img: professor, position: "center", waitUntilShown: false},
 			//{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},
 			// {type: "show_phone_notif"},
@@ -59,9 +61,9 @@ var MPLAY = MPLAY || {};
 			{type: "hide_phone_textbox", dialog: "$email_box"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
-			{type: "show", img: transitionBg, waitUntilShown:false},
+			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "A few weeks pass, and it’s the end of the semester!  The group preparing for the final in the library."},
+			//{type: "dialog", speaker: "", text: "A few weeks pass, and it’s the end of the semester!  The group preparing for the final in the library."},
 			{type: "goto", page: "scene 8.b"},
 		];
 

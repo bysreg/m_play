@@ -22,11 +22,11 @@ var GNOVEL = GNOVEL || {};
 		var mouseY = ( event.clientY - window.innerHeight / 2 ) / 4;
 		var camera = gnovelObj.getCamera();
 
-		camera.position.x += ( mouseX - camera.position.x ) * .005;
-		camera.position.y += ( mouseY - camera.position.y ) * .005;
+		camera.position.x += ( mouseX - camera.position.x ) * .002;
+		camera.position.y += ( mouseY - camera.position.y ) * .002;
 
 		camera.position.x = THREE.Math.clamp(camera.position.x, 0, 10);
-		camera.position.y = THREE.Math.clamp(camera.position.y, -18, 18);
+		camera.position.y = THREE.Math.clamp(camera.position.y, -10, 10);
 
 		// console.log(mouseY + " " + camera.position.y);
 		camera.lookAt(new THREE.Vector3(0, 0, 400));

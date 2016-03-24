@@ -42,12 +42,13 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
+			{type: "show_context", text:"A few weeks later in class..."},
 			{type: "show", img: professor, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Prof. Sweeney", text: "I hope you're making good progress on the projects!  Please make sure you get plenty of rest and build in lots of time to complete it.  It will probably take longer than you think it will.  Dismissed."},
 
-			{type: "show", img: transitionBg, waitUntilShown:false},
+			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "A few weeks later, you and the group are finishing the group project..."},
+			//{type: "dialog", speaker: "", text: "A few weeks later, you and the group are finishing the group project..."},
 			{type: "goto", page: "scene 6.b"},
 		];
 

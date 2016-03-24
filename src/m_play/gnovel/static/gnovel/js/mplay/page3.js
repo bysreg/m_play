@@ -106,6 +106,16 @@ var MPLAY = MPLAY || {};
 		var transitionBg = "%" + this._transitionBg;
 		var o = null;
 
+		o = [
+				{type: "show_context", text: "A few weeks pass, and work starts piling up"},
+				{type: "show_context", text: "You head to the library to study"},
+				{type: "custom", func: function(pageObj){
+					//disable the characters from being clickable while context showing
+					pageObj._io1.setEnable(true);
+					pageObj._io2.setEnable(true);
+				}}
+		];
+
 		var common = [
 			{type: "nothing", label: "email"},
 			{type: "show_phone_notif"},
@@ -181,7 +191,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
 			{type: "dialog", speaker: "Priya", text: "Yeah, it’s in the syllabus Sweeney just sent out.  If you do, you probably won’t get caught, but..."},
 			{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
-			
+
 			{type: "choices",
 				choices :
 					[{text: "You decide to give all your materials to Ryan.",
@@ -210,7 +220,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
-			{type: "nothing", label: "hesitate"},	
+			{type: "nothing", label: "hesitate"},
 			{type: "show", img: ryan, position: "left", expression:"angry", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
@@ -302,6 +312,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
 			];
 			o = o.concat(common);
+
 		}else if(this._talked == 2) {
 			o = [
 				{type: "show", img: priya, position: "right"},
@@ -313,7 +324,7 @@ var MPLAY = MPLAY || {};
 						{text: "I’m coming to say hi.  What are you two doing?",
 							go: "#sayhi-p"}]},
 
-				{type: "nothing", label: "study-p"},				
+				{type: "nothing", label: "study-p"},
 				{type: "show", img: priya, expression:"thoughtful", position: "right", flip: true, waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
 				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
@@ -333,7 +344,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
-				{type: "nothing", label: "sayhi-p"},				
+				{type: "nothing", label: "sayhi-p"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work"},
 				{type: "custom", func: function(pageObj) {
@@ -363,7 +374,7 @@ var MPLAY = MPLAY || {};
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
-		}		
+		}
 	};
 
 	Page3.prototype._onStart = function() {

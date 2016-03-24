@@ -64,6 +64,7 @@ var MPLAY = MPLAY || {};
 
 		this._yourphone = "yourphone";
 
+		pageObj._io1.setEnable(false);
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 
@@ -75,6 +76,7 @@ var MPLAY = MPLAY || {};
 			pageObj._io1.setEnable(false);
 			pageObj._talked = 2;
 			pageObj._runFlow();
+
 		}});
 	};
 
@@ -87,7 +89,16 @@ var MPLAY = MPLAY || {};
 
 		var o = null;
 
+			o = [
+				{type:"show_context", text:"After class, the group meets at the library"},
+				{type:"show_context", text:"the deadline for the project is tonight"},
+				{type: "custom", func: function(pageObj){
+					//disable the characters from being clickable while context showing
+					pageObj._io1.setEnable(true);
+				}}
+			];
 		var common = [
+
 			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
@@ -201,7 +212,7 @@ var MPLAY = MPLAY || {};
 							relationship: {name: "priya", score: 1},
 							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
-			{type: "dialog", speaker:"", text: "Priya joins you all shortly and you work late to finish the project."},
+			{type: "show_context", text: "Priya joins you all shortly and you work late to finish the project."},
 			{type: "show", img: cat, expression: "happy", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Finally done.  Where are you headed off to now " + this._player + " ?"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},

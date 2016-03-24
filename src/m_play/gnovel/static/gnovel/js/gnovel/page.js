@@ -439,5 +439,17 @@ var GNOVEL = GNOVEL || {};
 		};
 	};
 
+	Page.prototype.tweenPos = function(obj, params){
+		var duration = params.duration || 1000;
+		var startPosition = new THREE.Vector3(obj.position.x - 400,obj.position.y,obj.position.z);
+		var target = {x: 400, y: 0};
+		var tween = new TWEEN.Tween(startPosition)
+		.to(target,duration)
+		.easing(params.easing || TWEEN.Easing.Linear.None);
+		if (params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+	};
+
 	GNOVEL.Page = Page;
 }());
