@@ -236,7 +236,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype.createTextBox = function(message, parameters) {
 		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
-		var msgAlign = parameters.align || "center";		
+		var msgAlign = parameters.align || "center";
 		switch(msgAlign){
 			case "left":
 				msgAlign = textAlign.left;
@@ -251,7 +251,7 @@ var GNOVEL = GNOVEL || {};
 
 		var sprite = new Text2D(message, {
 			align: msgAlign,
-			font: '20px NoteWorthy Bold',
+			font: parameters.font || '20px NoteWorthy Bold',
 			fillStyle: '#000000',
 			antialias: false,
 			charLine: parameters.charLine,
