@@ -95,8 +95,7 @@ var MPLAY = MPLAY || {};
 		this._cgAssignmentStatus = 0;
 	};
 
-	Page3.prototype._createFlowElements = function() {
-		// var professor = "%professor";
+	Page3.prototype._createFlowElements = function() {		
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;

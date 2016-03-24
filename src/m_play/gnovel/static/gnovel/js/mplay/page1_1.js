@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "We left it with the bartender."},
 				{type: "hide", img: ryan},
-				{type: "show", img: priya, expression: "happy", waitUntilShown: false},
+				{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "What are the chances!"},
 				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
