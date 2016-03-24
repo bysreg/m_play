@@ -254,9 +254,7 @@ var MPLAY = MPLAY || {};
 
 		var oneLineY = -220;
 		var twoLineY = -200;
-		var threeLineY = -180;
-
-		var oneLineSize = {width: 209.875, height: 29.6875};
+		var threeLineY = -180;		
 
 		if(choicesArr.length == 2) {
 			params.x = -180;
@@ -277,7 +275,7 @@ var MPLAY = MPLAY || {};
 			// }else if(choiceText.length>=30 && choiceText.length<60){
 				params.posArr[i].y = twoLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);
+				textBg = this.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(params.x + (params.gapX * i) - 10, params.posArr[i].y - 30, this._uiLayer - 40), 324, 127.2);
 			// }else if(choiceText.length>=60) {
 				// params.posArr[i].y = threeLineY;
 
