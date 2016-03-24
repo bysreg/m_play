@@ -257,9 +257,7 @@ var MPLAY = MPLAY || {};
 
 		var oneLineY = -220;
 		var twoLineY = -200;
-		var threeLineY = -180;
-
-		var oneLineSize = {width: 209.875, height: 29.6875};
+		var threeLineY = -180;		
 
 		if(choicesArr.length == 2) {
 			params.x = -180;
@@ -280,7 +278,7 @@ var MPLAY = MPLAY || {};
 			// }else if(choiceText.length>=30 && choiceText.length<60){
 				params.posArr[i].y = twoLineY;
 
-				textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 15, params.posArr[i].y - 30, this._uiLayer - 40), 320.7, 127.2);
+				textBg = this.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(params.x + (params.gapX * i) - 10, params.posArr[i].y - 30, this._uiLayer - 40), 324, 127.2);
 			// }else if(choiceText.length>=60) {
 				// params.posArr[i].y = threeLineY;
 
@@ -365,12 +363,44 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		params.bgPath = "/static/gnovel/res/textures/ui/textmultiline_wOutline.png";
+		params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
 		params.bgOffsetY = 10;
-		params.bgOffsetX = 20;
+		params.bgOffsetX = 0;
 		y = -200;
 		params.speakerOffsetX = -30;
 		params.speakerOffsetY = 10;
+		params.bgWidth = 325;
+		params.bgHeight = 221;
+		params.showSpeaker = false;
+		params.charLine = 30;
+
+		var chara = null;
+
+		if(speaker === this._ryan) {
+			chara = MPlayPage._ryan;
+		}else if(speaker === this._priya) {
+			chara = MPlayPage._priya;
+		}else if(speaker === this._cat) {
+			chara = MPlayPage._cat;
+		}else if(speaker === this._professor) {
+			chara = MPlayPage._professor;
+		}
+
+		if(chara != null) {
+			if(chara.getCharPosition() === "left") {
+				console.log("left");
+				x = -60;
+				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+			}else if(chara.getCharPosition() === "center") {
+				console.log("center");
+				x = 0;
+				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
+			}else if(chara.getCharPosition() === "right") {
+				console.log("right");
+				x = 60;
+				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
+			}
+		}
 
 		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
 	};
@@ -383,21 +413,36 @@ var MPLAY = MPLAY || {};
 		var flowElement = params.flowElement;
 		var img = obj;
 		var pageObj = this;
+		var isChar = false;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
 		var position = params.flowElement.position;
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character) {
-			img = obj.getImage(flowElement.expression);
+			img = obj.getImage(flowElement.expression);			
+			isChar = true;
 		}
 
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
-			img.position.x = 0;
+			img.position.x = 0;			
 		} else if (position === "right") {
 			img.position.x = 450;
+		}
+
+		if(isChar) {
+			if(position === "center") {
+				img.position.z = this._characterLayer + 10;
+			}else{
+				img.position.z = this._characterLayer;
+			}
+
+			if(position === "center" || position === "right" || position === "left") {
+				console.log("set " + obj.getName() + " " + position);
+				obj.setCharPosition(position);
+			}				
 		}
 
 		if (params.flowElement.flip === true) {
@@ -407,7 +452,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		// check if the object is character
-		if (obj instanceof MPLAY.Character && obj.getVisibleImage() !== null) {
+		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
 				duration: 200
 			};

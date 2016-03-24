@@ -34,6 +34,9 @@ var CanvasText = (function () {
       this.ctx.charLine = ctxOptions.charLine || 72;
       this.fontHeight = getFontHeight(this.ctx.font);
 
+      var textArr = new Array();
+      textArr[0] = text;
+
       // Check if the text is long enough to split into multiple lines.
       if(text.length > this.ctx.charLine)
       {
@@ -41,7 +44,26 @@ var CanvasText = (function () {
         var regex = new RegExp(".{1," + this.ctx.charLine + "}", "g");        
         var hlpArr = text.match(regex);        
         this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
-        this.textHeight = hlpArr.length * this.fontHeight;
+
+        
+        var wordsArr = text.split(" ");
+        var line = 0, curlength = 0;
+        textArr[0] = "";
+        // split text into single words first, and then add them to text lines one by one.
+        for (var i = 0; i < wordsArr.length; i++) {
+          curlength += wordsArr[i].length + 1;
+          if(curlength >= this.ctx.charLine)
+          {
+            curlength = wordsArr[i].length;
+            line++;
+            textArr[line] = "";
+            textArr[line] = textArr[line] + wordsArr[i] + " ";
+          }
+          else
+            textArr[line] = textArr[line] + wordsArr[i] + " ";
+        };
+
+        this.textHeight = (line + 1) * this.fontHeight;
       }
       else
       {
@@ -64,7 +86,7 @@ var CanvasText = (function () {
       this.ctx.textBaseline = 'top';
 
       // textArr is an array of text lines
-      var textArr = new Array();
+      /*var textArr = new Array();
       textArr[0] = text;
       if(text.length > this.ctx.charLine)
       {        
@@ -84,7 +106,7 @@ var CanvasText = (function () {
           else
             textArr[line] = textArr[line] + wordsArr[i] + " ";
         };
-      }
+      }*/
 
       // fill text with different y coordinates for each line.
       var x =0, y = 0;

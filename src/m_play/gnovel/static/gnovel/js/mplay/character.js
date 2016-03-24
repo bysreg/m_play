@@ -17,6 +17,8 @@ var MPLAY = MPLAY || {};
 
 		// make the texture double sided, so that we can flip it
 		this._img.material.side = THREE.DoubleSide;
+
+		this._charPosition = "center";
 	};
 
 	Character.prototype.getImage = function(expression) {
@@ -43,6 +45,16 @@ var MPLAY = MPLAY || {};
 
 		img.material.side = THREE.DoubleSide;
 	};
+
+	// wont affect real position on the screen, this just record the position
+	// that was set from the flow whether it is left, right or center
+	Character.prototype.setCharPosition = function(value) {
+		this._charPosition = value;
+	};
+
+	Character.prototype.getCharPosition = function() {
+		return this._charPosition;
+	}
 
 	Character.prototype.getVisibleImage = function() {
 		if(this._img.material.opacity > 0) return this._img;

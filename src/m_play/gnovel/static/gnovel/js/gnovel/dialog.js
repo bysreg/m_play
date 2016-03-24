@@ -9,6 +9,8 @@ var GNOVEL = GNOVEL || {};
 	 * @constructor
 	 */
 	var Dialog = function(page, message, x, y, params) {
+		var hasParam = GNOVEL.Util.hasParam;
+
 		this._page = page;
 		this._params = params || {};
 		this._x = x;
@@ -17,7 +19,7 @@ var GNOVEL = GNOVEL || {};
 		this._hasTransition = true;
 		this._mouseDownListener = null;
 		this._tweenComplete = false;
-		this._showSpeaker = params.showSpeaker || true;
+		this._showSpeaker = hasParam(params.showSpeaker, true);
 		this._charLine = params.charLine || 72;
 		this._font = params.font || "20px NoteWorthy Bold";
 		this._bgWidth = params.bgWidth || 900;
@@ -99,8 +101,6 @@ var GNOVEL = GNOVEL || {};
 			this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
 			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 		}
-
-
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {
@@ -195,7 +195,9 @@ var GNOVEL = GNOVEL || {};
 			this._nameText = null;
 			this._messageText = null;
 
-			if (!this._isDialogNext()) {
+			// if the next flow is not dialog, or it has different speaker, then we need to close the
+			// dialog
+			if (!this._isDialogNext() || this._isDifferentSpeakerNext()) {
 				if(this._textBg != null) {
 					this._closeDialog();
 				}
@@ -213,11 +215,19 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._isDialogNext = function() {
 		if (this._page._getFlow()._peekNext() == null) {
-			return null;
+			return false;
 		}
 
 		return this._page._getFlow()._peekNext().type == GNOVEL.Flow.DIALOG;
 	};
+
+	Dialog.prototype._isDifferentSpeakerNext = function() {
+		if (this._page._getFlow()._peekNext() == null) {
+			return false;
+		}
+
+		return this._page._getFlow()._peekNext().speaker !== this._params.speaker;
+	}
 
 	Dialog.prototype._closeDialog = function() {
 		var dialog = this;
