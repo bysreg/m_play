@@ -90,7 +90,7 @@
 						var plane = new THREE.PlaneBufferGeometry(test.width, test.height);
 						quad = new THREE.Mesh(plane, material);
 						quad.position = new THREE.Vector3(0, 0, 0);
-						texture.flipY = false;
+						//texture.flipY = false;
 						//quad.material.opacity = 0;
 
 						//scene.add(quad);
@@ -147,9 +147,9 @@
 				var h = attachment.height * bone.worldScaleY;
 				//console.log("test : " + bone.worldScaleX + " " + bone.worldScaleY);
 				context.translate(x, y);
-				//context.rotate(rotation);
+				context.rotate(rotation);
 				context.drawImage(attachment.rendererObject.img, -w / 2, -h / 2, w, h);
-				//context.rotate(-rotation);
+				context.rotate(-rotation);
 				context.translate(-x, -y);
 
 				if(attachment.rendererObject.quad !== null) {
@@ -157,30 +157,31 @@
 					var ro = attachment.rendererObject;
 
 					this.euler.z = -rotation;
-					quad.matrixAutoUpdate = false;
+					//quad.matrixAutoUpdate = false;
 
-					//quad.quaternion.setFromEuler(this.euler);
+					quad.quaternion.setFromEuler(this.euler);
 
-					// quad.position.setX(x - (w / 2));
-					// quad.position.setY(-y + (h / 2));
+					quad.position.setX(x - (w / 2));
+					quad.position.setY(-y + (h / 2));
 
-					var x2 = bone.worldX + attachment.x * bone.m00 + attachment.y * bone.m01;
-					var y2 = bone.worldY + attachment.x * bone.m10 + -attachment.y * bone.m11;
+					//var x2 = bone.worldX + attachment.x * bone.m00 + attachment.y * bone.m01;
+					//var y2 = bone.worldY + attachment.x * bone.m10 + attachment.y * bone.m11;
 
 					// quad.position.setX(x2);
 					// quad.position.setY(y2);
 
-					// quad.position.setZ(i);
+					quad.position.setZ(i);
 
-					this.matrix.makeTranslation (
-						this.skeleton.x + slot.bone.worldX,
-						this.skeleton.y + slot.bone.worldY,
-						0.1 * Z++
-					);
-					this.matrix.elements[0] = slot.bone.m00; this.matrix.elements[4] = slot.bone.m01;
-					this.matrix.elements[1] = slot.bone.m10; this.matrix.elements[5] = slot.bone.m11;
+					// this.matrix.makeTranslation (
+					// 	slot.bone.worldX,
+					// 	slot.bone.worldY,
+					// 	0.1 * Z++
+					// );
 
-					quad.matrix.copy(this.matrix);
+					// this.matrix.elements[0] = slot.bone.m00; this.matrix.elements[4] = slot.bone.m01;
+					// this.matrix.elements[1] = slot.bone.m10; this.matrix.elements[5] = slot.bone.m11;
+
+					// quad.matrix.copy(this.matrix);
 
 					if(!attachment.rendererObject.active) {
 						this.scene.add(quad);

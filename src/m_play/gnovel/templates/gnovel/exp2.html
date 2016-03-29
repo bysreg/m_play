@@ -281,9 +281,7 @@
 </script>
 
 <script>
-	var scene, camera, renderer;
-    var geometry, material;
-
+	var scene;
     var test;
 
     function loadSpineAnimation(animation, scale) {
@@ -293,9 +291,9 @@
     	
     	test = new SpineAnimation (animation, "{% static 'gnovel/res/test/' %}", scale);
 
-        test.addEventListener( SpineAnimation.SKELETON_DATA_LOADED, function () {
-        	var canvas = renderer.domElement;
+    	var canvas = document.getElementById('canvas');
 
+        test.addEventListener( SpineAnimation.SKELETON_DATA_LOADED, function () {        	
         	switch (test.name) {
         		case 'spineboy':
 					test.stateData.setMixByName('walk', 'jump', 0.2);
@@ -356,27 +354,24 @@
 
         scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera( 75, 640 / 480, 1, 3000 );
+        var camera = new THREE.PerspectiveCamera( 75, 640 / 480, 1, 3000 );
         camera.position.z = 300;
-        camera.position.y = 100;
+        camera.position.y = 100;   
 
-        geometry = new THREE.BoxGeometry( 200, 200, 200 );
-        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );        
+        loadSpineAnimation('spineboy', 0.4, canvas );
 
-        loadSpineAnimation('spineboy', 0.4 );
-
-        renderer = new THREE.WebGLRenderer({canvas:canvas});        
+        var renderer = new THREE.WebGLRenderer({canvas:canvas});        
         renderer.setClearColor(0xffffff);        
 
-        animate();
-    }
+        var render = function() {
+        	requestAnimationFrame(render);
 
-    function animate() {
-        requestAnimationFrame( animate );
+        	test.update();
+        	renderer.render(scene, camera);
+        };
+        render();
+    }    
 
-        test.update();
-        renderer.render( scene, camera );
-    }
 </script>
 
 </head>
