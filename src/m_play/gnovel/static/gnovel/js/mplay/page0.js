@@ -80,9 +80,7 @@ var MPLAY = MPLAY || {};
 					{text: "Talk to Ryan First",
 						go: "#talktoryan",
 					relationship: {name: this._ryan, score: 1}}],
-					seconds: 10,
-					responses: [{text: "hey!"}, {text:"did you hear me"}], //FIXME: Delete this
-					speaker: this._ryan},
+					seconds: 10},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
 
 			// phone email exchange begins
