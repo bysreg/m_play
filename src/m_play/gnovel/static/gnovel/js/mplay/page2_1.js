@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page2_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupBarBackground();
+		this.setupGymBackground();
 
 	};
 
@@ -32,7 +32,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"At the bar..."},
+			{type:"show_context", text:"At the gym..."},
 			{type: "show", img: cat, position: "center"},
 			{type: "dialog", speaker: "Cat", text: "Oh, hey. I just finished up my workout. I'm trying to train for a 10K."},
 			{type: "choices", choices : [{text: "That's cool... Yeah, I'll hit some of the cardio machines too.", go: "#catnext"}, {text : "Wow!  10K… seems intense", go : "#catnext"}]},
@@ -64,8 +64,8 @@ var MPLAY = MPLAY || {};
 
 	Page2_1.prototype._onStart = function() {
 
-		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		// this._tweenVolumeIn();
+		this._owner._ambient = this._owner.getSoundManager().play("Gym-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
 	};
 
 	MPLAY.Page2_1 = Page2_1;

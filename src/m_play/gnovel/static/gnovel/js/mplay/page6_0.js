@@ -73,8 +73,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page6_0.prototype._onStart = function() {
-		// this._owner._ambient = this._owner.getSoundManager().play("Gym-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		// this._tweenVolumeIn();
+		this._owner._ambient = this._owner.getSoundManager().play("Gym-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
 	};
 
 	MPLAY.Page6_0 = Page6_0;

@@ -46,6 +46,9 @@ var GNOVEL = GNOVEL || {};
 					{id:"Text", src:"text.ogg"},
 
 					// ambient
+					{id:"Cafe-bg", src:"cafe-ambient.ogg"},
+					{id:"Office-bg", src:"office-ambient.ogg"},
+					{id:"Gym-bg", src:"gym-ambient.ogg"},
 					{id:"Bar-bg", src:"bar-ambient-new.ogg"},
 					{id:"Classroom-bg", src:"classroom-ambient.ogg"},
 					{id:"UC-bg", src:"uc-ambient.ogg"},
