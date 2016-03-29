@@ -239,13 +239,16 @@ var MPLAY = MPLAY || {};
 	/**
 	 * @override
 	 */
-	MPlayPage.prototype._showChoices = function(choicesArr, params, jumpArr) {
+	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params = params || {};
 		var flowElement = params.flowElement;
 		var integrityManager = this._integrityManager;
 		var relationshipManager = this._relationshipManager;
 		var pageObj = this;
-
+		//FIXME
+		//Need to speicify position of dialog box
+		params.dialogX = params.x;
+		params.dialogY = params.y;
 		var choicesTextBg = [];
 
 		params.x = -350;
@@ -257,7 +260,7 @@ var MPLAY = MPLAY || {};
 
 		var oneLineY = -220;
 		var twoLineY = -200;
-		var threeLineY = -180;		
+		var threeLineY = -180;
 
 		if(choicesArr.length == 2) {
 			params.x = -180;
@@ -309,6 +312,24 @@ var MPLAY = MPLAY || {};
 					flowElement.choices[resultId].integrityScore != null) {
 
 					integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
+
+					//display visual notification of integrity choice
+					console.log("They will remember this");
+					var compass = pageObj.createImage("/static/gnovel/res/textures/compass_sm.png", new THREE.Vector3(-500,250,pageObj._uiLayer - 40), 100, 100);
+					var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
+					pageObj._addToScene(compass);
+
+					pageObj.tweenMat(compass,{
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						opacity: 1,
+						opacity2: 0,
+						chain:true,
+						delay: 500,
+						onComplete: function(){
+								pageObj._removeFromScene(compass);
+								},
+							});
 				}
 
 				if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
@@ -317,6 +338,25 @@ var MPLAY = MPLAY || {};
 					var name = flowElement.choices[resultId].relationship.name;
 					var score = flowElement.choices[resultId].relationship.score;
 					relationshipManager.addRelationship(name, score);
+						//display visual notification of relationship choice
+					//pageObj.log("a character will remember this");
+					console.log("a character will remember this");
+
+					var Text2D = THREE_Text.Text2D;
+					var sprite = new Text2D(name, {
+						align: 'left',
+						font: '20px NoteWorthy Bold',
+						fillStyle: '#000000',
+						antialias: false,
+						charLine: 60,
+					});
+					sprite.position = new THREE.Vector3(-500,250,pageObj._uiLayer - 40);
+
+					//display compass in upper left
+					var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(-400, 200, pageObj._uiLayer - 40), 200, 100);
+					//pageObj._addToScene(notifyBg);
+					//pageObj._addToScene(sprite);
+
 				}
 
 				var choiceValue = flowElement.choices[resultId].text;
@@ -336,7 +376,60 @@ var MPLAY = MPLAY || {};
 			};
 		}
 
-		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, params, jumpArr);
+		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, responsesArr, params, jumpArr);
+	};
+
+//function for temporary dialog that should not cause flow to progress
+	MPlayPage.prototype._showTempDialog = function(message, x, y, params) {
+		params = params || {};
+		var flowElement = params.flowElement;
+
+		var speaker = flowElement.speaker;
+		var expression = null;
+
+		var textId = 0;
+
+
+		params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+		params.bgOffsetY = 10;
+		params.bgOffsetX = 0;
+		y = -100;
+		params.speakerOffsetX = -30;
+		params.speakerOffsetY = 10;
+		params.bgWidth = 325;
+		params.bgHeight = 221;
+		params.showSpeaker = false;
+		params.charLine = 30;
+
+		var chara = null;
+
+		if(speaker === this._ryan) {
+			chara = MPlayPage._ryan;
+		}else if(speaker === this._priya) {
+			chara = MPlayPage._priya;
+		}else if(speaker === this._cat) {
+			chara = MPlayPage._cat;
+		}else if(speaker === this._professor) {
+			chara = MPlayPage._professor;
+		}
+
+		if(chara != null) {
+			if(chara.getCharPosition() === "left") {
+				console.log("left");
+				x = -60;
+				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+			}else if(chara.getCharPosition() === "center") {
+				console.log("center");
+				x = 0;
+				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
+			}else if(chara.getCharPosition() === "right") {
+				console.log("right");
+				x = 60;
+				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
+			}
+		}
+		var dialog = GNOVEL.Page.prototype._showTempDialog.call(this, message, x, y, params);
+		return dialog;
 	};
 
 	/**
@@ -366,7 +459,7 @@ var MPLAY = MPLAY || {};
 		params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
 		params.bgOffsetY = 10;
 		params.bgOffsetX = 0;
-		y = -200;
+		y = -100;
 		params.speakerOffsetX = -30;
 		params.speakerOffsetY = 10;
 		params.bgWidth = 325;
@@ -402,8 +495,10 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
+		var dialog = GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
+		return dialog;
 	};
+
 
 	/**
 	 * @override
@@ -420,14 +515,14 @@ var MPLAY = MPLAY || {};
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character) {
-			img = obj.getImage(flowElement.expression);			
+			img = obj.getImage(flowElement.expression);
 			isChar = true;
 		}
 
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
-			img.position.x = 0;			
+			img.position.x = 0;
 		} else if (position === "right") {
 			img.position.x = 450;
 		}
@@ -442,7 +537,7 @@ var MPLAY = MPLAY || {};
 			if(position === "center" || position === "right" || position === "left") {
 				console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
-			}				
+			}
 		}
 
 		if (params.flowElement.flip === true) {
@@ -531,6 +626,13 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.getRelationshipManager = function() {
 		return this._relationshipManager;
+	};
+
+	MPlayPage.prototype.resetRelationships = function() {
+		this._relationshipManager.resetRelationship('cat');
+		this._relationshipManager.resetRelationship('priya');
+		this._relationshipManager.resetRelationship('ryan');
+
 	};
 
 	// this function is callable, so this may not be referring to MPlayPage class
@@ -644,31 +746,41 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._handleShowContext = function(obj, flow) {
 		var pageObj = flow._getPage();
+		var hasParam = GNOVEL.Util.hasParam;
 		var params = {};
-	//	params.type = "context";
+		//params.type = "context";
 		params.flowElement = obj;
 		params.showSpeaker = false;
 		params.charLine = 27;
 		params.messageAlign = "left";
+		//params.dontRemove = true;
+	//	params.createNewBg = true;
 		//params.speaker = "Context";
 		params.width = 100;
 		params.font = "25px SF_Toontime Bold Italic";
 
 
 		message = obj.text;
-		var x = -520
+		var x = -530;
 		var y = 230;
+
+		var toX;
+		var toY;
 
 		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
 		params.bgWidth = 520;
 		params.bgHeight = 90;
 		params.bgOffsetY = 40;
 		params.bgOffsetX = 100;
+		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
 
 
+		//var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
+
 	};
+
 
 	MPLAY.MPlayPage = MPlayPage;
 }());

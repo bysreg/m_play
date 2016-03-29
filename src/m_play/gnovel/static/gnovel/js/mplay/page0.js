@@ -67,7 +67,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
-			{type: "show_context", text:"You arrive at the bar", waitUntilShown:false},
+			{type: "show_context", label:"context1",text:"You arrive at the bar"},
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -79,7 +79,10 @@ var MPLAY = MPLAY || {};
 						go: "#lookatphone"},
 					{text: "Talk to Ryan First",
 						go: "#talktoryan",
-					relationship: {name: this._ryan, score: 1}}]},
+					relationship: {name: this._ryan, score: 1}}],
+					seconds: 10,
+					responses: [{text: "hey!"}, {text:"did you hear me"}], //FIXME: Delete this
+					speaker: this._ryan},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
 
 			// phone email exchange begins

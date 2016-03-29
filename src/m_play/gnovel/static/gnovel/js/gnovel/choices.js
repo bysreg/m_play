@@ -13,7 +13,7 @@ var GNOVEL = GNOVEL || {};
 	 * @class  Choices
 	 * @constructor
 	 */
-	var Choices = function(page, choices, result, params) {
+	var Choices = function(page, choices, timedResponses, result, params) {
 		this._choices = choices;
 		this._page = page;
 		this._result = result;
@@ -22,14 +22,15 @@ var GNOVEL = GNOVEL || {};
 		this._mouseMoveListener = null;
 		this._mouse = new THREE.Vector2();
 		this._hoveredChoice = null;
-
-		this._choicesBox = [];		
+		this._timedResponses = timedResponses;
+		this._choicesBox = [];
+		this._responseBox =[];
 		this._choosed = false;
 
 		this._init();
-		
+
 		if (this._params.hasOwnProperty('seconds') && this._params.seconds > 0) {
-			this._countdown();
+			this._timerCountdown(this._params.flowElement.speaker);
 		}
 
 		var choices = this;
@@ -45,10 +46,14 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Choices.prototype._init = function() {
-		// add timer progress bar and choicesboxes
 		var timer_material = new THREE.MeshBasicMaterial({
 			color: 0xff5d87,
-			opacity: 1.0,
+			opacity: 0,
+			transparent: true
+		});
+		var timer2_material = new THREE.MeshBasicMaterial({
+			color: 0xff5d87,
+			opacity: 0,
 			transparent: true
 		});
 
@@ -60,10 +65,17 @@ var GNOVEL = GNOVEL || {};
 			timer.position.y = -280;
 			timer.position.z = 260;
 			this._page._addToScene(timer);
+
+			var timer2 = new THREE.Mesh(timer_plane, timer2_material);
+			this.timer2 = timer2;
+			timer2.position.x = 0;
+			timer2.position.y = 0;
+			timer2.position.z = 260;
+			this._page._addToScene(timer2);
 		}
 
-		var textbox = null;	
-		var hasParam = GNOVEL.Util.hasParam;			
+		var textbox = null;
+		var hasParam = GNOVEL.Util.hasParam;
 		var startx = hasParam(this._params, 'x', 0);
 		var starty = hasParam(this._params, 'y', -190);
 		var startz = hasParam(this._params, 'z', this._page.getChoicesLayer() + 10);
@@ -73,13 +85,13 @@ var GNOVEL = GNOVEL || {};
 		var charLine = this._params.charLine;
 
 		for (var i = 0; i < this._choices.length; i++) {
-			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine});			
+			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine});
 
 			var x = startx;
-			var y = starty;			
+			var y = starty;
 			if(this._params.posArr!==null) {
 				x = this._params.posArr[i].x;
-				y = this._params.posArr[i].y;				
+				y = this._params.posArr[i].y;
 			}
 
 			if (textbox.canvas.textHeight > 23) {
@@ -91,13 +103,13 @@ var GNOVEL = GNOVEL || {};
 			}else {
 				textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
 			}
-			
+
 			textbox.name = "choices";
 
 			// hack : because we are using Text2D, we are going to identify the raycast based on this name
 			textbox.children[0].name = "choice_" + i;
 
-			textbox.material.opacity = 0;			
+			textbox.material.opacity = 0;
 			this._page.tweenMat(textbox, {
 				duration: 800,
 				opacity: 1,
@@ -112,7 +124,7 @@ var GNOVEL = GNOVEL || {};
 		if (this._params.type == "location") {
 			//show UI images to click on
 			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png", new THREE.Vector3(100, -100, 200), 100, 100);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);			
+			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);
 			this._page._addToScene(loc1);
 			this._page._addToScene(loc2);
 		}
@@ -120,19 +132,28 @@ var GNOVEL = GNOVEL || {};
 
 	/**
 	 * This function will only be called by this class when params.seconds > 0
+	 *
+	 *Each short timer will run after the other.  At the end of a timer,
+	 *the character will say a new dialogue until time is over from the main timer.
 	 */
-	Choices.prototype._countdown = function() {
+	Choices.prototype._timerCountdown = function(speaker) {
 
 		var pageObj = this._page;
 		var choices = this;
+		//position of dialog based upon speaker
+		var dialogX = this._params.dialogX;
+		var dialogY = this._params.dialogY;
 		var duration = this._params.seconds * 1000 || 1000;
+		var timer = this.timer;
+		var timer2 = this.timer2;
+		var count = 0;
 
-		var tween = new TWEEN.Tween(this.timer.scale)
+		var mainTimer = new TWEEN.Tween(timer.scale)
 			.to({
 				x: 0,
 				y: 1,
 				z: 1,
-			}, duration)
+			}, 10000)
 			.easing(TWEEN.Easing.Linear.None).onComplete(function() {
 			if (choices._choosed) {
 				// do nothing
@@ -140,12 +161,65 @@ var GNOVEL = GNOVEL || {};
 				// auto select the first option
 				choices._result.choiceId = 0;
 				choices._onChoiceComplete(choices._result.choiceId);
+				shortTimer.stop();
+			}
+		})
+		.onUpdate(function() {
+			//if timer is halfway done, show the short timer
+			if(timer.scale.x < .5){
+					timer.material.opacity = 1;
+				}
+		});
+
+		/**
+		*Non-visual timer where characters say something
+		*/
+		var shortTimer = new TWEEN.Tween(timer2.scale)
+			.to({
+				x: 0,
+				y: 1,
+				z: 1,
+			}, 3000)
+			.easing(TWEEN.Easing.Linear.None)
+			.onUpdate(function() {
+				//timer2.material.opacity = 0;
+				//if timer is halfway done, show the short timer
+				if(timer2.scale.x < .3){
+					if(count>0){
+						choices._responseBox[count-1]._messageText.material.opacity = 0;
+						choices._responseBox[count-1]._textBg.material.opacity = 0;
+					}
+				}
+			})
+			.onComplete(function() {
+			if (choices._choosed) {
+				// do nothing
+			} else {
+				//move to next text in responses array
+				if(count <= choices._timedResponses.length-1){
+					//
+					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
+					//after the first response displays, then make invisible & move to next response
+					if (count > 0){
+						//choices._responseBox[count-1]._messageText.material.opacity = 0;
+						//choices._responseBox[count-1]._textBg.material.opacity = 0;
+						pageObj._removeFromScene(choices._responseBox[count-1]);
+					}
+					count++;
+					//pageObj._addToScene(timer2);
+					timer2.scale.x = 1;
+					//timer2.material.opacity = 0;
+					//do timer again
+					shortTimer.start();
+				}
 			}
 		});
-		tween.onStart(function() {
+
+		mainTimer.onStart(function() {
 			pageObj._timerInstance = pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
 		});
-		tween.start();
+		mainTimer.start();
+		shortTimer.start();
 	};
 
 	Choices.prototype._onChoiceComplete = function() {
@@ -157,11 +231,19 @@ var GNOVEL = GNOVEL || {};
 		// clean up all objects from scene
 		if (this._params.seconds != null && this._params.seconds > 0) {
 			this._page._removeFromScene(this.timer);
+			this._page._removeFromScene(this.timer2);
 			this._page._timerInstance.stop();
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {
 			this._page._removeFromScene(this._choicesBox[i]);
+		}
+
+		for (var i = 0; i < this._timedResponses.length; i++) {
+			if(this._responseBox[i]!=null){
+				this._page._removeFromScene(this._responseBox[i]);
+				this._responseBox[i]._onComplete();
+			}
 		}
 
 		if (this._params.onChoiceComplete != null) {
@@ -187,6 +269,7 @@ var GNOVEL = GNOVEL || {};
 
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
+			this._page._removeFromScene(this.timer2);
 			for (var i = 0; i < this._choices.length; i++) {
 
 				if (this._choicesBox[i].children[0].name == intersects[0].object.name) {

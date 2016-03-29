@@ -92,10 +92,13 @@ var MPLAY = MPLAY || {};
 				});
 			}});
 
+			//deactivate interactable objects at first
+		pageObj._io1.setEnable(false);
+		pageObj._io2.setEnable(false);
 		this._cgAssignmentStatus = 0;
 	};
 
-	Page3.prototype._createFlowElements = function() {		
+	Page3.prototype._createFlowElements = function() {
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
@@ -203,7 +206,9 @@ var MPLAY = MPLAY || {};
 						go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
 					{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
 						go: "#notes", integrityScore: 1}],
-				seconds: 10},
+				seconds: 10,
+				responses: [{text: "hey!"}, {text:"did you hear me"}],
+				speaker: this.ryan},
 
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false, label:"materials"},
 			{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine."},

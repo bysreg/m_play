@@ -175,10 +175,10 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleDialog = function(obj) {
 		var x = obj.x || 0; // optional
-		var y = obj.y || -250; // optional
+		var y = obj.y || 0; // optional
 		var params = {};
 		params.speaker = obj.speaker;
-		params.charLine = obj.charLine;		
+		params.charLine = obj.charLine;
 
 		// pass the original flow element to params
 		params.flowElement = obj;
@@ -188,12 +188,22 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleChoices = function(obj) {
 		var params = {};
+		params.x = obj.x || 0; // optional
+		params.y = obj.y || -250; // optional
 		var page = this._page;
 
 		// collect choices' text to its own array
 		var choicesTextArr = [];
 		for(var i = 0; i < obj.choices.length; i++) {
 			choicesTextArr.push(obj.choices[i].text);
+		}
+
+		//array timed responses
+		var timerResponseArr = [];
+		if(obj.responses!=null){
+			for(var i = 0; i < obj.responses.length; i++) {
+				timerResponseArr.push(obj.responses[i].text);
+			}
 		}
 
 		// collect choices' jump to its own array
@@ -205,7 +215,11 @@ var GNOVEL = GNOVEL || {};
 		// pass the original flow element to params
 		params.flowElement = obj;
 
-		// check wether the choices is time-based
+		//get speaker
+		params.speaker = obj.speaker;
+		params.charLine = obj.charLine;
+
+		// check whether the choices is time-based
 		params.seconds = obj.seconds || 0;
 
 		params.onChoiceComplete = function(resultId) {
@@ -214,7 +228,8 @@ var GNOVEL = GNOVEL || {};
 			}
 		};
 
-		this._page._showChoices(choicesTextArr, params, jumpArr);
+		this._page._showChoices(choicesTextArr, timerResponseArr, params, jumpArr);
+		//show time response dialog from speaker
 	};
 
 	Flow.prototype._handleShow = function(obj) {
@@ -301,7 +316,7 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleNothing = function(obj) {
 		this._next();
-		this._exec();	
+		this._exec();
 	};
 
 	Flow.prototype._setObjectTag = function(tag, obj) {
@@ -318,7 +333,7 @@ var GNOVEL = GNOVEL || {};
 		if(typeof data !== 'undefined') {
 			// and if there is label to identify where the data will be stored
 			if(typeof label !== 'undefined') {
-				// we will store the data into that label					
+				// we will store the data into that label
 				this._storeFlowData(data);
 			}
 		}

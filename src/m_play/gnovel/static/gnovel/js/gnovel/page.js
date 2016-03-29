@@ -143,6 +143,7 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._onMouseMove = function(event) {};
 
+//tween to move object from one point to another
 	Page.prototype.move = function(obj, params) {
 		var duration = params.duration || 1000;
 
@@ -163,15 +164,29 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		var duration = params.duration || 1000;
 
-		var tween = new TWEEN.Tween(obj.material)
+		var tweenMatIn = new TWEEN.Tween(obj.material)
 			.to({
 				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if (params.onComplete != null) {
-			tween.onComplete(params.onComplete);
+		if (params.onComplete != null && params.chain==null) {
+			tweenMatIn.onComplete(params.onComplete);
 		}
-		tween.start();
+
+		var tweenMatOut = new TWEEN.Tween(obj.material)
+			.to({
+				opacity: (params.opacity2 !== null ? params.opacity2 : obj.material.opacity),
+			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None)
+			.delay(params.delay || 0);
+			if (params.onComplete != null && params.chain!=null) {
+				tweenMatOut.onComplete(params.onComplete);
+			}
+		if(params.chain == true)
+		{
+			tweenMatIn.chain(tweenMatOut);
+		}
+		tweenMatIn.start();
 	};
 
 	Page.prototype.tweenFlash = function(obj, params) {
@@ -185,7 +200,7 @@ var GNOVEL = GNOVEL || {};
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if (params.onComplete != null) {
-			tween.onComplete(params.onComplete);
+			tweenFlashForward.onComplete(params.onComplete);
 		}
 
 		var tweenFlashBack = new TWEEN.Tween(obj.material)
@@ -198,6 +213,22 @@ var GNOVEL = GNOVEL || {};
 		tweenFlashBack.chain(tweenFlashForward);
 
 		tweenFlashForward.start();
+	};
+
+	Page.prototype.tweenPos = function(obj, params){
+
+		var pageObj = this;
+
+		var duration = params.duration || 1000;
+		var target = {x: params.toX, y: params.toY};
+		var tween = new TWEEN.Tween(obj.position)
+		.to(target,duration)
+		.easing(TWEEN.Easing.Linear.None);
+
+		if (params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+		tween.start();
 	};
 
 	Page.prototype.onPause = function(evt) {};
@@ -283,6 +314,17 @@ var GNOVEL = GNOVEL || {};
 		this._flow._exec();
 	};
 
+	Page.prototype._showTempDialog = function(message, x, y, params) {
+		params = params || {};
+		var pageObj = this;
+
+		params.onComplete = function() {
+			// go to next dialog
+		};
+		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
+		return dialog;
+	};
+
 	Page.prototype._showDialog = function(message, x, y, params) {
 		params = params || {};
 		var pageObj = this;
@@ -358,7 +400,7 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	Page.prototype._showChoices = function(choicesArr, params, jumpArr) {
+	Page.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params = params || {};
 		var pageObj = this;
 
@@ -388,7 +430,7 @@ var GNOVEL = GNOVEL || {};
 			};
 		}
 
-		var choices = new GNOVEL.Choices(this, choicesArr, this._result, params);
+		var choices = new GNOVEL.Choices(this, choicesArr, responsesArr, this._result, params);
 	};
 
 
@@ -439,17 +481,6 @@ var GNOVEL = GNOVEL || {};
 		};
 	};
 
-	Page.prototype.tweenPos = function(obj, params){
-		var duration = params.duration || 1000;
-		var startPosition = new THREE.Vector3(obj.position.x - 400,obj.position.y,obj.position.z);
-		var target = {x: 400, y: 0};
-		var tween = new TWEEN.Tween(startPosition)
-		.to(target,duration)
-		.easing(params.easing || TWEEN.Easing.Linear.None);
-		if (params.onComplete != null) {
-			tween.onComplete(params.onComplete);
-		}
-	};
 
 	GNOVEL.Page = Page;
 }());
