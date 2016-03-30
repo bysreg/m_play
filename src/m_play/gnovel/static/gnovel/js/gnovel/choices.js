@@ -292,9 +292,12 @@ var GNOVEL = GNOVEL || {};
 
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		if (intersects.length > 0 && !this._choosed) {
+		var intersects2 = this._page._owner._raycaster.intersectObjects(this._page._choicesTextBg, true);
+		//check for mousedown on choice box background image
+		//if the image is clicked, then choose this choiceBox
+		if (intersects2.length > 0 && !this._choosed) {
 			var clickedObj = intersects[0].object;
-			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
+			//clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
@@ -322,14 +325,15 @@ var GNOVEL = GNOVEL || {};
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		//var intersects2 = this._page._owner._raycaster.intersectObjects(this._page.choicesTextBg, true);
-		if (intersects.length > 0) {
-			if(this._hoveredChoice != intersects[0].object){
-				this._hoveredChoice = intersects[0].object;
+		var intersects2 = this._page._owner._raycaster.intersectObjects(this._page._choicesTextBg, true);
+
+		if (intersects2.length > 0) {
+			if(this._hoveredChoice != intersects2[0].object){
+				this._hoveredChoice = intersects2[0].object;
 				//do hover effect on intersected object
 				this._hoveredChoice.currentHex = this._hoveredChoice.material.color.getHex();
-				this._hoveredChoice.material.color.setHex(0xff0000);
-				this._tweenHover = this._page.tweenPulse(this._hoveredChoice,{x:1.2, y:1.2, z:1, duration: 400, repeat:true });
+				//this._hoveredChoice.material.color.setHex(0xff0000);
+				this._tweenHover = this._page.tweenPulse(this._hoveredChoice,{x:1.05, y:1.05, z:1, duration: 400, repeat:false });
 			}
 
 			//on hover change mouse cursor to pointer
@@ -339,7 +343,7 @@ var GNOVEL = GNOVEL || {};
 			//reset hover effect, and set back to normal
 			if(this._hoveredChoice)
 			{
-				this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
+					//this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
 					this._page._owner.getContainer().style.cursor = 'auto';
 					this._tweenHover.stop();
 					//TWEEN.Tween.removeTweens(this._hoveredChoice);

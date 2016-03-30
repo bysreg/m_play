@@ -40,6 +40,8 @@ var MPLAY = MPLAY || {};
 		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
+		this._choicesTextBg = [];
+
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
 			this._initChars();
@@ -253,7 +255,7 @@ var MPLAY = MPLAY || {};
 		//Need to speicify position of dialog box
 		params.dialogX = params.x;
 		params.dialogY = params.y;
-		var choicesTextBg = [];
+		//var choicesTextBg = [];
 
 		params.x = -350;
 		params.y = -100;
@@ -301,20 +303,20 @@ var MPLAY = MPLAY || {};
 			});
 
 			this._addToScene(textBg);
-			choicesTextBg.push(textBg);
+			this._choicesTextBg.push(textBg);
 		}
 
 		var onChoiceComplete = function(resultId, delayDuration) {
 
 			pageObj._resultId = resultId;
 
-			for(var i=0;i<choicesTextBg.length;i++) {
+			for(var i=0;i<pageObj._choicesTextBg.length;i++) {
 				if(i != pageObj._resultId)
-				pageObj._removeFromScene(choicesTextBg[i]);
+				pageObj._removeFromScene(pageObj._choicesTextBg[i]);
 			}
 
 			//move players choice text box to center
-			pageObj.move(choicesTextBg[pageObj._resultId], {
+			pageObj.move(pageObj._choicesTextBg[pageObj._resultId], {
 				x:0, duration:400,
 				onComplete: function(){ //move player choice to center of screen
 					var time=1;
@@ -323,7 +325,7 @@ var MPLAY = MPLAY || {};
 						.to(0,delayDuration)
 						.easing(TWEEN.Easing.Linear.None)
 						.onComplete(function(){
-							pageObj._removeFromScene(choicesTextBg[pageObj._resultId]);
+							pageObj._removeFromScene(pageObj._choicesTextBg[pageObj._resultId]);
 							pageObj._setWaitForTransition(false);
 						})
 						delayTween.start();
