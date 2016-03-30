@@ -30,10 +30,10 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", text:"The next day, you attend the first day of class", waitUntilShown: true},
+			{type: "show_context", text:"A few days later, in Programming & Society class…", waitUntilShown: true},
 			{type: "show", img: professor, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Prof. Sweeney", text: "My aim in Programming and Society is to help you become a better programmer. Technology impacts how society operates. I will challenge you to look deeper into the programs, apps, and technologies that you use."},
-			{type: "dialog", speaker: "Prof. Sweeney", text: "In the The second half of each lesson will break into your assigned study groups. Please use this time wisely, you’ll have a group project later in the semester."},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "My aim in Programming and Society is to help you become a better programmer. "},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "In the The second half of each lesson, you will break into your assigned study groups. Please use this time wisely, you’ll have a group project later in the semester."},
 			{type: "goto", page: "scene 2.b"},
 		];
 

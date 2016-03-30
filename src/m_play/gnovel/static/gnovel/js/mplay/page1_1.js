@@ -52,20 +52,20 @@ var MPLAY = MPLAY || {};
 			o = [
 				//FIXME transition of this flow doesn't work
 				//FIXME Adjust positions for characters too!
-				{type: "show_context", text: "You meet with the study group at the UC", waitUntilShown: true},
+				{type: "show_context", text: "Right after class, you meet up with your study group in the CUC.", waitUntilShown: true},
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", position: "left", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  She’s here from India,and an excellent study buddy."},
+				{type: "dialog", speaker: "Ryan", position: "left", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  I told you about her earlier."},
 				// transition of this flow doesn't work
 				{type: "hide", img: ryan, waitUntilHidden: false},
 				// transition of this flow doesn't work
-				{type: "show", img: priya, expression: "thoughtful", position: "left", waitUntilShown: false},
+				{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Ryan here helped me so much last semester.  Always goes out of his way.  Nice to meet you."},
 				// transition of this flow doesn't work
 				{type: "hide", img: priya, waitUntilHidden: false},
 				// transition of this flow doesn't work
 				//FIXME add expression:"sad",
-				{type: "show", img: cat, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat.  Uhh… I’m in the business school.  Nice to meet you guys… sorry I’m a little all over the place.  I lost my phone yesterday –"},
+				{type: "show", img: cat, expression: "sad", position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little all over the place. I lost my wallet yesterday –"},
 				{type: "compare", leftop: isPhonePickedUp, operator: "equal", rightop: 1, goTrue: "#phone_picked", goFalse: "#phone_picked"},
 
 				// if you picked up the phone
