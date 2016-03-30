@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 
 		this._io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/cat-lib.png",
-			{x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
+			{type: "character", x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 

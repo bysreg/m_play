@@ -199,9 +199,12 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
-
-		var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
-		this._addToScene(tripledot)
+		var type = params.type;
+		if(type == "character"){
+			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
+			this._addToScene(tripledot)
+			pageObj.tweenPulse(tripledot, {x:1.2, y:1.2, z:1, duration: 650});
+		}
 
 		var onClick = function(io) {
 			if(typeof obj === 'object') {

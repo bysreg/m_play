@@ -231,6 +231,41 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
+	Page.prototype.tweenPulse = function (obj, params) {
+		var pageObj = this;
+		var prevSize = {x: 1, y: 1, z: 1};
+		var targetSize = {x: params.x, y: params.y, z: params.z}
+		var duration = params.duration || 800;
+
+		var tweenForward = new TWEEN.Tween(obj.scale)
+		.to({
+		x: (params.x !== null ? targetSize.x : obj.scale.x),
+		y: (params.y !== null ? targetSize.y : obj.scale.y),
+		z: (params.z !== null ? targetSize.z : obj.scale.z),
+		},duration)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		/*.onComplete(function() {
+			targetSize = prevSize;
+			prevSize = obj.scale;
+			tween.start();
+		});*/
+
+		var tweenBack = new TWEEN.Tween(obj.scale)
+			.to({
+			x: (prevSize.x),
+			y: (prevSize.y),
+			z: (prevSize.z),
+			},duration)
+			.easing(TWEEN.Easing.Quadratic.In)
+
+		tweenForward.chain(tweenBack);
+		tweenBack.chain(tweenForward);
+
+		tweenForward.start();
+
+		//tween.start();
+	};
+
 	Page.prototype.onPause = function(evt) {};
 	Page.prototype.onResume = function(evt) {};
 	Page.prototype.onEnter = function(evt) {};
