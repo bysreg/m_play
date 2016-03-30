@@ -56,7 +56,7 @@ var MPLAY = MPLAY || {};
 
 		this._io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/ryan-clickable-lib.png",
-			{x: -215, y: -185, z: z, width : 250, height : 431, onClick: function(io) {
+			{type: "character", x: -215, y: -185, z: z, width : 250, height : 431, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -75,7 +75,7 @@ var MPLAY = MPLAY || {};
 
 		this._io2 = this.createInteractableObject(
 			"/static/gnovel/res/textures/priya-clickable-lib.png",
-			{x: 400, y: -220, z: z, width : 280, height : 414, onClick: function(io) {
+			{type: "character", x: 400, y: -220, z: z, width : 280, height : 414, onClick: function(io) {
 				pageObj._talked = 2;
 				pageObj._runFlow();
 
