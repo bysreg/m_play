@@ -203,7 +203,7 @@ var MPLAY = MPLAY || {};
 		if(type == "character"){
 			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
 			this._addToScene(tripledot)
-			pageObj.tweenPulse(tripledot, {x:1.2, y:1.2, z:1, duration: 650});
+			pageObj.tweenPulse(tripledot, {x:1.2, y:1.2, z:1, duration: 650, repeat:true});
 		}
 
 		var onClick = function(io) {
@@ -248,6 +248,7 @@ var MPLAY = MPLAY || {};
 		var integrityManager = this._integrityManager;
 		var relationshipManager = this._relationshipManager;
 		var pageObj = this;
+		params._waitForTransition = true;
 		//FIXME
 		//Need to speicify position of dialog box
 		params.dialogX = params.x;
@@ -303,11 +304,31 @@ var MPLAY = MPLAY || {};
 			choicesTextBg.push(textBg);
 		}
 
-		var onChoiceComplete = function(resultId) {
+		var onChoiceComplete = function(resultId, delayDuration) {
+
+			pageObj._resultId = resultId;
 
 			for(var i=0;i<choicesTextBg.length;i++) {
+				if(i != pageObj._resultId)
 				pageObj._removeFromScene(choicesTextBg[i]);
 			}
+
+			//move players choice text box to center
+			pageObj.move(choicesTextBg[pageObj._resultId], {
+				x:0, duration:400,
+				onComplete: function(){ //move player choice to center of screen
+					var time=1;
+					pageObj._setWaitForTransition(false);
+					var delayTween = new TWEEN.Tween(time) //delay before removing choice from screen
+						.to(0,delayDuration)
+						.easing(TWEEN.Easing.Linear.None)
+						.onComplete(function(){
+							pageObj._removeFromScene(choicesTextBg[pageObj._resultId]);
+							pageObj._setWaitForTransition(false);
+						})
+						delayTween.start();
+					}
+				});
 
 			// if flowElement is not defined and not null (not falsy)
 			if (flowElement != null) {
@@ -368,16 +389,16 @@ var MPLAY = MPLAY || {};
 			}
 		};
 
-		// if there is arelady params.onChoiceComlete defined
-		if (!params.onChoiceComplete) {
-			params.onChoiceComplete = onChoiceComplete;
-		} else {
-			var oriChoiceComplete = params.onChoiceComplete;
-			params.onChoiceComplete = function(resultId) {
-				oriChoiceComplete(resultId);
-				onChoiceComplete(resultId);
-			};
-		}
+			// if there is arelady params.onChoiceComlete defined
+			if (!params.onChoiceComplete) {
+				params.onChoiceComplete = onChoiceComplete;
+			} else {
+				var oriChoiceComplete = params.onChoiceComplete;
+				params.onChoiceComplete = function(resultId) {
+					oriChoiceComplete(resultId);
+					onChoiceComplete(resultId);
+				};
+			}
 
 		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, responsesArr, params, jumpArr);
 	};
