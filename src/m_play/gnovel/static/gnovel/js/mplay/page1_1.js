@@ -120,6 +120,7 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
+		//page.resetRelationships();
 	};
 
 	Page1_1.prototype._onStart = function() {

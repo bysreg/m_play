@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 
 		this._io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/cat-lib.png",
-			{x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
+			{type: "character", x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -72,12 +72,8 @@ var MPLAY = MPLAY || {};
 
 	Page5_1.prototype._onStart = function() {
 		var pageObj = this;
-		this._showPhoneNotification({onClick: function() {
-			pageObj._io1.setEnable(false);
-			pageObj._talked = 2;
-			pageObj._runFlow();
-
-		}});
+		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._tweenVolumeIn();
 	};
 
 	Page5_1.prototype._createFlowElements = function() {
@@ -95,6 +91,12 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(pageObj){
 					//disable the characters from being clickable while context showing
 					pageObj._io1.setEnable(true);
+					pageObj._showPhoneNotification({onClick: function() {
+						pageObj._io1.setEnable(false);
+						pageObj._talked = 2;
+						pageObj._runFlow();
+
+					}});
 				}}
 			];
 		var common = [
@@ -123,7 +125,9 @@ var MPLAY = MPLAY || {};
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							go: "#submit" }],
-					seconds: 10},
+					seconds: 10,
+					responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
+					speaker: this._ryan},
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false, label: "ask"},
 			{type: "custom", func: function(page) {
@@ -303,11 +307,6 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
-	};
-
-	Page5_1.prototype._onStart = function() {
-		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		this._tweenVolumeIn();
 	};
 
 	MPLAY.Page5_1 = Page5_1;

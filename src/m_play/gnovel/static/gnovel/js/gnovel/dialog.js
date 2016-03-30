@@ -118,9 +118,11 @@ var GNOVEL = GNOVEL || {};
 
 			//slide in animation for context box
 			if(this._type == "context") {
-				this._page.tweenPos(Dialog._textBg,{
-					duration:4000,
-				});
+			/*	this._page.tweenPos(Dialog._textBg,{
+					duration:1000,
+					toX: -520,
+					toY: 230,
+				});*/
 
 				this._textBg = Dialog._textBg;
 			}
@@ -136,6 +138,16 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
+		//slide in animation for context box
+		if(this._type == "context") {
+			this._page.tweenPos(this._messageText,{
+				duration:1000,
+				toX: -520,
+			//toY: 230,
+			});
+		}
+		else {
+
 		// fade in text and speaker
 		this._messageText.material.opacity = 0;
 		this._page.tweenMat(this._messageText, {
@@ -150,11 +162,15 @@ var GNOVEL = GNOVEL || {};
 			easing: TWEEN.Easing.Cubic.Out
 		});
 
+	}
+
 		this._page._addToScene(this._messageText);
 
 		if (this._showSpeaker)
 			this._page._addToScene(this._nameText);
 	};
+
+
 
 	Dialog.prototype._onComplete = function() {
 		Dialog._prevSpeaker = this._params.speaker;
@@ -273,6 +289,10 @@ var GNOVEL = GNOVEL || {};
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
 		this._textBg = null;
+	};
+
+	Dialog.prototype.getImage = function() {
+			return this._textBg;
 	};
 
 	GNOVEL.Dialog = Dialog;
