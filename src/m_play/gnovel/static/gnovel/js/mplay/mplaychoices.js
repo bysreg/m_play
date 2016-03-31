@@ -28,6 +28,8 @@ var MPLAY = MPLAY || {};
 		var choicesTextBg = [];
 		this._choicesTextBg = choicesTextBg;
 
+		this._hoveredChoice = null;
+
 		var uiLayer = page._uiLayer;
 
 		params.x = -350;
@@ -69,6 +71,7 @@ var MPLAY = MPLAY || {};
 			// }
 
 			textBg.material.opacity = 0;
+			textBg.name = "choice_bg_" + i;
 
 			page.tweenMat(textBg, {
 				duration: 800,
@@ -92,17 +95,18 @@ var MPLAY = MPLAY || {};
 	MPlayChoices.prototype._onChoiceComplete = function() {
 		this._cleanUp();
 
-		var pageObj = this._page;
-		var choices = this;
+		var pageObj = this._page;		
 		var delayDuration = 1000;
 		var flowElement = this._params.flowElement;
 		var choices = this._choices;
-		var choicesBox = this._choicesBox;
-		var resultId = this._result.choiceId;
+		var choicesBox = this._choicesBox;		
 		var choicesTextBg = this._choicesTextBg;
 		var jumpArr = this._params.jumpArr;
+		var self = this;
 
 		var moveSelectedChoiceToCenter = function() {
+
+			var resultId = self._result.choiceId;
 
 			//remove player's choice after it has shown on screen for specified time
 			pageObj.move(choicesBox[resultId], {
@@ -115,11 +119,11 @@ var MPLAY = MPLAY || {};
 						.easing(TWEEN.Easing.Linear.None)
 						.onComplete(function() {
 							//pageObj._removeFromScene(choicesBox[resultId]);
-							
+
 							pageObj.tweenMat(choicesBox[resultId], {
-								duration: 800, 
-								opacity: 0, 
-								easing: TWEEN.Easing.Cubic.Out, 
+								duration: 800,
+								opacity: 0,
+								easing: TWEEN.Easing.Cubic.Out,
 								onComplete: function() {
 									pageObj._removeFromScene(choicesBox[resultId]);
 								}
@@ -149,6 +153,11 @@ var MPLAY = MPLAY || {};
 									//console.log("remove");
 									pageObj._removeFromScene(choicesTextBg[resultId]);
 
+									//call onChoiceComplete from the parameter given to the class
+									if (self._params.onChoiceComplete != null) {
+										self._params.onChoiceComplete(self._result.choiceId);
+									}
+
 									// we should execute the next flow
 									var jumpIndex = jumpArr[resultId];
 									if (typeof jumpIndex === 'undefined') {
@@ -160,7 +169,7 @@ var MPLAY = MPLAY || {};
 									pageObj._flow._exec();
 									///////////////
 								}
-							});							
+							});
 
 						})
 					delayTween.start();
@@ -176,7 +185,7 @@ var MPLAY = MPLAY || {};
 				var choiceTextBg = choicesTextBg[i];
 
 				pageObj.tweenMat(choiceTextBg, {
-					duration: 800,
+					duration: 400,
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
 					onComplete: function() {
@@ -191,7 +200,7 @@ var MPLAY = MPLAY || {};
 				});
 
 				pageObj.tweenMat(choicesBox[i], {
-					duration: 800,
+					duration: 400,
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
 					onComplete: function() {
@@ -199,12 +208,90 @@ var MPLAY = MPLAY || {};
 					}
 				});
 			}
-		}
+		}		
+	};
 
-		//call onChoiceComplete from parent class
-		if (this._params.onChoiceComplete != null) {
-			this._params.onChoiceComplete(this._result.choiceId);
+	/**	 
+	 * @override	 
+	 */
+	MPlayChoices.prototype._onMouseDown = function(event) {
+		event.preventDefault();
+
+		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
+		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+
+		//update picking ray with camera and mouse pos
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+		//create array of objects intersected with
+		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesTextBg, true);
+		if (intersects.length > 0 && !this._choosed) {
+			var clickedObj = intersects[0].object;
+			// clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
+
+			this._choosed = true;
+			this._page._removeFromScene(this.timer);
+			this._page._removeFromScene(this.timer2);
+			for (var i = 0; i < this._choices.length; i++) {
+
+				if (this._choicesTextBg[i].name == intersects[0].object.name) {
+					//console.log("clicked on " + i);
+					this._result.choiceId = i;
+				}
+			}
+
+			this._onChoiceComplete();
 		}
+	};
+
+	/**
+	 * @override	 
+	 */
+	MPlayChoices.prototype._onMouseMove = function(event) {
+		event.preventDefault();
+
+		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
+		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+
+		//update picking ray with camera and mouse pos
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesTextBg, true);
+		if (intersects.length > 0) {
+			if (this._hoveredChoice != intersects[0].object) {
+				this._hoveredChoice = intersects[0].object;
+				//do hover effect on intersected object
+				this._hoveredChoice.currentHex = this._hoveredChoice.material.color.getHex();
+				// this._hoveredChoice.material.color.setHex(0xff0000);
+				this._tweenHover = this._page.tweenPulse(this._hoveredChoice, {
+					x: 1.05,
+					y: 1.05,
+					z: 1,
+					duration: 400,
+					repeat: false
+				});
+			}
+
+			//on hover change mouse cursor to pointer
+			this._page._owner.getContainer().style.cursor = 'pointer';
+		} else {
+			//reset hover effect, and set back to normal
+			if (this._hoveredChoice) {
+				// this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
+				this._page._owner.getContainer().style.cursor = 'auto';
+				this._tweenHover.stop();
+				//TWEEN.Tween.removeTweens(this._hoveredChoice);
+				this._page.tweenPulse(this._hoveredChoice, {
+					x: 1,
+					y: 1,
+					z: 1,
+					duration: 300,
+					repeat: false
+				})
+			}
+			this._hoveredChoice = null;
+		}
+		//console.log("interactable object is hovered");
 	};
 
 	MPLAY.MPlayChoices = MPlayChoices;
