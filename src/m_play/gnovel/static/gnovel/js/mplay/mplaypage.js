@@ -374,15 +374,15 @@ var MPLAY = MPLAY || {};
 
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
-				console.log("left");
+				// console.log("left");
 				x = -60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
 			} else if (chara.getCharPosition() === "center") {
-				console.log("center");
+				// console.log("center");
 				x = 0;
 				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
 			} else if (chara.getCharPosition() === "right") {
-				console.log("right");
+				// console.log("right");
 				x = 60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
 			}
@@ -391,7 +391,6 @@ var MPLAY = MPLAY || {};
 		var dialog = GNOVEL.Page.prototype._showDialog.call(this, message, x, y, params);
 		return dialog;
 	};
-
 
 	/**
 	 * @override
@@ -654,7 +653,6 @@ var MPLAY = MPLAY || {};
 		params.width = 100;
 		params.font = "25px SF_Toontime Bold Italic";
 
-
 		message = obj.text;
 		var x = -530;
 		var y = 230;
@@ -669,11 +667,8 @@ var MPLAY = MPLAY || {};
 		params.bgOffsetX = 100;
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
 
-
 		//var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
-		flow._storeFlowData(dialog);
-
 	};
 
 

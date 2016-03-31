@@ -17,8 +17,8 @@ var MPLAY = MPLAY || {};
 	var MPlayChoices = function(page, choicesArr, timedResponses, result, params) {
 		params = params || {};
 		var flowElement = params.flowElement;
-		var integrityManager = this._integrityManager;
-		var relationshipManager = this._relationshipManager;
+		this._integrityManager = page._integrityManager;
+		this._relationshipManager = page._relationshipManager;
 		var pageObj = page;
 		params._waitForTransition = true;
 		//FIXME
@@ -95,23 +95,84 @@ var MPLAY = MPLAY || {};
 	MPlayChoices.prototype._onChoiceComplete = function() {
 		this._cleanUp();
 
-		var pageObj = this._page;		
+		var pageObj = this._page;
 		var delayDuration = 1000;
 		var flowElement = this._params.flowElement;
 		var choices = this._choices;
-		var choicesBox = this._choicesBox;		
+		var choicesBox = this._choicesBox;
 		var choicesTextBg = this._choicesTextBg;
 		var jumpArr = this._params.jumpArr;
 		var self = this;
+		var integrityManager = this._integrityManager;
+		var relationshipManager = this._relationshipManager;
+		var resultId = this._result.choiceId;
+
+		// if flowElement is not defined and not null (not falsy)
+		if (flowElement != null) {
+			if (typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
+				flowElement.choices[resultId].integrityScore != null) {
+
+				integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
+
+				//display visual notification of integrity choice
+				console.log("They will remember this");
+				var compass = pageObj.createImage("/static/gnovel/res/textures/compass_sm.png", new THREE.Vector3(-500, 250, pageObj._uiLayer - 40), 100, 100);
+				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
+				pageObj._addToScene(compass);
+
+				pageObj.tweenMat(compass, {
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					opacity: 1,
+					opacity2: 0,
+					chain: true,
+					delay: 500,
+					onComplete: function() {
+						pageObj._removeFromScene(compass);
+					},
+				});
+			}
+
+			if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
+				flowElement.choices[resultId].relationship != null) {
+
+				var name = flowElement.choices[resultId].relationship.name;
+				var score = flowElement.choices[resultId].relationship.score;
+				relationshipManager.addRelationship(name, score);
+				//display visual notification of relationship choice
+				//pageObj.log("a character will remember this");
+				console.log("a character will remember this");
+
+				// var Text2D = THREE_Text.Text2D;
+				// var sprite = new Text2D(name, {
+				// 	align: 'left',
+				// 	font: '20px NoteWorthy Bold',
+				// 	fillStyle: '#000000',
+				// 	antialias: false,
+				// 	charLine: 60,
+				// });
+				//sprite.position = new THREE.Vector3(-500, 250, pageObj._uiLayer - 40);
+
+				//display compass in upper left
+				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(-400, 200, pageObj._uiLayer - 40), 200, 100);
+				//pageObj._addToScene(notifyBg);
+				//pageObj._addToScene(sprite);
+
+			}
+
+			var choiceValue = flowElement.choices[resultId].text;
+			pageObj.log("choice", pageObj._choiceNumber, choiceValue);
+			pageObj._choiceNumber++;
+		}
 
 		var moveSelectedChoiceToCenter = function() {
-
-			var resultId = self._result.choiceId;
+			//var resultId = self._result.choiceId;
 
 			//remove player's choice after it has shown on screen for specified time
 			pageObj.move(choicesBox[resultId], {
 				x: 0,
 				duration: 400,
+				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() { //move player choice to center of screen
 					var time = 1;
 					var delayTween = new TWEEN.Tween(time) //delay before removing choice from screen
@@ -137,6 +198,7 @@ var MPLAY = MPLAY || {};
 			pageObj.move(choicesTextBg[resultId], {
 				x: 0,
 				duration: 400,
+				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() { //move player choice to center of screen
 					var time = 1;
 					var delayTween = new TWEEN.Tween(time) //delay before removing choice from screen
@@ -208,7 +270,7 @@ var MPLAY = MPLAY || {};
 					}
 				});
 			}
-		}		
+		}
 	};
 
 	/**	 
