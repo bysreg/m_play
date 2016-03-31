@@ -21,6 +21,7 @@ var GNOVEL = GNOVEL || {};
 		this._mouseDownListener = null;
 		this._mouseMoveListener = null;
 		this._mouse = new THREE.Vector2();
+		this._tweenHover;
 		this._hoveredChoice = null;
 		this._timedResponses = timedResponses;
 		this._choicesBox = [];
@@ -236,8 +237,35 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		for (var i = 0; i < this._choices.length; i++) {
-			this._page._removeFromScene(this._choicesBox[i]);
+			//do not remove player's choice yet!
+			if(i!=this._result.choiceId){
+				this._page._removeFromScene(this._choicesBox[i]);
+			}
 		}
+
+		var pageObj = this._page;
+		var choices = this;
+		var delayDuration = 1000;
+		//remove player's choice after it has shown on screen for specified time
+		this._page.move(this._choicesBox[this._result.choiceId], {
+			x:0, duration:400,
+			onComplete: function(){ //move player choice to center of screen
+				var time=1;
+				pageObj._setWaitForTransition(false);
+				var delayTween = new TWEEN.Tween(time) //delay before removing choice from screen
+					.to(0,delayDuration)
+					.easing(TWEEN.Easing.Linear.None)
+					.onComplete(function(){
+						pageObj._removeFromScene(choices._choicesBox[choices._result.choiceId]);
+						//call onChoiceComplete from parent class
+						/*if (choices._params.onChoiceComplete != null) {
+							choices._params.onChoiceComplete(choices._result.choiceId);
+						}*/
+						pageObj._setWaitForTransition(false);
+					})
+					delayTween.start();
+				}
+			});
 
 		for (var i = 0; i < this._timedResponses.length; i++) {
 			if(this._responseBox[i]!=null){
@@ -246,6 +274,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
+		//call onChoiceComplete from parent class
 		if (this._params.onChoiceComplete != null) {
 			this._params.onChoiceComplete(this._result.choiceId);
 		}
@@ -263,9 +292,12 @@ var GNOVEL = GNOVEL || {};
 
 		//create array of objects intersected with
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		if (intersects.length > 0 && !this._choosed) {
+		var intersects2 = this._page._owner._raycaster.intersectObjects(this._page._choicesTextBg, true);
+		//check for mousedown on choice box background image
+		//if the image is clicked, then choose this choiceBox
+		if (intersects2.length > 0 && !this._choosed) {
 			var clickedObj = intersects[0].object;
-			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
+			//clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
@@ -293,12 +325,15 @@ var GNOVEL = GNOVEL || {};
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 
 		var intersects = this._page._owner._raycaster.intersectObjects(this._choicesBox, true);
-		if (intersects.length > 0) {
-			if(this._hoveredChoice != intersects[0].object){
-				this._hoveredChoice = intersects[0].object;
+		var intersects2 = this._page._owner._raycaster.intersectObjects(this._page._choicesTextBg, true);
+
+		if (intersects2.length > 0) {
+			if(this._hoveredChoice != intersects2[0].object){
+				this._hoveredChoice = intersects2[0].object;
 				//do hover effect on intersected object
 				this._hoveredChoice.currentHex = this._hoveredChoice.material.color.getHex();
-				this._hoveredChoice.material.color.setHex(0xff0000);
+				//this._hoveredChoice.material.color.setHex(0xff0000);
+				this._tweenHover = this._page.tweenPulse(this._hoveredChoice,{x:1.05, y:1.05, z:1, duration: 400, repeat:false });
 			}
 
 			//on hover change mouse cursor to pointer
@@ -308,8 +343,11 @@ var GNOVEL = GNOVEL || {};
 			//reset hover effect, and set back to normal
 			if(this._hoveredChoice)
 			{
-				this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
+					//this._hoveredChoice.material.color.setHex(this._hoveredChoice.currentHex);
 					this._page._owner.getContainer().style.cursor = 'auto';
+					this._tweenHover.stop();
+					//TWEEN.Tween.removeTweens(this._hoveredChoice);
+					this._page.tweenPulse(this._hoveredChoice,{x:1, y:1, z:1, duration: 300, repeat:false})
 			}
 			this._hoveredChoice = null;
 		}

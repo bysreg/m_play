@@ -34,6 +34,7 @@ var GNOVEL = GNOVEL || {};
 
 		// ambient plays at next page
 		this._nextAmbient = null;
+		this._waitForTransition = true;
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -236,6 +237,7 @@ var GNOVEL = GNOVEL || {};
 		var prevSize = {x: 1, y: 1, z: 1};
 		var targetSize = {x: params.x, y: params.y, z: params.z}
 		var duration = params.duration || 800;
+		var repeat = params.repeat;
 
 		var tweenForward = new TWEEN.Tween(obj.scale)
 		.to({
@@ -243,7 +245,10 @@ var GNOVEL = GNOVEL || {};
 		y: (params.y !== null ? targetSize.y : obj.scale.y),
 		z: (params.z !== null ? targetSize.z : obj.scale.z),
 		},duration)
-		.easing(TWEEN.Easing.Quadratic.Out)
+		.easing(TWEEN.Easing.Quadratic.Out);
+		if (params.onComplete != null) {
+			tweenForward.onComplete(params.onComplete);
+		}
 		/*.onComplete(function() {
 			targetSize = prevSize;
 			prevSize = obj.scale;
@@ -256,12 +261,19 @@ var GNOVEL = GNOVEL || {};
 			y: (prevSize.y),
 			z: (prevSize.z),
 			},duration)
-			.easing(TWEEN.Easing.Quadratic.In)
-
-		tweenForward.chain(tweenBack);
-		tweenBack.chain(tweenForward);
+			.easing(TWEEN.Easing.Quadratic.In);
+				//if set to repeat, then tween will pulse up and back
+				//if not set to repeat, it will only scale up or back
+			if(repeat==true){
+				tweenForward.chain(tweenBack);
+				tweenBack.chain(tweenForward);
+			}
+			else {
+				console.log("stop");
+			}
 
 		tweenForward.start();
+		return tweenForward;
 
 		//tween.start();
 	};
@@ -435,6 +447,11 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
+	Page.prototype._setWaitForTransition = function(value){
+		var pageObj = this;
+		pageObj._waitForTransition = value;
+	}
+
 	Page.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params = params || {};
 		var pageObj = this;
@@ -443,16 +460,16 @@ var GNOVEL = GNOVEL || {};
 		var onChoiceComplete = function(resultId) {
 			var jumpIndex = jumpArr[resultId];
 
-			if(typeof jumpIndex === 'undefined') {
-				// go to next flow
-				pageObj._flow._next();
-			}else{
-				pageObj._flow._jump(jumpIndex);
-			}
+				if(typeof jumpIndex === 'undefined') {
+					// go to next flow
+					pageObj._flow._next();
+				}else{
+					pageObj._flow._jump(jumpIndex);
+				}
 
-			pageObj._flow._exec();
-		};
+				pageObj._flow._exec();
 
+		}
 		// if params.onChoiceComplete is undefined or null (or falsy)
 		if(!params.onChoiceComplete) {
 			params.onChoiceComplete = onChoiceComplete;
