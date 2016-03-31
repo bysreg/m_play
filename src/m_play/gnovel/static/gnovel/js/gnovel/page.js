@@ -144,7 +144,7 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype._onMouseMove = function(event) {};
 
-//tween to move object from one point to another
+	//tween to move object from one point to another
 	Page.prototype.move = function(obj, params) {
 		var duration = params.duration || 1000;
 
@@ -457,8 +457,9 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 
 		// if params.onChoiceComplete is not null then we add another onChoiceComplete
-		var onChoiceComplete = function(resultId) {
-			var jumpIndex = jumpArr[resultId];
+		if(!params.dontGoToNextFlowAuto) {
+			var onChoiceComplete = function(resultId) {
+				var jumpIndex = jumpArr[resultId];
 
 				if(typeof jumpIndex === 'undefined') {
 					// go to next flow
@@ -468,18 +469,19 @@ var GNOVEL = GNOVEL || {};
 				}
 
 				pageObj._flow._exec();
+			}			
 
-		}
-		// if params.onChoiceComplete is undefined or null (or falsy)
-		if(!params.onChoiceComplete) {
-			params.onChoiceComplete = onChoiceComplete;
-		}else{
-			// there is already function specified in that
-			var oriChoiceComplete = params.onChoiceComplete;
-			params.onChoiceComplete = function(resultId) {
-				oriChoiceComplete(resultId);
-				onChoiceComplete(resultId);
-			};
+			// if params.onChoiceComplete is undefined or null (or falsy)
+			if(!params.onChoiceComplete) {
+				params.onChoiceComplete = onChoiceComplete;
+			}else{
+				// there is already function specified in that
+				var oriChoiceComplete = params.onChoiceComplete;
+				params.onChoiceComplete = function(resultId) {
+					oriChoiceComplete(resultId);
+					onChoiceComplete(resultId);
+				};
+			}
 		}
 
 		var choices = new GNOVEL.Choices(this, choicesArr, responsesArr, this._result, params);
