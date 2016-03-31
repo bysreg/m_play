@@ -28,7 +28,7 @@ var MPLAY = MPLAY || {};
 			{
 					this._relationDict[name] = 1;
 			}
-			//if last value is positive, reset to -1
+			//if last value is negative, reset to -1
 			else if(this._relationDict[name] <= 0)
 			{
 					this._relationDict[name] = -1;

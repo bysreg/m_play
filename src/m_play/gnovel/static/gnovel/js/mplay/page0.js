@@ -48,9 +48,8 @@ var MPLAY = MPLAY || {};
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
-		// 0 means player does not pick up cat's phone
-		// 1 means player picks up cat's phone but it is not with him
-		// 2 means player picks up cat's phone and it is with him
+		// 0 means player gives the wallet to the waiter
+		// 1 means player picks up wallet and gives it to campus police
 		this._catsPhoneStatus = 0;
 	};
 
@@ -166,6 +165,9 @@ var MPLAY = MPLAY || {};
 						integrityScore:0,
 						go: "#waiter"},
 					{text: "Let’s take a look – maybe we can contact the owner.",
+						onChoose: function(page) {
+							page._catsPhoneStatus = 1;
+						},
 						integrityScore:1,
 						go: "#pickup"},
 					{text: "Does it have any cash in there?",

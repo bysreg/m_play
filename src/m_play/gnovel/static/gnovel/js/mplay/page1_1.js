@@ -45,8 +45,7 @@ var MPLAY = MPLAY || {};
 		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
 
 		// variables from scene 1
-		var isPhonePickedUp = (catsPhoneStatus > 0);
-		var isPhoneWithYou = (catsPhoneStatus == 2);
+		var isWalletWithWaiter = (catsPhoneStatus == 0);
 		var player = this._player;
 
 			o = [
@@ -63,36 +62,56 @@ var MPLAY = MPLAY || {};
 				// transition of this flow doesn't work
 				{type: "hide", img: priya, waitUntilHidden: false},
 				// transition of this flow doesn't work
-				//FIXME add expression:"sad",
+
 				{type: "show", img: cat, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little all over the place. I lost my wallet yesterday –"},
-				{type: "compare", leftop: isPhonePickedUp, operator: "equal", rightop: 1, goTrue: "#phone_picked", goFalse: "#phone_picked"},
+				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 
-				// if you picked up the phone
-				{type: "show", img: ryan, expression: "thoughtful", position: "left", label: "phone_picked", waitUntilShown: false},
-				{type: "compare", leftop: isPhoneWithYou, operator: "equal", rightop: 1, goTrue: "#phone_withyou", goFalse: "#phone_withryan"},
-				// and Ryan left it with the bartender
-				{type: "dialog", speaker: "Ryan", text: "Were you at Scottie's Bar yesterday?  We found a phone there.", label: "phone_withryan"},
+				// 
+				{type: "compare", leftop: isWalletWithWaiter, operator: "equal", rightop: 1, goTrue: "#wallet_withwaiter", goFalse: "#wallet_atpolice"},
+				{type: "dialog", speaker: "Ryan", text: "Were you at Scottie's yesterday?  We found a wallet there. Might be yours.", label: "wallet_withwaiter"},
 				{type: "show", img: cat, expression: "happy", position: "right", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Oh my God, do you guys have it with you?"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "We left it with the bartender."},
+				{type: "dialog", speaker: "Ryan", text: "We left it with the waiter."},
 				{type: "hide", img: ryan},
 				{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "What are the chances!"},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore"},
+				{type: "compare", leftop: "$priyaRelationshipScore", operator: "greater", rightop: 0, goTrue: "#chances", goFalse: "#checkout"},
+				{type: "dialog", speaker: "Priya", text: "What are the chances!", label: "chances"},
+				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
+				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
+
+				{type: "dialog", speaker: "Priya", text: "It’s worth checking out.", label: "checkout"},
 				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 				{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 
 				//if You left it with the bartender
 
 				// if you have the phone with you
-				{type: "dialog", speaker: "Ryan", position: "left", expression:"thoughtful", text: "Were you at Scottie's Bar yesterday?  We found a phone there – " + player + ", left it with the bartender?", label: "phone_withyou"},
+				{type: "show", img: ryan, position: "center", expression: "thoughtful", waitUntilShown: false, label: "wallet_atpolice"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Cat", 1);
+					page.getRelationshipManager().addRelationship("Priya", 1);
+				}},
+				{type: "dialog", speaker: "Ryan", position: "left", text: "Cat, is your last name Davis? " + player + " and I found a wallet at Scottie’s yesterday. We turned it into campus police."},
 				{type: "show", img: cat, position: "right", expression: "happy", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Cat", relationship: {name: "cat", score: 1}, text: "Oh my God, you guys have it with you?!  You both are lifesavers!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver", relationship: {name:"cat", score:0}}, {text : "Happy to help!", go : "#lifesaver", integrityScore: 0, relationship: {name:"cat", score:0}}], label: "choices"},
+				{type: "dialog", speaker: "Cat", text: "Oh my God, you both are lifesavers!"},
+				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver"}, {text : "Happy to help!", go : "#lifesaver"}]},
 				{type: "nothing", label:"lifesaver"},
-				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore"},
+				{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater", rightop: 0, goTrue: "#happyryan", goFalse: "#neutralryan"},
+
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false, label: "happyryan"},
 				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger"},
+				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
+
+				{type: "show", img: ryan, position: "left", waitUntilShown: false, label: "neutralryan"},
+				{type: "dialog", speaker: "Ryan", text: "Yeah, lucky break."},
 				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 
 				// if you left the phone at the bar
@@ -120,7 +139,6 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
-		//page.resetRelationships();
 	};
 
 	Page1_1.prototype._onStart = function() {
