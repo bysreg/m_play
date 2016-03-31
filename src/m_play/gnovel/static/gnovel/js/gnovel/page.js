@@ -269,7 +269,7 @@ var GNOVEL = GNOVEL || {};
 				tweenBack.chain(tweenForward);
 			}
 			else {
-				console.log("stop");
+				// console.log("stop");
 			}
 
 		tweenForward.start();
