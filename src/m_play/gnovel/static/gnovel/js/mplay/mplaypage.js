@@ -134,9 +134,14 @@ var MPLAY = MPLAY || {};
 		this._notifIo = this.createInteractableObject(
 			this._phoneNotifImg,
 			//"/static/gnovel/res/textures/ui/phone_notification.png",
-			{x: -440, y: -220, z: -this.getOwner().getCamera().position.z + this._uiLayer, width : 150, height : 155,
+			{
+				x: -440,
+				y: -220,
+				z: -this.getOwner().getCamera().position.z + this._uiLayer,
+				width: 150,
+				height: 155,
 				onClick: function(io) {
-					if(params.onClick) {
+					if (params.onClick) {
 						params.onClick();
 						pageObj._removePhoneNotification();
 					}
@@ -181,25 +186,29 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._onLoad = function() {
 		this._initPhoneNotification();
+
+		GNOVEL.Page.prototype._onLoad.call(this);
 	};
 
 	/**
 	 * @override
 	 */
 	MPlayPage.prototype._onStart = function() {
+
+		GNOVEL.Page.prototype._onStart.call(this);
 	};
 
 	MPlayPage.prototype.log = function(type, action_number, action_value) {
-		$.post("/gnovel/log/",
-		{ 	name: this._player,
-			scene: this.getPageLabel(),
-			type: type,
-			action_number: action_number,
-			action_value: action_value,
-		})
-		// .done(function(data) {
-		// 	console.log(data);
-		// })
+		$.post("/gnovel/log/", {
+				name: this._player,
+				scene: this.getPageLabel(),
+				type: type,
+				action_number: action_number,
+				action_value: action_value,
+			})
+			// .done(function(data) {
+			// 	console.log(data);
+			// })
 		;
 	};
 
@@ -209,16 +218,22 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
 		var type = params.type;
-		if(type == "character"){
+		if (type == "character") {
 			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
 			this._addToScene(tripledot)
-			pageObj.tweenPulse(tripledot, {x:1.2, y:1.2, z:1, duration: 650, repeat:true});
+			pageObj.tweenPulse(tripledot, {
+				x: 1.2,
+				y: 1.2,
+				z: 1,
+				duration: 650,
+				repeat: true
+			});
 		}
 
 		var onClick = function(io) {
-			if(typeof obj === 'object') {
+			if (typeof obj === 'object') {
 				pageObj.log("interactable", pageObj._ioNumber, "phone notification");
-			}else{
+			} else {
 				pageObj.log("interactable", pageObj._ioNumber, obj);
 			}
 
@@ -226,22 +241,22 @@ var MPLAY = MPLAY || {};
 		};
 
 		var onEnableChange = function(io) {
-			if(!io.isEnabled()) {
+			if (!io.isEnabled()) {
 				pageObj._removeFromScene(tripledot);
 			}
-			if(io.isEnabled()) {
+			if (io.isEnabled()) {
 				pageObj._addToScene(tripledot);
 			}
 		};
 		params.onEnableChange = onEnableChange;
 
-		if(params.onClick) {
+		if (params.onClick) {
 			var oriClick = params.onClick;
 			params.onClick = function(io) {
 				onClick(io);
 				oriClick(io);
 			};
-		}else{
+		} else {
 			params.onClick = onClick;
 		}
 
@@ -252,167 +267,12 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
-		params = params || {};
-		var flowElement = params.flowElement;
-		var integrityManager = this._integrityManager;
-		var relationshipManager = this._relationshipManager;
-		var pageObj = this;
-		params._waitForTransition = true;
-		//FIXME
-		//Need to speicify position of dialog box
-		params.dialogX = params.x;
-		params.dialogY = params.y;
-		//var choicesTextBg = [];
+		params.jumpArr = jumpArr;
 
-		params.x = -350;
-		params.y = -100;
-		params.gapX = 350;
-		params.gapY = 0;
-		params.charLine = 30;
-		params.posArr = {};
-
-		var oneLineY = -220;
-		var twoLineY = -200;
-		var threeLineY = -180;
-
-		if(choicesArr.length == 2) {
-			params.x = -180;
-			params.gapX = 400;
-		}
-
-		for(var i=0;i<choicesArr.length;i++) {
-			var choiceText = choicesArr[i];
-			params.posArr[i] = new THREE.Vector3();
-			params.posArr[i].x = params.x;
-
-			var textBg = null;
-
-			// if(choiceText.length < 30) {
-			// 	params.posArr[i].y = oneLineY;
-
-			// 	textBg = this.createImage("/static/gnovel/res/textures/ui/text1line_wOutline.png", new THREE.Vector3(params.x + params.gapX * i, params.posArr[i].y - 20, this._uiLayer - 40), 320.7, 44.53125);
-			// }else if(choiceText.length>=30 && choiceText.length<60){
-				params.posArr[i].y = twoLineY;
-
-				textBg = this.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(params.x + (params.gapX * i) - 10, params.posArr[i].y - 30, this._uiLayer - 40), 324, 127.2);
-			// }else if(choiceText.length>=60) {
-				// params.posArr[i].y = threeLineY;
-
-				// textBg = this.createImage("/static/gnovel/res/textures/ui/textmultiline_wOutline.png", new THREE.Vector3(params.x + params.gapX * i - 5, params.posArr[i].y - 50, this._uiLayer - 40), 320.7, 160);
-			// }
-
-			textBg.material.opacity = 0;
-
-			this.tweenMat(textBg, {
-				duration: 800,
-				opacity: 1,
-				easing: TWEEN.Easing.Cubic.Out
-			});
-
-			this._addToScene(textBg);
-			this._choicesTextBg.push(textBg);
-		}
-
-		var onChoiceComplete = function(resultId, delayDuration) {
-
-			pageObj._resultId = resultId;
-
-			for(var i=0;i<pageObj._choicesTextBg.length;i++) {
-				if(i != pageObj._resultId)
-				pageObj._removeFromScene(pageObj._choicesTextBg[i]);
-			}
-
-			//move players choice text box to center
-			pageObj.move(pageObj._choicesTextBg[pageObj._resultId], {
-				x:0, duration:400,
-				onComplete: function(){ //move player choice to center of screen
-					var time=1;
-					pageObj._setWaitForTransition(false);
-					var delayTween = new TWEEN.Tween(time) //delay before removing choice from screen
-						.to(0,delayDuration)
-						.easing(TWEEN.Easing.Linear.None)
-						.onComplete(function(){
-							pageObj._removeFromScene(pageObj._choicesTextBg[pageObj._resultId]);
-							pageObj._setWaitForTransition(false);
-						})
-						delayTween.start();
-					}
-				});
-
-			// if flowElement is not defined and not null (not falsy)
-			if (flowElement != null) {
-				if (typeof flowElement.choices[resultId].integrityScore !== 'undefined' &&
-					flowElement.choices[resultId].integrityScore != null) {
-
-					integrityManager.addIntegrity(flowElement.choices[resultId].integrityScore);
-
-					//display visual notification of integrity choice
-					console.log("They will remember this");
-					var compass = pageObj.createImage("/static/gnovel/res/textures/compass_sm.png", new THREE.Vector3(-500,250,pageObj._uiLayer - 40), 100, 100);
-					var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
-					pageObj._addToScene(compass);
-
-					pageObj.tweenMat(compass,{
-						easing: TWEEN.Easing.Cubic.Out,
-						duration: 800,
-						opacity: 1,
-						opacity2: 0,
-						chain:true,
-						delay: 500,
-						onComplete: function(){
-								pageObj._removeFromScene(compass);
-								},
-							});
-				}
-
-				if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
-					flowElement.choices[resultId].relationship != null) {
-
-					var name = flowElement.choices[resultId].relationship.name;
-					var score = flowElement.choices[resultId].relationship.score;
-					relationshipManager.addRelationship(name, score);
-						//display visual notification of relationship choice
-					//pageObj.log("a character will remember this");
-					console.log("a character will remember this");
-
-					var Text2D = THREE_Text.Text2D;
-					var sprite = new Text2D(name, {
-						align: 'left',
-						font: '20px NoteWorthy Bold',
-						fillStyle: '#000000',
-						antialias: false,
-						charLine: 60,
-					});
-					sprite.position = new THREE.Vector3(-500,250,pageObj._uiLayer - 40);
-
-					//display compass in upper left
-					var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(-400, 200, pageObj._uiLayer - 40), 200, 100);
-					//pageObj._addToScene(notifyBg);
-					//pageObj._addToScene(sprite);
-
-				}
-
-				var choiceValue = flowElement.choices[resultId].text;
-				pageObj.log("choice", pageObj._choiceNumber, choiceValue);
-				pageObj._choiceNumber++;
-			}
-		};
-
-			// if there is arelady params.onChoiceComlete defined
-			if (!params.onChoiceComplete) {
-				params.onChoiceComplete = onChoiceComplete;
-			} else {
-				var oriChoiceComplete = params.onChoiceComplete;
-				params.onChoiceComplete = function(resultId) {
-					oriChoiceComplete(resultId);
-					onChoiceComplete(resultId);
-				};
-			}
-
-		GNOVEL.Page.prototype._showChoices.call(this, choicesArr, responsesArr, params, jumpArr);
+		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
 	};
 
-//function for temporary dialog that should not cause flow to progress
+	//function for temporary dialog that should not cause flow to progress
 	MPlayPage.prototype._showTempDialog = function(message, x, y, params) {
 		params = params || {};
 		var flowElement = params.flowElement;
@@ -436,26 +296,26 @@ var MPLAY = MPLAY || {};
 
 		var chara = null;
 
-		if(speaker === this._ryan) {
+		if (speaker === this._ryan) {
 			chara = MPlayPage._ryan;
-		}else if(speaker === this._priya) {
+		} else if (speaker === this._priya) {
 			chara = MPlayPage._priya;
-		}else if(speaker === this._cat) {
+		} else if (speaker === this._cat) {
 			chara = MPlayPage._cat;
-		}else if(speaker === this._professor) {
+		} else if (speaker === this._professor) {
 			chara = MPlayPage._professor;
 		}
 
-		if(chara != null) {
-			if(chara.getCharPosition() === "left") {
+		if (chara != null) {
+			if (chara.getCharPosition() === "left") {
 				console.log("left");
 				x = -60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
-			}else if(chara.getCharPosition() === "center") {
+			} else if (chara.getCharPosition() === "center") {
 				console.log("center");
 				x = 0;
 				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
-			}else if(chara.getCharPosition() === "right") {
+			} else if (chara.getCharPosition() === "right") {
 				console.log("right");
 				x = 60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
@@ -502,26 +362,26 @@ var MPLAY = MPLAY || {};
 
 		var chara = null;
 
-		if(speaker === this._ryan) {
+		if (speaker === this._ryan) {
 			chara = MPlayPage._ryan;
-		}else if(speaker === this._priya) {
+		} else if (speaker === this._priya) {
 			chara = MPlayPage._priya;
-		}else if(speaker === this._cat) {
+		} else if (speaker === this._cat) {
 			chara = MPlayPage._cat;
-		}else if(speaker === this._professor) {
+		} else if (speaker === this._professor) {
 			chara = MPlayPage._professor;
 		}
 
-		if(chara != null) {
-			if(chara.getCharPosition() === "left") {
+		if (chara != null) {
+			if (chara.getCharPosition() === "left") {
 				console.log("left");
 				x = -60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
-			}else if(chara.getCharPosition() === "center") {
+			} else if (chara.getCharPosition() === "center") {
 				console.log("center");
 				x = 0;
 				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
-			}else if(chara.getCharPosition() === "right") {
+			} else if (chara.getCharPosition() === "right") {
 				console.log("right");
 				x = 60;
 				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
@@ -560,14 +420,14 @@ var MPLAY = MPLAY || {};
 			img.position.x = 450;
 		}
 
-		if(isChar) {
-			if(position === "center") {
+		if (isChar) {
+			if (position === "center") {
 				img.position.z = this._characterLayer + 10;
-			}else{
+			} else {
 				img.position.z = this._characterLayer;
 			}
 
-			if(position === "center" || position === "right" || position === "left") {
+			if (position === "center" || position === "right" || position === "left") {
 				console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
 			}
@@ -695,42 +555,42 @@ var MPLAY = MPLAY || {};
 		if (typeof obj.x !== 'undefined') {
 			x = obj.x;
 		}
-		if(typeof obj.bgWidth !== 'undefined') {
+		if (typeof obj.bgWidth !== 'undefined') {
 			params.bgWidth = obj.bgWidth;
 		}
-		if(typeof obj.bgHeight !== 'undefined') {
+		if (typeof obj.bgHeight !== 'undefined') {
 			params.bgHeight = obj.bgHeight;
 		}
-		if(typeof obj.bgOffsetY !== 'undefined') {
+		if (typeof obj.bgOffsetY !== 'undefined') {
 			params.bgOffsetY = obj.bgOffsetY;
 		}
-		if(typeof obj.bgOffsetZ !== 'undefined') {
+		if (typeof obj.bgOffsetZ !== 'undefined') {
 			params.bgOffsetZ = obj.bgOffsetZ;
 		}
-		if(typeof obj.charLine !== 'undefined') {
+		if (typeof obj.charLine !== 'undefined') {
 			params.charLine = obj.charLine;
 		}
-		if(typeof obj.msgOffsetY !== 'undefined') {
+		if (typeof obj.msgOffsetY !== 'undefined') {
 			params.msgOffsetY = obj.msgOffsetY;
 		}
-		if(typeof obj.msgOffsetZ !== 'undefined') {
+		if (typeof obj.msgOffsetZ !== 'undefined') {
 			params.msgOffsetZ = obj.msgOffsetZ;
 		}
 		params.bgPath = hasParam(obj, "bgPath", null);
-		if(typeof obj.bgOffsetX !== 'undefined') {
+		if (typeof obj.bgOffsetX !== 'undefined') {
 			params.bgOffsetX = obj.bgOffsetX;
 		}
-		if(typeof obj.dontShowBg !== 'undefined') {
+		if (typeof obj.dontShowBg !== 'undefined') {
 			params.dontShowBg = obj.dontShowBg;
 		}
-		if(typeof obj.messageAlign !== 'undefined') {
+		if (typeof obj.messageAlign !== 'undefined') {
 			params.messageAlign = obj.messageAlign;
 		}
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
 
 		var pageObj = flow._getPage();
 
-		if(params.waitUntilShown) {
+		if (params.waitUntilShown) {
 			params.onComplete = function() {
 				// go to next flow
 				pageObj._flow._next();
@@ -741,7 +601,7 @@ var MPLAY = MPLAY || {};
 		var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
 
-		if(!params.waitUntilShown) {
+		if (!params.waitUntilShown) {
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		}
@@ -763,10 +623,12 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._handleShowPhoneNotif = function(obj, flow) {
 		var pageObj = flow._getPage();
 
-		pageObj._showPhoneNotification({onClick:function() {
-			flow._next();
-			flow._exec();
-		}});
+		pageObj._showPhoneNotification({
+			onClick: function() {
+				flow._next();
+				flow._exec();
+			}
+		});
 	};
 
 	MPlayPage.prototype._handleHidePhoneNotif = function(obj, flow) {
@@ -787,7 +649,7 @@ var MPLAY = MPLAY || {};
 		params.charLine = 27;
 		params.messageAlign = "left";
 		//params.dontRemove = true;
-	//	params.createNewBg = true;
+		//	params.createNewBg = true;
 		//params.speaker = "Context";
 		params.width = 100;
 		params.font = "25px SF_Toontime Bold Italic";
