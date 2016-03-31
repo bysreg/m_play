@@ -14,6 +14,7 @@
 
 ####Windows localhost requirement
 - visual express 2010
+- pgadmin3 1.20
 
 #### note for linux
 - instead of using python & pip, you must run the command using python3 and pip3
