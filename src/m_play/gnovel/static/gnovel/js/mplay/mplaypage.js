@@ -506,7 +506,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
 	};
 
 	MPlayPage.prototype.setupHomeBackground = function() {
