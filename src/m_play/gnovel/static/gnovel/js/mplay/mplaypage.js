@@ -40,6 +40,8 @@ var MPLAY = MPLAY || {};
 		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
+		this._choicesTextBg = [];
+
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
 			this._initChars();
@@ -97,6 +99,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -160, this._characterLayer), 247, 785), "Cat");
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -160, this._characterLayer), 400, 785), "Cat");
 		MPlayPage._cat.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -160, this._characterLayer), 324, 785), "Cat");
+		MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");

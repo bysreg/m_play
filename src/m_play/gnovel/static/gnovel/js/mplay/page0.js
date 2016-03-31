@@ -48,9 +48,8 @@ var MPLAY = MPLAY || {};
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
-		// 0 means player does not pick up cat's phone
-		// 1 means player picks up cat's phone but it is not with him
-		// 2 means player picks up cat's phone and it is with him
+		// 0 means player gives the wallet to the waiter
+		// 1 means player picks up wallet and gives it to campus police
 		this._catsPhoneStatus = 0;
 	};
 
@@ -67,7 +66,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
-			{type: "show_context", label:"context1",text:"You arrive at the bar"},
+			{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -76,7 +75,8 @@ var MPLAY = MPLAY || {};
 			{type: "choices",
 				choices :
 					[{text: "Look at your Phone ",
-						go: "#lookatphone"},
+						go: "#lookatphone",
+					relationship: {name: this._ryan, score: -1}},
 					{text: "Talk to Ryan First",
 						go: "#talktoryan",
 					relationship: {name: this._ryan, score: 1}}],
@@ -94,16 +94,18 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Congratulations! I am so happy you got the job - referring you was a good call.  You’ll love it – my internship there last summer was a blast."},
+			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",
 				choices :
 					[{text: "Yeah!  Thanks again for forwarding my resume.",
 						go: "#cheers"},
-					{text : "Psyched to be working with you after graduation, Ryan!",
+					{text : "Psyched to be working with you, Ryan!",
 						relationship: {name: this._ryan, score: 1},
 						go: "#cheers"}]},
-			{type: "dialog", speaker: this._ryan, text: "Cheers!  Congratulations!", label: "cheers"},
+
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "cheers"},
+			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
 			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
@@ -112,19 +114,18 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :
-					[{text: "What?! Just tell me!",
+					[{text: "Do I even want to know?",
 						go: "#gotjob"},
 					{text : "Good news?!",
-						relationship: {name: this._ryan, score: 1},
 						go: "#gotjob"}]},
-			{type: "dialog", speaker: this._ryan, text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great.", label: "gotjob"},
+			{type: "dialog", speaker: this._ryan, text: "You got the job!  We’re going to be working together after graduation! I just know it’s going to be awesome.", label: "gotjob"},
 
 			//during transition
 			{type:"nothing", label: "timefade"},
 			{type: "hide", img: ryan},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "show_context", text: "A few drinks later"},
+			{type: "show_context", text: "Later on at Scottie’s…"},
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
@@ -132,32 +133,48 @@ var MPLAY = MPLAY || {};
 			{type: "choices",
 				choices :
 					[{text: "Should be good.",
-						go: "#mentionpriya"},
+						go: "#RelationshipScore"},
 					{text : "Glad we’re in it together.",
 						relationship: {name: this._ryan, score: 1},
-						go: "#mentionpriya"}]},
-			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false, label: "mentionpriya"},
-			{type: "dialog", speaker: this._ryan, text: "I think it's cross listed CS and psych or something.  My friend Priya is in it too.  She's really nice, I’ll introduce you guys." },
+						go: "#RelationshipScore"}]},
+
+			{type: "custom", func: function(page) {
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "RelationshipScore"},
+
+			{type: "compare", leftop: "$RelationshipScore", operator: "greater", rightop: 0, goTrue: "#intro_priya", goFalse: "#not_intro_priya"},
+			
+			// relationship score > 0
+			{type: "dialog", speaker: this._ryan, text: "It's cross listed with CS and psych or something.  My friend Priya is in it too.  I’ll introduce you guys.", label: "intro_priya"},
+			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
+
+			// relationship score <= 0
+			{type: "dialog", speaker: this._ryan, text: "I think it's cross listed with CS and psych or something.  My friend Priya is in it too.", label: "not_intro_priya"},
+			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
+
 			// see a phone on the table.
 			/**
 			* FIXME angle camera towards phone
 			*/
-			{type: "show", img: ryan, position: "center"},
-			{type: "dialog", speaker: this._ryan, text: "Looks like someone left their phone."},
+			{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "seeaphone"},
+			{type: "dialog", speaker: this._ryan, text: "Looks like someone left their wallet."},
 			// this choice affects scene 2
 			{type: "choices",
 				choices :
-					[{text: "That sucks for them.",
+					[{text: "Let’s give it to the waiter.",
 						integrityScore:0,
-						go: "#sucks"},
-					{text: "Let's give it to the bartender.",
+						go: "#waiter"},
+					{text: "Let’s take a look – maybe we can contact the owner.",
+						onChoose: function(page) {
+							page._catsPhoneStatus = 1;
+						},
 						integrityScore:1,
-						go: "#pickupphone"},
-					{text: "Let’s sell it on Ebay!",
+						go: "#pickup"},
+					{text: "Does it have any cash in there?",
 						integrityScore:-1,
-						go: "#sellit"}]},
+						go: "#cash"}]},
 
-			{type: "dialog", speaker: this._ryan, text: "Let’s give it to the bartender.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "sucks"},
+			{type: "dialog", speaker: this._ryan, text: "Good idea.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "waiter"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			// if phone is picked up
@@ -175,13 +192,14 @@ var MPLAY = MPLAY || {};
 							page._catsPhoneStatus = 2;
 						}}]},*/
 
-			{type:"nothing", label: "pickupphone"},
+			{type:"nothing", label: "pickup"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "That should score you some Karma points! Anyway, congrats again on the job!"},
+			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student – Cat Davis.  Her CMU ID card is in here.  Let’s turn it into campus police."},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
-			// if phone is not picked up
-			{type: "dialog", speaker: this._ryan, expression: "thoughtful", text: "Ha!  I didn’t know you were so mean.  Let's just give it to the bartender.", label: "sellit"},
+			{type: "nothing", label: "cash"},
+			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},			
+			{type: "dialog", speaker: this._ryan, text: "Ha!  I didn’t know you were so mean. Let’s just give it to the waiter."},
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
