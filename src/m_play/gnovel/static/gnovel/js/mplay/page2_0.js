@@ -27,27 +27,49 @@ var MPLAY = MPLAY || {};
 
 	Page2_0.prototype._createFlowElements = function() {
 		var priya = "%" + this._priya;
+		var player = this._player;
 
 		var o = null;
 
 		o = [
 			{type:"show_context", text:"At the cafe..."},
-			{type: "show", img: priya, expression: "happy", position: "center"},
-			{type: "dialog", speaker: "Priya", text: "Oh, hey, I didn’t know you hang out here too!  Ryan told me you got a job lined up.  Congrats!"},
-			{type: "choices", choices : [{text: "Thanks!", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}]},
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Priya");
+			}, label: "priyaRelationshipScore1"},
+			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "neutural"},
+			{type: "show", img: priya, expression: "happy", position: "center", label: "happy"},
+			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great, congrats!"},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "show", img: priya, position: "center", label: "neutural"},
+			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "choices", choices : [{text: "Yeah! Ryan referred me.", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}]},
 
 			{type: "nothing", label: "sweet"},
-			{type: "show", img: priya, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "That’s so sweet! Last semester, Ryan was my date to the Indian Grad Association’s banquet. He’s such a good sport. Really goes out of his way for his friends."},
+			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "He’s sweet.  Last semester, Ryan was my date to the Indian Association’s banquet. Really goes out of his way for his friends."},
 			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: "priya", score: "1"}, go : "#close"}]},
 
 			{type: "nothing", label: "nice"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "So nice! Well it was nice talking with you. See you in class."},
+			{type: "dialog", speaker: "Priya", text: "Yeah!  Well it was nice talking with you.  See you in class."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
+
 			{type: "nothing", label: "close"},
-			{type: "show", img: priya, expression:"happy", position:"center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", relationship: {name: "priya", score: 1}, text: "We’re good friends… like you two!  See you in class."},
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Priya");
+			}, label: "priyaRelationshipScore2"},
+			{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#happy2", goFalse: "neutural2"},
+
+			{type: "show", img: priya, expression:"happy", position:"center", waitUntilShown: false, label: "happy2"},
+			{type: "dialog", speaker: "Priya", text: "We’re good friends… like you two!  See you in class."},
+			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: 1000},
+
+			{type: "show", img: priya, expression: "neutural", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "Yeah… anyway, see you later."},
+			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: 1000},
 
 			{type: "goto", page: "scene 4", label: "gonextscene"},
 		];

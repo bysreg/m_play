@@ -17,12 +17,18 @@ var MPLAY = MPLAY || {};
 		// we will only have one instance of IntegrityManager
 		if (MPlayPage._integrityManager == null) {
 			this._integrityManager = new MPLAY.IntegrityManager();
-		}
+			MPlayPage._integrityManager = this._integrityManager;
+		}else if (this._integrityManager == null) {
+			this._integrityManager = MPlayPage._integrityManager;
+		};
 
 		// we will also have only one instance of RelationshipManager
 		if (MPlayPage._relationshipManager == null) {
 			this._relationshipManager = new MPLAY.RelationshipManager();
-		}
+			MPlayPage._relationshipManager = this._relationshipManager;
+		}else if (this._relationshipManager == null) {
+			this._relationshipManager = MPlayPage._relationshipManager;
+		};
 
 		// override inherited variable
 		this._backgroundLayer = -80;
