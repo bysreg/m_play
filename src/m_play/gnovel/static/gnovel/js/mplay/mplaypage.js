@@ -106,6 +106,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -160, this._characterLayer), 400, 785), "Cat");
 		MPlayPage._cat.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -160, this._characterLayer), 324, 785), "Cat");
 		MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
+		MPlayPage._cat.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful cat.png", new THREE.Vector3(0, -160, this._characterLayer), 313, 785), "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
 		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
@@ -532,11 +533,21 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
 	};
 
 	MPlayPage.prototype.setupHomeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+	};
+
+	MPlayPage.prototype.setupOfficeBackground = function() {
+		this.setBackground("/static/gnovel/res/textures/backgrounds/professor office background.png");
+
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._addToScene(background2);
+
+		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
+		this._addToScene(background3);
 	};
 
 	MPlayPage.prototype.getIntegrityManager = function() {

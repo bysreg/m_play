@@ -169,9 +169,11 @@ var MPLAY = MPLAY || {};
 							page._catsPhoneStatus = 1;
 						},
 						integrityScore:1,
+						relationship: {name: this._ryan, score: 1},
 						go: "#pickup"},
 					{text: "Does it have any cash in there?",
 						integrityScore:-1,
+						relationship: {name: this._ryan, score: -1},
 						go: "#cash"}]},
 
 			{type: "dialog", speaker: this._ryan, text: "Good idea.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "waiter"},

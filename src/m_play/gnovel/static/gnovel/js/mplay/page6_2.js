@@ -41,7 +41,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: closephone, waitUntilShown: false},
 			{type: "phone_textbox",
 				label: "email",
-				text: "Your project grade: B-"},
+				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B-. I will hand back your comments in greater detail in class. -Prof Sweeney "},
 			{type: "hide_phone_textbox", dialog: "$email"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
