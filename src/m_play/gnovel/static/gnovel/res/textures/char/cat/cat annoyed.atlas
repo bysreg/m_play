@@ -1,0 +1,34 @@
+
+cat annoyed.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cat-Annoyed_Arms
+  rotate: false
+  xy: 2, 2
+  size: 297, 229
+  orig: 987, 799
+  offset: 345, 290
+  index: -1
+Cat-Annoyed_body
+  rotate: true
+  xy: 2, 233
+  size: 277, 618
+  orig: 987, 2060
+  offset: 365, 721
+  index: -1
+Cat-Annoyed_eyes
+  rotate: false
+  xy: 301, 179
+  size: 99, 52
+  orig: 330, 176
+  offset: 116, 62
+  index: -1
+Cat-Annoyed_head
+  rotate: false
+  xy: 622, 264
+  size: 179, 246
+  orig: 733, 822
+  offset: 297, 288
+  index: -1

@@ -1,0 +1,48 @@
+
+cat neutral.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cat-Neutral_arms
+  rotate: true
+  xy: 739, 70
+  size: 184, 245
+  orig: 612, 816
+  offset: 214, 285
+  index: -1
+Cat-Neutral_body
+  rotate: true
+  xy: 2, 37
+  size: 217, 432
+  orig: 725, 1440
+  offset: 254, 504
+  index: -1
+Cat-Neutral_elbow
+  rotate: false
+  xy: 1213, 215
+  size: 37, 39
+  orig: 123, 131
+  offset: 43, 46
+  index: -1
+Cat-Neutral_eyes
+  rotate: true
+  xy: 436, 2
+  size: 91, 53
+  orig: 305, 175
+  offset: 107, 61
+  index: -1
+Cat-Neutral_head
+  rotate: true
+  xy: 986, 45
+  size: 209, 225
+  orig: 702, 753
+  offset: 246, 264
+  index: -1
+Cat-Neutral_legs
+  rotate: true
+  xy: 436, 95
+  size: 159, 301
+  orig: 529, 1001
+  offset: 185, 350
+  index: -1

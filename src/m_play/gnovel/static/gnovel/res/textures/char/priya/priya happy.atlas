@@ -1,0 +1,41 @@
+
+priya happy.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priya-happy head
+  rotate: true
+  xy: 2, 2
+  size: 213, 261
+  orig: 713, 871
+  offset: 250, 305
+  index: -1
+priya-happy-blink eyes
+  rotate: false
+  xy: 265, 166
+  size: 89, 49
+  orig: 297, 161
+  offset: 104, 56
+  index: -1
+priya-happy-body  (1)
+  rotate: true
+  xy: 2, 217
+  size: 276, 555
+  orig: 920, 1849
+  offset: 322, 647
+  index: -1
+priya-happy-left arm
+  rotate: true
+  xy: 751, 379
+  size: 114, 271
+  orig: 378, 903
+  offset: 132, 316
+  index: -1
+priya-happy-right arm
+  rotate: false
+  xy: 559, 253
+  size: 190, 240
+  orig: 632, 798
+  offset: 221, 279
+  index: -1
