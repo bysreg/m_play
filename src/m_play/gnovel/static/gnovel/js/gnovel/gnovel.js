@@ -39,20 +39,23 @@ var GNOVEL = GNOVEL || {};
 
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
-					// SFX
-					{id:"Clicking", src:"clicking.ogg"},
-					{id:"Timer", src:"timer.ogg"},
-					{id:"Message", src:"message.ogg"},
-					{id:"Text", src:"text.ogg"},
+					// SFX UI
+					{id:"Clicking", src:"sfx-ui-clicking.ogg"},
+					{id:"Timer", src:"sfx-ui-timer.ogg"},
+					{id:"Message", src:"sfx-ui-message.ogg"},
+					{id:"Text", src:"sfx-ui-text.ogg"},
+
+					// SFX Waiting dialog
+					{id:"Hello?-Ryan", src: "sfx-waiting-hello-ryan.ogg"},
 
 					// ambient
-					{id:"Cafe-bg", src:"cafe-ambient.ogg"},
-					{id:"Office-bg", src:"office-ambient.ogg"},
-					{id:"Gym-bg", src:"gym-ambient.ogg"},
-					{id:"Bar-bg", src:"bar-ambient-new.ogg"},
-					{id:"Classroom-bg", src:"classroom-ambient.ogg"},
-					{id:"UC-bg", src:"uc-ambient-new.ogg"},
-					{id:"Library-bg", src:"lib-ambient.ogg"}
+					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
+					{id:"Office-bg", src:"ambient-office.ogg"},
+					{id:"Gym-bg", src:"ambient-gym.ogg"},
+					{id:"Bar-bg", src:"ambient-bar.ogg"},
+					{id:"Classroom-bg", src:"ambient-classroom.ogg"},
+					{id:"UC-bg", src:"ambient-uc.ogg"},
+					{id:"Library-bg", src:"ambient-lib.ogg"}
 					];
 		this._soundManager = createjs.Sound;
 

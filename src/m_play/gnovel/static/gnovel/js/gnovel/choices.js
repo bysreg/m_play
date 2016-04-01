@@ -200,6 +200,7 @@ var GNOVEL = GNOVEL || {};
 				if(count <= choices._timedResponses.length-1){
 					//
 					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
+					
 					//after the first response displays, then make invisible & move to next response
 					if (count > 0){
 						//choices._responseBox[count-1]._messageText.material.opacity = 0;
