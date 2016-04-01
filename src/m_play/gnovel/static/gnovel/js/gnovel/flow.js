@@ -259,6 +259,7 @@ var GNOVEL = GNOVEL || {};
 
 	Flow.prototype._handleGoto = function(obj) {
 		var pageIndex = obj.page;
+		var curPage = this._page;
 		var transitionType = obj.transition;
 
 		switch(transitionType) {
@@ -268,11 +269,25 @@ var GNOVEL = GNOVEL || {};
 				break;
 		};
 
+		this._page._showRelationshipInfo("Ryan");
+		var delay = 1;
+		var tempTween = new TWEEN.Tween(delay)
+		.to(0,1000)
+		.easing(TWEEN.Easing.Cubic.Out)
+		.onComplete(function(){
+			if(typeof obj.page === 'string') {
+				curPage.goToPageByLabel(obj.page, transitionType, null);
+			} else {
+				curPage.goToPage(pageIndex, transitionType, null);
+			}
+		})
+		tempTween.start();
+/*
 		if(typeof obj.page === 'string') {
 			this._page.goToPageByLabel(obj.page, transitionType, null);
 		} else {
 			this._page.goToPage(pageIndex, transitionType, null);
-		}
+		}*/
 	};
 
 	Flow.prototype._handleCompare = function(obj) {
