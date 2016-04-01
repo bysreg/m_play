@@ -198,7 +198,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices",
 				choices :
 					[{text: "No problem, Ryan.  You’d do the same for me.",
-						go: "#materials", integrityScore: -1, relationship: {name: this._priya, score: -1},
+						go: "#materials", integrityScore: -1,
 						onChoose: function(page){
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
@@ -212,6 +212,10 @@ var MPLAY = MPLAY || {};
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},
+			{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", -1);
+					page.getRelationshipManager().addRelationship("Ryan", 2);
+				}},
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore4"},
@@ -341,6 +345,10 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene 5.b"},
 
 			{type: "nothing", label: "gohome"},
+			{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", -1);
+					page.getRelationshipManager().addRelationship("Cat", -1);
+				}},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
 			{type: "dialog", speaker: "", text: "You head to the bar"},
@@ -375,13 +383,15 @@ var MPLAY = MPLAY || {};
 				{type: "choices",
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
-							go: "#study-r",
-							relationship: {name: this._ryan, score: 1}},
+							go: "#study-r"},
 						{text: "Not much",
-							go: "#sayhi-r",
-							relationship: {name: this._ryan, score: -1}}], label: "choices1"},
+							go: "#sayhi-r"}], label: "choices1"},
 
 				{type: "nothing", label: "study-r"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", 1);
+					page.getRelationshipManager().addRelationship("Ryan", 1);
+				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -428,6 +438,10 @@ var MPLAY = MPLAY || {};
 				
 
 				{type: "nothing", label: "sayhi-r"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", -1);
+					page.getRelationshipManager().addRelationship("Ryan", -1);
+				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -501,13 +515,15 @@ var MPLAY = MPLAY || {};
 				{type: "choices",
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
-							go: "#study-p",
-							relationship: {name: this._priya, score: 1}},
+							go: "#study-p"},
 						{text: "Not much",
-							go: "#sayhi-p",
-							relationship: {name: this._priya, score: -1}}], label: "choices1"},
+							go: "#sayhi-p"}], label: "choices1"},
 
 				{type: "nothing", label: "study-p"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", 1);
+					page.getRelationshipManager().addRelationship("Ryan", 1);
+				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -552,6 +568,10 @@ var MPLAY = MPLAY || {};
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "sayhi-p"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Priya", -1);
+					page.getRelationshipManager().addRelationship("Ryan", -1);
+				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,

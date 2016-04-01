@@ -122,7 +122,6 @@ var MPLAY = MPLAY || {};
 					choices :
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
-							relationship: {name: "ryan", score: 1},  // FIXME need to add two relationship scores
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
@@ -130,7 +129,6 @@ var MPLAY = MPLAY || {};
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
-							relationship: {name: "ryan", score: 1},
 							go: "#submit" }],
 					seconds: 10,
 					responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
@@ -138,7 +136,8 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "ask"},
 			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("cat", 1);
+				page.getRelationshipManager().addRelationship("Cat", 1);
+				page.getRelationshipManager().addRelationship("Ryan", -1);
 			}},
 			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},
 
@@ -255,6 +254,10 @@ var MPLAY = MPLAY || {};
 
 			
 			{type: "nothing", label: "submit"},
+			{type: "custom", func: function(page) {
+				page.getRelationshipManager().addRelationship("Cat", -1);
+				page.getRelationshipManager().addRelationship("Ryan", 1);
+			}},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},

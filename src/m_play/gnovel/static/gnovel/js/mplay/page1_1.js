@@ -126,7 +126,13 @@ var MPLAY = MPLAY || {};
 				{type: "choices", choices : [{text: "Grab a coffee at the café – you run into Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go to the gym – you run into Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}], label: "aside1"},
 				{type: "goto", page: "scene 3.a", label: "gocafe"},
 				{type: "goto", page: "scene 3.b", label: "gogym"},
-				{type: "goto", page: "scene 4", label: "gohome"},
+
+				{type: "nothing", label: "gohome"},
+				{type: "custom", func: function(page) {
+					page.getRelationshipManager().addRelationship("Cat", -1);
+					page.getRelationshipManager().addRelationship("Priya", -1);
+				}},
+				{type: "goto", page: "scene 4"},
 			];
 
 		return o;

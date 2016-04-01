@@ -100,7 +100,6 @@ var MPLAY = MPLAY || {};
 					relationship: {name: this._priya, score: 2}},
 				{text : "Don't say anything - you need all the help on this exam you can get.",
 					integrityScore: -1,
-					relationship: {name: this._ryan, score: 2},
 					go : "#dontsay"},
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
@@ -129,6 +128,10 @@ var MPLAY = MPLAY || {};
 
 			// dontsay
 			{type: "nothing", label: "dontsay"},
+			{type: "custom", func: function(page) {
+				page.getRelationshipManager().addRelationship("Priya", -1);
+				page.getRelationshipManager().addRelationship("Ryan", 2);
+			}},
 			{type: "show", img: priya, position: "left", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "I can't keep arguing with you both. Do what you want."},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
