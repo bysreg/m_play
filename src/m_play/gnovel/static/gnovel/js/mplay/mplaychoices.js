@@ -89,7 +89,8 @@ var MPLAY = MPLAY || {};
 	MPlayChoices.prototype = Object.create(GNOVEL.Choices.prototype);
 	MPlayChoices.prototype.constructor = MPlayChoices;
 
-	/** 
+
+	/**
 	 * @override
 	 */
 	MPlayChoices.prototype._onChoiceComplete = function() {
@@ -139,24 +140,39 @@ var MPLAY = MPLAY || {};
 				var name = flowElement.choices[resultId].relationship.name;
 				var score = flowElement.choices[resultId].relationship.score;
 				relationshipManager.addRelationship(name, score);
-				//display visual notification of relationship choice
-				//pageObj.log("a character will remember this");
-				console.log("a character will remember this");
 
-				// var Text2D = THREE_Text.Text2D;
-				// var sprite = new Text2D(name, {
-				// 	align: 'left',
-				// 	font: '20px NoteWorthy Bold',
-				// 	fillStyle: '#000000',
-				// 	antialias: false,
-				// 	charLine: 60,
-				// });
-				//sprite.position = new THREE.Vector3(-500, 250, pageObj._uiLayer - 40);
+				//display visual notification of relationship choice
+				console.log("a character will remember this");
+				//set what text should display based upon relationship score
+				if(score > 0)
+					var charText = name + " feels good about your decision."
+				else if (score < 0)
+					var charText = name + " feels negatively about your decision."
+
+				var relationText = pageObj.createTextBox(charText,{
+					align: 'left',
+					charLine: pageObj._charLine,
+					font: "25px SF_Toontime Bold Italic",
+					fillstyle: '#ffffff',
+				});
+				relationText.position.set(-530, 260, pageObj._uiLayer - 40);
+				relationText.material.opacity = 0;
+				pageObj._addToScene(relationText);
+
+				pageObj.tweenMat(relationText, {
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					opacity: 1,
+					opacity2: 0,
+					chain: true,
+					delay: 1000,
+					onComplete: function() {
+						pageObj._removeFromScene(relationText);
+					},
+				});
 
 				//display compass in upper left
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(-400, 200, pageObj._uiLayer - 40), 200, 100);
-				//pageObj._addToScene(notifyBg);
-				//pageObj._addToScene(sprite);
 
 			}
 
@@ -205,7 +221,7 @@ var MPLAY = MPLAY || {};
 						.to(0, delayDuration)
 						.easing(TWEEN.Easing.Cubic.Out)
 						.onComplete(function() {
-							//pageObj._removeFromScene(choicesTextBg[resultId]);							
+							//pageObj._removeFromScene(choicesTextBg[resultId]);
 
 							pageObj.tweenMat(choicesTextBg[resultId], {
 								duration: 800,
@@ -273,8 +289,8 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
-	/**	 
-	 * @override	 
+	/**
+	 * @override
 	 */
 	MPlayChoices.prototype._onMouseDown = function(event) {
 		event.preventDefault();
@@ -307,7 +323,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	/**
-	 * @override	 
+	 * @override
 	 */
 	MPlayChoices.prototype._onMouseMove = function(event) {
 		event.preventDefault();

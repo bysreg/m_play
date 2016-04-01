@@ -109,7 +109,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._cat.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful cat.png", new THREE.Vector3(0, -160, this._characterLayer), 313, 785), "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
-		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored trim.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
+		MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
 		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad priya.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
 
@@ -127,6 +127,32 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
 		this._setObjectTag(this._closephone, this._closephoneImg);
+	};
+
+	MPlayPage.prototype._showRelationshipInfo = function(char,params){
+		var pageObj = this;
+		var relationshipManager = MPlayPage._relationshipManager;
+		/*for(var i=0;i<char.length,i++)
+		{
+			relationshipManager.getRelationship("Ryan");
+			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, 260, this._dialogLayer), 150, 150);
+			pageObj._addToScene(this._ryan);
+		}*/
+		//temp implementation
+		var score = relationshipManager.getRelationship("Ryan");
+		if(score>=0)
+			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_happy_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
+		else if(score<0)
+			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_angry_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
+
+		score = relationshipManager.getRelationship("Priya");
+		if(score>=0)
+			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_happy_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
+		else if(score<0)
+			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_sad_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
+
+		pageObj._addToScene(this._priya);
+		pageObj._addToScene(this._ryan);
 	};
 
 	MPlayPage.prototype._showPhoneNotification = function(params) {
@@ -360,6 +386,7 @@ var MPLAY = MPLAY || {};
 		params.bgHeight = 221;
 		params.showSpeaker = false;
 		params.charLine = 30;
+		//params.font = "25px NoteworthyLight";
 
 		var chara = null;
 
@@ -656,16 +683,16 @@ var MPLAY = MPLAY || {};
 		//params.type = "context";
 		params.flowElement = obj;
 		params.showSpeaker = false;
-		params.charLine = 27;
+		params.charLine = 30;
 		params.messageAlign = "left";
 		//params.dontRemove = true;
 		//	params.createNewBg = true;
 		//params.speaker = "Context";
 		params.width = 100;
-		params.font = "25px SF_Toontime Bold Italic";
+		params.font = "20px Bevan";
 
 		message = obj.text;
-		var x = -530;
+		var x = -500;
 		var y = 230;
 
 		var toX;

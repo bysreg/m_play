@@ -8,7 +8,7 @@ body {
 	height: 100%;
 	overflow: hidden;
 	background-color: #354144;
-	font-family: NoteWorthy Bold, SF_Toontime Bold Italic, Helvetica, arial, sans-serif;
+	font-family: sfToonTime, Noteworthy, AleoBold, NoteworthyBold, Helvetica, arial, sans-serif;
 	position: relative;
 }
 
@@ -52,12 +52,22 @@ canvas:focus {
 	font-family: 'Arvo', serif;
 	font-family: 'Droid Sans', sans-serif;
 
-	font-family: 'NoteWorthy Bold';
-	src: url('../font/noteworthyBoldFontFace.ttf') format('truetype');
+	font-family: 'NoteworthyBold';
+	src: url('../font/noteworthyFontFace.ttf') format('truetype');
 	
 	font-family: 'Bevan';
 	src: url('../font/Bevan.ttf') format('truetype');
 
-	font-family: 'SF_Toontime Bold Italic';
+	font-family: 'Toontime';
 	src: url('../font/SF Toontime Bold Italic.ttf') format('truetype');
+	
+	font-family: 'AleoBold';
+	src: url('../font/Aleo-Bold.otf') format('truetype');
+
+	font-family: 'sfToonTime';
+	src: url('../font/SFToontimeBold.ttf') format('truetype');
+
+	font-family: 'Noteworthy';
+	src: url('../font/Noteworthy Bold.otf') format('truetype');
+
 }

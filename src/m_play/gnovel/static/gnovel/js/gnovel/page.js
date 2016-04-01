@@ -165,6 +165,7 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		var duration = params.duration || 1000;
 
+		//specify chain in parameters to make fade in and out
 		var tweenMatIn = new TWEEN.Tween(obj.material)
 			.to({
 				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
@@ -327,10 +328,11 @@ var GNOVEL = GNOVEL || {};
 				break;
 		}
 
+
 		var sprite = new Text2D(message, {
 			align: msgAlign,
-			font: parameters.font || '20px NoteWorthy Bold',
-			fillStyle: '#000000',
+			font: parameters.font || "20px Noteworthy",
+			fillStyle: parameters.fillstyle || '#000000',
 			antialias: false,
 			charLine: parameters.charLine,
 		});
@@ -469,7 +471,7 @@ var GNOVEL = GNOVEL || {};
 				}
 
 				pageObj._flow._exec();
-			}			
+			}
 
 			// if params.onChoiceComplete is undefined or null (or falsy)
 			if(!params.onChoiceComplete) {
