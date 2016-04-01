@@ -143,7 +143,7 @@ var MPLAY = MPLAY || {};
 			}, label: "RelationshipScore"},
 
 			{type: "compare", leftop: "$RelationshipScore", operator: "greater", rightop: 0, goTrue: "#intro_priya", goFalse: "#not_intro_priya"},
-			
+
 			// relationship score > 0
 			{type: "dialog", speaker: this._ryan, text: "It's cross listed with CS and psych or something.  My friend Priya is in it too.  I’ll introduce you guys.", label: "intro_priya"},
 			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
@@ -198,7 +198,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			{type: "nothing", label: "cash"},
-			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},			
+			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Ha!  I didn’t know you were so mean. Let’s just give it to the waiter."},
 
 			// ending
@@ -218,6 +218,7 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
+		this._showRelationshipInfo("Ryan");
 	};
 
 	Page0.prototype._onStart = function() {
