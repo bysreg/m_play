@@ -28,28 +28,53 @@ var MPLAY = MPLAY || {};
 
 	Page4_1.prototype._createFlowElements = function() {
 		var cat = "%" + this._cat;
+		var player = this._player;
 
 		var o = null;
 
 		o = [
 			{type: "show_context", "text": "At the Scottie's..."},
-			{type: "show", img: cat, expression: "happy", position: "center"},
-			{type: "dialog", speaker: "Cat", text: "Oh hey!  I'm just finishing up here, but what's new with you?"},
-			{type: "choices", choices : [{text: "Not much. How are you doing?", go: "#hrudoing"}, {text : "Nothing much.", go : "#nothingmuch"}]},
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Cat");
+			}, label: "catRelationshipScore1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos1", goFalse: "#neg1"},
 
-			{type: "nothing", label: "hrudoing"},
-			// should be a sad cat here.
+			{type: "nothing", label: "pos1"},
+			{type: "show", img: cat, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: player+"!  How are you doing?"},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "nothing", label: "neg1"},
+			{type: "show", img: cat, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Hi!  What's new with you?"},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "nothing", label: "choices1"},
+			{type: "choices", choices : 
+								[{text: "Not much.  What’s up with you?", 
+									go: "#wtsup"}, 
+								 {text: "Nothing much.", 
+								 	go: "#nothingmuch"}]},
+
+			{type: "nothing", label: "wtsup"},
+			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my GPA."},
 
-			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", relationship: {name: "cat", score: "1"}, go : "#beok"}]},
-			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok.  But then again, I’m saying this after a glass of wine. Ask me again in May.", label: "beok"},
+			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", go : "#beok"}]},
+			{type: "show", img: cat, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok. But you know what? Ask me again in May.", label: "beok"},
+			{type: "dialog", speaker: "Cat", text: "So… Priya told me about what happened with you guys the other day. It touches a nerve because of the whole international thing. They have more at stake."},
+			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. what are you going to order?"},			
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "nothingmuch"},
-			{type: "show", img: cat, expression: "thoughtful"},
-			{type: "dialog", speaker: "Cat", text: "Stuff... sounds serious.  Can I help?"},
-			{type: "choices", choices : [{text: "Ah no it was just this thing with Ryan… It’s ok.", go: "#itsok"}, {text : "Oh it’s nothing.", go : "#itsok"}]},
-			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen."},
+			{type: "show", img: cat, expression: "thoughtful", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Nothing... sounds serious. Can I help?"},
+			{type: "choices", choices : [{text: "Ah no it was just this thing with Ryan… It’s ok.", go: "#itsok"}, {text : "Thanks, but it’s fine.", go : "#itsok"}]},
+			{type: "show", img: cat, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},
+			{type: "dialog", speaker: "Cat", text: "Priya told me a little bit about what happened.  I think she got upset because for international students, they have a lot more at stake, you know?"},
+			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. What are you going to order?"},
 
 			{type: "goto", page: "scene 6.a", label: "gonextscene"},
 		];

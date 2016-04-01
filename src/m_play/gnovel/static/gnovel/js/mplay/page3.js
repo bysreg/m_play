@@ -176,7 +176,7 @@ var MPLAY = MPLAY || {};
 				y: 40,
 				charLine: 37,
 				dontShowBg: true,
-				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on your respective midterms.  Also, as a gentle reminder, please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  I’ve attached the syllabus to this message.  Make sure you read it, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
+				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on midterms.  Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$phone_bg"},
 			{type: "hide_phone_textbox", dialog: "$address_from"},
 			{type: "hide_phone_textbox", dialog: "$address_to"},
@@ -188,62 +188,143 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester.  Could you send me some of your stuff from the class?  Like notes and old assignments?"},
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Priya", text: "Ryan, I don’t know if you can look at " + player + "’s graded assignments."},
+			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year.  My friend got in trouble for doing that, it’s not worth it."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Shoot, why not?  Is it against the rules or something?"},
-			{type: "dialog", speaker: "Priya", text: "Yeah, it’s in the syllabus Sweeney just sent out.  If you do, you probably won’t get caught, but..."},
-			{type: "dialog", speaker: "Ryan", text: "Aw man, that totally sucks.  I’m so behind in my work, and I was counting on looking at some old homeworks to help me out.  Do you think it’s a big deal?"},
+			{type: "dialog", speaker: "Ryan", text: "I’m just stuck on some problems - I’m only going to use it to check my work."},
+			{type: "dialog", speaker: "Priya", text: "If you do, you probably won’t get caught, but why risk it?"},
+			{type: "show", img: ryan, position: "left", expression: "sad", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "I won’t get caught, Priya. I’m so behind in my work, I just need something to help me catch up."},
 
 			{type: "choices",
 				choices :
-					[{text: "You decide to give all your materials to Ryan.",
-						go: "#materials", integrityScore: -1, relationship: {name: "priya", score: -1},
+					[{text: "No problem, Ryan.  You’d do the same for me.",
+						go: "#materials", integrityScore: -1, relationship: {name: this._priya, score: -1},
 						onChoose: function(page){
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 						}},
-					{text: "You hesitate… Hopefully he gets the message.",
-						go: "#hesitate", integrityScore: 0, relationship: {name: "ryan", score: -1}},
-					{text: "Hey Ry, sounds like old assignments aren’t allowed, but I’m happy to give you my notes.",
-						go: "#notes", integrityScore: 1}],
+					{text: "Ry, I don’t know…",
+						go: "#dontknow", integrityScore: 0, relationship: {name: this._ryan, score: -1}},
+					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
+						go: "#notes", integrityScore: 1, relationship: {name: this._priya, score: 2}}],
 				seconds: 10,
 				responses: [{text: "hey!"}, {text:"did you hear me"}],
 				speaker: this.ryan},
 
-			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false, label:"materials"},
-			{type: "dialog", speaker: "Ryan", text: "Thanks!  Priya, it’s no biggie.  It’ll be fine."},
+			{type: "nothing", label: "materials"},
+			{type: "custom", func: function(page) {
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "ryanRelationshipScore4"},
+			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "greater", rightop: 0, goTrue: "#pos", goFalse: "#compare3"},
+
+			{type: "nothing", label: "pos"},
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I'm just going to use it to catch up."},
-			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false, flip:true},
-			{type: "dialog", speaker: "Priya", text: "Ok... Hey guys I'll see you later.  I forgot, I have a thing…"},
+			{type: "dialog", speaker: "Ryan", text: "Thanks, "+ player +"! This is such a huge help."},
+			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "Ok... Listen, I’ll see you both in class later."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well see you."},
+			{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well, see you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "dialog", speaker: "", text: "Priya leaves."},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me.  Maybe I should talk to her later."},
+			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. I should talk to her later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
-			{type: "nothing", label: "hesitate"},
-			{type: "show", img: ryan, position: "left", expression:"angry", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Hey, if you don't want to help me out, just say so.  Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "nothing", label: "compare3"},
+			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "equal", rightop: 0, goTrue: "#zero", goFalse: "#neg" },
+
+			{type: "nothing", label: "zero"},
+			{type: "show", img: ryan, position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "This is going to be a huge help. Thanks."},
+			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "Listen, I’m late for a meeting.  See you."},
+			{type: "dialog", speaker: "Oh.  Uh, ok, well, see you."},
+			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+			{type: "nothing", label: "neg"},
+			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "Right, well.  See you in class."},
+			{type: "dialog", speaker: "Oh.  Uh, ok, well, see you."},
+			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+
+			{type: "nothing", label: "dontknow"},
+			{type: "custom", func: function(page) {
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "ryanRelationshipScore5"},
+			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "greater", rightop: 0, goTrue: "#pos1", goFalse: "#compare4"},
+
+			{type: "nothing", label: "pos1"},
+			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Hey "+ player +", if you don't want to help me out, just say so."},
+			{type: "show", img: ryan, expression: "sad", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "dialog", speaker: "", text: "Ryan leaves."},
-			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false, flip: true},
+			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
-			{type: "choices",
-				choices :
-					[{text: "I’m sure he just needs to cool off.",
-						go: "#lastflow-p"},
-					{text: "He’s just pissed at me, don’t worry about it.",
-						go: "#lastflow-p", relationship: {name: "priya", score: 1}}]},
-			{type: "nothing", label: "lastflow-p"},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later." },
+			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext1"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext1"}]},
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},			
+			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
-			{type: "dialog", speaker: "Priya", text: "Yeah, don’t risk it.", label: "notes"},
-			{type: "dialog", speaker: "Ryan", text: "Thanks, I’ll take what I can get."},
+			{type: "nothing", label: "compare4"},
+			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "equal", rightop: 0, goTrue: "#zero1", goFalse: "neg1" },
+
+			{type: "nothing", label: "zero1"},
+			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
+			{type: "show", img: ryan, position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
+			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext2"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext2"}]},
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext2"},			
+			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+			{type: "nothing", label: "neg1"},
+			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Wow, way to be passive aggressive about it."},
+			{type: "show", img: ryan, position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Look, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
+			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
+			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext3"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext3"}]},
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext3"},
+			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+
+			{type: "nothing", label: "notes"},
+			{type: "custom", func: function(page) {
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "ryanRelationshipScore6"},
+			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "greater", rightop: 0, goTrue: "#pos2", goFalse: "#compare5"},
+
+			{type: "nothing", label: "pos2"},
+			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Seriously?  I’m sure it’s fine, but if it’ll make you feel better, I’ll email the TA."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+			{type: "nothing", label: "compare5"},
+			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "equal", rightop: 0, goTrue: "#zero2", goFalse: "neg2" },
+
+			{type: "nothing", label: "zero2"},
+			{type: "show", img: ryan, position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "I guess I can email the TA to check."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+			{type: "nothing", label: "neg2"},
+			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
+			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself.  Thanks anyway."},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
 
@@ -269,14 +350,36 @@ var MPLAY = MPLAY || {};
 
 		if(this._talked == 1) {
 			o = [
-				{type: "show", img: ryan, position: "left"},
-				{type: "dialog", speaker: "Ryan", text: "Hey there!  Coming to join us?"},
+				{type: "custom", func: function(page){
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore1"},
+				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
+				
+				{type: "nothing", label: "happy"},
+				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Hey " + player + ", nice to see you. Coming to join us?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#neutural", goFalse: "#thoughtful", label: "compare2"},
+				
+				{type: "nothing", label: "neutural"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Oh hey. Coming to join us?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+				{type: "nothing", label: "thoughtful"},
+				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Hey.  What’s up?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
 				{type: "choices",
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
-							go: "#study-r"},
-						{text: "I’m coming to say hi.  What are you two doing?",
-							go: "#sayhi-r"}]},
+							go: "#study-r",
+							relationship: {name: this._ryan, score: 1}},
+						{text: "Not much",
+							go: "#sayhi-r",
+							relationship: {name: this._ryan, score: -1}}], label: "choices1"},
 
 				{type: "nothing", label: "study-r"},
 				{type: "custom", func: function(pageObj) {
@@ -290,13 +393,39 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
-				{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
-				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
+
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore2"},
+				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
+
+				{type: "nothing", label: "pos-priya"},
+				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Your friend here keeps distracting me."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "neg-priya"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Ryan keeps distracting me."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "compareryan"},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore2"},
+				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
+
+				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  I don’t want to work on my Computer Graphics take home test."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "nothing", label: "neg-ryan"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+				
+				
 
 				{type: "nothing", label: "sayhi-r"},
 				{type: "custom", func: function(pageObj) {
@@ -310,31 +439,77 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
-				{type: "show", img: priya, position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work", },
-				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
+
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore3"},
+				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
+
+				{type: "nothing", label: "pos-priya2"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "Yeah… I’m trying to study.  Ryan is avoiding his Computer Graphics work."},
+				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
+
+				{type: "nothing", label: "neg-priya2"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "compareryan2"},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore3"},
+				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
+
+				{type: "nothing", label: "pos-ryan2"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Speaking of CG, that does remind me of my take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "nothing", label: "neg-ryan2"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 			];
 			o = o.concat(common);
 
 		}else if(this._talked == 2) {
 			o = [
-				{type: "show", img: priya, position: "right"},
-				{type: "dialog", speaker: "Priya", text: "Hi!  What’s going on?"},
+				{type: "custom", func: function(page){
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore1"},
+				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
+				
+				{type: "nothing", label: "happy"},
+				{type: "show", img: priya, expression: "happy", position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Hi "+ player +"!  Join us?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+				{type: "nothing", label: "compare2"},
+				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#neutural1", goFalse: "#neutural2"},
+
+				{type: "nothing", label: "neutural1"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Oh hi. Coming to join us?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+				{type: "nothing", label: "neutural2"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false},
+				{type: "dialog", speaker: "Priya", text: "Hi.  What are you doing?"},
+				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
 				{type: "choices",
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
-							go: "#study-p"},
-						{text: "I’m coming to say hi.  What are you two doing?",
-							go: "#sayhi-p"}]},
+							go: "#study-p",
+							relationship: {name: this._priya, score: 1}},
+						{text: "Not much",
+							go: "#sayhi-p",
+							relationship: {name: this._priya, score: -1}}], label: "choices1"},
 
 				{type: "nothing", label: "study-p"},
-				{type: "show", img: priya, expression:"thoughtful", position: "right", flip: true, waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "We're studying too!  Well I'm trying to study."},
-				{type: "show", img: priya, expression: "neutral", position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "Your friend here keeps distracting me"},
 				{type: "custom", func: function(pageObj) {
-					pageObj.tweenMat(pageObj._io1.getImage(), {
+					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
 						easing: TWEEN.Easing.Cubic.Out,
 						duration: 800,
@@ -344,15 +519,41 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
+
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore2"},
+				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
+
+				{type: "nothing", label: "pos-priya"},
+				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Your friend here keeps distracting me."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "neg-priya"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Ryan keeps distracting me."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "compareryan"},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore2"},
+				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
+
+				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  She's keeping me from working hard on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  I don’t want to work on my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "nothing", label: "neg-ryan"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computer Graphics take home test."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "sayhi-p"},
-				{type: "show", img: priya, position: "right", waitUntilShown: false},
-				{type: "dialog", speaker: "Priya", text: "I'm trying to study.  Ryan is avoiding his Computer Graphics work"},
 				{type: "custom", func: function(pageObj) {
-					pageObj.tweenMat(pageObj._io1.getImage(), {
+					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
 						easing: TWEEN.Easing.Cubic.Out,
 						duration: 800,
@@ -362,8 +563,36 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
-				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "I'm not avoiding it, so much as choosing to do something else.  But speaking of CG, that does remind me of my take home test."},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Priya");
+				}, label: "priyaRelationshipScore3"},
+				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
+
+				{type: "nothing", label: "pos-priya2"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "Yeah… I’m trying to study.  Ryan is avoiding his Computer Graphics work."},
+				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
+
+				{type: "nothing", label: "neg-priya2"},
+				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
+				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study."},
+				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
+
+				{type: "nothing", label: "compareryan2"},
+				{type: "custom", func: function(page) {
+					return page.getRelationshipManager().getRelationship("Ryan");
+				}, label: "ryanRelationshipScore3"},
+				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
+
+				{type: "nothing", label: "pos-ryan2"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "Speaking of CG, that does remind me of my take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
+
+				{type: "nothing", label: "neg-ryan2"},
+				{type: "show", img: ryan, position: "left", waitUntilShown: false},
+				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computer Graphics take home test."},
+				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 			];
 			o = o.concat(common);
 		}

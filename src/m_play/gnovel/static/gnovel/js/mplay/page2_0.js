@@ -36,7 +36,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore1"},
-			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "neutural"},
+			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#neutural"},
 			{type: "show", img: priya, expression: "happy", position: "center", label: "happy"},
 			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great, congrats!"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
-			{type: "choices", choices : [{text: "Yeah! Ryan referred me.", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}]},
+			{type: "choices", choices : [{text: "Yeah! Ryan referred me.", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}], label: "choices1"},
 
 			{type: "nothing", label: "sweet"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
