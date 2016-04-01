@@ -209,7 +209,7 @@ var GNOVEL = GNOVEL || {};
 				opacity: 0.3,
 			}, duration)
 
-//chaining used to call tween functions back and forth infinitely
+		//chaining used to call tween functions back and forth infinitely
 		tweenFlashForward.chain(tweenFlashBack);
 		tweenFlashBack.chain(tweenFlashForward);
 
@@ -353,6 +353,10 @@ var GNOVEL = GNOVEL || {};
 	// will be called after load complete
 	Page.prototype._onStart = function() {
 		//console.log("on start");
+	};
+
+	// will be called each frame, after onLoad and onStart complete
+	Page.prototype._update = function() {		
 	};
 
 	// will be called after onStart called

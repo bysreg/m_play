@@ -10,7 +10,7 @@ var MPLAY = MPLAY || {};
 	var Character = function(img, name) {
 		this._name = name;
 		this._expression = {};
-		this._img = img; // default image
+		this._img = img; // default image		
 
 		// make the default image to be transparent
 		this._img.material.opacity = 0;
@@ -38,12 +38,17 @@ var MPLAY = MPLAY || {};
 	};
 
 	Character.prototype.setExpression = function(expression, img) {
-		// we always make sure the image is always transparent first
-		img.material.opacity = 0;
+		
+		if(img instanceof MPLAY.SpineAnimation) {
 
-		this._expression[expression] = img;
+			
 
-		img.material.side = THREE.DoubleSide;
+		} else {
+			// we always make sure the image is always transparent first
+			img.material.opacity = 0;
+			this._expression[expression] = img;
+			img.material.side = THREE.DoubleSide;
+		}	
 	};
 
 	// wont affect real position on the screen, this just record the position

@@ -51,6 +51,7 @@ var MPLAY = MPLAY || {};
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
 			this._initChars();
+			this._initAnimation();
 		}
 
 		// set object tags for the characters, so that we can refer it in the flow
@@ -117,6 +118,48 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");
 
 		MPlayPage._isCharInit = true;
+	};
+
+	MPlayPage.prototype._initAnimation = function() {
+		var test = new MPLAY.SpineAnimation ("ryan neutral", "/static/gnovel/res/animation/", 1);
+		this._test = test;
+
+		var self = this;
+
+		test.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
+			test.state.setAnimationByName(0, "idle", true);
+
+			// update it once, so that the mesh is created
+			test.update();
+
+			// for(var i=0;i<test.meshes.length;i++) {
+			// 	test.meshes[i].material.opacity = 0;	
+			// }
+
+			self._addToScene(test);
+		});
+		test.position.setY(-300);
+	};
+
+	MPlayPage.prototype._createAnim = function() {
+		var test = new MPLAY.SpineAnimation ("ryan neutral", "/static/gnovel/res/animation/", 1);
+		this._test = test;
+
+		var self = this;
+
+		test.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
+			test.state.setAnimationByName(0, "idle", true);
+
+			// update it once, so that the mesh is created
+			test.update();
+
+			// for(var i=0;i<test.meshes.length;i++) {
+			// 	test.meshes[i].material.opacity = 0;	
+			// }
+
+			self._addToScene(test);
+		});
+		test.position.setY(-300);
 	};
 
 	MPlayPage.prototype._initPhoneNotification = function() {
@@ -473,6 +516,14 @@ var MPLAY = MPLAY || {};
 		}
 
 		GNOVEL.Page.prototype._hide.call(this, img, params);
+	};
+
+	MPlayPage.prototype._update = function() {		
+		
+		if(this._test.isLoaded()) {
+			
+			this._test.update();
+		}		
 	};
 
 	MPlayPage.prototype.setupClassBackground = function() {

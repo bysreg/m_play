@@ -295,6 +295,9 @@
 
         test.addEventListener( SpineAnimation.SKELETON_DATA_LOADED, function () {        	
         	switch (test.name) {
+        		case 'ryan neutral':
+        			test.state.setAnimationByName(0, 'idle', true);
+        			break;
         		case 'spineboy':
 					test.stateData.setMixByName('walk', 'jump', 0.2);
 					test.stateData.setMixByName('run', 'jump', 0.2);
@@ -358,7 +361,7 @@
         camera.position.z = 300;
         camera.position.y = 100;   
 
-        loadSpineAnimation('spineboy', 0.4, canvas );
+        loadSpineAnimation('ryan neutral', 0.4, canvas );
 
         var renderer = new THREE.WebGLRenderer({canvas:canvas});        
         renderer.setClearColor(0xffffff);        
