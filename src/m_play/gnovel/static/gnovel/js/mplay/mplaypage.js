@@ -51,7 +51,7 @@ var MPLAY = MPLAY || {};
 		// instantiate characters, if it is not instantiated yet
 		if (!MPlayPage._isCharInit) {
 			this._initChars();
-			this._initAnimation();
+			// this._initAnimation();
 		}
 
 		// set object tags for the characters, so that we can refer it in the flow
@@ -97,11 +97,14 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isCharInit = false;
 
 	MPlayPage.prototype._initChars = function() {
-		MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -200, this._characterLayer), 414, 923), "Ryan");
+		//MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -200, this._characterLayer), 414, 923), "Ryan");
+		MPlayPage._ryan = new MPLAY.Character(this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer)), "Ryan");
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
 		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
 		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
 		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
+
+		MPlayPage._ryan.setExpression("happyanim", this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer)));
 
 		MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -160, this._characterLayer), 247, 785), "Cat");
 		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -160, this._characterLayer), 400, 785), "Cat");
@@ -120,46 +123,13 @@ var MPLAY = MPLAY || {};
 		MPlayPage._isCharInit = true;
 	};
 
-	MPlayPage.prototype._initAnimation = function() {
-		var test = new MPLAY.SpineAnimation ("ryan neutral", "/static/gnovel/res/animation/", 1);
-		this._test = test;
+	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
+		var anim = new MPLAY.SpineAnimation (animName, path, scale);		
+		var self = this;		
 
-		var self = this;
+		anim.position.set(position.x, position.y, position.z);	
 
-		test.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
-			test.state.setAnimationByName(0, "idle", true);
-
-			// update it once, so that the mesh is created
-			test.update();
-
-			// for(var i=0;i<test.meshes.length;i++) {
-			// 	test.meshes[i].material.opacity = 0;	
-			// }
-
-			self._addToScene(test);
-		});
-		test.position.setY(-300);
-	};
-
-	MPlayPage.prototype._createAnim = function() {
-		var test = new MPLAY.SpineAnimation ("ryan neutral", "/static/gnovel/res/animation/", 1);
-		this._test = test;
-
-		var self = this;
-
-		test.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
-			test.state.setAnimationByName(0, "idle", true);
-
-			// update it once, so that the mesh is created
-			test.update();
-
-			// for(var i=0;i<test.meshes.length;i++) {
-			// 	test.meshes[i].material.opacity = 0;	
-			// }
-
-			self._addToScene(test);
-		});
-		test.position.setY(-300);
+		return anim;
 	};
 
 	MPlayPage.prototype._initPhoneNotification = function() {
@@ -470,15 +440,15 @@ var MPLAY = MPLAY || {};
 			}
 
 			if (position === "center" || position === "right" || position === "left") {
-				console.log("set " + obj.getName() + " " + position);
+				//console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
 			}
 		}
 
 		if (params.flowElement.flip === true) {
-			img.scale.x = -1;
+			img.scale.x = -Math.abs(img.scale.x);
 		} else {
-			img.scale.x = 1;
+			img.scale.x = Math.abs(img.scale.x);
 		}
 
 		// check if the object is character
@@ -486,12 +456,22 @@ var MPLAY = MPLAY || {};
 			var characterTweenParam = {
 				duration: 200
 			};
+
+			if(obj.getVisibleImage() instanceof MPLAY.SpineAnimation) {
+				characterTweenParam.arr = img.meshes
+			}
+
 			characterTweenParam.onComplete = function() {
 				GNOVEL.Page.prototype._show.call(pageObj, img, params)
 			};
 
 			obj.fadeVisibleImages(this, characterTweenParam);
 		} else {
+
+			if(img instanceof MPLAY.SpineAnimation) {
+				params.arr = img.meshes;
+			}
+
 			GNOVEL.Page.prototype._show.call(this, img, params);
 		}
 	};
@@ -520,10 +500,12 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._update = function() {		
 		
-		if(this._test.isLoaded()) {
+		MPlayPage._ryan.update();
+
+		// if(this._test.isLoaded()) {
 			
-			this._test.update();
-		}		
+		// 	this._test.update();
+		// }		
 	};
 
 	MPlayPage.prototype.setupClassBackground = function() {

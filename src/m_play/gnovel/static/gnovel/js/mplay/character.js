@@ -10,13 +10,32 @@ var MPLAY = MPLAY || {};
 	var Character = function(img, name) {
 		this._name = name;
 		this._expression = {};
+		this._anims = [];
 		this._img = img; // default image		
 
+		var self = this;
+
 		// make the default image to be transparent
-		this._img.material.opacity = 0;
+		this.setImageOpacity(this._img, 0);		
 
 		// make the texture double sided, so that we can flip it
-		this._img.material.side = THREE.DoubleSide;
+		if(!this._img instanceof MPLAY.SpineAnimation) {
+			this._img.material.side = THREE.DoubleSide;
+		}else{
+			img.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
+				img.state.setAnimationByName(0, "idle", true);
+
+				// update it once, so that the mesh is created
+				img.update();				
+				self._anims.push(img);
+
+				// we always make sure the image is always transparent first
+				self.setImageOpacity(img, 0);
+			});			
+		}
+
+		// we always make sure the image is always transparent first
+		this.setImageOpacity(img, 0);
 
 		this._charPosition = "center";
 	};
@@ -37,18 +56,46 @@ var MPLAY = MPLAY || {};
 		return this._name;
 	};
 
-	Character.prototype.setExpression = function(expression, img) {
-		
+	Character.prototype.checkImageOpacity = function(img) {
 		if(img instanceof MPLAY.SpineAnimation) {
-
-			
-
+			for(var i=0;i<img.meshes.length;i++) {
+				return img.meshes[i].material.opacity;
+			}
 		} else {
-			// we always make sure the image is always transparent first
-			img.material.opacity = 0;
+			return img.material.opacity;
+		}
+	};
+
+	Character.prototype.setImageOpacity = function(img, val) {
+		if(img instanceof MPLAY.SpineAnimation) {
+			for(var i=0;i<img.meshes.length;i++) {
+				img.meshes[i].material.opacity = val;	
+			}
+		} else {
+			img.material.opacity = val;
+		}
+	};
+
+	Character.prototype.setExpression = function(expression, img) {		
+		if(img instanceof MPLAY.SpineAnimation) {
+			var self = this;
+
+			img.addEventListener( MPLAY.SpineAnimation.SKELETON_DATA_LOADED, function () {
+				img.state.setAnimationByName(0, "idle", true);
+
+				// update it once, so that the mesh is created
+				img.update();
+
+				self._expression[expression] = img;		
+				self._anims.push(img);						
+			});
+		} else {			
 			this._expression[expression] = img;
 			img.material.side = THREE.DoubleSide;
-		}	
+		}
+
+		// we always make sure the image is always transparent first
+		this.setImageOpacity(img, 0);
 	};
 
 	// wont affect real position on the screen, this just record the position
@@ -62,10 +109,10 @@ var MPLAY = MPLAY || {};
 	}
 
 	Character.prototype.getVisibleImage = function() {
-		if(this._img.material.opacity > 0) return this._img;
+		if(this.checkImageOpacity(this._img) > 0) return this._img;
 
 		for(var expression in this._expression){
-			if(this._expression[expression].material.opacity > 0) {
+			if(this.checkImageOpacity(this._expression[expression]) > 0) {
 				return this._expression[expression];
 			}
 		}
@@ -75,18 +122,19 @@ var MPLAY = MPLAY || {};
 
 	// hide instantly all images of this character
 	Character.prototype.hideAllImages = function() {
-		this._img.material.opacity = 0;
+		this.setImageOpacity(this._img, 0);
 
 		for(var expression in this._expression){
-			this._expression[expression].material.opacity = 0;
+			this.setImageOpacity(this._expression[expression], 0);			
 		}
 	};
 
 	// fade all visible images of this character
 	Character.prototype.fadeVisibleImages = function(page, params) {
-		if(this._img.material.opacity == 1) {
+		if(this.checkImageOpacity(this._img) == 1) {
 			var img = this._img;
-			page.tweenMat(this._img, {
+
+			page.tweenMat(this._img.meshes, {
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() {
@@ -98,7 +146,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		for(var expression in this._expression){
-			if(this._expression[expression].material.opacity == 1) {
+			if(this.checkImageOpacity(this._expression[expression])== 1) {
 				var img = this._expression[expression]
 				page.tweenMat(this._expression[expression], {
 					opacity: 0,
@@ -110,6 +158,15 @@ var MPLAY = MPLAY || {};
 					duration: params.duration || 800,
 				});
 			}
+		}
+	};
+
+	Character.prototype.update = function() {
+		for(var i=0;i<this._anims.length;i++) {
+			
+			if(this._anims[i].isLoaded()) {
+				this._anims[i].update();
+			}			
 		}
 	};
 

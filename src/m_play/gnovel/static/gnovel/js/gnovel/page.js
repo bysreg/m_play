@@ -165,28 +165,53 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		var duration = params.duration || 1000;
 
-		var tweenMatIn = new TWEEN.Tween(obj.material)
+		var tweenMatIn = null;
+		if(params.arr) {
+			var arr = params.arr;
+			for(var i=0;i<arr.length;i++) {
+				var tween = new TWEEN.Tween(arr[i].material)
+				.to({
+					opacity: (params.opacity !== null ? params.opacity : arr[i].material.opacity),
+				}, duration)
+				.easing(params.easing || TWEEN.Easing.Linear.None);
+
+				if(i == 0) {
+					tweenMatIn = tween;
+					if (params.onComplete != null && params.chain==null) {
+						tween.onComplete(params.onComplete);
+					}				
+				}
+			}			
+		}
+		else
+		{
+			tweenMatIn = new TWEEN.Tween(obj.material)
 			.to({
 				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None);
-		if (params.onComplete != null && params.chain==null) {
-			tweenMatIn.onComplete(params.onComplete);
-		}
 
+			if (params.onComplete != null && params.chain==null) {
+				tweenMatIn.onComplete(params.onComplete);
+			}
+		}		
+
+		// TODO: have to handle obj an array in this case too
 		var tweenMatOut = new TWEEN.Tween(obj.material)
 			.to({
 				opacity: (params.opacity2 !== null ? params.opacity2 : obj.material.opacity),
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None)
 			.delay(params.delay || 0);
-			if (params.onComplete != null && params.chain!=null) {
-				tweenMatOut.onComplete(params.onComplete);
-			}
-		if(params.chain == true)
-		{
+		
+		if (params.onComplete != null && params.chain!=null) {
+			tweenMatOut.onComplete(params.onComplete);
+		}
+		
+		if(params.chain == true) {
 			tweenMatIn.chain(tweenMatOut);
 		}
+
 		tweenMatIn.start();
 	};
 
