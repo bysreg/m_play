@@ -140,15 +140,15 @@ var MPLAY = MPLAY || {};
 		//temp implementation
 		var score = relationshipManager.getRelationship("Ryan");
 		if(score>=0)
-			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
+			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_happy_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
 		else if(score<0)
-			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
+			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_angry_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
 
 		score = relationshipManager.getRelationship("Priya");
 		if(score>=0)
-			this._priya = this.createImage("/static/gnovel/res/textures/char/priya-happy-colored.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
+			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_happy_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
 		else if(score<0)
-			this._priya = this.createImage("/static/gnovel/res/textures/char/sad priya.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
+			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_sad_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
 
 		pageObj._addToScene(this._priya);
 		pageObj._addToScene(this._ryan);
