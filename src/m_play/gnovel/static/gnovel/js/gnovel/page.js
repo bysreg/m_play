@@ -352,10 +352,11 @@ var GNOVEL = GNOVEL || {};
 				break;
 		}
 
+
 		var sprite = new Text2D(message, {
 			align: msgAlign,
-			font: parameters.font || '20px NoteWorthy Bold',
-			fillStyle: '#000000',
+			font: parameters.font || "20px Noteworthy",
+			fillStyle: parameters.fillstyle || '#000000',
 			antialias: false,
 			charLine: parameters.charLine,
 		});

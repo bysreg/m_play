@@ -36,30 +36,22 @@ var MPLAY = MPLAY || {};
 
 		var professor = "%" + this._professor;
 		var player = this._player;
-		var closephone = "%" + this._closephone;
 		var transitionBg = "%" + this._transitionBg;
 
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"A month passes and the semester is almost over..."},
-			{type:"show_context", text:"You go to your final lecture."},
+			{type:"show_context", text:"A few more weeks pass"},
+			{type:"show_context", text:"and it’s the end of the semester!"},
+			{type:"show_context", text:"You prepare for your final in Programming & Society…"},
 			//{type: "show", img: professor, position: "center", waitUntilShown: false},
 			//{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},
 			// {type: "show_phone_notif"},
 
 			// phone email exchange begins
-			{type: "show", img: closephone},
-			{type: "phone_textbox",
-				label: "email_box",
-				bgOffsetY: -80,
-				bgHeight: 300,
-				bgWidth: 400,
-				y: 250,
-				charLine: 37,
-				text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help... - Prof. Sweeney"},
-			{type: "hide_phone_textbox", dialog: "$email_box"},
-			{type: "hide", img: closephone},
+			{type: "show", img: professor, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "I want to remind everyone about our final coming up next week.  Please visit me during office hours, I am here to help..."},
+			
 			// phone email exchange ends
 			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition

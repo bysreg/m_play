@@ -41,22 +41,34 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: closephone, waitUntilShown: false},
 			{type: "phone_textbox",
 				label: "email",
-				text: "Your project grade: B-"},
+				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$email"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "ryanRelationshipScore1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
+
+			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Hey there. I was feeling down, so I decided to hit the gym to get out some frustration. You got the email right? About our grade?"},
+			{type: "dialog", speaker: this._ryan, text: "Hey "+ player +".  You got the email right? About our grade?"},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "nothing", label: "neg-ryan1"},
+			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
+			{type: "dialog", speaker: this._ryan, text: "Oh hey. You got the email right? About our grade?"},
+			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
+
+			{type: "nothing", label: "choices1"},
 			{type: "choices",
 				choices :
 					[{text: "Yeah. I'm with you. Feeling bad about our grade on that project."},
 					{text : "Are you ok?"}]},
 
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: ryan, position: "center", expression: "angry"},
+			{type: "show", img: ryan, position: "center", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Eh, yeah. I'm still sort of pissed. We had to rush Priya’s part of the project, and I feel like that's why we got that crappy grade. We both need to do well in this class… "},
-			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "center", expression: "neutral"},
 			{type: "dialog", speaker: this._ryan, text: "You know what? It’ll be ok, we just need to make it through the final, and we’ll be starting our jobs in no time."},
 

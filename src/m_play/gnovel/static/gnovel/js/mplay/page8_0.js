@@ -45,15 +45,61 @@ var MPLAY = MPLAY || {};
 		o = [
 			{type: "show_context", text: "A few days after the test... "},
 			{type: "show_context", text: "you run into Ryan at the UC"},
+			{type: "show_context", text: "on your way to meet up with Cat to go work out together."},
+
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Ryan");
+			}, label: "ryanRelationshipScore1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
+
+			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, expression: "happy"},
-			{type: "dialog", speaker: this._ryan, text: "Hey!  Glad I caught you.  I wanted to let you know that I ended up doing ok on that test.  Probably not my best work, but what can you do."},
-			{type: "dialog", speaker: this._ryan, text: "Oh! Got to run - I'm meeting Priya for a drink.  I have to go apologize to her - maybe grovel a little."},
+			{type: "dialog", speaker: this._ryan, text: player + "!  Glad I caught you.   I ended up doing ok on that test.  Probably not my best work, but what can you do.  I’m glad we held off on using it."},
+			{type: "show", img: ryan, expression: "thoughtful"},
+			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
+			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+			
+			{type: "nothing", label: "compareryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+
+			{type: "nothing", label: "zero-ryan1"},
+			{type: "show", img: ryan},
+			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing ok on that test.  Probably not my best work though."},
+			{type: "show", img: ryan, expression: "sad"},
+			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to patch things up with her.  See you."},
+			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+
+			{type: "nothing", label: "neg-ryan1"},
+			{type: "show", img: ryan, expression: "happy"},
+			{type: "dialog", speaker: this._ryan, text: "Hey!  I wanted to let you know that I ended up doing ok on that test.  Probably not my best work, but what can you do.  I’ll see you around."},
+			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+
+			{type: "nothing", label: "hideryan"},
 			{type: "hide", img: ryan},
 
-			{type: "dialog", speaker: "", text: "After RYAN leaves, you run into CAT and chat with her"},
-			{type: "show", img: cat, expression: "happy"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!  I think I’m going to stick with my business classes next semester…"},
+			{type: "show_context", text: "Ryan leaves, and you see Cat."},
 
+			{type: "custom", func: function(page){
+				return page.getRelationshipManager().getRelationship("Cat");
+			}, label: "catRelationshipScore1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
+
+			{type: "nothing", label: "pos-cat1"},
+			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!  I think I’m going to stick with my business classes next semester…  Ready to hit the gym?"},
+			{type: "goto", page: "scene ending"},
+
+			{type: "nothing", label: "comparecat1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
+
+			{type: "nothing", label: "zero-cat1"},
+			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  It’s a bit dramatic, don’t you think?  Let’s hit the gym."},
+			{type: "goto", page: "scene ending"},
+
+			{type: "nothing", label: "neg-cat1"},
+			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This is all too dramatic for me."},
 			{type: "goto", page: "scene ending"},
 		];
 
