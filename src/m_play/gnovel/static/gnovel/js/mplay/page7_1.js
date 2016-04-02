@@ -98,7 +98,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, position: "left", expression: "sad", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "I’m sorry… I told you guys I didn't realize..."},
 
-			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: this._ryan, text: "Look, I didn’t mean that.  It’s just, we’re only using this one time."},
 			{type: "dialog", speaker: this._ryan, text: "That B- really tanked my average, and I need to do well in the class."},
 			{type: "custom", label: "integrityScore", func: function(page) {
