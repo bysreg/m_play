@@ -37,6 +37,7 @@ var GNOVEL = GNOVEL || {};
 		this._messageText = null;
 		this._nameText = null;
 		this._messageAlign = params.messageAlign || "center";
+		this._temp = params.temp;
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
