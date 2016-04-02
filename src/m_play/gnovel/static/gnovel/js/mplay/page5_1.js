@@ -235,8 +235,8 @@ var MPLAY = MPLAY || {};
 						{text: "Let’s text her to come over and fix it. Let’s pitch all pitch in to help.",
 							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
-			{type: "show_context", text: "Priya struggles to work through an answer with original code to replace her old work before the deadline."},
-			{type: "show_context", text: "She ends up finishing it in time, but the work is not her best, and she’s frustrated."},
+			{type: "show_context", text: "Priya struggles to work through an answer with original code."},
+			{type: "show_context", text: "Luckily, She ends up finishing it in time."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 
