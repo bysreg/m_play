@@ -83,42 +83,28 @@ var MPLAY = MPLAY || {};
 	MPlayPage._anims = {};
 
 	MPlayPage.prototype._initChars = function() {
-		//MPlayPage._ryan = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/ryan-neutral.png", new THREE.Vector3(0, -200, this._characterLayer), 414, 923), "Ryan");
+
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
 		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
 		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
 		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
 		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
-
-		//MPlayPage._cat = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/cat-neutral.png", new THREE.Vector3(0, -160, this._characterLayer), 247, 785), "Cat");
+		
 		MPlayPage._cat = new MPLAY.Character(MPlayPage._anims["cat neutral"], "Cat");
-		MPlayPage._cat.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/happy cat.png", new THREE.Vector3(0, -160, this._characterLayer), 400, 785), "Cat");
-		// MPlayPage._cat.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/cat-annoyed.png", new THREE.Vector3(0, -160, this._characterLayer), 324, 785), "Cat");
+		MPlayPage._cat.setExpression("happy", MPlayPage._anims["cat happy"], "Cat");		
 		MPlayPage._cat.setExpression("angry", MPlayPage._anims["cat annoyed"], "Cat");
-		MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
-		MPlayPage._cat.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful cat.png", new THREE.Vector3(0, -160, this._characterLayer), 313, 785), "Cat");
+		MPlayPage._cat.setExpression("sad", MPlayPage._anims["cat sad"], "Cat");
+		MPlayPage._cat.setExpression("thoughtful", MPlayPage._anims["cat thoughtful"], "Cat");
 
-		MPlayPage._priya = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/priya-neutral-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 802), "Priya");
-		//MPlayPage._priya.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/priya-happy-colored.png", new THREE.Vector3(0, -180, this._characterLayer), 360, 868), "Priya");
+		MPlayPage._priya = new MPLAY.Character(MPlayPage._anims["priya neutral"], "Priya");		
 		MPlayPage._priya.setExpression("happy", MPlayPage._anims["priya happy"], "Priya");
 		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
-		MPlayPage._priya.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad priya.png", new THREE.Vector3(0, -180, this._characterLayer), 400, 816), "Priya");
+		MPlayPage._priya.setExpression("sad", MPlayPage._anims["priya sad"], "Priya");
 		MPlayPage._priya.setExpression("angry", MPlayPage._anims["priya angry"], "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");
-
-		// set object tags for the characters, so that we can refer it in the flow
-		this._setObjectTag(MPlayPage._ryan.getName(), MPlayPage._ryan);
-		this._setObjectTag(MPlayPage._cat.getName(), MPlayPage._cat);
-		this._setObjectTag(MPlayPage._professor.getName(), MPlayPage._professor);
-		this._setObjectTag(MPlayPage._priya.getName(), MPlayPage._priya);
-
-		this._professor = MPlayPage._professor.getName();
-		this._ryan = MPlayPage._ryan.getName();
-		this._cat = MPlayPage._cat.getName();
-		this._priya = MPlayPage._priya.getName();
 
 		// hide all characters
 		MPlayPage._professor.hideAllImages();
@@ -134,10 +120,17 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._initAnim = function() {
 		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
-		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
-		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
-		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
-		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
+
+		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
+		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer)); // angry
+		this._createAnim("cat happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -20, this._characterLayer));
+		this._createAnim("cat sad", "/static/gnovel/res/animation/", 1.6, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 1.6, new THREE.Vector3(0, -30, this._characterLayer));
+
+		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
+		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -110, this._characterLayer));
+		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -150, this._characterLayer));
 
 		for (var i in MPlayPage._anims) {
 			var anim = MPlayPage._anims[i];
@@ -289,6 +282,20 @@ var MPLAY = MPLAY || {};
 		if (!MPlayPage._isAnimInit) {
 			this._initAnim();
 		}else if(MPlayPage._isCharInit && MPlayPage._isAnimInit) {
+
+			// FIXME: Not the best place to put the code here, fix it some time later
+			// set object tags for the characters, so that we can refer it in the flow
+			this._setObjectTag(MPlayPage._ryan.getName(), MPlayPage._ryan);
+			this._setObjectTag(MPlayPage._cat.getName(), MPlayPage._cat);
+			this._setObjectTag(MPlayPage._professor.getName(), MPlayPage._professor);
+			this._setObjectTag(MPlayPage._priya.getName(), MPlayPage._priya);
+
+			this._professor = MPlayPage._professor.getName();
+			this._ryan = MPlayPage._ryan.getName();
+			this._cat = MPlayPage._cat.getName();
+			this._priya = MPlayPage._priya.getName();
+
+
 			GNOVEL.Page.prototype._runFlow.call(this);	
 		}
 

@@ -32,6 +32,7 @@ var MPLAY = MPLAY || {};
 	PageTest.prototype._createFlowElements = function() {
 		var professor = "%" + this._professor;
 		var ryan = "%" + this._ryan;
+		var cat = "%" + this._cat;
 		var catsphone = "%" + this._catsphone;
 		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;		
@@ -41,21 +42,23 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show", expression:"happy", position:"left", img: ryan},
-			{type: "dialog", speaker: this._ryan, text: "happy"},
-			{type: "show", img: ryan, position: "left"},			
-			{type: "dialog", speaker: this._ryan, text: "neutral"},
-			{type: "show", expression:"happy", position:"left", img: ryan},
-			{type: "dialog", speaker: this._ryan, text: "happy"},
+			{type: "show",  position:"center", img: ryan, waitUntilShown: false},
+			{type: "show",  position:"right", img: cat, expression: "thoughtful", waitUntilShown: false, flip: true},
+			{type: "show",  position:"left", img: priya, expression: "sad", waitUntilShown: false},
+			// {type: "dialog", speaker: this._ryan, text: "happy"},
+			// {type: "show", img: ryan, position: "left"},			
+			// {type: "dialog", speaker: this._ryan, text: "neutral"},
+			// {type: "show", expression:"happy", position:"left", img: ryan},
+			// {type: "dialog", speaker: this._ryan, text: "happy"},
 			
-			{type: "show", position:"left", img: ryan},
-			{type: "dialog", speaker: this._ryan, text: "ye yeey"},
+			// {type: "show", position:"left", img: ryan},
+			// {type: "dialog", speaker: this._ryan, text: "ye yeey"},
 
-			{type: "show", img: priya, expression:"thoughtful", position: "center", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: this._ryan, text: "bla bla bla"},
+			// {type: "show", img: priya, expression:"thoughtful", position: "center", waitUntilShown: false, flip: true},
+			// {type: "dialog", speaker: this._ryan, text: "bla bla bla"},
 			
-			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: this._ryan, text: "bla bla bla"},
+			// {type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
+			// {type: "dialog", speaker: this._ryan, text: "bla bla bla"},
 		];
 
 		return o;
