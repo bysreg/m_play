@@ -149,7 +149,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
 
 			{type: "nothing", label: "asst_given"},
-			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your CG assignment."},
 			{type: "dialog", seconds: "Ryan", text: "Why don’t you text her, "+ player +"."},
 			{type: "hide", img: cat, waitUntilHiden: false},
@@ -260,7 +260,7 @@ var MPLAY = MPLAY || {};
 			}},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
-			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Ryan", text: "Yeah, seems like if Cat caught it, Sweeney will definitely catch it."},
 			{type: "show", img: cat, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Maybe we can tweak her work enough to make it ok?"},
