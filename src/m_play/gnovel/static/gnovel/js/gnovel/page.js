@@ -431,6 +431,7 @@ var GNOVEL = GNOVEL || {};
 		this.tweenMat(obj, {
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
+			arr: params.arr, 
 			onComplete: function() {
 				if(waitUntilShown) {
 					// go to next flow
@@ -458,6 +459,7 @@ var GNOVEL = GNOVEL || {};
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
+			arr: params.arr,
 			onComplete: function() {
 				if (waitUntilHidden) {
 					// go to next flow

@@ -41,12 +41,21 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},			
-			{type: "show", img: professor, position: "center", waitUntilShown: false},
+			{type: "show", expression:"happy", position:"left", img: ryan},
+			{type: "dialog", speaker: this._ryan, text: "happy"},
+			{type: "show", img: ryan, position: "left"},			
+			{type: "dialog", speaker: this._ryan, text: "neutral"},
+			{type: "show", expression:"happy", position:"left", img: ryan},
+			{type: "dialog", speaker: this._ryan, text: "happy"},
+			
+			{type: "show", position:"left", img: ryan},
+			{type: "dialog", speaker: this._ryan, text: "ye yeey"},
+
+			{type: "show", img: priya, expression:"thoughtful", position: "center", waitUntilShown: false, flip: true},
+			{type: "dialog", speaker: this._ryan, text: "bla bla bla"},
+			
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: this._ryan, text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great."},
-			{type: "dialog", speaker: this._professor, text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great."},
-			{type: "dialog", speaker: this._priya, text: "You got the job!  We’re going to be working together after graduation! You’ll love our boss.  He was so great during the internship.  I just know it’ll be great."},
+			{type: "dialog", speaker: this._ryan, text: "bla bla bla"},
 		];
 
 		return o;
