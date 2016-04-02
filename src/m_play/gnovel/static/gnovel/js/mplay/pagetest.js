@@ -43,7 +43,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type: "show",  position:"center", img: ryan, waitUntilShown: false},
-			{type: "show",  position:"right", img: cat, expression: "thoughtful", waitUntilShown: false, flip: true},
+			{type: "show",  position:"right", img: cat, expression: "sad", waitUntilShown: false, flip: true},
 			{type: "show",  position:"left", img: priya, expression: "sad", waitUntilShown: false},
 			// {type: "dialog", speaker: this._ryan, text: "happy"},
 			// {type: "show", img: ryan, position: "left"},			
