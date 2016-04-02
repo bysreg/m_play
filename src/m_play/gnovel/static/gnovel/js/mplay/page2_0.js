@@ -55,7 +55,8 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "sweet"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "He’s sweet.  Last semester, Ryan was my date to the Indian Association’s banquet. Really goes out of his way for his friends."},
+			{type: "dialog", speaker: "Priya", text: "He’s sweet.  Last semester, Ryan was my date to the Indian Association’s banquet."},
+			{type: "dialog", speaker: "Priya", text: "Really goes out of his way for his friends."},
 			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: "priya", score: "1"}, go : "#close"}]},
 
 			{type: "nothing", label: "nice"},
@@ -67,13 +68,13 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore2"},
-			{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#happy2", goFalse: "neutural2"},
+			{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#happy2", goFalse: "#neutural2"},
 
 			{type: "show", img: priya, expression:"happy", position:"center", waitUntilShown: false, label: "happy2"},
 			{type: "dialog", speaker: "Priya", text: "We’re good friends… like you two!  See you in class."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: 1000},
 
-			{type: "show", img: priya, expression: "neutural", position: "center", waitUntilShown: false},
+			{type: "show", img: priya, expression: "neutural", position: "center", waitUntilShown: false, label: "neutural2"},
 			{type: "dialog", speaker: "Priya", text: "Yeah… anyway, see you later."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: 1000},
 
