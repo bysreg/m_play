@@ -189,7 +189,7 @@ var GNOVEL = GNOVEL || {};
 				//if timer almost over, remove previous text box
 				if(timer2.scale.x < .3){
 					if(count>0){
-						pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
+						/*pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
 							opacity: 0,
 							easing: TWEEN.Easing.Cubic.Out,
 							duration: 200,
@@ -198,7 +198,9 @@ var GNOVEL = GNOVEL || {};
 							opacity: 0,
 							easing: TWEEN.Easing.Cubic.Out,
 							duration: 200,
-						});
+						});*/
+						choices._responseBox[count-1]._messageText.material.opacity = 0;
+						choices._responseBox[count-1]._textBg.material.opacity = 0;
 					}
 				}
 			})
@@ -210,7 +212,7 @@ var GNOVEL = GNOVEL || {};
 				if(count <= choices._timedResponses.length-1){
 					//
 					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
-					
+
 					//after the first response displays, then make invisible & move to next response
 					if (count > 0){
 						choices._responseBox[count-1]._messageText.material.opacity = 0;
