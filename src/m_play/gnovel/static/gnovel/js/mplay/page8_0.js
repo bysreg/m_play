@@ -53,13 +53,13 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
-			{type: "show", img: ryan, expression: "happy"},
+			{type: "show", img: ryan, expression: "happy", position: "left"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Yo-Ryan");
 			}},
 			{type: "dialog", speaker: this._ryan, text: player + "!  Glad I caught you.   I ended up doing ok on that test."},
 			{type: "dialog", speaker: this._ryan, text: "Probably not my best work, but what can you do.  I’m glad we held off on using it."},
-			{type: "show", img: ryan, expression: "thoughtful"},
+			{type: "show", img: ryan, expression: "thoughtful", position: "left"},
 			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 			
@@ -67,17 +67,17 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
 
 			{type: "nothing", label: "zero-ryan1"},
-			{type: "show", img: ryan},
+			{type: "show", img: ryan, position: "left"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-e");
 			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing ok on that test.  Probably not my best work though."},
-			{type: "show", img: ryan, expression: "sad"},
+			{type: "show", img: ryan, expression: "sad", position: "left"},
 			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to patch things up with her.  See you."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
-			{type: "show", img: ryan, expression: "happy"},
+			{type: "show", img: ryan, expression: "happy", position: "left"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			}},
@@ -86,7 +86,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "hideryan"},
-			{type: "hide", img: ryan},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 
 			{type: "show_context", text: "Ryan leaves, and you see Cat."},
 
@@ -96,7 +96,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
 
 			{type: "nothing", label: "pos-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			}},
@@ -108,7 +108,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
 
 			{type: "nothing", label: "zero-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Cat");
 			}},
@@ -116,7 +116,7 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene ending"},
 
 			{type: "nothing", label: "neg-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Cat");
 			}},

@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
-			{type: "show", img: ryan},
+			{type: "show", img: ryan, position: "left"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Heyfriend-Ryan");
 			}},
@@ -57,15 +57,16 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
 
 			{type: "nothing", label: "zero-ryan1"},
-			{type: "show", img: ryan, expression: "sad"},
+			{type: "show", img: ryan, expression: "sad", position: "left"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			}},
-			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions... whatever.  I think it will end up ok.  I just have to get chewed out."},
+			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
+			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},			
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
-			{type: "show", img: ryan, expression: "angry"},
+			{type: "show", img: ryan, expression: "angry", position: "left"},
 			{type: "dialog", speaker: this._ryan, text: "So apparently they do cycle some of the questions... I’m on my way to talk to Sweeney.  See you around."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -80,7 +81,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
 
 			{type: "nothing", label: "pos-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			}},
@@ -92,7 +93,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
 
 			{type: "nothing", label: "zero-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Cat");
 			}},
@@ -101,7 +102,7 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene ending"},
 
 			{type: "nothing", label: "neg-cat1"},
-			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "show", img: cat, expression: "thoughtful", position: "center"},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Cat");
 			}},
