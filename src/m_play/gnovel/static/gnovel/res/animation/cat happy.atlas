@@ -1,0 +1,41 @@
+
+cat happy.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cat Happy eyes
+  rotate: false
+  xy: 586, 24
+  size: 63, 40
+  orig: 209, 136
+  offset: 73, 48
+  index: -1
+Cat happy right arm
+  rotate: true
+  xy: 935, 154
+  size: 87, 314
+  orig: 287, 1062
+  offset: 100, 376
+  index: -1
+cat happy body
+  rotate: true
+  xy: 2, 2
+  size: 239, 582
+  orig: 1208, 2372
+  offset: 516, 717
+  index: -1
+cat happy head
+  rotate: true
+  xy: 1251, 80
+  size: 161, 191
+  orig: 535, 637
+  offset: 187, 223
+  index: -1
+cat happy left arm
+  rotate: true
+  xy: 586, 66
+  size: 175, 347
+  orig: 1208, 2372
+  offset: 229, 898
+  index: -1

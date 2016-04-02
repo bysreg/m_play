@@ -10,24 +10,34 @@ var MPLAY = MPLAY || {};
 	var Character = function(img, name) {
 		this._name = name;
 		this._expression = {};
-		this._img = img; // default image
+		this._anims = [];
+		this._img = img; // default image		
+
+		var self = this;
 
 		// make the default image to be transparent
-		this._img.material.opacity = 0;
+		this.setImageOpacity(this._img, 0);
 
 		// make the texture double sided, so that we can flip it
-		this._img.material.side = THREE.DoubleSide;
+		if (! (this._img instanceof MPLAY.SpineAnimation)) {
+			this._img.material.side = THREE.DoubleSide;
+		} else {
+			self._anims.push(img);
+		}
+
+		// we always make sure the image is always transparent first
+		this.setImageOpacity(img, 0);
 
 		this._charPosition = "center";
 	};
 
 	Character.prototype.getImage = function(expression) {
-		if(!expression) {
+		if (!expression) {
 			return this._img;
 		}
 
 		var ret = this._expression[expression];
-		if(ret)
+		if (ret)
 			return ret;
 
 		return this._img;
@@ -37,13 +47,56 @@ var MPLAY = MPLAY || {};
 		return this._name;
 	};
 
+	Character.prototype.checkImageOpacity = function(img) {
+		if (img instanceof MPLAY.SpineAnimation) {
+			for (var i = 0; i < img.meshes.length; i++) {
+				return img.meshes[i].material.opacity;
+			}
+		} else {
+			return img.material.opacity;
+		}
+	};
+
+	Character.prototype.setImageOpacity = function(img, val) {
+		if (img instanceof MPLAY.SpineAnimation) {
+			for (var i = 0; i < img.meshes.length; i++) {
+				img.meshes[i].material.opacity = val;
+			}
+		} else {
+			img.material.opacity = val;
+		}
+	};
+
+	Character.prototype.fadeImage = function(img, val, params) {
+
+		// if(img instanceof MPLAY.SpineAnimation) {
+		// 	page.tweenMat(img.meshes, {
+		// 		opacity: val,
+		// 		easing: TWEEN.Easing.Cubic.Out,
+		// 		onComplete: function() {
+		// 			page._removeFromScene(img);
+		// 			params.onComplete();
+		// 		},
+		// 		duration: params.duration || 800,
+		// 	});
+		// }else {
+
+		// }		
+	};
+
 	Character.prototype.setExpression = function(expression, img) {
+		if (img instanceof MPLAY.SpineAnimation) {
+			var self = this;
+
+			self._expression[expression] = img;
+			self._anims.push(img);
+		} else {
+			this._expression[expression] = img;
+			img.material.side = THREE.DoubleSide;
+		}
+
 		// we always make sure the image is always transparent first
-		img.material.opacity = 0;
-
-		this._expression[expression] = img;
-
-		img.material.side = THREE.DoubleSide;
+		this.setImageOpacity(img, 0);
 	};
 
 	// wont affect real position on the screen, this just record the position
@@ -57,10 +110,10 @@ var MPLAY = MPLAY || {};
 	}
 
 	Character.prototype.getVisibleImage = function() {
-		if(this._img.material.opacity > 0) return this._img;
+		if (this.checkImageOpacity(this._img) > 0) return this._img;
 
-		for(var expression in this._expression){
-			if(this._expression[expression].material.opacity > 0) {
+		for (var expression in this._expression) {
+			if (this.checkImageOpacity(this._expression[expression]) > 0) {
 				return this._expression[expression];
 			}
 		}
@@ -70,40 +123,87 @@ var MPLAY = MPLAY || {};
 
 	// hide instantly all images of this character
 	Character.prototype.hideAllImages = function() {
-		this._img.material.opacity = 0;
+		this.setImageOpacity(this._img, 0);
 
-		for(var expression in this._expression){
-			this._expression[expression].material.opacity = 0;
+		for (var expression in this._expression) {
+			this.setImageOpacity(this._expression[expression], 0);
 		}
 	};
 
 	// fade all visible images of this character
 	Character.prototype.fadeVisibleImages = function(page, params) {
-		if(this._img.material.opacity == 1) {
-			var img = this._img;
-			page.tweenMat(this._img, {
-				opacity: 0,
-				easing: TWEEN.Easing.Cubic.Out,
-				onComplete: function() {
-					page._removeFromScene(img);
-					params.onComplete();
-				},
-				duration: params.duration || 800,
-			});
-		}
+		var onCompleteCalled = false;
 
-		for(var expression in this._expression){
-			if(this._expression[expression].material.opacity == 1) {
-				var img = this._expression[expression]
-				page.tweenMat(this._expression[expression], {
+		var oneFadeComplete = function() {
+			if(!onCompleteCalled) {
+				params.onComplete();
+
+				onCompleteCalled = true;
+			}			
+		};
+
+		if (this.checkImageOpacity(this._img) == 1) {
+			var img = this._img;
+
+			if (img instanceof MPLAY.SpineAnimation) {
+				page.tweenMat(this._img, {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					arr: img._meshes,
+					onComplete: function() {
+						page._removeFromScene(img);
+						oneFadeComplete();
+					},
+					duration: params.duration || 800,
+				});
+			} else {
+				page.tweenMat(this._img, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
 					onComplete: function() {
 						page._removeFromScene(img);
-						params.onComplete();
+						oneFadeComplete();
 					},
 					duration: params.duration || 800,
 				});
+			}
+		}
+
+		for (var expression in this._expression) {
+			if (this.checkImageOpacity(this._expression[expression]) == 1) {
+				var img = this._expression[expression]
+
+				if (img instanceof MPLAY.SpineAnimation) {
+					page.tweenMat(this._expression[expression], {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						arr: img.meshes,
+						onComplete: function() {
+							page._removeFromScene(img);
+							oneFadeComplete();
+						},
+						duration: params.duration || 800,
+					});
+				} else {
+					page.tweenMat(this._expression[expression], {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						onComplete: function() {
+							page._removeFromScene(img);
+							oneFadeComplete();
+						},
+						duration: params.duration || 800,
+					});
+				}
+			}
+		}
+	};
+
+	Character.prototype.update = function() {
+		for (var i = 0; i < this._anims.length; i++) {
+
+			if (this._anims[i].isLoaded()) {
+				this._anims[i].update();
 			}
 		}
 	};

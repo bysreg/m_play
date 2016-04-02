@@ -1,0 +1,41 @@
+
+priya neutral.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+neutral priya blinked eyes
+  rotate: false
+  xy: 1322, 420
+  size: 127, 69
+  orig: 421, 229
+  offset: 147, 80
+  index: -1
+priya neutral torso
+  rotate: true
+  xy: 2, 130
+  size: 359, 723
+  orig: 1213, 2413
+  offset: 425, 845
+  index: -1
+priya-neutral head
+  rotate: true
+  xy: 727, 93
+  size: 277, 370
+  orig: 922, 1338
+  offset: 323, 536
+  index: -1
+priya-neutral other arm
+  rotate: true
+  xy: 2, 2
+  size: 126, 605
+  orig: 422, 2017
+  offset: 148, 706
+  index: -1
+priya-neutral-left arm png
+  rotate: true
+  xy: 727, 372
+  size: 117, 593
+  orig: 396, 1975
+  offset: 140, 691
+  index: -1

@@ -1,0 +1,41 @@
+
+priya angry.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Priya-angry-eyes
+  rotate: false
+  xy: 2, 2
+  size: 104, 52
+  orig: 348, 174
+  offset: 122, 61
+  index: -1
+priya-angry-right-arm
+  rotate: true
+  xy: 714, 211
+  size: 230, 447
+  orig: 768, 1493
+  offset: 269, 523
+  index: -1
+priya-angry-torso
+  rotate: true
+  xy: 2, 130
+  size: 311, 710
+  orig: 1178, 2367
+  offset: 412, 828
+  index: -1
+priya-mad-head
+  rotate: true
+  xy: 1163, 199
+  size: 242, 310
+  orig: 808, 1030
+  offset: 283, 360
+  index: -1
+priya-mad-left-arm
+  rotate: true
+  xy: 2, 56
+  size: 72, 539
+  orig: 242, 1799
+  offset: 85, 630
+  index: -1

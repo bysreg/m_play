@@ -110,6 +110,8 @@ var GNOVEL = GNOVEL || {};
 			TWEEN.update();
 			gnovel._renderer.render(scene, camera);
 
+			gnovel._update();
+
 			if(gnovel._stats !== null) {
 				gnovel._stats.update();
 			}
@@ -122,6 +124,13 @@ var GNOVEL = GNOVEL || {};
 		var gnovel = this;
 		document.addEventListener('mousedown', function(event) { gnovel._onMouseDown(event); }, false);
 		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
+	};
+
+	Gnovel.prototype._update = function() {
+		var page = this.getCurrentPage();
+		if(this._onStart) {
+			page._update();
+		}
 	};
 
 	Gnovel.prototype.getContainer = function() {
