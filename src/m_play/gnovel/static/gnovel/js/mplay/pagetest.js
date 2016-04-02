@@ -24,7 +24,7 @@ var MPLAY = MPLAY || {};
 
 		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._yourphone = "yourphone";
 		this._setObjectTag(this._yourphone, this._yourphoneImg);		
 	};

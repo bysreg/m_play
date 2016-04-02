@@ -37,7 +37,6 @@ var GNOVEL = GNOVEL || {};
 		this._messageText = null;
 		this._nameText = null;
 		this._messageAlign = params.messageAlign || "center";
-
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
@@ -71,6 +70,12 @@ var GNOVEL = GNOVEL || {};
 		var z = this._page.getDialogLayer();
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
+			// if current speaker is different than the previous speaker, then we need to
+			// close the previous dialog box if it still exists
+			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
+			this._closeDialog();
+		}
+		else if(this._temp==true){
 			// if current speaker is different than the previous speaker, then we need to
 			// close the previous dialog box if it still exists
 			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor

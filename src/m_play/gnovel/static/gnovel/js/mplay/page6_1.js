@@ -53,11 +53,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey "+ player +".  You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Ohhi-Ryan");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Oh hey. You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -68,7 +74,8 @@ var MPLAY = MPLAY || {};
 					{text : "Are you ok?"}]},
 
 			{type: "show", img: ryan, position: "center", expression: "angry", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Eh, yeah. I'm still sort of pissed. We had to rush Priya’s part of the project, and I feel like that's why we got that crappy grade. We both need to do well in this class… "},
+			{type: "dialog", speaker: this._ryan, text: "Eh, yeah. I'm still sort of pissed. We had to rush Priya’s part of the project"},
+			{type: "dialog", speaker: this._ryan, text: "and I feel like that's why we got that crappy grade. We both need to do well in this class… "},
 			{type: "show", img: ryan, position: "center", expression: "neutral"},
 			{type: "dialog", speaker: this._ryan, text: "You know what? It’ll be ok, we just need to make it through the final, and we’ll be starting our jobs in no time."},
 

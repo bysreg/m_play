@@ -158,6 +158,8 @@ var GNOVEL = GNOVEL || {};
 			.easing(TWEEN.Easing.Linear.None).onComplete(function() {
 			if (choices._choosed) {
 				// do nothing
+				//choices._onChoiceComplete(choices._result.choiceId);
+				shortTimer.stop();
 			} else {
 				// auto select the first option
 				choices._result.choiceId = 0;
@@ -167,7 +169,7 @@ var GNOVEL = GNOVEL || {};
 		})
 		.onUpdate(function() {
 			//if timer is halfway done, show the short timer
-			if(timer.scale.x < .5){
+			if(timer.scale.x < .3){
 					timer.material.opacity = 1;
 				}
 		});
@@ -184,11 +186,19 @@ var GNOVEL = GNOVEL || {};
 			.easing(TWEEN.Easing.Linear.None)
 			.onUpdate(function() {
 				//timer2.material.opacity = 0;
-				//if timer is halfway done, show the short timer
+				//if timer almost over, remove previous text box
 				if(timer2.scale.x < .3){
 					if(count>0){
-						choices._responseBox[count-1]._messageText.material.opacity = 0;
-						choices._responseBox[count-1]._textBg.material.opacity = 0;
+						pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
+							opacity: 0,
+							easing: TWEEN.Easing.Cubic.Out,
+							duration: 200,
+						});
+						pageObj.tweenMat(choices._responseBox[count-1]._textBg,{
+							opacity: 0,
+							easing: TWEEN.Easing.Cubic.Out,
+							duration: 200,
+						});
 					}
 				}
 			})
@@ -200,10 +210,11 @@ var GNOVEL = GNOVEL || {};
 				if(count <= choices._timedResponses.length-1){
 					//
 					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
+					
 					//after the first response displays, then make invisible & move to next response
 					if (count > 0){
-						//choices._responseBox[count-1]._messageText.material.opacity = 0;
-						//choices._responseBox[count-1]._textBg.material.opacity = 0;
+						choices._responseBox[count-1]._messageText.material.opacity = 0;
+						choices._responseBox[count-1]._textBg.material.opacity = 0;
 						pageObj._removeFromScene(choices._responseBox[count-1]);
 					}
 					count++;
@@ -234,25 +245,26 @@ var GNOVEL = GNOVEL || {};
 			this._page._removeFromScene(this.timer2);
 			this._page._timerInstance.stop();
 		}
-	};
 
-	Choices.prototype._onChoiceComplete = function() {
-
-		this._cleanUp();		
-
-		for (var i = 0; i < this._choices.length; i++) {			
-			this._page._removeFromScene(this._choicesBox[i]);			
-		}
-
-		var pageObj = this._page;
-		var choices = this;
-		var delayDuration = 1000;
 
 		for (var i = 0; i < this._timedResponses.length; i++) {
 			if(this._responseBox[i]!=null){
 				this._page._removeFromScene(this._responseBox[i]);
 				this._responseBox[i]._onComplete();
 			}
+		}
+	};
+
+	Choices.prototype._onChoiceComplete = function() {
+
+		this._cleanUp();
+
+		var pageObj = this._page;
+		var choices = this;
+		var delayDuration = 1000;
+
+		for (var i = 0; i < this._choices.length; i++) {
+			this._page._removeFromScene(this._choicesBox[i]);
 		}
 
 		//call onChoiceComplete from parent class
