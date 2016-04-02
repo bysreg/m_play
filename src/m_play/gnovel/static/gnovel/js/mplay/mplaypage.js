@@ -580,9 +580,9 @@ var MPLAY = MPLAY || {};
 		params.msgOffsetY = 0;
 		params.dontRemove = true;
 		params.createNewBg = true;
-		params.bgPath = "/static/gnovel/res/textures/ui/phone_textBox.png";
+		//params.bgPath = "/static/gnovel/res/textures/ui/phone_textBox.png";
 
-		//params.bgPath = hasParam(obj, "bgPath", null);
+		params.bgPath = hasParam(obj, "bgPath", null);
 		message = obj.text;
 		var x = 0;
 		var y = 100;

@@ -25,10 +25,10 @@ var MPLAY = MPLAY || {};
 		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		// this._tweenVolumeIn();
 
-		this.setupBarBackground();
+		this.setupUcBackground();
 
 		//create images
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
@@ -65,8 +65,10 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			// need a flow here to show a buzzing phone before choices
-			{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
+			//NEW INTRO FOR PLAYTEST
+
+			// OLD INTRO PRE-PLAYTEST
+			/*{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
 			{type: "show", img: catsphone, waitUntilShown:false},
 			{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -81,131 +83,77 @@ var MPLAY = MPLAY || {};
 						go: "#talktoryan",
 					relationship: {name: this._ryan, score: 1}}],
 					seconds: 10},
-			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
+			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"*/
 
 			// phone email exchange begins
-			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
-			{type: "show", img: closephone},
+			{type: "show_phone_notif"},
+
+			// phone email exchange begins
+			{type: "show", img: closephone, waitUntilShown: false},
 			{type: "phone_textbox",
-				label: "email",
-				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
-				bgHeight: 200},
-			{type: "hide_phone_textbox", dialog: "$email"},
+				label: "phone_bg",
+				bgOffsetY: -230,
+				bgOffsetX: -15,
+				bgHeight: 800,
+				bgWidth: 1460,
+				y: 250,
+				charLine: 37,
+				bgPath: "/static/gnovel/res/textures/Email-graphic.png",
+				waitUntilShown: false,
+				text: ""},
+			{type: "phone_textbox",
+				label: "address_from",
+				bgHeight: 10,
+				bgWidth: 10,
+				x: -200,
+				y: 230,
+				dontShowBg: true,
+				text: "From: Prof. Sweeney",
+				messageAlign: "left",
+				waitUntilShown: false,
+				},
+			{type: "phone_textbox",
+				label: "address_to",
+				bgHeight: 10,
+				bgWidth: 10,
+				x: -200,
+				y: 200,
+				dontShowBg: true,
+				text: "To: " + player,
+				messageAlign: "left",
+				waitUntilShown: false,
+				},
+			{type: "phone_textbox",
+				label: "email_subject",
+				bgHeight: 10,
+				bgWidth: 10,
+				x: -200,
+				y: 100,
+				dontShowBg: true,
+				charLine: 40,
+				text: "Subject: [ProgSoc] Class Update",
+				messageAlign: "left",
+				waitUntilShown: false,
+				},
+			{type: "phone_textbox",
+				label: "email_textbox",
+				bgHeight: 10,
+				bgWidth: 10,
+				y: 40,
+				charLine: 37,
+				dontShowBg: true,
+				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on midterms.  Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
+			{type: "hide_phone_textbox", dialog: "$phone_bg"},
+			{type: "hide_phone_textbox", dialog: "$address_from"},
+			{type: "hide_phone_textbox", dialog: "$address_to"},
+			{type: "hide_phone_textbox", dialog: "$email_subject"},
+			{type: "hide_phone_textbox", dialog: "$email_textbox"},
 			{type: "hide", img: closephone},
 			// phone email exchange ends
 
-			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
-			{type: "choices",
-				choices :
-					[{text: "Yeah!  Thanks again for forwarding my resume.",
-						go: "#cheers"},
-					{text : "Psyched to be working with you, Ryan!",
-						relationship: {name: this._ryan, score: 1},
-						go: "#cheers"}]},
-
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "cheers"},
-			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
-			{type: "hide", img: ryan},
-			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
-
-			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
-			{type: "choices",
-				choices :
-					[{text: "Do I even want to know?",
-						go: "#gotjob"},
-					{text : "Good news?!",
-						go: "#gotjob"}]},
-			{type: "dialog", speaker: this._ryan, text: "You got the job!  We’re going to be working together after graduation! I just know it’s going to be awesome.", label: "gotjob"},
-
-			//during transition
-			{type:"nothing", label: "timefade"},
-			{type: "hide", img: ryan},
-			{type: "show", img: transitionBg, waitUntilShown:false},
-			// after transition
-			{type: "show_context", text: "Later on at Scottie’s…"},
+			{type: "show_context", text:"You go to meet your friend Ryan to celebrate at Scottie’s.", waitUntilShown:false},
 			{type: "hide", img: transitionBg},
-			{type: "show", img: catsphone, waitUntilShown: false},
-			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
-			{type: "choices",
-				choices :
-					[{text: "Should be good.",
-						go: "#RelationshipScore"},
-					{text : "Glad we’re in it together.",
-						relationship: {name: this._ryan, score: 1},
-						go: "#RelationshipScore"}]},
-
-			{type: "custom", func: function(page) {
-				return page.getRelationshipManager().getRelationship("Ryan");
-			}, label: "RelationshipScore"},
-
-			{type: "compare", leftop: "$RelationshipScore", operator: "greater", rightop: 0, goTrue: "#intro_priya", goFalse: "#not_intro_priya"},
-
-			// relationship score > 0
-			{type: "dialog", speaker: this._ryan, text: "It's cross listed with CS and psych or something.  My friend Priya is in it too.  I’ll introduce you guys.", label: "intro_priya"},
-			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
-
-			// relationship score <= 0
-			{type: "dialog", speaker: this._ryan, text: "I think it's cross listed with CS and psych or something.  My friend Priya is in it too.", label: "not_intro_priya"},
-			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
-
-			// see a phone on the table.
-			/**
-			* FIXME angle camera towards phone
-			*/
-			{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "seeaphone"},
-			{type: "dialog", speaker: this._ryan, text: "Looks like someone left their wallet."},
-			// this choice affects scene 2
-			{type: "choices",
-				choices :
-					[{text: "Let’s give it to the waiter.",
-						integrityScore:0,
-						go: "#waiter"},
-					{text: "Let’s take a look – maybe we can contact the owner.",
-						onChoose: function(page) {
-							page._catsPhoneStatus = 1;
-						},
-						integrityScore:1,
-						relationship: {name: this._ryan, score: 1},
-						go: "#pickup"},
-					{text: "Does it have any cash in there?",
-						integrityScore:-1,
-						relationship: {name: this._ryan, score: -1},
-						go: "#cash"}]},
-
-			{type: "dialog", speaker: this._ryan, text: "Good idea.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "waiter"},
-			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
-
-			// if phone is picked up
-			//{type: "dialog", speaker: this._ryan, text: "That should score you some Karma points!  Anyway, congrats again on the job.", label: "pickupphone"},
-			/*{type: "choices",
-				choices :
-					[{text: "Let’s give it to the bartender to hold on to.",
-						onChoose: function(page) {
-							console.log("bartender");
-							page._catsPhoneStatus = 1;
-						}},
-					{text : "I’ll bring it home to charge.  Maybe the owner will contact it.",
-						onChoose: function(page) {
-							console.log("you have the phone");
-							page._catsPhoneStatus = 2;
-						}}]},*/
-
-			{type:"nothing", label: "pickup"},
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student – Cat Davis.  Her CMU ID card is in here.  Let’s turn it into campus police."},
-			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
-
-			{type: "nothing", label: "cash"},
-			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Ha!  I didn’t know you were so mean. Let’s just give it to the waiter."},
-
-			// ending
-			//{type: "hide", img: catsphone, label: "hidephone"},
-			{type: "goto", page: "scene 2.a", label: "nextscene"},
+			{type: "goto", page: "scene 1.b", label: "nextscene"},
 		];
 
 		return o;
@@ -215,12 +163,10 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0.prototype._onUnload = function() {
-		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
-		this._showRelationshipInfo("Ryan");
 	};
 
 	Page0.prototype._onStart = function() {

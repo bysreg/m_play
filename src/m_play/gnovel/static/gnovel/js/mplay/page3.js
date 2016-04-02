@@ -26,7 +26,7 @@ var MPLAY = MPLAY || {};
 
 		this.setupLibraryBackground();
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
 
 		this._yourphoneImg.material.opacity = 0;
 
@@ -272,7 +272,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext1"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext1"}]},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},			
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
@@ -288,7 +288,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext2"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext2"}]},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext2"},			
+			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext2"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
@@ -362,14 +362,14 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore1"},
 				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
-				
+
 				{type: "nothing", label: "happy"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Hey " + player + ", nice to see you. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#neutural", goFalse: "#thoughtful", label: "compare2"},
-				
+
 				{type: "nothing", label: "neutural"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Oh hey. Coming to join us?"},
@@ -434,8 +434,8 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computer Graphics take home test."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
-				
-				
+
+
 
 				{type: "nothing", label: "sayhi-r"},
 				{type: "custom", func: function(page) {
@@ -493,7 +493,7 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore1"},
 				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
-				
+
 				{type: "nothing", label: "happy"},
 				{type: "show", img: priya, expression: "happy", position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Hi "+ player +"!  Join us?"},

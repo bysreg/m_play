@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 				});
 			}});
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
+		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 
 		this._yourphone = "yourphone";
 
@@ -144,7 +144,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "asst_not_given"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
-			{type: "hide", img: cat, waitUntilHiden: false},			
+			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
 
@@ -152,7 +152,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your CG assignment."},
 			{type: "dialog", seconds: "Ryan", text: "Why don’t you text her, "+ player +"."},
-			{type: "hide", img: cat, waitUntilHiden: false},			
+			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
 
@@ -236,7 +236,7 @@ var MPLAY = MPLAY || {};
 							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
 			{type: "show_context", text: "Priya struggles to work through an answer with original code to replace her old work before the deadline."},
-			{type: "show_context", text: "She ends up finishing it in time, but the work is not her best, and she’s frustrated."},			
+			{type: "show_context", text: "She ends up finishing it in time, but the work is not her best, and she’s frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 
@@ -247,12 +247,12 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "hide", img: cat},
-			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},			
-			{type: "show_context", text: "You barely finish the assignment in time to submit it"},			
-			{type: "show_context", text: "and everyone ends the night feeling frustrated."},			
+			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},
+			{type: "show_context", text: "You barely finish the assignment in time to submit it"},
+			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
-			
+
 			{type: "nothing", label: "submit"},
 			{type: "custom", func: function(page) {
 				page.getRelationshipManager().addRelationship("Cat", -1);
@@ -268,11 +268,11 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Worth a try."},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "hide", img: cat},
-			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},			
-			{type: "show_context", text: "You barely finish the assignment in time to submit it"},			
+			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},
+			{type: "show_context", text: "You barely finish the assignment in time to submit it"},
 			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
 
-			{type: "nothing", label: "gonextscene"},			
+			{type: "nothing", label: "gonextscene"},
 			{type: "choices", choices : [
 				{text: "Go to the gym",
 					go: "#gogym"},
@@ -295,7 +295,7 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Cat");
 				}, label: "catRelationshipScore1"},
 				{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
-				
+
 				{type: "nothing", label: "pos-cat1"},
 				{type: "show", img: cat, expression: "happy", position: "left"},
 				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
