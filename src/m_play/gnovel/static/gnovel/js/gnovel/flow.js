@@ -269,7 +269,7 @@ var GNOVEL = GNOVEL || {};
 				break;
 		};
 
-		this._page._showRelationshipInfo("Ryan");
+		/*this._page._showRelationshipInfo("Ryan");
 		var delay = 1;
 		var tempTween = new TWEEN.Tween(delay)
 		.to(0,1000)
@@ -281,13 +281,13 @@ var GNOVEL = GNOVEL || {};
 				curPage.goToPage(pageIndex, transitionType, null);
 			}
 		})
-		tempTween.start();
-/*
+		tempTween.start();*/
+
 		if(typeof obj.page === 'string') {
 			this._page.goToPageByLabel(obj.page, transitionType, null);
 		} else {
 			this._page.goToPage(pageIndex, transitionType, null);
-		}*/
+		}
 	};
 
 	Flow.prototype._handleCompare = function(obj) {

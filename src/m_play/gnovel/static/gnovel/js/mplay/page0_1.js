@@ -230,7 +230,7 @@ var MPLAY = MPLAY || {};
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
-		this._showRelationshipInfo("Ryan");
+		//this._showRelationshipInfo("Ryan");
 	};
 
 	Page0_1.prototype._onStart = function() {

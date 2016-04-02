@@ -145,10 +145,13 @@ var MPLAY = MPLAY || {};
 				//display visual notification of relationship choice
 				console.log("a character will remember this");
 				//set what text should display based upon relationship score
+
+				//FIXME - STILL NEEDS TESTING
+
 				if(score > 0)
-					var charText = name + " feels good about your decision."
+					var charText = name + " feels good about that."
 				else if (score < 0)
-					var charText = name + " feels negatively about your decision."
+					var charText = name + " feels negatively about that."
 
 				var relationText = pageObj.createTextBox(charText,{
 					align: 'left',

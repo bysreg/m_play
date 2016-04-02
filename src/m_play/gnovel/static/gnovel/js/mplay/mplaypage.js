@@ -171,7 +171,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initPhoneNotification = function() {
 		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
 
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
 		this._setObjectTag(this._closephone, this._closephoneImg);
