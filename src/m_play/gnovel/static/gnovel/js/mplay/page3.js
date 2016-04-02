@@ -337,24 +337,24 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "gocafe"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "You head to the cafe"},
+			{type: "show_context", text:"You head to the cafe", waitUntilShown:false},
 			{type: "goto", page: "scene 5.a"},
 
 			{type: "nothing", label: "gobar"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "dialog", speaker: "", text: "You head to the bar"},
+			{type: "show_context", text:"You head to the bar", waitUntilShown:false},
 			{type: "goto", page: "scene 5.b"},
 
 			{type: "nothing", label: "gohome"},
-			{type: "custom", func: function(page) {
-					page.getRelationshipManager().addRelationship("Priya", -1);
-					page.getRelationshipManager().addRelationship("Cat", -1);
-				}},
-			{type: "show", img: transitionBg, waitUntilShown:false},
-			// after transition
-			{type: "dialog", speaker: "", text: "You head to the bar"},
-			{type: "goto", page: "scene 6.a"},
+				{type: "custom", func: function(page) {
+						page.getRelationshipManager().addRelationship("Priya", -1);
+						page.getRelationshipManager().addRelationship("Cat", -1);
+					}},
+				{type: "show", img: transitionBg, waitUntilShown:false},
+				// after transition
+				{type: "show_context", text:"You head to the bar", waitUntilShown:false},
+				{type: "goto", page: "scene 6.a"},
 
 		];
 
