@@ -544,17 +544,6 @@ var MPLAY = MPLAY || {};
 					page.getRelationshipManager().addRelationship("Priya", 1);
 					page.getRelationshipManager().addRelationship("Ryan", 1);
 				}},
-				{type: "custom", func: function(pageObj) {
-					pageObj.tweenMat(pageObj._io2.getImage(), {
-						opacity: 0,
-						easing: TWEEN.Easing.Cubic.Out,
-						duration: 800,
-						onComplete: function() {
-							// remove this io
-							pageObj._io1.remove();
-						},
-					});
-				}},
 
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
@@ -573,6 +562,17 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "compareryan"},
 				{type: "custom", func: function(page) {
+					var pageObj = page;
+					pageObj.tweenMat(pageObj._io1.getImage(), {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							// remove this io
+							pageObj._io1.remove();
+						},
+					});
+
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore2"},
 				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
