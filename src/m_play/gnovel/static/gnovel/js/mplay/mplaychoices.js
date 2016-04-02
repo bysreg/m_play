@@ -94,10 +94,11 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayChoices.prototype._onChoiceComplete = function() {
+
 		this._cleanUp();
 
 		var pageObj = this._page;
-		var delayDuration = 1000;
+		var delayDuration = 700;
 		var flowElement = this._params.flowElement;
 		var choices = this._choices;
 		var choicesBox = this._choicesBox;
@@ -165,7 +166,7 @@ var MPLAY = MPLAY || {};
 					opacity: 1,
 					opacity2: 0,
 					chain: true,
-					delay: 1000,
+					delay: 400,
 					onComplete: function() {
 						pageObj._removeFromScene(relationText);
 					},
@@ -187,7 +188,7 @@ var MPLAY = MPLAY || {};
 			//remove player's choice after it has shown on screen for specified time
 			pageObj.move(choicesBox[resultId], {
 				x: 0,
-				duration: 400,
+				duration: 800,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() { //move player choice to center of screen
 					var time = 1;
@@ -213,7 +214,7 @@ var MPLAY = MPLAY || {};
 			//move players choice text box to center
 			pageObj.move(choicesTextBg[resultId], {
 				x: 0,
-				duration: 400,
+				duration: 800,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() { //move player choice to center of screen
 					var time = 1;
@@ -272,7 +273,7 @@ var MPLAY = MPLAY || {};
 						count++;
 						if (count == choicesTextBg.length - 1) {
 							// if all unselected choices are already faded out, then start to move the selected choice to the center
-							moveSelectedChoiceToCenter();
+							//moveSelectedChoiceToCenter();
 						}
 					}
 				});
@@ -285,6 +286,10 @@ var MPLAY = MPLAY || {};
 						pageObj._removeFromScene(choicesBox[i]);
 					}
 				});
+			}
+			//move selected choice to center at same time as other choices are fading
+			else if (i == this._result.choiceId) {
+				moveSelectedChoiceToCenter();
 			}
 		}
 	};

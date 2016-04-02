@@ -76,6 +76,12 @@ var GNOVEL = GNOVEL || {};
 			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
 			this._closeDialog();
 		}
+		else if(this._temp!=true){
+			// if current speaker is different than the previous speaker, then we need to
+			// close the previous dialog box if it still exists
+			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
+			this._closeDialog();
+		}
 
 		this._messageText = this._page.createTextBox(this._message, {
 			align: this._messageAlign,

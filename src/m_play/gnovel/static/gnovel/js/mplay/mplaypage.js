@@ -123,7 +123,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initPhoneNotification = function() {
 		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
 
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
+		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 160), 519, 950);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
 		this._setObjectTag(this._closephone, this._closephoneImg);
@@ -580,7 +580,9 @@ var MPLAY = MPLAY || {};
 		params.msgOffsetY = 0;
 		params.dontRemove = true;
 		params.createNewBg = true;
+		params.bgPath = "/static/gnovel/res/textures/ui/phone_textBox.png";
 
+		//params.bgPath = hasParam(obj, "bgPath", null);
 		message = obj.text;
 		var x = 0;
 		var y = 100;
@@ -613,7 +615,7 @@ var MPLAY = MPLAY || {};
 		if (typeof obj.msgOffsetZ !== 'undefined') {
 			params.msgOffsetZ = obj.msgOffsetZ;
 		}
-		params.bgPath = hasParam(obj, "bgPath", null);
+
 		if (typeof obj.bgOffsetX !== 'undefined') {
 			params.bgOffsetX = obj.bgOffsetX;
 		}

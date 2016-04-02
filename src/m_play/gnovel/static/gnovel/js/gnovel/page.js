@@ -366,7 +366,7 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._showTempDialog = function(message, x, y, params) {
 		params = params || {};
 		var pageObj = this;
-
+		params.temp = true;
 		params.onComplete = function() {
 			// go to next dialog
 		};
