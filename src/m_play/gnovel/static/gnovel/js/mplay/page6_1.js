@@ -53,11 +53,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey "+ player +".  You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Ohhi-Ryan");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Oh hey. You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

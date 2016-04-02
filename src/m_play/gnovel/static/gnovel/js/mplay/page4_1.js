@@ -41,11 +41,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos1"},
 			{type: "show", img: cat, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Heyfriend-Cat");
+			}},
 			{type: "dialog", speaker: "Cat", text: player+"!  How are you doing?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "neg1"},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Wtsnew-Cat");
+			}},
 			{type: "dialog", speaker: "Cat", text: "Hi!  What's new with you?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

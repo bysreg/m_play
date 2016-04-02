@@ -95,6 +95,9 @@ var MPLAY = MPLAY || {};
 			// phone email exchange ends
 
 			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",
 				choices :
@@ -111,6 +114,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :

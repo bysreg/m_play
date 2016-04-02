@@ -46,6 +46,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Heyfriend-Ryan");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hi "+ player +".  I'm on my way to meet with Sweeney.  Apparently they do cycle some of the questions.  I think it will end up ok though.  I just have to face the music.  Thanks for trying to convince me not to use it though."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 			
@@ -54,6 +57,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "sad"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions... whatever.  I think it will end up ok.  I just have to get chewed out."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -74,6 +80,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Heyfriend-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened.  You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 			{type: "goto", page: "scene ending"},
 
@@ -82,11 +91,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  It’s going to be an awkward conversation with his job if he fails the class.  I hope it works out."},
 			{type: "goto", page: "scene ending"},
 
 			{type: "nothing", label: "neg-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  He was an idiot."},
 			{type: "goto", page: "scene ending"},
 		];
