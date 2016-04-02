@@ -34,6 +34,7 @@ var GNOVEL = GNOVEL || {};
 	Flow.JUMP = "jump";
 	Flow.CUSTOM = "custom";
 	Flow.NOTHING = "nothing";
+	Flow.PLAY = "play";
 
 	Flow.prototype._set = function(flowElements) {
 		this._reset();
@@ -99,6 +100,9 @@ var GNOVEL = GNOVEL || {};
 				break;
 			case Flow.NOTHING:
 				this._handleNothing(obj);
+				break;
+			case Flow.PLAY:
+				this._handlePlay(obj);
 				break;
 			default:
 				// if we have custom handler for that flow element
@@ -330,6 +334,12 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Flow.prototype._handleNothing = function(obj) {
+		this._next();
+		this._exec();
+	};
+
+	Flow.prototype._handlePlay = function(obj) {
+		this._page.getOwner().getSoundManager().play(obj.audio);
 		this._next();
 		this._exec();
 	};

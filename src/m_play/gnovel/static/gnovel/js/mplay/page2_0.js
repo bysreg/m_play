@@ -38,16 +38,18 @@ var MPLAY = MPLAY || {};
 			}, label: "priyaRelationshipScore1"},
 			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#neutural"},
 			{type: "show", img: priya, expression: "happy", position: "center", label: "happy"},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Heyfriend-Priya");
-			}},
+			// {type: "custom", func: function(page) {
+			// 	page.getOwner().getSoundManager().play("Heyfriend-Priya");
+			// }},
+			{type: "play", audio: "Heyfriend-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great, congrats!"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "show", img: priya, position: "center", label: "neutural"},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Hey-Priya");
-			}},
+			// {type: "custom", func: function(page) {
+			// 	page.getOwner().getSoundManager().play("Hey-Priya");
+			// }},
+			{type: "play", audio: "Hey-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

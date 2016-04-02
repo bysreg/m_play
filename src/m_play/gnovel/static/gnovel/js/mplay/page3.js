@@ -367,9 +367,10 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "happy"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Hey-Ryan-e");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Hey-Ryan-e");
+				// }},
+				{type: "play", audio: "Hey-Ryan-e"},
 				{type: "dialog", speaker: "Ryan", text: "Hey " + player + ", nice to see you. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -377,16 +378,18 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "neutural"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Hey-Ryan-p");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
+				// }},
+				{type: "play", audio: "Hey-Ryan-p"},
 				{type: "dialog", speaker: "Ryan", text: "Oh hey. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "nothing", label: "thoughtful"},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Hey-Ryan-n");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
+				// }},
+				{type: "play", audio: "Hey-Ryan-n"},
 				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Hey.  What’s up?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
@@ -507,9 +510,10 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "happy"},
 				{type: "show", img: priya, expression: "happy", position: "right", waitUntilShown: false},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Ohhi-Priya");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Ohhi-Priya");
+				// }},
+				{type: "play", audio: "Ohhi-Priya"},
 				{type: "dialog", speaker: "Priya", text: "Hi "+ player +"!  Join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -518,16 +522,18 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "neutural1"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Hey-Priya");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Hey-Priya");
+				// }},
+				{type: "play", audio: "Hey-Priya"},
 				{type: "dialog", speaker: "Priya", text: "Oh hi. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "nothing", label: "neutural2"},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Wtsnew-Priya");
-				}},
+				// {type: "custom", func: function(page) {
+				// 	page.getOwner().getSoundManager().play("Wtsnew-Priya");
+				// }},
+				{type: "play", audio: "Wtsnew-Priya"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Hi.  What are you doing?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
