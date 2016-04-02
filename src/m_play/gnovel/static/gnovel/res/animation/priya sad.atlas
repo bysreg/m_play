@@ -1,0 +1,41 @@
+
+priya sad.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+final sad priya bod
+  rotate: true
+  xy: 2, 185
+  size: 315, 675
+  orig: 1053, 2247
+  offset: 369, 786
+  index: -1
+final sad priya eye blink
+  rotate: false
+  xy: 442, 128
+  size: 79, 55
+  orig: 263, 183
+  offset: 92, 64
+  index: -1
+final sad priya head png
+  rotate: false
+  xy: 679, 206
+  size: 215, 294
+  orig: 717, 980
+  offset: 251, 343
+  index: -1
+final sad priya left arm
+  rotate: true
+  xy: 2, 18
+  size: 165, 438
+  orig: 550, 1462
+  offset: 193, 512
+  index: -1
+final sad priya left arm png
+  rotate: false
+  xy: 896, 2
+  size: 87, 498
+  orig: 289, 1660
+  offset: 101, 581
+  index: -1
