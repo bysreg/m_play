@@ -32,6 +32,7 @@ var GNOVEL = GNOVEL || {};
 		this._msgOffsetY = params.msgOffsetY || 0;
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
+		this._unclickable = params.unclickable || false;
 		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
 		this._message = message;
 		this._messageText = null;
@@ -58,7 +59,9 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		if(!this._unclickable) {
+			this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		}
 	};
 
 	// static class variable
