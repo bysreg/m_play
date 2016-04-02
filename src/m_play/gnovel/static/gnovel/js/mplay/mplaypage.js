@@ -542,7 +542,7 @@ var MPLAY = MPLAY || {};
 			img.scale.x = Math.abs(img.scale.x);
 		}
 
-		console.log("show something");
+		// console.log("show something");
 
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
@@ -589,6 +589,10 @@ var MPLAY = MPLAY || {};
 			// if null, then we are just going to hide the default image
 			if (img === null) {
 				img = obj.getImage(null);
+			}
+
+			if(img instanceof MPLAY.SpineAnimation) {
+				params.arr = img.meshes;
 			}
 		}
 
