@@ -41,10 +41,16 @@ var MPLAY = MPLAY || {};
 			
 			{type: "nothing", label: "happy"},
 			{type: "show", img: cat, expression: "happy", position: "center"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Heyfriend-Cat");
+			}},
 			{type: "dialog", speaker: "Cat", text: "Hey "+ player +"!  I’m here trying to train for a 10K."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: 1000},
 
 			{type: "nothing", label: "neutural"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Ohhi-Cat");
+			}},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Oh hey.  I just finished up my workout.  Training for a 10K."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: 1000},

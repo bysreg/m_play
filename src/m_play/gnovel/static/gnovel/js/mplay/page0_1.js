@@ -65,12 +65,10 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			//NEW INTRO FOR PLAYTEST
-
-			// OLD INTRO PRE-PLAYTEST
-			/*{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
+			// need a flow here to show a buzzing phone before choices
+			{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
 			{type: "show", img: catsphone, waitUntilShown:false},
-			{type: "show", img: yourphone},
+			/*{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Message");
 			}},
@@ -83,10 +81,23 @@ var MPLAY = MPLAY || {};
 						go: "#talktoryan",
 					relationship: {name: this._ryan, score: 1}}],
 					seconds: 10},
-			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"*/
+			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
 
-			{type: "show_context", text:"You go to meet your friend Ryan to celebrate at Scottie’s.", waitUntilShown:false},
+			// phone email exchange begins
+			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
+			{type: "show", img: closephone},
+			{type: "phone_textbox",
+				label: "email",
+				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
+				bgHeight: 200},
+			{type: "hide_phone_textbox", dialog: "$email"},
+			{type: "hide", img: closephone},
+			// phone email exchange ends*/
+
 			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",
 				choices :
@@ -103,6 +114,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :

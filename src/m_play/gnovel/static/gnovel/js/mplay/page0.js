@@ -66,25 +66,6 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			//NEW INTRO FOR PLAYTEST
-
-			// OLD INTRO PRE-PLAYTEST
-			/*{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
-			{type: "show", img: catsphone, waitUntilShown:false},
-			{type: "show", img: yourphone},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Message");
-			}},
-			{type: "choices",
-				choices :
-					[{text: "Look at your Phone ",
-						go: "#lookatphone",
-					relationship: {name: this._ryan, score: -1}},
-					{text: "Talk to Ryan First",
-						go: "#talktoryan",
-					relationship: {name: this._ryan, score: 1}}],
-					seconds: 10},
-			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"*/
-
 			// phone email exchange begins
 			{type: "show_phone_notif"},
 

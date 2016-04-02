@@ -54,6 +54,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, expression: "happy"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Yo-Ryan");
+			}},
 			{type: "dialog", speaker: this._ryan, text: player + "!  Glad I caught you.   I ended up doing ok on that test.  Probably not my best work, but what can you do.  I’m glad we held off on using it."},
 			{type: "show", img: ryan, expression: "thoughtful"},
 			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
@@ -64,6 +67,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-e");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing ok on that test.  Probably not my best work though."},
 			{type: "show", img: ryan, expression: "sad"},
 			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to patch things up with her.  See you."},
@@ -71,6 +77,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, expression: "happy"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Ryan-p");
+			}},
 			{type: "dialog", speaker: this._ryan, text: "Hey!  I wanted to let you know that I ended up doing ok on that test.  Probably not my best work, but what can you do.  I’ll see you around."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -86,6 +95,9 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Heyfriend-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!  I think I’m going to stick with my business classes next semester…  Ready to hit the gym?"},
 			{type: "goto", page: "scene ending"},
 
@@ -94,11 +106,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  It’s a bit dramatic, don’t you think?  Let’s hit the gym."},
 			{type: "goto", page: "scene ending"},
 
 			{type: "nothing", label: "neg-cat1"},
 			{type: "show", img: cat, expression: "thoughtful"},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Hey-Cat");
+			}},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This is all too dramatic for me."},
 			{type: "goto", page: "scene ending"},
 		];

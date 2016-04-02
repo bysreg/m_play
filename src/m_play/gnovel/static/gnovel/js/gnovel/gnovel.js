@@ -39,20 +39,49 @@ var GNOVEL = GNOVEL || {};
 
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
-					// SFX
-					{id:"Clicking", src:"clicking.ogg"},
-					{id:"Timer", src:"timer.ogg"},
-					{id:"Message", src:"message.ogg"},
-					{id:"Text", src:"text.ogg"},
+					// SFX UI
+					{id:"Clicking", src:"sfx-ui-clicking.ogg"},
+					{id:"Timer", src:"sfx-ui-timer.ogg"},
+					{id:"Message", src:"sfx-ui-message.ogg"},
+					{id:"Text", src:"sfx-ui-text.ogg"},
+
+					// SFX Waiting dialog
+					{id:"Hello?-Ryan", src: "sfx-waiting-hello-ryan.ogg"},
+
+					// SFX Greeting dialog
+					  // Ryan
+					{id:"Heyfriend-Ryan", src: "sfx-greeting-heyfriend-ryan-p.ogg"},
+					{id:"Hey-Ryan-n", src: "sfx-greeting-hey-ryan-n.ogg"},
+					{id:"Hey-Ryan-p", src: "sfx-greeting-hey-ryan-p.ogg"},
+					{id:"Hey-Ryan-e", src: "sfx-greeting-hey-ryan-e.ogg"},
+					{id:"Ohhi-Ryan", src: "sfx-greeting-ohhi-ryan-n.ogg"},
+					{id:"Sup-Ryan", src: "sfx-greeting-sup-ryan-n.ogg"},
+					{id:"Yo-Ryan", src: "sfx-greeting-yo-ryan-p.ogg"},
+
+					  // Cat
+					{id:"Hey-Cat", src: "sfx-greeting-hey-cat-n.ogg"},
+					{id:"Heyfriend-Cat", src: "sfx-greeting-heyfriend-cat-p.ogg"},
+					{id:"Ohhi-Cat", src: "sfx-greeting-ohhi-cat-n.ogg"},
+					{id:"Wtsnew-Cat", src: "sfx-greeting-whatsnew-cat-n.ogg"},
+					{id:"Sup-Cat", src:"sfx-greeting-sup-cat-p.ogg"},
+
+					  // Priya
+					{id:"Hello-Priya", src: "sfx-greeting-hello-priya-p.ogg"},
+					{id:"Heyfriend-Priya", src: "sfx-greeting-heyfriend-priya-p.ogg"},
+					{id:"Hey-Priya", src: "sfx-greeting-hey-priya-n.ogg"},
+					{id:"Ohhi-Priya", src: "sfx-greeting-ohhi-priya-p.ogg"},
+					{id:"Wtsnew-Priya", src: "sfx-greeting-whatsnew-priya-n.ogg"},
+
+
 
 					// ambient
-					{id:"Cafe-bg", src:"cafe-ambient.ogg"},
-					{id:"Office-bg", src:"office-ambient.ogg"},
-					{id:"Gym-bg", src:"gym-ambient.ogg"},
-					{id:"Bar-bg", src:"bar-ambient-new.ogg"},
-					{id:"Classroom-bg", src:"classroom-ambient.ogg"},
-					{id:"UC-bg", src:"uc-ambient-new.ogg"},
-					{id:"Library-bg", src:"lib-ambient.ogg"}
+					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
+					{id:"Office-bg", src:"ambient-office.ogg"},
+					{id:"Gym-bg", src:"ambient-gym.ogg"},
+					{id:"Bar-bg", src:"ambient-bar.ogg"},
+					{id:"Classroom-bg", src:"ambient-classroom.ogg"},
+					{id:"UC-bg", src:"ambient-uc.ogg"},
+					{id:"Library-bg", src:"ambient-lib.ogg"}
 					];
 		this._soundManager = createjs.Sound;
 

@@ -368,7 +368,7 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		params.temp = true;
 		params.onComplete = function() {
-			// go to next dialog
+			// go to next dialog			
 		};
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 		return dialog;
