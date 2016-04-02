@@ -149,7 +149,7 @@ var MPLAY = MPLAY || {};
 				page.tweenMat(this._img, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					arr: img._meshes,
+					arr: img.meshes,
 					onComplete: function() {
 						page._removeFromScene(img);
 						oneFadeComplete();
