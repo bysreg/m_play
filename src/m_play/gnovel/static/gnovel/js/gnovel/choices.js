@@ -30,6 +30,9 @@ var GNOVEL = GNOVEL || {};
 
 		this._init();
 
+		// FIXME : force seconds to zero
+		this._params.seconds = 0;
+
 		if (this._params.hasOwnProperty('seconds') && this._params.seconds > 0) {
 			this._timerCountdown(this._params.flowElement.speaker);
 		}
@@ -189,16 +192,19 @@ var GNOVEL = GNOVEL || {};
 				//if timer almost over, remove previous text box
 				if(timer2.scale.x < .3){
 					if(count>0){
-						pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
-							opacity: 0,
-							easing: TWEEN.Easing.Cubic.Out,
-							duration: 200,
-						});
-						pageObj.tweenMat(choices._responseBox[count-1]._textBg,{
-							opacity: 0,
-							easing: TWEEN.Easing.Cubic.Out,
-							duration: 200,
-						});
+						// pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
+						// 	opacity: 0,
+						// 	easing: TWEEN.Easing.Cubic.Out,
+						// 	duration: 200,
+						// });
+						// pageObj.tweenMat(choices._responseBox[count-1]._textBg,{
+						// 	opacity: 0,
+						// 	easing: TWEEN.Easing.Cubic.Out,
+						// 	duration: 200,
+						// });
+						// 
+						choices._responseBox[count-1]._messageText.material.opacity = 0;
+						choices._responseBox[count-1]._textBg.material.opacity = 0;
 					}
 				}
 			})

@@ -398,6 +398,7 @@ var MPLAY = MPLAY || {};
 		params.bgHeight = 221;
 		params.showSpeaker = false;
 		params.charLine = 30;
+		params.unclickable = true;
 
 		var chara = null;
 
