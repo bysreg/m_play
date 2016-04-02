@@ -67,6 +67,7 @@ var MPLAY = MPLAY || {};
 		o = [
 			// need a flow here to show a buzzing phone before choices
 			{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
+
 			{type: "show", img: catsphone, waitUntilShown:false},
 			/*{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
@@ -135,7 +136,8 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though.  My brother took it last year."},
+			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though."},
+			{type: "dialog", speaker: this._ryan, text: "My brother took it last year."},			
 			{type: "choices",
 				choices :
 					[{text: "Should be good.",
@@ -202,7 +204,9 @@ var MPLAY = MPLAY || {};
 
 			{type:"nothing", label: "pickup"},
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student – Cat Davis.  Her CMU ID card is in here.  Let’s turn it into campus police."},
+			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student –"},
+			{type: "dialog", speaker: this._ryan, text: "Cat Davis.  Her CMU ID card is in here."},
+			{type: "dialog", speaker: this._ryan, text: "Let’s turn it into campus police."},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			{type: "nothing", label: "cash"},

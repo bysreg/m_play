@@ -186,9 +186,11 @@ var MPLAY = MPLAY || {};
 			// phone email exchange ends
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester.  Could you send me some of your stuff from the class?  Like notes and old assignments?"},
+			{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester."},
+			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like notes and old assignments?"},			
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year.  My friend got in trouble for doing that, it’s not worth it."},
+			{type: "dialog", speaker: "Priya", text: "My friend got in trouble for doing that, it’s not worth it."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I’m just stuck on some problems - I’m only going to use it to check my work."},
 			{type: "dialog", speaker: "Priya", text: "If you do, you probably won’t get caught, but why risk it?"},

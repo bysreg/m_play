@@ -40,7 +40,8 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text:"you run into Ryan at the Café"},
 			{type: "show", img: ryan, expression: "sad"},
 			{type: "dialog", speaker: this._ryan, text: "Hey, do you have a sec?"},
-			{type: "dialog", speaker: this._ryan, text: "You know that test I showed you?  Priya was right – we couldn’t use it.  He asked me if anyone else had access to it.  Sweeney called me in, asked me point blank, and I panicked…"},
+			{type: "dialog", speaker: this._ryan, text: "You know that test I showed you?  Priya was right – we couldn’t use it."},
+			{type: "dialog", speaker: this._ryan, text: "He asked me if anyone else had access to it.  Sweeney called me in, asked me point blank, and I panicked…"},
 			{type: "dialog", speaker: this._ryan, text: "I told him I had shown it to you.  I’m so sorry… I didn’t know what else to say.  He wants to see you and have a conversation."},
 			{type: "hide", img: ryan},
 

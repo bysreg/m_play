@@ -48,7 +48,8 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			}},
-			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded.   I have the actual exam from last year.  Might help, what do you think?"},
+			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
+			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Might help, what do you think?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "compareryan1"},
@@ -59,7 +60,8 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			}},
-			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded.  I have the actual exam from last year.  Want to take a look?"},
+			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
+			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
@@ -67,7 +69,8 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			}},
-			{type: "dialog", speaker: this._ryan, text: "So I got my hands on last year’s Programming & Society exam.  It’s not graded, but it’s the actual exam.  I think we should study with it.  My brother took this class last year.  I think I told you."},
+			{type: "dialog", speaker: this._ryan, text: "So I got my hands on last year’s Programming & Society exam.  It’s not graded, but it’s the actual exam."},
+			{type: "dialog", speaker: this._ryan, text: "I think we should study with it.  My brother took this class last year.  I think I told you."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "hideryan"},
@@ -96,8 +99,8 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "I’m sorry… I told you guys I didn't realize..."},
 
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Look, I didn’t mean that.  It’s just, we’re only using this one time.  That B- really tanked my average, and I need to do well in the class."},
-
+			{type: "dialog", speaker: this._ryan, text: "Look, I didn’t mean that.  It’s just, we’re only using this one time."},
+			{type: "dialog", speaker: this._ryan, text: "That B- really tanked my average, and I need to do well in the class."},
 			{type: "custom", label: "integrityScore", func: function(page) {
 				return page.getIntegrityManager().getIntegrity();
 			}},
@@ -124,7 +127,8 @@ var MPLAY = MPLAY || {};
 
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
-			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it. I really don't see how it's a big deal though."},
+			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
+			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
 			{type: "show", img: priya, position: "left", expression: "thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Yeah, better safe than sorry."},
 			{type: "goto", page: "scene 9.a"},
@@ -132,7 +136,8 @@ var MPLAY = MPLAY || {};
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
-			{type: "dialog", speaker: this._priya, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it. I think it's a little hypocritical of both of you to get on my back about this."},
+			{type: "dialog", speaker: this._priya, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
+			{type: "dialog", speaker: this._priya, text: "I think it's a little hypocritical of both of you to get on my back about this."},
 			{type: "goto", page: "scene 9.b"},
 
 			// dontsay
