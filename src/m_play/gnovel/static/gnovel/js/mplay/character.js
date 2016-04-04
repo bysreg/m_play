@@ -67,23 +67,6 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
-	Character.prototype.fadeImage = function(img, val, params) {
-
-		// if(img instanceof MPLAY.SpineAnimation) {
-		// 	page.tweenMat(img.meshes, {
-		// 		opacity: val,
-		// 		easing: TWEEN.Easing.Cubic.Out,
-		// 		onComplete: function() {
-		// 			page._removeFromScene(img);
-		// 			params.onComplete();
-		// 		},
-		// 		duration: params.duration || 800,
-		// 	});
-		// }else {
-
-		// }		
-	};
-
 	Character.prototype.setExpression = function(expression, img) {
 		if (img instanceof MPLAY.SpineAnimation) {
 			var self = this;
