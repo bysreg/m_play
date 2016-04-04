@@ -148,7 +148,7 @@ var MPLAY = MPLAY || {};
 					opacity: 1,
 					opacity2: 0,
 					chain: true,
-					delay: 500,
+					delay: 1000,
 					onComplete: function() {
 						pageObj._removeFromScene(compass);
 					},
@@ -182,7 +182,7 @@ var MPLAY = MPLAY || {};
 					font: "25px SF_Toontime Bold Italic",
 					fillstyle: '#ffffff',
 				});
-				relationText.position.set(-530, 260, pageObj._uiLayer - 40);
+				relationText.position.set(230, 260, pageObj._uiLayer - 40);
 				relationText.material.opacity = 0;
 				pageObj._addToScene(relationText);
 
@@ -192,7 +192,7 @@ var MPLAY = MPLAY || {};
 					opacity: 1,
 					opacity2: 0,
 					chain: true,
-					delay: 400,
+					delay: 800,
 					onComplete: function() {
 						pageObj._removeFromScene(relationText);
 					},

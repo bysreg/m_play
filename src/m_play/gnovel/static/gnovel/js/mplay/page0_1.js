@@ -95,7 +95,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends*/
 
-			/*{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			}},
