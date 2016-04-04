@@ -1,0 +1,48 @@
+
+ryan happy.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+new ryan body
+  rotate: true
+  xy: 2, 213
+  size: 272, 648
+  orig: 905, 2159
+  offset: 317, 755
+  index: -1
+new ryan right  forearm
+  rotate: true
+  xy: 242, 53
+  size: 158, 201
+  orig: 527, 671
+  offset: 184, 235
+  index: -1
+right upper arm
+  rotate: false
+  xy: 819, 284
+  size: 131, 201
+  orig: 436, 669
+  offset: 153, 234
+  index: -1
+ryan blink
+  rotate: false
+  xy: 2, 2
+  size: 79, 19
+  orig: 264, 62
+  offset: 92, 21
+  index: -1
+ryan head (1)
+  rotate: false
+  xy: 652, 280
+  size: 165, 205
+  orig: 550, 682
+  offset: 193, 238
+  index: -1
+ryan left arm
+  rotate: false
+  xy: 2, 23
+  size: 238, 188
+  orig: 792, 626
+  offset: 277, 219
+  index: -1

@@ -1,0 +1,27 @@
+
+sweeney angry.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sweeney angry blink
+  rotate: false
+  xy: 2, 2
+  size: 128, 24
+  orig: 427, 79
+  offset: 149, 27
+  index: -1
+sweeney angry body
+  rotate: true
+  xy: 2, 28
+  size: 381, 714
+  orig: 1269, 2381
+  offset: 444, 834
+  index: -1
+sweeney angry head
+  rotate: false
+  xy: 718, 177
+  size: 170, 232
+  orig: 567, 772
+  offset: 198, 270
+  index: -1

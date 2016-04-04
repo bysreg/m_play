@@ -1,34 +1,41 @@
 
 ryan neutral.png
-size: 1024,1024
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 head
-  rotate: false
-  xy: 2, 2
+  rotate: true
+  xy: 705, 154
   size: 180, 216
   orig: 180, 216
   offset: 0, 0
   index: -1
 left arm
-  rotate: false
-  xy: 310, 321
+  rotate: true
+  xy: 2, 47
   size: 123, 600
   orig: 123, 600
   offset: 0, 0
   index: -1
-right arm
+neutral ryan blink
   rotate: false
-  xy: 435, 344
+  xy: 2, 2
+  size: 119, 43
+  orig: 395, 141
+  offset: 138, 49
+  index: -1
+right arm
+  rotate: true
+  xy: 705, 336
   size: 141, 577
   orig: 141, 577
   offset: 0, 0
   index: -1
 torso
-  rotate: false
-  xy: 2, 220
-  size: 306, 701
+  rotate: true
+  xy: 2, 172
+  size: 305, 701
   orig: 306, 701
   offset: 0, 0
   index: -1

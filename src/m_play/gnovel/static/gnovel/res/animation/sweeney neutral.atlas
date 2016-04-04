@@ -1,0 +1,34 @@
+
+sweeney neutral.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+neutral sweeney head
+  rotate: false
+  xy: 782, 163
+  size: 171, 238
+  orig: 573, 794
+  offset: 201, 278
+  index: -1
+sweeney angry blink
+  rotate: false
+  xy: 2, 2
+  size: 128, 24
+  orig: 427, 79
+  offset: 149, 27
+  index: -1
+sweeney arm
+  rotate: false
+  xy: 628, 108
+  size: 152, 293
+  orig: 620, 976
+  offset: 251, 341
+  index: -1
+sweeney-neutral torso
+  rotate: true
+  xy: 2, 28
+  size: 373, 624
+  orig: 1470, 2081
+  offset: 515, 729
+  index: -1

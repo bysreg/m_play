@@ -1,0 +1,41 @@
+
+sweeney happy.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Sweeney-Happy head
+  rotate: true
+  xy: 745, 64
+  size: 187, 250
+  orig: 624, 832
+  offset: 218, 291
+  index: -1
+Sweeney-Happy left arm
+  rotate: true
+  xy: 745, 253
+  size: 95, 474
+  orig: 316, 1581
+  offset: 111, 554
+  index: -1
+Sweeney-Happy right arm
+  rotate: true
+  xy: 745, 350
+  size: 156, 545
+  orig: 519, 1815
+  offset: 182, 635
+  index: -1
+Sweeney-blink eyes
+  rotate: false
+  xy: 1292, 464
+  size: 117, 42
+  orig: 390, 140
+  offset: 137, 49
+  index: -1
+Sweeney-body
+  rotate: true
+  xy: 2, 2
+  size: 504, 741
+  orig: 1679, 3198
+  offset: 588, 864
+  index: -1

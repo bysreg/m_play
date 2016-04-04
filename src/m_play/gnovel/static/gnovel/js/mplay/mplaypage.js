@@ -85,11 +85,15 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initChars = function() {
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
-		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
-		
+		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
+		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy"], "Ryan");
+		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
+		MPlayPage._ryan.setExpression("sad", MPlayPage._anims["ryan sad"], "Ryan");
+		// MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
+		MPlayPage._ryan.setExpression("thoughtful", MPlayPage._anims["ryan thoughtful"], "Ryan");
+		// MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
+		MPlayPage._ryan.setExpression("angry", MPlayPage._anims["ryan angry"], "Ryan");
+
 		MPlayPage._cat = new MPLAY.Character(MPlayPage._anims["cat neutral"], "Cat");
 		MPlayPage._cat.setExpression("happy", MPlayPage._anims["cat happy"], "Cat");		
 		MPlayPage._cat.setExpression("angry", MPlayPage._anims["cat annoyed"], "Cat");
@@ -104,9 +108,12 @@ var MPLAY = MPLAY || {};
 		MPlayPage._priya.setExpression("sad", MPlayPage._anims["priya sad"], "Priya");
 		MPlayPage._priya.setExpression("angry", MPlayPage._anims["priya angry"], "Priya");
 
-		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
-		MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");
+		// MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
+		MPlayPage._professor = new MPLAY.Character(MPlayPage._anims["sweeney neutral"], "Prof. Sweeney");
+		// MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("happy", MPlayPage._anims["sweeney happy"], "Prof. Sweeney");
+		// MPlayPage._professor.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sweeney-dissapointed.png", new THREE.Vector3(0, -270, this._characterLayer), 426, 1030), "Prof. Sweeney");
+		MPlayPage._professor.setExpression("sad", MPlayPage._anims["sweeney angry"], "Prof. Sweeney");
 
 		// hide all characters
 		MPlayPage._professor.hideAllImages();
@@ -121,7 +128,11 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._initAnim = function() {
-		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -250, this._characterLayer));
+		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -260, this._characterLayer));
+		this._createAnim("ryan angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {x: -1, y: 1};
+		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 
 		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer)); // angry
@@ -134,6 +145,11 @@ var MPLAY = MPLAY || {};
 		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -110, this._characterLayer));
 		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer));
 		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -70, this._characterLayer));
+
+		this._createAnim("sweeney neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -120, this._characterLayer));
+		this._createAnim("sweeney angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -160, this._characterLayer));
+		this._createAnim("sweeney happy", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -160, this._characterLayer));
+
 
 		for (var i in MPlayPage._anims) {
 			var anim = MPlayPage._anims[i];
@@ -540,11 +556,19 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		if (params.flowElement.flip === true) {
-			img.scale.x = -Math.abs(img.scale.x);
-		} else {
-			img.scale.x = Math.abs(img.scale.x);
-		}
+		if(isChar && img.hasOwnProperty("oriScale") ) {
+			if (params.flowElement.flip === true) {
+				img.scale.x = -img.oriScale.x;
+			} else {
+				img.scale.x = img.oriScale.x;
+			}
+		}else{
+			if (params.flowElement.flip === true) {
+				img.scale.x = -Math.abs(img.scale.x);
+			} else {
+				img.scale.x = Math.abs(img.scale.x);
+			}
+		}		
 
 		// console.log("show something");
 

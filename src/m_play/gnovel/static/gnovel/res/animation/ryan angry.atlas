@@ -1,0 +1,55 @@
+
+ryan angry.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+angry ryan eyes
+  rotate: false
+  xy: 1420, 424
+  size: 115, 39
+  orig: 383, 129
+  offset: 134, 45
+  index: -1
+ryan angry body
+  rotate: true
+  xy: 2, 115
+  size: 348, 649
+  orig: 1160, 2163
+  offset: 406, 757
+  index: -1
+ryan angry head
+  rotate: true
+  xy: 942, 264
+  size: 199, 248
+  orig: 663, 825
+  offset: 232, 288
+  index: -1
+ryan left forearm
+  rotate: false
+  xy: 653, 277
+  size: 287, 186
+  orig: 957, 620
+  offset: 335, 217
+  index: -1
+ryan left shoulder
+  rotate: true
+  xy: 2, 2
+  size: 111, 272
+  orig: 369, 906
+  offset: 129, 317
+  index: -1
+ryan right forearm
+  rotate: true
+  xy: 1192, 242
+  size: 221, 226
+  orig: 735, 756
+  offset: 257, 265
+  index: -1
+ryan right shoulder
+  rotate: true
+  xy: 653, 149
+  size: 126, 247
+  orig: 419, 822
+  offset: 147, 287
+  index: -1
