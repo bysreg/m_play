@@ -50,7 +50,7 @@ var MPLAY = MPLAY || {};
 
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
-		// 	this._initChars();			
+		// 	this._initChars();
 		// }
 
 		this._player = document.getElementById("username").innerHTML;
@@ -89,15 +89,15 @@ var MPLAY = MPLAY || {};
 		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
 		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
 		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
-		
+
 		MPlayPage._cat = new MPLAY.Character(MPlayPage._anims["cat neutral"], "Cat");
-		MPlayPage._cat.setExpression("happy", MPlayPage._anims["cat happy"], "Cat");		
+		MPlayPage._cat.setExpression("happy", MPlayPage._anims["cat happy"], "Cat");
 		MPlayPage._cat.setExpression("angry", MPlayPage._anims["cat annoyed"], "Cat");
 		// MPlayPage._cat.setExpression("sad", MPlayPage._anims["cat sad"], "Cat");
 		MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
 		// MPlayPage._cat.setExpression("thoughtful", MPlayPage._anims["cat thoughtful"], "Cat");
 
-		MPlayPage._priya = new MPLAY.Character(MPlayPage._anims["priya neutral"], "Priya");		
+		MPlayPage._priya = new MPLAY.Character(MPlayPage._anims["priya neutral"], "Priya");
 		MPlayPage._priya.setExpression("happy", MPlayPage._anims["priya happy"], "Priya");
 		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		MPlayPage._priya.setExpression("sad", MPlayPage._anims["priya sad"], "Priya");
@@ -116,7 +116,7 @@ var MPLAY = MPLAY || {};
 		MPlayPage._isCharInit = true;
 
 		// run the first flow
-		this._runFlow();		
+		this._runFlow();
 	};
 
 	MPlayPage.prototype._initAnim = function() {
@@ -142,9 +142,9 @@ var MPLAY = MPLAY || {};
 				event.target.state.setAnimationByName(0, "idle", true);
 
 				// update it once, so that the mesh is created
-				event.target.update();		
+				event.target.update();
 
-				console.log(event.target.meshes.length);		
+				console.log(event.target.meshes.length);
 
 				MPlayPage._loadedAnimCount++;
 
@@ -298,7 +298,7 @@ var MPLAY = MPLAY || {};
 			this._priya = MPlayPage._priya.getName();
 
 
-			GNOVEL.Page.prototype._runFlow.call(this);	
+			GNOVEL.Page.prototype._runFlow.call(this);
 		}
 
 	};
@@ -614,6 +614,28 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.update();
 	};
 
+	MPlayPage.prototype.showBgFilter = function() {
+		//can also use this._background3Layer for the z-position
+		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._choicesLayer-20), 1430, 830);
+		this._filter.material.opacity = 0;
+		this._addToScene(this._filter);
+
+		//play animation effect for filter
+		this.tweenFlash(this._filter,{
+			opacityTo: 0.5,
+			opacityFrom:0.2,
+			duration: 2000,
+			easing: TWEEN.Easing.Linear.Out,
+			easingFrom:TWEEN.Easing.Linear.In
+		});
+	};
+
+	MPlayPage.prototype.hideBgFilter = function() {
+		this._removeFromScene(this._filter);
+	};
+
+
+
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
 
@@ -801,6 +823,7 @@ var MPLAY = MPLAY || {};
 		//params.dontRemove = true;
 		//	params.createNewBg = true;
 		//params.speaker = "Context";
+		params.type = "context";
 		params.width = 100;
 		params.font = "20px Bevan";
 

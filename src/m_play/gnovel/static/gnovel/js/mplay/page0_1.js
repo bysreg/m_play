@@ -95,7 +95,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends*/
 
-			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			/*{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			}},
@@ -137,7 +137,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though."},
-			{type: "dialog", speaker: this._ryan, text: "My brother took it last year."},			
+			{type: "dialog", speaker: this._ryan, text: "My brother took it last year."},
 			{type: "choices",
 				choices :
 					[{text: "Should be good.",

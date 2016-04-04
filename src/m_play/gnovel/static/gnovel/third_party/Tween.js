@@ -688,7 +688,7 @@ TWEEN.Easing = {
 
 		Out: function (k) {
 
-			var s = 1.70158;
+			var s = .7158;
 
 			return --k * k * ((s + 1) * k + s) + 1;
 
@@ -707,6 +707,39 @@ TWEEN.Easing = {
 		}
 
 	},
+
+	BackPlus: {
+
+		In: function (k) {
+
+			var s = 1.70158;
+
+			return k * k * ((s + 1) * k - s);
+
+		},
+
+		Out: function (k) {
+
+			var s = 1.3158;
+
+			return --k * k * ((s + 1) * k + s) + 1;
+
+		},
+
+		InOut: function (k) {
+
+			var s = 1.70158 * 1.525;
+
+			if ((k *= 2) < 1) {
+				return 0.5 * (k * k * ((s + 1) * k - s));
+			}
+
+			return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+
+		}
+
+	},
+
 
 	Bounce: {
 

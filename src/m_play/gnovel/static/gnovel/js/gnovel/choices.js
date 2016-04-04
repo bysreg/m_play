@@ -88,6 +88,8 @@ var GNOVEL = GNOVEL || {};
 		var posArr = hasParam(this._params, 'posArr', null);
 		var charLine = this._params.charLine;
 
+		//display BG filter screen
+
 		for (var i = 0; i < this._choices.length; i++) {
 			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine});
 
@@ -114,8 +116,19 @@ var GNOVEL = GNOVEL || {};
 			textbox.children[0].name = "choice_" + i;
 
 			textbox.material.opacity = 0;
+			textbox.scale.set(0,0,1);
+			//show and animation text inside choice box
+			//pop in and scale choice box
+			this._page.tweenPulse(textbox,{
+				repeat: false,
+				x:1,y:1,z:1,
+				duration:500,
+				easing: TWEEN.Easing.Back.Out
+			});
+
+				//fade in choice box
 			this._page.tweenMat(textbox, {
-				duration: 800,
+				duration: 500,
 				opacity: 1,
 				easing: TWEEN.Easing.Cubic.Out
 			});
@@ -202,7 +215,7 @@ var GNOVEL = GNOVEL || {};
 						// 	easing: TWEEN.Easing.Cubic.Out,
 						// 	duration: 200,
 						// });
-						// 
+						//
 						choices._responseBox[count-1]._messageText.material.opacity = 0;
 						choices._responseBox[count-1]._textBg.material.opacity = 0;
 					}

@@ -49,6 +49,14 @@ var MPLAY = MPLAY || {};
 			params.gapX = 400;
 		}
 
+		//display BG filter for integrity choices
+		if (flowElement != null) {
+			if (typeof flowElement.choices[0].integrityScore !== 'undefined' &&
+				flowElement.choices[0].integrityScore != null) {
+					page.showBgFilter();
+				}
+		}
+
 		for (var i = 0; i < choicesArr.length; i++) {
 			var choiceText = choicesArr[i];
 			params.posArr[i] = new THREE.Vector3();
@@ -72,9 +80,21 @@ var MPLAY = MPLAY || {};
 
 			textBg.material.opacity = 0;
 			textBg.name = "choice_bg_" + i;
+			//set scale to 0
+			textBg.scale.set(0, 0, 1);
+			//show choice animation
 
+			//pop in and scale choice box
+			page.tweenPulse(textBg,{
+				repeat: false,
+				x:1,y:1,z:1,
+				duration:500,
+				easing: TWEEN.Easing.Back.Out
+			});
+
+				//fade in choice box
 			page.tweenMat(textBg, {
-				duration: 800,
+				duration: 500,
 				opacity: 1,
 				easing: TWEEN.Easing.Cubic.Out
 			});
@@ -133,6 +153,9 @@ var MPLAY = MPLAY || {};
 						pageObj._removeFromScene(compass);
 					},
 				});
+
+				//remove bg filter after choice made
+				pageObj.hideBgFilter();
 			}
 
 			if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
@@ -201,8 +224,17 @@ var MPLAY = MPLAY || {};
 						.onComplete(function() {
 							//pageObj._removeFromScene(choicesBox[resultId]);
 
+							//pop out and scale down choice box
+							pageObj.tweenPulse(choicesBox[resultId],{
+								repeat: false,
+								x:0,y:0,z:1,
+								duration:500,
+								easing: TWEEN.Easing.Back.Out
+							});
+
+								//fade out choice box
 							pageObj.tweenMat(choicesBox[resultId], {
-								duration: 800,
+								duration: 500,
 								opacity: 0,
 								easing: TWEEN.Easing.Cubic.Out,
 								onComplete: function() {
@@ -227,8 +259,15 @@ var MPLAY = MPLAY || {};
 						.onComplete(function() {
 							//pageObj._removeFromScene(choicesTextBg[resultId]);
 
+							//pop out and scale down choice box
+							pageObj.tweenPulse(choicesTextBg[resultId],{
+								repeat: false,
+								x:0,y:0,z:1,
+								duration:500,
+								easing: TWEEN.Easing.Back.Out
+							});
 							pageObj.tweenMat(choicesTextBg[resultId], {
-								duration: 800,
+								duration: 500,
 								opacity: 0,
 								easing: TWEEN.Easing.Cubic.Out,
 								onComplete: function() {
