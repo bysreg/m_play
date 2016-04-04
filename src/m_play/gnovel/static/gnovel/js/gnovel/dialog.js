@@ -24,7 +24,7 @@ var GNOVEL = GNOVEL || {};
 		this._font = params.font;
 		this._bgWidth = params.bgWidth || 900;
 		this._bgHeight = params.bgHeight || 145.5;
-		this._bgPath = params.bgPath || "/static/gnovel/res/textures/blue_box.png";
+		this._bgPath = params.bgPath || "/static/gnovel/res/textures/ui/phone_textBox.png";
 		this._dontRemove = params.dontRemove || false;
 		this._bgOffsetX = params.bgOffsetX || 0;
 		this._bgOffsetY = params.bgOffsetY || 0;
@@ -32,6 +32,7 @@ var GNOVEL = GNOVEL || {};
 		this._msgOffsetY = params.msgOffsetY || 0;
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
+		this._unclickable = params.unclickable || false;
 		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
 		this._message = message;
 		this._messageText = null;
@@ -58,7 +59,9 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-		this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		if(!this._unclickable) {
+			this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		}
 	};
 
 	// static class variable

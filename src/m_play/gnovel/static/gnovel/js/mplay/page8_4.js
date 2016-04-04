@@ -64,7 +64,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-priya1", goFalse: "#neg-priya1"},
 
 			{type: "nothing", label: "zero-priya1"},
-			{type: "show", img: priya, expression: "sad", position: "right"},
+			{type: "show", img: priya, expression: "sad", position: "right", flip: true},
 			{type: "dialog", speaker: this._priya, text: "Did you hear from Ryan?  He got caught for using that exam."},
 
 			{type: "choices", choices : [

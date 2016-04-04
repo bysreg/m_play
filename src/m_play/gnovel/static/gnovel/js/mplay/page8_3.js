@@ -31,13 +31,14 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var professor = "%" + this._professor;
 		var player = this._player;
+		var closephone = "%" + this._closephone;
 
 		var o = null;
 
 		o = [
 			{type: "show_context", text: "A few days after the test,"},
 			{type: "show_context", text: "you and Ryan are called into Professor Sweeney’s office."},
-			{type: "show", img: professor, expression: "sad"},
+			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the exam.  You see, last year there was an error on one of the prompts."},
 
 			{type: "choices", choices : [
@@ -71,8 +72,8 @@ var MPLAY = MPLAY || {};
 				label: "phone_bg",
 				bgOffsetY: -230,
 				bgOffsetX: -15,
-				bgHeight: 800,
-				bgWidth: 1460,
+				bgHeight: 790,
+				bgWidth: 1230,
 				y: 250,
 				charLine: 37,
 				bgPath: "/static/gnovel/res/textures/Email-graphic.png",
@@ -82,7 +83,7 @@ var MPLAY = MPLAY || {};
 				label: "address_from",
 				bgHeight: 10,
 				bgWidth: 10,
-				x: -200,
+				x: -170,
 				y: 230,
 				dontShowBg: true,
 				text: "From: Prof. Sweeney",
@@ -93,7 +94,7 @@ var MPLAY = MPLAY || {};
 				label: "address_to",
 				bgHeight: 10,
 				bgWidth: 10,
-				x: -200,
+				x: -170,
 				y: 200,
 				dontShowBg: true,
 				text: "To: " + player,
@@ -104,11 +105,11 @@ var MPLAY = MPLAY || {};
 				label: "email_subject",
 				bgHeight: 10,
 				bgWidth: 10,
-				x: -200,
+				x: -170,
 				y: 100,
 				dontShowBg: true,
 				charLine: 40,
-				text: "Subject: ",
+				text: "Subject: Academic Violation",
 				messageAlign: "left",
 				waitUntilShown: false,
 				},

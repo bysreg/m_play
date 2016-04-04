@@ -35,12 +35,13 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type:"show_context", text:"at the gym..."},
-			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
+			{type: "show_context", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
 
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},
 			{type: "phone_textbox",
 				label: "email",
+				bgHeight: 170,
 				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$email"},
 			{type: "hide", img: closephone},
