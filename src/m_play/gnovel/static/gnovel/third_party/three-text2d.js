@@ -33,6 +33,9 @@ var CanvasText = (function () {
       this.ctx.font = ctxOptions.font;
       this.ctx.charLine = ctxOptions.charLine || 72;
       this.fontHeight = getFontHeight(this.ctx.font);
+      this.ctxCenter = ctxOptions.ctxCenter;
+
+      this.widthOffset = 5;
 
       var textArr = new Array();
       textArr[0] = text;
@@ -82,7 +85,12 @@ var CanvasText = (function () {
 
       this.ctx.font = ctxOptions.font;
       this.ctx.fillStyle = ctxOptions.fillStyle;
-      this.ctx.textAlign = 'left';
+      if (this.ctxCenter) {
+        this.ctx.textAlign = 'center';
+      }else {
+        this.ctx.textAlign = 'left';
+      }
+      
       this.ctx.textBaseline = 'top';
 
       // textArr is an array of text lines
@@ -109,7 +117,10 @@ var CanvasText = (function () {
       }*/
 
       // fill text with different y coordinates for each line.
-      var x =0, y = 0;
+      var x = 0, y = 0;
+      if (this.ctxCenter) {
+        x = this.textWidth / 2 + this.widthOffset;
+      }
       for (var i = 0; i < textArr.length; i++) {
         this.ctx.fillText(textArr[i], x, y);
         y += this.singlelineHeight;
@@ -187,6 +198,8 @@ var SpriteText2D = (function (_THREE$Object3D) {
     _this.canvas = new CanvasText();
 
     _this.align = options.align || textAlign.center;
+
+    _this._ctxCenter = options.ctxCenter || false;
 
     // this._textAlign = options.align || "center"
     // this.anchor = Label.fontAlignAnchor[ this._textAlign ]
@@ -328,6 +341,8 @@ var Text2D = (function (_THREE$Object3D) {
     _this.align = options.align || textAlign.center;
     _this.side = options.side || THREE.FrontSide;
 
+    _this._ctxCenter = options.ctxCenter || false;
+
     // this._textAlign = options.align || "center"
     // this.anchor = Label.fontAlignAnchor[ this._textAlign ]
     _this.antialias = _typeof(options.antialias === "undefined") ? true : options.antialias;
@@ -343,7 +358,8 @@ var Text2D = (function (_THREE$Object3D) {
       this.canvas.drawText(this._text, {
         font: this._font,
         fillStyle: this._fillStyle,
-        charLine: this._charLine
+        charLine: this._charLine,
+        ctxCenter: this._ctxCenter
       });
 
       this.texture = new THREE.Texture(this.canvas.canvas);

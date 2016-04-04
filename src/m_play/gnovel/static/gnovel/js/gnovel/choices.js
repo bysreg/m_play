@@ -91,7 +91,7 @@ var GNOVEL = GNOVEL || {};
 		//display BG filter screen
 
 		for (var i = 0; i < this._choices.length; i++) {
-			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine});
+			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine, center: this._params.center});
 
 			var x = startx;
 			var y = starty;

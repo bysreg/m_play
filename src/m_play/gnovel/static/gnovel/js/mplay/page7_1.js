@@ -45,9 +45,10 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Hey-Ryan-n");
-			}},
+			// {type: "custom", func: function(page) {
+			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
+			// }},
+			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Might help, what do you think?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
@@ -57,18 +58,20 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Hey-Ryan-n");
-			}},
+			// {type: "custom", func: function(page) {
+			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
+			// }},
+			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Hey-Ryan-n");
-			}},
+			// {type: "custom", func: function(page) {
+			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
+			// }},
+			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "So I got my hands on last year’s Programming & Society exam.  It’s not graded, but it’s the actual exam."},
 			{type: "dialog", speaker: this._ryan, text: "I think we should study with it.  My brother took this class last year.  I think I told you."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},

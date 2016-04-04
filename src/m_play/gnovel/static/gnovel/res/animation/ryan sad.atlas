@@ -1,0 +1,41 @@
+
+ryan sad.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sad ryan blink eyes
+  rotate: false
+  xy: 1309, 280
+  size: 98, 37
+  orig: 327, 124
+  offset: 114, 44
+  index: -1
+sad ryan body
+  rotate: true
+  xy: 2, 11
+  size: 420, 768
+  orig: 1399, 2559
+  offset: 490, 895
+  index: -1
+sad ryan left arm
+  rotate: true
+  xy: 772, 216
+  size: 215, 535
+  orig: 715, 1784
+  offset: 250, 625
+  index: -1
+sad ryan other arm
+  rotate: true
+  xy: 1309, 319
+  size: 112, 611
+  orig: 373, 2035
+  offset: 131, 712
+  index: -1
+sad ryan pbg
+  rotate: true
+  xy: 772, 2
+  size: 212, 266
+  orig: 706, 887
+  offset: 247, 311
+  index: -1

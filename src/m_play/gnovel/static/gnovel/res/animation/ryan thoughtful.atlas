@@ -1,0 +1,41 @@
+
+ryan thoughtful.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ryan thoughtful blink eyes
+  rotate: false
+  xy: 2, 2
+  size: 108, 41
+  orig: 551, 694
+  offset: 224, 341
+  index: -1
+thoughtful ryan body
+  rotate: true
+  xy: 2, 45
+  size: 385, 840
+  orig: 1282, 2801
+  offset: 449, 981
+  index: -1
+thoughtful ryan head
+  rotate: false
+  xy: 1525, 222
+  size: 165, 208
+  orig: 551, 694
+  offset: 193, 243
+  index: -1
+thoughtful ryan other arm
+  rotate: false
+  xy: 844, 115
+  size: 353, 315
+  orig: 1177, 1050
+  offset: 412, 367
+  index: -1
+thoughtful ryan right arm
+  rotate: true
+  xy: 1199, 192
+  size: 238, 324
+  orig: 793, 1083
+  offset: 278, 379
+  index: -1

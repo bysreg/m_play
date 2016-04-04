@@ -344,6 +344,7 @@ var GNOVEL = GNOVEL || {};
 		var textAlign = THREE_Text.textAlign;
 		var Text2D = THREE_Text.Text2D;
 		var msgAlign = parameters.align || "center";
+		var msgCenter = parameters.center || false;
 		switch(msgAlign){
 			case "left":
 				msgAlign = textAlign.left;
@@ -363,6 +364,7 @@ var GNOVEL = GNOVEL || {};
 			fillStyle: parameters.fillstyle || '#000000',
 			antialias: false,
 			charLine: parameters.charLine,
+			ctxCenter: msgCenter,
 		});
 
 		return sprite;
