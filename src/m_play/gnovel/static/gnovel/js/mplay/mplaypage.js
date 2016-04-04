@@ -773,6 +773,7 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
+		params.center = false;
 		var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		flow._storeFlowData(dialog);
 
@@ -828,6 +829,7 @@ var MPLAY = MPLAY || {};
 		//params.speaker = "Context";
 		params.width = 100;
 		params.font = "20px Bevan";
+		// params.center = true;
 
 		message = obj.text;
 		var x = -500;

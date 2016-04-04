@@ -39,6 +39,7 @@ var GNOVEL = GNOVEL || {};
 		this._nameText = null;
 		this._messageAlign = params.messageAlign || "center";
 		this._temp = params.temp;
+		this._center = params.center;
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
@@ -90,6 +91,7 @@ var GNOVEL = GNOVEL || {};
 			align: this._messageAlign,
 			charLine: this._charLine,
 			font: this._font,
+			center: this._center
 		});
 
 		this._nameText = this._page.createTextBox(this._params.speaker, {
