@@ -1,0 +1,34 @@
+
+priya thoughtful.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+priya body
+  rotate: true
+  xy: 2, 2
+  size: 444, 678
+  orig: 1571, 2616
+  offset: 577, 916
+  index: -1
+thoughtfl priya left arm
+  rotate: false
+  xy: 682, 15
+  size: 284, 431
+  orig: 946, 1444
+  offset: 331, 507
+  index: -1
+thoughtful priya right arm
+  rotate: false
+  xy: 968, 70
+  size: 174, 376
+  orig: 580, 1252
+  offset: 203, 438
+  index: -1
+thoughtful-Priya head
+  rotate: false
+  xy: 1144, 162
+  size: 246, 284
+  orig: 820, 953
+  offset: 287, 335
+  index: -1

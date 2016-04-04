@@ -166,7 +166,7 @@ var GNOVEL = GNOVEL || {};
 
 		if(!this._onStart) return;
 
-		// if we are still processing a onMouseDown event, then don't process
+		// if we are still processing a onMouseDown event, then don't process 
 		if(this._onMouseDownProcessing) {
 			return;
 		}
