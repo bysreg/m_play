@@ -1,34 +1,34 @@
 
 cat sad.png
-size: 1024,128
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 good sad cat body
   rotate: true
-  xy: 2, 2
-  size: 110, 303
+  xy: 2, 47
+  size: 368, 1013
   orig: 368, 1013
-  offset: 129, 355
+  offset: 0, 0
   index: -1
 good sad cat eyes
   rotate: false
-  xy: 307, 44
-  size: 36, 21
+  xy: 1776, 342
+  size: 120, 73
   orig: 120, 73
-  offset: 42, 26
+  offset: 0, 0
   index: -1
 sad cat arm
   rotate: true
-  xy: 307, 67
-  size: 45, 227
+  xy: 1017, 264
+  size: 151, 757
   orig: 151, 757
-  offset: 53, 265
+  offset: 0, 0
   index: -1
 sad cat head
   rotate: true
-  xy: 536, 34
-  size: 78, 101
+  xy: 1017, 2
+  size: 260, 337
   orig: 260, 337
-  offset: 91, 118
+  offset: 0, 0
   index: -1

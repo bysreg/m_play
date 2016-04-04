@@ -1,34 +1,34 @@
 
 cat thoughtful.png
-size: 512,256
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 thoughtful cat blink eyes
   rotate: false
-  xy: 2, 2
-  size: 38, 22
+  xy: 1904, 427
+  size: 126, 74
   orig: 126, 74
-  offset: 44, 26
+  offset: 0, 0
   index: -1
 thoughtful cat body
   rotate: true
-  xy: 2, 59
-  size: 149, 333
+  xy: 2, 2
+  size: 499, 1140
   orig: 499, 1253
-  offset: 175, 399
+  offset: 0, 0
   index: -1
 thoughtful cat head
   rotate: false
-  xy: 337, 113
-  size: 75, 95
+  xy: 1144, 79
+  size: 250, 315
   orig: 250, 315
-  offset: 88, 110
+  offset: 0, 0
   index: -1
 thoughtful cat left arm
   rotate: true
-  xy: 2, 26
-  size: 31, 228
+  xy: 1144, 396
+  size: 105, 758
   orig: 105, 758
-  offset: 37, 265
+  offset: 0, 0
   index: -1

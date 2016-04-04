@@ -93,15 +93,16 @@ var MPLAY = MPLAY || {};
 		MPlayPage._cat = new MPLAY.Character(MPlayPage._anims["cat neutral"], "Cat");
 		MPlayPage._cat.setExpression("happy", MPlayPage._anims["cat happy"], "Cat");		
 		MPlayPage._cat.setExpression("angry", MPlayPage._anims["cat annoyed"], "Cat");
-		// MPlayPage._cat.setExpression("sad", MPlayPage._anims["cat sad"], "Cat");
-		MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
-		// MPlayPage._cat.setExpression("thoughtful", MPlayPage._anims["cat thoughtful"], "Cat");
+		MPlayPage._cat.setExpression("sad", MPlayPage._anims["cat sad"], "Cat");
+		// MPlayPage._cat.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/good sad cat.png", new THREE.Vector3(0, -160, this._characterLayer), 241, 785), "Cat");
+		MPlayPage._cat.setExpression("thoughtful", MPlayPage._anims["cat thoughtful"], "Cat");
 
 		MPlayPage._priya = new MPLAY.Character(MPlayPage._anims["priya neutral"], "Priya");		
 		MPlayPage._priya.setExpression("happy", MPlayPage._anims["priya happy"], "Priya");
-		MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
+		MPlayPage._priya.setExpression("thoughtful", MPlayPage._anims["priya thoughtful"], "Priya");
+		// MPlayPage._priya.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful-priya.png", new THREE.Vector3(0, -180, this._characterLayer), 500, 745), "Priya");
 		MPlayPage._priya.setExpression("sad", MPlayPage._anims["priya sad"], "Priya");
-		// MPlayPage._priya.setExpression("angry", MPlayPage._anims["priya angry"], "Priya");
+		MPlayPage._priya.setExpression("angry", MPlayPage._anims["priya angry"], "Priya");
 
 		MPlayPage._professor = new MPLAY.Character(this.createImage("/static/gnovel/res/textures/char/sweeney-neutral.png", new THREE.Vector3(0, -230, this._characterLayer), 600, 1030), "Prof. Sweeney");
 		MPlayPage._professor.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/Sweeney-Happy.png", new THREE.Vector3(0, -270, this._characterLayer), 469, 1030), "Prof. Sweeney");
@@ -124,15 +125,15 @@ var MPLAY = MPLAY || {};
 
 		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer)); // angry
-		this._createAnim("cat happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -20, this._characterLayer));
-		// this._createAnim("cat sad", "/static/gnovel/res/animation/", 1.6, new THREE.Vector3(0, -150, this._characterLayer));
-		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 1.6, new THREE.Vector3(0, -30, this._characterLayer));
-
+		this._createAnim("cat happy", "/static/gnovel/res/animation/", 1, new THREE.Vector3(0, -20, this._characterLayer));
+		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.57, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -75, this._characterLayer));
 
 		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
 		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -130, this._characterLayer));
-		// this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -110, this._characterLayer));
-		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -110, this._characterLayer));
+		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -70, this._characterLayer));
 
 		for (var i in MPlayPage._anims) {
 			var anim = MPlayPage._anims[i];
