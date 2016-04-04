@@ -183,6 +183,7 @@ var GNOVEL = GNOVEL || {};
 		var params = {};
 		params.speaker = obj.speaker;
 		params.charLine = obj.charLine;
+		params.center = true;
 
 		// pass the original flow element to params
 		params.flowElement = obj;
@@ -194,6 +195,7 @@ var GNOVEL = GNOVEL || {};
 		var params = {};
 		params.x = obj.x || 0; // optional
 		params.y = obj.y || -250; // optional
+		params.center = true;
 		var page = this._page;
 
 		// collect choices' text to its own array
