@@ -184,6 +184,7 @@ var GNOVEL = GNOVEL || {};
 		params.speaker = obj.speaker;
 		params.charLine = obj.charLine;
 		params.center = true;
+		params.isDialog = true;
 
 		// pass the original flow element to params
 		params.flowElement = obj;

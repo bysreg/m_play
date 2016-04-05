@@ -179,9 +179,9 @@ var GNOVEL = GNOVEL || {};
 					tweenMatIn = tween;
 					if (params.onComplete != null && params.chain==null) {
 						tween.onComplete(params.onComplete);
-					}
+					}				
 				}
-			}
+			}			
 		}
 		else
 		{
@@ -194,7 +194,7 @@ var GNOVEL = GNOVEL || {};
 			if (params.onComplete != null && params.chain==null) {
 				tweenMatIn.onComplete(params.onComplete);
 			}
-		}
+		}		
 
 		// TODO: have to handle obj an array in this case too
 		var tweenMatOut = new TWEEN.Tween(obj.material)
@@ -203,11 +203,11 @@ var GNOVEL = GNOVEL || {};
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None)
 			.delay(params.delay || 0);
-
+		
 		if (params.onComplete != null && params.chain!=null) {
 			tweenMatOut.onComplete(params.onComplete);
 		}
-
+		
 		if(params.chain == true) {
 			tweenMatIn.chain(tweenMatOut);
 		}
@@ -222,18 +222,17 @@ var GNOVEL = GNOVEL || {};
 
 		var tweenFlashForward = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: params.opacityTo || 1,
+				opacity: 1,
 			}, duration)
-			.easing(params.easingTo || TWEEN.Easing.Linear.None);
+			.easing(params.easing || TWEEN.Easing.Linear.None);
 		if (params.onComplete != null) {
 			tweenFlashForward.onComplete(params.onComplete);
 		}
 
 		var tweenFlashBack = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: params.opacityFrom || 0.3,
+				opacity: 0.3,
 			}, duration)
-			.easing(params.easingFrom || TWEEN.Easing.Linear.None);
 
 		//chaining used to call tween functions back and forth infinitely
 		tweenFlashForward.chain(tweenFlashBack);
@@ -258,9 +257,6 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
-	/**tween for changing an objects scales
-	*@param repeat = bool if animation should repeat and do a pulse
-	*/
 	Page.prototype.tweenPulse = function (obj, params) {
 		var pageObj = this;
 		var prevSize = {x: 1, y: 1, z: 1};
@@ -274,7 +270,7 @@ var GNOVEL = GNOVEL || {};
 		y: (params.y !== null ? targetSize.y : obj.scale.y),
 		z: (params.z !== null ? targetSize.z : obj.scale.z),
 		},duration)
-		.easing(params.easing || TWEEN.Easing.Quadratic.Out);
+		.easing(TWEEN.Easing.Quadratic.Out);
 		if (params.onComplete != null) {
 			tweenForward.onComplete(params.onComplete);
 		}
@@ -388,7 +384,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	// will be called each frame, after onLoad and onStart complete
-	Page.prototype._update = function() {
+	Page.prototype._update = function() {		
 	};
 
 	// will be called after onStart called
@@ -402,7 +398,7 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		params.temp = true;
 		params.onComplete = function() {
-			// go to next dialog
+			// go to next dialog			
 		};
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 		return dialog;
@@ -437,7 +433,7 @@ var GNOVEL = GNOVEL || {};
 		this.tweenMat(obj, {
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
-			arr: params.arr,
+			arr: params.arr, 
 			onComplete: function() {
 				if(waitUntilShown) {
 					// go to next flow
@@ -507,7 +503,7 @@ var GNOVEL = GNOVEL || {};
 				}
 
 				pageObj._flow._exec();
-			}
+			}			
 
 			// if params.onChoiceComplete is undefined or null (or falsy)
 			if(!params.onChoiceComplete) {
