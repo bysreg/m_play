@@ -147,58 +147,70 @@ var GNOVEL = GNOVEL || {};
 				this._page._addToScene(Dialog._textBg);
 			}
 
-			//slide in animation for context box
 			if(this._type == "context") {
-			/*	this._page.tweenPos(Dialog._textBg,{
-					duration:1000,
-					toX: -520,
-					toY: 230,
-				});*/
+					var targetPos = {};
+					targetPos.x = Dialog._textBg.position.x;
+					Dialog._textBg.position.x = (Dialog._textBg.position.x-400);
+					this._page.move(Dialog._textBg,{
+						duration:600,
+						x:targetPos.x,
+						easing: TWEEN.Easing.Back.Out  //target position
+					});
 
 				this._textBg = Dialog._textBg;
+
+				//slide in animation for message inside context box
+				var targetPos = {};
+				targetPos.x = this._messageText.position.x;
+				this._messageText.position.x = (this._messageText.position.x-400);
+				this._page.move(this._messageText,{
+					duration:600,
+					x:targetPos.x,  //target position
+					easing: TWEEN.Easing.Back.Out
+				});
 			}
 			else {
 				Dialog._textBg.material.opacity = 0;
+				//set scale to 0
+				Dialog._textBg.scale.set(0, 0, 1);
+				//pop in and scale dialog box
+				this._page.tweenPulse(Dialog._textBg,{
+					repeat: false,
+					x:1,y:1,z:1,
+					duration:300,
+					easing: TWEEN.Easing.Back.Out});
+
+					//fade in text box
 				this._page.tweenMat(Dialog._textBg, {
-					duration: 800,
+					duration: 100,
 					opacity: opacityDest,
 					easing: TWEEN.Easing.Cubic.Out
 				});
 
 				this._textBg = Dialog._textBg;
+
+				// fade in text and speaker
+				//text should start writing at the very end of the text box popping up
+				this._messageText.material.opacity = 0;
+				this._page.tweenMat(this._messageText, {
+					duration: 1000,
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out
+				});
+
+				this._nameText.material.opacity = 0;
+				this._page.tweenMat(this._nameText, {
+					duration: 800,
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out
+				});
 			}
 		}
 
-		//slide in animation for context box
-		if(this._type == "context") {
-			this._page.tweenPos(this._messageText,{
-				duration:1000,
-				toX: -520,
-			//toY: 230,
-			});
-		}
-		else {
-
-		// fade in text and speaker
-		this._messageText.material.opacity = 0;
-		this._page.tweenMat(this._messageText, {
-			duration: 800,
-			opacity: 1,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-		this._nameText.material.opacity = 0;
-		this._page.tweenMat(this._nameText, {
-			duration: 800,
-			opacity: 1,
-			easing: TWEEN.Easing.Cubic.Out
-		});
-
-	}
-
 		this._page._addToScene(this._messageText);
 
-		if (this._showSpeaker)
-			this._page._addToScene(this._nameText);
+		// if (this._showSpeaker)
+		// 	this._page._addToScene(this._nameText);
 	};
 
 
