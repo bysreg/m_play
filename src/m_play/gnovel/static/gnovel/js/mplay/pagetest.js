@@ -44,7 +44,7 @@ var MPLAY = MPLAY || {};
 		o = [
 
 			// ryan - center
-			// {type: "show",  position:"center", img: ryan, waitUntilShown: false},
+			{type: "show",  position:"center", img: ryan, waitUntilShown: false},
 			// {type: "show",  position:"center", img: ryan, expression: "happy", waitUntilShown: false},
 			// {type: "show",  position:"center", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"center", img: ryan, expression: "thoughtful", waitUntilShown: false},
@@ -56,6 +56,13 @@ var MPLAY = MPLAY || {};
 			// {type: "show",  position:"left", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "thoughtful", waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "angry", waitUntilShown: false},
+
+			// ryan - right
+			// {type: "show",  position:"right", img: ryan, waitUntilShown: false},
+			// {type: "show",  position:"right", img: ryan, expression: "happy", waitUntilShown: false},
+			{type: "show",  position:"right", img: ryan, expression: "sad", waitUntilShown: false},
+			// {type: "show",  position:"right", img: ryan, expression: "thoughtful", waitUntilShown: false},
+			// {type: "show",  position:"right", img: ryan, expression: "angry", waitUntilShown: false},
 
 			// cat - right
 			// {type: "show",  position:"right", img: cat, waitUntilShown: false, flip: true},
