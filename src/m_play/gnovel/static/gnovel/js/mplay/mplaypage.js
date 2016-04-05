@@ -53,6 +53,12 @@ var MPLAY = MPLAY || {};
 		// 	this._initChars();
 		// }
 
+		if(MPlayPage._phoneInteraction == null) {
+			this._initPhoneInteraction();
+		}else{
+			this._phoneInteraction = MPlayPage._phoneInteraction;
+		}
+
 		this._player = document.getElementById("username").innerHTML;
 
 		// add custom flow handler
@@ -60,6 +66,8 @@ var MPLAY = MPLAY || {};
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
 		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
+		this._flow._addCustomHandler("open_phone", this._handleOpenPhone);
+		this._flow._addCustomHandler("close_phone", this._handleClosePhone);
 		this._flow._addCustomHandler("show_context", this._handleShowContext);
 	};
 
@@ -69,6 +77,7 @@ var MPLAY = MPLAY || {};
 	// class static variable
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
+	MPlayPage._phoneInteraction = null;
 
 	// characters stored as class static variable
 	// so that we can reuse it throughout the pages
@@ -193,7 +202,14 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
-		this._setObjectTag(this._closephone, this._closephoneImg);
+		this._setObjectTag(this._closephone, this._closephoneImg);		
+	};
+
+	MPlayPage.prototype._initPhoneInteraction = function() {	
+	 	// the page is only used to initialize some of the variables in phone interaction, the page itself	
+	 	// won't be referred inside phone interaction
+		this._phoneInteraction = new MPLAY.PhoneInteraction(this);
+		MPlayPage._phoneInteraction = this._phoneInteraction;
 	};
 
 	MPlayPage.prototype._showRelationshipInfo = function(char, params) {
@@ -835,6 +851,34 @@ var MPLAY = MPLAY || {};
 
 		pageObj._flow._next();
 		pageObj._flow._exec();
+	};
+
+	MPlayPage.prototype._handleOpenPhone = function(flowElement, flow) {
+		var pageObj = flow._getPage();						
+		var params = {};
+		params.subject = flowElement.subject;
+		params.from = flowElement.from;
+		params.email = flowElement.email;
+		params.text = flowElement.text;
+
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.show(pageObj, flowElement.layout, params);
+	};
+
+	MPlayPage.prototype._handleClosePhone = function(flowElement, flow) {
+		var pageObj = flow._getPage();				
+
+		var params = {};
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.hide(pageObj, params);
 	};
 
 	MPlayPage.prototype._handleShowContext = function(obj, flow) {
