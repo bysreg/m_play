@@ -23,6 +23,7 @@ var GNOVEL = GNOVEL || {};
 		this._curPageIdx = 0;		
 		this._stats = null;
 		this._container = document.getElementById("container");
+		this._cameraCanvas = document.getElementById("application-canvas");
 		this._prevPage = null;
 		this._pageRootObject = {curPage : null, prevPage : null};		
 		this._raycaster = new THREE.Raycaster();
@@ -32,9 +33,7 @@ var GNOVEL = GNOVEL || {};
 		this._savedData = {};
 		this._onMouseDownProcessing = false;
 
-		this._width = window.innerWidth;
-		this._height = window.innerHeight;
-		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
+		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
 		this._renderer = null;
 
 		this._audioPath = "/static/gnovel/res/sounds/";
@@ -121,9 +120,12 @@ var GNOVEL = GNOVEL || {};
 		var listener = new THREE.AudioListener();
 		camera.add(listener);
 
+		this._onWindowResize();
+
 		var gnovel = this;
 		document.addEventListener('mousedown', function(event) { gnovel._onMouseDown(event); }, false);
 		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
+		window.addEventListener( 'resize', function(event) {gnovel._onWindowResize(event); }, false );
 	};
 
 	Gnovel.prototype._update = function() {
@@ -132,6 +134,22 @@ var GNOVEL = GNOVEL || {};
 			page._update();
 		}
 	};
+
+	Gnovel.prototype._onWindowResize = function(event) {
+		var aspect_ratio = window.innerWidth / window.innerHeight;
+
+		if(aspect_ratio > 16/9) {
+			// fill height
+			this._cameraCanvas.height = window.innerHeight;
+			this._cameraCanvas.width = (16/9) * this._cameraCanvas.height;
+		}else{
+			// fill width
+			this._cameraCanvas.width = window.innerWidth;
+			this._cameraCanvas.height = (9/16) * this._cameraCanvas.width;
+		}
+
+		this._renderer.setSize(this._cameraCanvas.width, this._cameraCanvas.height);
+	}
 
 	Gnovel.prototype.getContainer = function() {
 		return this._container;
