@@ -359,5 +359,12 @@ var GNOVEL = GNOVEL || {};
 		return this._soundManager;
 	};
 
+	Gnovel.prototype.calcMousePositionRelativeToCanvas = function(mouse) {
+		var rect = this._renderer.domElement.getBoundingClientRect();
+		//console.log();
+		mouse.x = ((mouse.x - rect.left)/ this._renderer.domElement.clientWidth) * 2 - 1;
+		mouse.y = -((mouse.y - rect.top)/ this._renderer.domElement.clientHeight) * 2 + 1;
+	}
+
 	GNOVEL.Gnovel = Gnovel;
 }());

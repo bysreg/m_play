@@ -91,8 +91,9 @@ var GNOVEL = GNOVEL || {};
 
 		if (!this._enabled) return;
 
-		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
-		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 		//create array of objects intersected with
@@ -127,8 +128,11 @@ var GNOVEL = GNOVEL || {};
 			return;
 		}			
 
-		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
-		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+		var rect = this._page._owner._renderer.domElement.getBoundingClientRect();
+
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 		//create array of objects intersected with

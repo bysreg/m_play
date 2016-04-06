@@ -170,8 +170,6 @@ var MPLAY = MPLAY || {};
 				// update it once, so that the mesh is created
 				event.target.update();
 
-				console.log(event.target.meshes.length);
-
 				MPlayPage._loadedAnimCount++;
 
 				// if all anims have been loaded, then we can proceed
