@@ -31,13 +31,14 @@ var GNOVEL = GNOVEL || {};
 		var gnovelHeight = 1080;//params.gnovel._height;
 
 		var curPageRootObj = currentPage._getRootObject();
-		var nextPageRootObj = nextPage._getRootObject();
+		//var nextPageRootObj = nextPage._getRootObject();
+		var nextPageRootObj = nextPage;
 
 		//params.duration = this.time;
 		var outPos = {};
 		var inPos = {};
 		var bgInPos = {};
-		var newBgPos = {x:-gnovelWidth-200, y:0, z:-630};
+		var newBgPos = {x:-gnovelWidth, y:0, z:-630};
 		var container = new THREE.Object3D();
 
 		//container.position.set(0,0,0);
@@ -46,19 +47,20 @@ var GNOVEL = GNOVEL || {};
 		container.add(transitionPanel);
 		params.gnovel._scene.add(container);*/
 
+		//Right to Left transition!!
 		transition.isOnCompleteAdded = false;
 		nextPageRootObj.position.x = gnovelWidth+50;
 		nextPageRootObj.position.y = 0;
-		nextPageRootObj.position.z = -500;
-		inPos.x = -150;
+		nextPageRootObj.position.z = -580;
+		inPos.x = -100;
 		inPos.y = 0;
-		inPos.z = -100;
-		outPos.x = -gnovelWidth-100;
+		inPos.z = -80;
+		outPos.x = -gnovelWidth-50;
 		outPos.y = 0;
 		outPos.z = -500;
-		bgInPos.x = -gnovelWidth-200;
+		bgInPos.x = -gnovelWidth-100;
 		bgInPos.y = 0;
-		bgInPos.z = -300;
+		bgInPos.z = -200;
 		//1st, pause current page
 
 		/*transition.tweenZoom(container, outPos,{onComplete : function(){
@@ -109,7 +111,7 @@ var GNOVEL = GNOVEL || {};
 				.to({x:bgInPos.x, y:bgInPos.y},duration)
 				.easing(TWEEN.Easing.Linear.None)
 				.onComplete(function(){
-						transition.tweenZoom(transitionPanel, bgInPos, params);//params passes onComplete from gnovel
+						transition.tweenZoom(transitionPanel, bgInPos,{duration: duration});//params passes onComplete from gnovel
 				});
 
 				tweenOut.start();
@@ -118,7 +120,7 @@ var GNOVEL = GNOVEL || {};
 		}});
 
 		//zoom page out
-		transition.tweenZoom(curPageRootObj, outPos,{duration: duration-10, onComplete : function(){
+		transition.tweenZoom(curPageRootObj, outPos,{duration: duration+10, onComplete : function(){
 			//make previous page no longer visible
 			//curPageRootObj.visible = false;
 			//tweenIn.onComplete(function(){});
