@@ -63,6 +63,7 @@ var MPLAY = MPLAY || {};
 
 		// add custom flow handler
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
+		this._flow._addCustomHandler("add_phone_textbox", this._handleAddPhoneTextBox);
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
 		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
@@ -795,6 +796,21 @@ var MPLAY = MPLAY || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		}
+
+		flow._getPage().getOwner().getSoundManager().play("Text");
+	};
+	MPlayPage.prototype._handleAddPhoneTextBox = function(obj, flow) {
+		// var hasParam = GNOVEL.Util.hasParam;
+		var pageObj = flow._getPage();	
+		var params = {};		
+		params.text = obj.text;
+
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.addText(pageObj, null, params.text, params);
 
 		flow._getPage().getOwner().getSoundManager().play("Text");
 	};
