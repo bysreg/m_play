@@ -871,6 +871,7 @@ var MPLAY = MPLAY || {};
 		params.from = flowElement.from;
 		params.email = flowElement.email;
 		params.text = flowElement.text;
+		params.people = flowElement.people;
 
 		params.onComplete = function() {
 			pageObj._flow._next();
