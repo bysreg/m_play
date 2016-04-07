@@ -2,3 +2,35 @@
 	display: block;
 	margin: auto;
 }
+@font-face{
+	font-family: 'Arvo', serif;
+	font-family: 'Droid Sans', sans-serif;
+}
+@font-face{
+	font-family: 'NoteworthyBold';
+	src: url('../font/noteworthyFontFace.ttf') format('truetype');
+}
+@font-face{	
+	font-family: 'Bevan';
+	src: url('../font/Bevan.ttf') format('truetype');
+}
+@font-face{
+	font-family: 'Toontime';
+	src: url('../font/SF Toontime Bold Italic.ttf') format('truetype');
+}
+@font-face{	
+	font-family: 'AleoBold';
+	src: url('../font/Aleo-Bold.otf') format('truetype');
+}
+@font-face{
+	font-family: 'sfToonTime';
+	src: url('../font/SFToontimeBold.ttf') format('truetype');
+}
+@font-face{
+	font-family: 'Noteworthy';
+	src: url('../font/Noteworthy Bold.otf') format('truetype');
+}
+@font-face{
+	font-family: 'wg_legacy_edition';
+	src: url('../font/wg_legacy_edition.ttf') format('truetype');
+}
