@@ -161,6 +161,36 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
+	Page.prototype.tweenMatRecursive = function(obj, params) {
+		var pageObj = this;
+
+		// disable params.onComplete first
+		var oriComplete = params.onComplete;
+		params.onComplete = null;
+
+		var isOnCompleteAdded = false;
+
+		// replace it with new onComplete function that will make sure we will only call
+		// params.onComplete once
+		params.onComplete = function() {
+			if(!isOnCompleteAdded) {
+				if(oriComplete) {
+					oriComplete();	
+				}
+				
+				isOnCompleteAdded = true;
+			}
+		};
+
+		obj.traverseVisible(function(obj3d) {
+
+			if(obj3d.material == null)
+				return;
+
+			pageObj.tweenMat(obj3d, params);
+		});	
+	};
+
 	Page.prototype.tweenMat = function(obj, params) {
 		var pageObj = this;
 		var duration = params.duration || 1000;
