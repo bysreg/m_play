@@ -48,31 +48,38 @@ var MPLAY = MPLAY || {};
 
 		var messageText = page.createTextBox(text, {
 			align: "left",
-			charLine: 39,
+			charLine: 33,
+			font: "20px Arial",
 		});		
-		messageText.position.set(-150, 100, 10);
+		messageText.position.set(-150, 80, 10);
 
 		var fromText = page.createTextBox(from, {
 			align: "left", 
+			font: "bold 20px Arial",
 		});
 		fromText.position.set(-40, 180, 10);
 
 		var emailText = page.createTextBox(email, {
 			align: "left",
+			font: "20px Arial",
 		});
 		emailText.position.set(-40, 160, 10);
 
 		var subjectText = page.createTextBox(subject, {
 			align: "left",
-			font: "bold 20px Noteworthy",
-		})
+			font: "bold 25px Arial",
+		});
 		subjectText.position.set(-180, 260, 10);
+
+		// change this to the sender's picture
+		var speakerPic = page.createImage(this._getPicPath(from), new THREE.Vector3(-110, 160, 7), 100, 100);
 
 		this._container.add(this._emailbg);
 		this._container.add(messageText);
 		this._container.add(emailText);
 		this._container.add(subjectText);
 		this._container.add(fromText);
+		this._container.add(speakerPic);
 
 		this._phonecase.position.setY(-900);
 		page._addToScene(this._phonecase);
@@ -82,7 +89,25 @@ var MPLAY = MPLAY || {};
 	PhoneInteraction.prototype._showText = function(page, people, onCompleteF) {
 		this._onCompleteF = onCompleteF;	
 
-		this._container.add(this._textbg);
+		this._container.add(this._textbg); // layout bg
+
+		var peopleStr = null;
+		if(people.length == 2) {
+			peopleStr = people[0] + " and " + people[1];
+		}else if(people.length > 2) {
+			peopleStr = "";
+			for(var i=0;i<people.length-1;i++) {
+				peopleStr += people[i] + ", ";
+			}
+			peopleStr += "and " + peopleStr[people.length - 1];
+		}
+
+		var peopleText = page.createTextBox(peopleStr, {
+			align: "center", 
+			font: "20px Arial"
+		});
+		peopleText.position.set(0, 270, 10);
+		this._container.add(peopleText);
 
 		this._phonecase.position.setY(-900);
 		page._addToScene(this._phonecase);
@@ -146,13 +171,20 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
+	PhoneInteraction.prototype._getPicPath = function(name) {
+		if(name === "Ryan") {
+			return "/static/gnovel/res/textures/ui/ryan_profpic.png";
+		}
+
+		return "/static/gnovel/res/textures/ui/ryan_profpic.png"; // default
+	};
+
 	PhoneInteraction.prototype.addText = function(page, speaker, text, params) {				
 		var messageBgWidth = 250;
 		var messageBgHeight = 113;
 		var self = this;		
 
 		var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_text_box.png", new THREE.Vector3(30, -150, 7), messageBgWidth, messageBgHeight);
-		// var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_text_box.png", new THREE.Vector3(30, 180, 7), messageBgWidth, messageBgHeight);
 		messageBg.material.opacity = 0;		
 
 		var messageText = page.createTextBox(text, {
@@ -163,8 +195,13 @@ var MPLAY = MPLAY || {};
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
 
-		// set text as a child of the background
+		// create prof pic of sender
+		var speakerPic = page.createImage(this._getPicPath(speaker), new THREE.Vector3(-messageBgWidth/2 - 40, (messageBgHeight / 2) - 20, 7), 59, 59);
+		speakerPic.material.opacity = 0;
+
+		// set text and picture as a child of the background
 		messageBg.add(messageText);
+		messageBg.add(speakerPic);
 		this._container.add(messageBg);	
 
 		page.tweenMatRecursive(messageBg, {
