@@ -67,7 +67,7 @@ var MPLAY = MPLAY || {};
 		o = [
 			//NEW INTRO FOR PLAYTEST
 			// phone email exchange begins
-			{type: "show_phone_notif"},
+			/*{type: "show_phone_notif"},
 
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},
@@ -214,7 +214,7 @@ var MPLAY = MPLAY || {};
 			// phone email exchange ends
 
 			{type: "show_context", text:"You head to Scottie's", waitUntilShown:false},
-			{type: "show", img: transitionBg},
+			{type: "show", img: transitionBg},*/
 			{type: "goto", page: "scene 1.b", label: "nextscene"},
 		];
 
