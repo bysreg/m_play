@@ -146,13 +146,20 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
+	PhoneInteraction.prototype._getPicPath = function(name) {
+		if(name === "Ryan") {
+			return "/static/gnovel/res/textures/ui/ryan_profpic.png";
+		}
+
+		return "/static/gnovel/res/textures/ui/ryan_profpic.png"; // default
+	};
+
 	PhoneInteraction.prototype.addText = function(page, speaker, text, params) {				
 		var messageBgWidth = 250;
 		var messageBgHeight = 113;
 		var self = this;		
 
 		var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_text_box.png", new THREE.Vector3(30, -150, 7), messageBgWidth, messageBgHeight);
-		// var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_text_box.png", new THREE.Vector3(30, 180, 7), messageBgWidth, messageBgHeight);
 		messageBg.material.opacity = 0;		
 
 		var messageText = page.createTextBox(text, {
@@ -163,8 +170,13 @@ var MPLAY = MPLAY || {};
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
 
-		// set text as a child of the background
+		// create prof pic of sender
+		var speakerPic = page.createImage(this._getPicPath(speaker), new THREE.Vector3(-messageBgWidth/2 - 40, (messageBgHeight / 2) - 20, 7), 59, 59);
+		speakerPic.material.opacity = 0;
+
+		// set text and picture as a child of the background
 		messageBg.add(messageText);
+		messageBg.add(speakerPic);
 		this._container.add(messageBg);	
 
 		page.tweenMatRecursive(messageBg, {

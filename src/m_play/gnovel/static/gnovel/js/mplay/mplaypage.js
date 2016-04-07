@@ -822,13 +822,14 @@ var MPLAY = MPLAY || {};
 		var pageObj = flow._getPage();	
 		var params = {};		
 		params.text = obj.text;
+		params.speaker = obj.speaker;
 
 		params.onComplete = function() {
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		};
 
-		pageObj._phoneInteraction.addText(pageObj, null, params.text, params);
+		pageObj._phoneInteraction.addText(pageObj, params.speaker, params.text, params);
 
 		flow._getPage().getOwner().getSoundManager().play("Text");
 	};
