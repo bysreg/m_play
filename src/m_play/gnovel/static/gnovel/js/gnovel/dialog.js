@@ -32,6 +32,8 @@ var GNOVEL = GNOVEL || {};
 		this._msgOffsetY = params.msgOffsetY || 0;
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
+		this._middleBubbleTailOffset = 12;
+		this._otherBubbleTailOffset = 8;
 		this._unclickable = params.unclickable || false;
 		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
 		this._message = message;
@@ -40,6 +42,7 @@ var GNOVEL = GNOVEL || {};
 		this._messageAlign = params.messageAlign || "center";
 		this._temp = params.temp;
 		this._center = params.center;
+		this._isDialog = params.isDialog || false;
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
@@ -100,18 +103,35 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		var textHeight = this._messageText.canvas.textHeight;
-		if (textHeight > 23) {
-			if (textHeight > 46) {
-				this._messageText.position.set(x, y + 50 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
-				this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 20 + this._speakerOffsetY, z + 20);
+		var y_text;
+		if (this._isDialog) {
+			var tailOffset;
+			if (x == 0) {
+				tailOffset = this._middleBubbleTailOffset;
 			}else {
-				this._messageText.position.set(x, y + 45 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
-				this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
+				tailOffset = this._otherBubbleTailOffset;
 			}
+			var camera = this._page.getOwner().getCamera();
+			var scale = (camera.position.z - (z + 20)) / (camera.position.z - (z - 20));
+			textHeight = textHeight / scale;
+			var y_far = y + textHeight / 2 - tailOffset + this._msgOffsetY;
+			y_text = camera.position.y - (camera.position.y - y_far) * scale;
 		}else {
-			this._messageText.position.set(x, y + 40 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
-			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
+			y_text = y + textHeight / 2 + this._msgOffsetY;
 		}
+		
+		// if (textHeight > 23) {
+		// 	if (textHeight > 46) {
+		// 		this._messageText.position.set(x, y + 50 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+		// 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 20 + this._speakerOffsetY, z + 20);
+		// 	}else {
+		// 		this._messageText.position.set(x, y + 45 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
+		// 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
+		// 	}
+		// }else {
+			this._messageText.position.set(x, y_text, z + 20 + this._msgOffsetZ);
+			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
+		// }
 
 		// add background textbox
 		if (typeof Dialog._textBg === "undefined" || Dialog._textBg === null || this._hasTransition) {
@@ -127,7 +147,6 @@ var GNOVEL = GNOVEL || {};
 				this._page._addToScene(Dialog._textBg);
 			}
 
-			//slide in animation for context box
 			if(this._type == "context") {
 					var targetPos = {};
 					targetPos.x = Dialog._textBg.position.x;
@@ -188,12 +207,10 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-
-
 		this._page._addToScene(this._messageText);
 
-		//if (this._showSpeaker)
-		//	this._page._addToScene(this._nameText);
+		// if (this._showSpeaker)
+		// 	this._page._addToScene(this._nameText);
 	};
 
 

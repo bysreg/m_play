@@ -296,8 +296,9 @@ var GNOVEL = GNOVEL || {};
 
 		event.preventDefault();
 
-		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
-		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
 		//update picking ray with camera and mouse pos
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
@@ -327,8 +328,9 @@ var GNOVEL = GNOVEL || {};
 
 		event.preventDefault();
 
-		this._mouse.x = (event.clientX / this._page._owner._renderer.domElement.clientWidth) * 2 - 1;
-		this._mouse.y = -(event.clientY / this._page._owner._renderer.domElement.clientHeight) * 2 + 1;
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
 		//update picking ray with camera and mouse pos
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());

@@ -1,60 +1,36 @@
-html {
-	height: 100%;
-	background-color: #1d292c;
-}
-body {
-	margin: 0;
-	max-height: 100%;
-	height: 100%;
-	overflow: hidden;
-	background-color: #354144;
-	font-family: Helvetica, arial, sans-serif;
-	position: relative;
-}
-
-canvas {
-    background: #ffffff;
-}
-
 #application-canvas {
 	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-#application-canvas.fill-mode-KEEP_ASPECT {
-	width: 100%;
-	height: auto;
 	margin: auto;
-}
-#application-canvas.fill-mode-FILL_WINDOW {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-}
-
-/*canvas {
-	display: block;
-}*/
-canvas:focus {
-	outline: none;
-}
-@media screen and (min-aspect-ratio: 1280/720) {
-	#application-canvas.fill-mode-KEEP_ASPECT {
-		width: auto;        
-		height: 100%;
-		margin: 0 auto;
-	}
 }
 @font-face{
 	font-family: 'Arvo', serif;
 	font-family: 'Droid Sans', sans-serif;
-	/*
-	font-family:'SF Toontime';
-	font-style: normal;
-	font-weight: 400;
-	src: url('../res/font/SF-Toontime/SF_Toontime_Italic.ttf') format('truetype');
-	*/
+}
+@font-face{
+	font-family: 'NoteworthyBold';
+	src: url('../font/noteworthyFontFace.ttf') format('truetype');
+}
+@font-face{	
+	font-family: 'Bevan';
+	src: url('../font/Bevan.ttf') format('truetype');
+}
+@font-face{
+	font-family: 'Toontime';
+	src: url('../font/SF Toontime Bold Italic.ttf') format('truetype');
+}
+@font-face{	
+	font-family: 'AleoBold';
+	src: url('../font/Aleo-Bold.otf') format('truetype');
+}
+@font-face{
+	font-family: 'sfToonTime';
+	src: url('../font/SFToontimeBold.ttf') format('truetype');
+}
+@font-face{
+	font-family: 'Noteworthy';
+	src: url('../font/Noteworthy Bold.otf') format('truetype');
+}
+@font-face{
+	font-family: 'wg_legacy_edition';
+	src: url('../font/wg_legacy_edition.ttf') format('truetype');
 }

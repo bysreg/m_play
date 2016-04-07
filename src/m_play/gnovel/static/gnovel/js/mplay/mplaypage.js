@@ -53,6 +53,12 @@ var MPLAY = MPLAY || {};
 		// 	this._initChars();
 		// }
 
+		if(MPlayPage._phoneInteraction == null) {
+			this._initPhoneInteraction();
+		}else{
+			this._phoneInteraction = MPlayPage._phoneInteraction;
+		}
+
 		this._player = document.getElementById("username").innerHTML;
 
 		// add custom flow handler
@@ -60,6 +66,8 @@ var MPLAY = MPLAY || {};
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
 		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
+		this._flow._addCustomHandler("open_phone", this._handleOpenPhone);
+		this._flow._addCustomHandler("close_phone", this._handleClosePhone);
 		this._flow._addCustomHandler("show_context", this._handleShowContext);
 	};
 
@@ -69,6 +77,7 @@ var MPLAY = MPLAY || {};
 	// class static variable
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
+	MPlayPage._phoneInteraction = null;
 
 	// characters stored as class static variable
 	// so that we can reuse it throughout the pages
@@ -165,8 +174,6 @@ var MPLAY = MPLAY || {};
 				// update it once, so that the mesh is created
 				event.target.update();
 
-				console.log(event.target.meshes.length);
-
 				MPlayPage._loadedAnimCount++;
 
 				// if all anims have been loaded, then we can proceed
@@ -197,7 +204,14 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
-		this._setObjectTag(this._closephone, this._closephoneImg);
+		this._setObjectTag(this._closephone, this._closephoneImg);		
+	};
+
+	MPlayPage.prototype._initPhoneInteraction = function() {	
+	 	// the page is only used to initialize some of the variables in phone interaction, the page itself	
+	 	// won't be referred inside phone interaction
+		this._phoneInteraction = new MPLAY.PhoneInteraction(this);
+		MPlayPage._phoneInteraction = this._phoneInteraction;
 	};
 
 	MPlayPage.prototype._showRelationshipInfo = function(char, params) {
@@ -333,7 +347,7 @@ var MPLAY = MPLAY || {};
 			this._priya = MPlayPage._priya.getName();
 
 
-			GNOVEL.Page.prototype._runFlow.call(this);
+			GNOVEL.Page.prototype._runFlow.call(this);	
 		}
 
 	};
@@ -657,28 +671,6 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.update();
 	};
 
-	MPlayPage.prototype.showBgFilter = function() {
-		//can also use this._background3Layer for the z-position
-		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._background3Layer+20), 1430, 830);
-		this._filter.material.opacity = 0;
-		this._addToScene(this._filter);
-
-		//play animation effect for filter
-		this.tweenFlash(this._filter,{
-			opacityTo: 0.5,
-			opacityFrom:0.2,
-			duration: 2000,
-			easing: TWEEN.Easing.Linear.Out,
-			easingFrom:TWEEN.Easing.Linear.In
-		});
-	};
-
-	MPlayPage.prototype.hideBgFilter = function() {
-		this._removeFromScene(this._filter);
-	};
-
-
-
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
 
@@ -855,6 +847,34 @@ var MPLAY = MPLAY || {};
 		pageObj._flow._exec();
 	};
 
+	MPlayPage.prototype._handleOpenPhone = function(flowElement, flow) {
+		var pageObj = flow._getPage();						
+		var params = {};
+		params.subject = flowElement.subject;
+		params.from = flowElement.from;
+		params.email = flowElement.email;
+		params.text = flowElement.text;
+
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.show(pageObj, flowElement.layout, params);
+	};
+
+	MPlayPage.prototype._handleClosePhone = function(flowElement, flow) {
+		var pageObj = flow._getPage();				
+
+		var params = {};
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.hide(pageObj, params);
+	};
+
 	MPlayPage.prototype._handleShowContext = function(obj, flow) {
 		var pageObj = flow._getPage();
 		var hasParam = GNOVEL.Util.hasParam;
@@ -864,13 +884,14 @@ var MPLAY = MPLAY || {};
 		params.showSpeaker = false;
 		params.charLine = 30;
 		params.messageAlign = "left";
+		params.msgOffsetY = 25;
 		//params.dontRemove = true;
 		//	params.createNewBg = true;
 		//params.speaker = "Context";
-		params.type = "context";
 		params.width = 100;
 		params.font = "20px Bevan";
 		// params.center = true;
+		params.type = "context";
 
 		message = obj.text;
 		var x = -500;
@@ -889,6 +910,26 @@ var MPLAY = MPLAY || {};
 		//var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
+
+	MPlayPage.prototype.showBgFilter = function() {		
+ 		//can also use this._background3Layer for the z-position		
+ 		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._choicesLayer-20), 1430, 830);		
+ 		this._filter.material.opacity = 0;		
+ 		this._addToScene(this._filter);		
+ 		
+ 		//play animation effect for filter		
+ 		this.tweenFlash(this._filter,{		
+ 			opacityTo: 0.5,		
+ 			opacityFrom:0.2,		
+ 			duration: 2000,		
+ 			easing: TWEEN.Easing.Linear.Out,		
+ 			easingFrom:TWEEN.Easing.Linear.In		
+ 		});		
+ 	};		
+ 		
+ 	MPlayPage.prototype.hideBgFilter = function() {		
+ 		this._removeFromScene(this._filter);		
+ 	};
 
 
 	MPLAY.MPlayPage = MPlayPage;

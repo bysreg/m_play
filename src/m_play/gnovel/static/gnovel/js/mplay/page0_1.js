@@ -109,7 +109,7 @@ var MPLAY = MPLAY || {};
 						relationship: {name: this._ryan, score: 1},
 						go: "#cheers"}]},
 
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "cheers"},
+			{type: "show", img: ryan, expression: "happy", position: "center", label: "cheers"},
 			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
 			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
