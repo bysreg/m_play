@@ -34,9 +34,6 @@ var GNOVEL = GNOVEL || {};
 		this._onMouseDownProcessing = false;
 
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
-		this._width = window.innerWidth;
-		this._height = window.innerHeight;
-		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
 		this._renderer = null;
 		this._preloadPage = false;
 
