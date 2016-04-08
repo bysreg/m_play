@@ -63,6 +63,7 @@ var MPLAY = MPLAY || {};
 
 		// add custom flow handler
 		this._flow._addCustomHandler("phone_textbox", this._handlePhoneTextBox);
+		this._flow._addCustomHandler("add_phone_textbox", this._handleAddPhoneTextBox);
 		this._flow._addCustomHandler("hide_phone_textbox", this._handleHidePhoneTextBox);
 		this._flow._addCustomHandler("show_phone_notif", this._handleShowPhoneNotif);
 		this._flow._addCustomHandler("hide_phone_notif", this._handleHidePhoneNotif);
@@ -204,6 +205,7 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
+		this._setObjectTag(this._closephone, this._closephoneImg);		
 	};
 
 	MPlayPage.prototype._initPhoneInteraction = function() {		
@@ -346,6 +348,7 @@ var MPLAY = MPLAY || {};
 			this._priya = MPlayPage._priya.getName();
 
 
+			GNOVEL.Page.prototype._runFlow.call(this);	
 		}
 
 	};
@@ -811,6 +814,23 @@ var MPLAY = MPLAY || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 		}
+
+		flow._getPage().getOwner().getSoundManager().play("Text");
+	};
+
+	MPlayPage.prototype._handleAddPhoneTextBox = function(obj, flow) {
+		// var hasParam = GNOVEL.Util.hasParam;
+		var pageObj = flow._getPage();	
+		var params = {};		
+		params.text = obj.text;
+		params.speaker = obj.speaker;
+
+		params.onComplete = function() {
+			pageObj._flow._next();
+			pageObj._flow._exec();
+		};
+
+		pageObj._phoneInteraction.addText(pageObj, params.speaker, params.text, params);
 
 		flow._getPage().getOwner().getSoundManager().play("Text");
 	};
