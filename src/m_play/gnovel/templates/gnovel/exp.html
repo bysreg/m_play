@@ -116,7 +116,7 @@
 				// setup the cubemap and put in the sceneBg
 
 				var materialColor = new THREE.MeshBasicMaterial( {
-					map: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/textures/cube/SwedishRoyalCastle/pz.jpg" ),
+					map: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/textures/cube/pisa/pz.png" ),
 					depthTest: false
 				} );
 
@@ -186,7 +186,7 @@
 				//effectFilmBW.renderToScreen = true;
 				//effectDotScreen.renderToScreen = true;
 				//effectBleach.renderToScreen = true;
-				effectVignette.renderToScreen = true;
+				effectVignette.renderToScreen = true; // need to do this so that it outputs to the canvas instead of to the render target
 				//effectCopy.renderToScreen = true;
 
 				// setup render target parameters
@@ -211,7 +211,7 @@
 				composerScene.addPass( effectHBlur );
 				composerScene.addPass( effectVBlur );
 				composerScene.addPass( clearMask );
-
+				
 				// link the output of composeScene to renderScene's texture pass (it is simply just displaying the texture)
 
 				renderScene = new THREE.TexturePass( composerScene.renderTarget2 );
@@ -343,9 +343,11 @@
 				renderer.setViewport( halfWidth, 0, halfWidth, halfHeight );
 				composer2.render( delta );
 
+				// top left
 				renderer.setViewport( 0, halfHeight, halfWidth, halfHeight );
 				composer3.render( delta );
 
+				// top right
 				renderer.setViewport( halfWidth, halfHeight, halfWidth, halfHeight );
 				composer4.render( delta );
 			}
