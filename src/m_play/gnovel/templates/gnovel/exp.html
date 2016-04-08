@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -40,34 +42,31 @@
 
 		<div id="container"></div>
 
-		<script src="../build/three.min.js"></script>
+		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
 
-		<script src="js/shaders/BleachBypassShader.js"></script>
-		<script src="js/shaders/ColorifyShader.js"></script>
-		<script src="js/shaders/ConvolutionShader.js"></script>
-		<script src="js/shaders/CopyShader.js"></script>
-		<script src="js/shaders/DotScreenShader.js"></script>
-		<script src="js/shaders/FilmShader.js"></script>
-		<script src="js/shaders/HorizontalBlurShader.js"></script>
-		<script src="js/shaders/SepiaShader.js"></script>
-		<script src="js/shaders/VerticalBlurShader.js"></script>
-		<script src="js/shaders/VignetteShader.js"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/BleachBypassShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/ColorifyShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/ConvolutionShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/CopyShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/DotScreenShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/FilmShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/HorizontalBlurShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/SepiaShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/VerticalBlurShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/VignetteShader.js' %}"></script>
 
-		<script src="js/postprocessing/EffectComposer.js"></script>
-		<script src="js/postprocessing/RenderPass.js"></script>
-		<script src="js/postprocessing/BloomPass.js"></script>
-		<script src="js/postprocessing/FilmPass.js"></script>
-		<script src="js/postprocessing/DotScreenPass.js"></script>
-		<script src="js/postprocessing/TexturePass.js"></script>
-		<script src="js/postprocessing/ShaderPass.js"></script>
-		<script src="js/postprocessing/MaskPass.js"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/EffectComposer.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/RenderPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/BloomPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/FilmPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/DotScreenPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/TexturePass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/ShaderPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/MaskPass.js' %}"></script>
 
-		<script src="js/Detector.js"></script>
-		<script src="js/libs/stats.min.js"></script>
+		<script src="{% static 'gnovel/third_party/stats.min.js' %}"></script>
 
-		<script>
-
-			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+		<script>			
 
 			var container, stats;
 
@@ -81,7 +80,7 @@
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
 
-			var materialColor, material2D, quadBG, quadMask, renderScene;
+			var materialColor, material2D, quadMask, renderScene;
 
 			var delta = 0.01;
 
@@ -112,7 +111,7 @@
 				sceneModel.add( directionalLight );
 
 				loader = new THREE.JSONLoader();
-				loader.load( "obj/leeperrysmith/LeePerrySmith.js", function( geometry ) { createMesh( geometry, sceneModel, 100 ) } );
+				loader.load( "/static/gnovel/third_party/three.js_extra/obj/leeperrysmith/LeePerrySmith.js", function( geometry ) { createMesh( geometry, sceneModel, 100 ) } );
 
 				//
 
@@ -120,11 +119,6 @@
 					map: THREE.ImageUtils.loadTexture( "textures/cube/SwedishRoyalCastle/pz.jpg" ),
 					depthTest: false
 				} );
-
-				quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), materialColor );
-				quadBG.position.z = -500;
-				quadBG.scale.set( width, height, 1 );
-				sceneBG.add( quadBG );
 
 				//
 
@@ -316,7 +310,6 @@
 
 				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2;
 
-				quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
 				quadMask.scale.set( window.innerWidth / 2, window.innerHeight / 2, 1 );
 
 			}
@@ -334,8 +327,8 @@
 					color: 0x999999,
 					specular: 0x080808,
 					shininess: 20,
-					map: THREE.ImageUtils.loadTexture( "obj/leeperrysmith/Map-COL.jpg" ),
-					normalMap: THREE.ImageUtils.loadTexture( "obj/leeperrysmith/Infinite-Level_02_Tangent_SmoothUV.jpg" ),
+					map: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/obj/leeperrysmith/Map-COL.jpg" ),
+					normalMap: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/obj/leeperrysmith/Infinite-Level_02_Tangent_SmoothUV.jpg" ),
 					normalScale: new THREE.Vector2( 0.75, 0.75 )
 
 				} );
