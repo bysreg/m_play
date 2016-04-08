@@ -5,7 +5,6 @@
 	<head>
 		<title>three.js webgl - postprocessing</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
 				color: #000;
@@ -111,14 +110,22 @@
 				sceneModel.add( directionalLight );
 
 				loader = new THREE.JSONLoader();
-				loader.load( "/static/gnovel/third_party/three.js_extra/obj/leeperrysmith/LeePerrySmith.js", function( geometry ) { createMesh( geometry, sceneModel, 100 ) } );
+				loader.load( "/static/gnovel/third_party/three.js_extra/obj/leeperrysmith/LeePerrySmith.js", 
+					function( geometry ) { 
+						createMesh( geometry, sceneModel, 100 ) 
+					} );
 
 				//
 
 				var materialColor = new THREE.MeshBasicMaterial( {
-					map: THREE.ImageUtils.loadTexture( "textures/cube/SwedishRoyalCastle/pz.jpg" ),
+					map: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/textures/cube/SwedishRoyalCastle/pz.jpg" ),
 					depthTest: false
 				} );
+
+				quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), materialColor );
+				quadBG.position.z = -500;
+				quadBG.scale.set( width, height, 1 );
+				sceneBG.add( quadBG );
 
 				//
 
@@ -276,12 +283,9 @@
 
 				//
 
-				//onWindowResize();
-
 				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2;
 
 				window.addEventListener( 'resize', onWindowResize, false );
-
 			}
 
 			function onWindowResize( event ) {
@@ -314,14 +318,7 @@
 
 			}
 
-			function getText( id ) {
-
-				return document.getElementById( id ).textContent;
-
-			}
-
 			function createMesh( geometry, scene, scale ) {
-
 				var mat2 = new THREE.MeshLambertMaterial( {
 
 					color: 0x999999,
@@ -338,22 +335,16 @@
 				mesh.scale.set( scale, scale, scale );
 
 				scene.add( mesh );
-
 			}
 
-			//
-
 			function animate() {
-
 				requestAnimationFrame( animate );
 
 				render();
 				stats.update();
-
 			}
 
 			function render() {
-
 				var time = Date.now() * 0.0004;
 
 				if ( mesh ) mesh.rotation.y = -time;
@@ -363,9 +354,11 @@
 				renderer.clear();
 				composerScene.render( delta );
 
+				// bottom left
 				renderer.setViewport( 0, 0, halfWidth, halfHeight );
 				composer1.render( delta );
 
+				// bottom right
 				renderer.setViewport( halfWidth, 0, halfWidth, halfHeight );
 				composer2.render( delta );
 
@@ -374,7 +367,6 @@
 
 				renderer.setViewport( halfWidth, halfHeight, halfWidth, halfHeight );
 				composer4.render( delta );
-
 			}
 
 		</script>
