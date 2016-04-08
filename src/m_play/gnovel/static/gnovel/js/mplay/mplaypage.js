@@ -46,16 +46,14 @@ var MPLAY = MPLAY || {};
 		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
-		this._choicesTextBg = [];
-
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
 		// 	this._initChars();
 		// }
 
-		if(MPlayPage._phoneInteraction == null) {
+		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
-		}else{
+		} else {
 			this._phoneInteraction = MPlayPage._phoneInteraction;
 		}
 
@@ -144,7 +142,10 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initAnim = function() {
 		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -260, this._characterLayer));
 		this._createAnim("ryan angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {x: -1, y: 1};
+		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {
+			x: -1,
+			y: 1
+		};
 		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -130, this._characterLayer));
 		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 
@@ -205,12 +206,12 @@ var MPLAY = MPLAY || {};
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
 		this._closephone = "closephone";
-		this._setObjectTag(this._closephone, this._closephoneImg);		
+		this._setObjectTag(this._closephone, this._closephoneImg);
 	};
 
-	MPlayPage.prototype._initPhoneInteraction = function() {		
-	 	// the page is only used to initialize some of the variables in phone interaction, the page itself
-	 	// the page won't be referred inside phone interaction
+	MPlayPage.prototype._initPhoneInteraction = function() {
+		// the page is only used to initialize some of the variables in phone interaction, the page itself
+		// the page won't be referred inside phone interaction
 		this._phoneInteraction = new MPLAY.PhoneInteraction(this);
 		MPlayPage._phoneInteraction = this._phoneInteraction;
 	};
@@ -271,14 +272,16 @@ var MPLAY = MPLAY || {};
 		this._notifIo._img.rotation.z = -.05;
 		this._notifIo._img.rotation.y = -.05;
 		var rotTween = new TWEEN.Tween(this._notifIo._img.rotation)
-			.to({y:.05,z:.05},duration)
+			.to({
+				y: .05,
+				z: .05
+			}, duration)
 			.easing(TWEEN.Easing.Linear.None)
 			.yoyo(true)
 			.repeat(Infinity)
-			.onComplete(function(){
-			});
+			.onComplete(function() {});
 
-			rotTween.start();
+		rotTween.start();
 		/*
 		this.tweenFlash(this._notifIo.getImage(), {
 			//opacity: 1,
@@ -333,7 +336,7 @@ var MPLAY = MPLAY || {};
 		// dont init char, init anim first for now!
 		if (!MPlayPage._isAnimInit) {
 			this._initAnim();
-		}else if(MPlayPage._isCharInit && MPlayPage._isAnimInit) {
+		} else if (MPlayPage._isCharInit && MPlayPage._isAnimInit) {
 
 			// FIXME: Not the best place to put the code here, fix it some time later
 			// set object tags for the characters, so that we can refer it in the flow
@@ -348,7 +351,7 @@ var MPLAY = MPLAY || {};
 			this._priya = MPlayPage._priya.getName();
 
 
-			GNOVEL.Page.prototype._runFlow.call(this);	
+			GNOVEL.Page.prototype._runFlow.call(this);
 		}
 
 	};
@@ -589,13 +592,13 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		if(isChar && img.hasOwnProperty("oriScale") ) {
+		if (isChar && img.hasOwnProperty("oriScale")) {
 			if (params.flowElement.flip === true) {
 				img.scale.x = -img.oriScale.x;
 			} else {
 				img.scale.x = img.oriScale.x;
 			}
-		}else{
+		} else {
 			if (params.flowElement.flip === true) {
 				img.scale.x = -Math.abs(img.scale.x);
 			} else {
@@ -652,7 +655,7 @@ var MPLAY = MPLAY || {};
 				img = obj.getImage(null);
 			}
 
-			if(img instanceof MPLAY.SpineAnimation) {
+			if (img instanceof MPLAY.SpineAnimation) {
 				params.arr = img.meshes;
 			}
 		}
@@ -662,7 +665,7 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._update = function() {
 
-		if(!MPlayPage._isCharInit) {
+		if (!MPlayPage._isCharInit) {
 			return;
 		}
 
@@ -703,10 +706,6 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
-	};
-
-	MPlayPage.prototype.setupHomeBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
 	};
 
 	MPlayPage.prototype.setupOfficeBackground = function() {
@@ -820,8 +819,8 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._handleAddPhoneTextBox = function(obj, flow) {
 		// var hasParam = GNOVEL.Util.hasParam;
-		var pageObj = flow._getPage();	
-		var params = {};		
+		var pageObj = flow._getPage();
+		var params = {};
 		params.text = obj.text;
 		params.speaker = obj.speaker;
 

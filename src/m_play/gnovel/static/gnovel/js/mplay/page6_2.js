@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page6_2.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupHomeBackground();
+		this.setupClassBackground();
 	};
 
 	Page6_2.prototype._createFlowElements = function() {
@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type:"show_context", text:"You head home..."},
-			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
+			{type: "show_context", text: "Your cell phone pings with an email. You open it."},
 
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},
