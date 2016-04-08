@@ -63,11 +63,9 @@
 		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/ShaderPass.js' %}"></script>
 		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/MaskPass.js' %}"></script>
 
-		<script src="{% static 'gnovel/third_party/stats.min.js' %}"></script>
-
 		<script>			
 
-			var container, stats;
+			var container;
 
 			var composerScene, composer1, composer2, composer3, composer4;
 
@@ -79,7 +77,7 @@
 			var halfWidth = width / 2;
 			var halfHeight = height / 2;
 
-			var materialColor, material2D, quadMask, renderScene;
+			var materialColor, quadMask, renderScene;
 
 			var delta = 0.01;
 
@@ -90,7 +88,7 @@
 
 				container = document.getElementById( 'container' );
 
-				//
+				// setup two cameras
 
 				cameraOrtho = new THREE.OrthographicCamera( -halfWidth, halfWidth, halfHeight, -halfHeight, -10000, 10000 );
 				cameraOrtho.position.z = 100;
@@ -98,12 +96,12 @@
 				cameraPerspective = new THREE.PerspectiveCamera( 50, width / height, 1, 10000 );
 				cameraPerspective.position.z = 900;
 
-				//
+				// there are two scenes? one for the head model and one for just the background (the cube map)
 
 				sceneModel = new THREE.Scene();
 				sceneBG = new THREE.Scene();
 
-				//
+				// setup the head model and put in the sceneModel
 
 				directionalLight = new THREE.DirectionalLight( 0xffffff );
 				directionalLight.position.set( 0, -0.1, 1 ).normalize();
@@ -115,7 +113,7 @@
 						createMesh( geometry, sceneModel, 100 ) 
 					} );
 
-				//
+				// setup the cubemap and put in the sceneBg
 
 				var materialColor = new THREE.MeshBasicMaterial( {
 					map: THREE.ImageUtils.loadTexture( "/static/gnovel/third_party/three.js_extra/textures/cube/SwedishRoyalCastle/pz.jpg" ),
@@ -127,16 +125,7 @@
 				quadBG.scale.set( width, height, 1 );
 				sceneBG.add( quadBG );
 
-				//
-
-				var sceneMask = new THREE.Scene();
-
-				quadMask = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 ), new THREE.MeshBasicMaterial( { color: 0xffaa00 } )  );
-				quadMask.position.z = -300;
-				quadMask.scale.set( width / 2, height / 2, 1 );
-				sceneMask.add( quadMask );
-
-				//
+				// initialize web gl renderer
 
 				renderer = new THREE.WebGLRenderer( { antialias: false } );
 				renderer.setClearColor( 0x000000 );
@@ -144,23 +133,16 @@
 				renderer.setSize( width, height );
 				renderer.autoClear = false;
 
-				//
+				// why do we need these two line?
 
 				renderer.gammaInput = true;
 				renderer.gammaOutput = true;
 
-				//
+				// add the renderer as the children of the div container
 
 				container.appendChild( renderer.domElement );
 
-				//
-
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				//container.appendChild( stats.domElement );
-
-				//
+				// initalize shaders & shader passes
 
 				var shaderBleach = THREE.BleachBypassShader;
 				var shaderSepia = THREE.SepiaShader;
@@ -207,14 +189,14 @@
 				effectVignette.renderToScreen = true;
 				//effectCopy.renderToScreen = true;
 
-				//
+				// setup render target parameters
 
 				var rtParameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: true };
 
 				var rtWidth  = width / 2;
 				var rtHeight = height / 2;
 
-				//
+				// setup render passes (it seems like it needs scene and camera as parameter)
 
 				var renderBackground = new THREE.RenderPass( sceneBG, cameraOrtho );
 				var renderModel = new THREE.RenderPass( sceneModel, cameraPerspective );
@@ -230,11 +212,11 @@
 				composerScene.addPass( effectVBlur );
 				composerScene.addPass( clearMask );
 
-				//
+				// link the output of composeScene to renderScene's texture pass (it is simply just displaying the texture)
 
 				renderScene = new THREE.TexturePass( composerScene.renderTarget2 );
 
-				//
+				// the first render block
 
 				composer1 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
 
@@ -244,7 +226,7 @@
 				//composer1.addPass( clearMask );
 				composer1.addPass( effectVignette );
 
-				//
+				// the second render block
 
 				composer2 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
 
@@ -258,7 +240,7 @@
 				composer2.addPass( clearMask );
 				composer2.addPass( effectVignette );
 
-				//
+				// the third render block
 
 				composer3 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
 
@@ -269,7 +251,7 @@
 				//composer3.addPass( clearMask );
 				composer3.addPass( effectVignette );
 
-				//
+				// the fourth render block
 
 				composer4 = new THREE.EffectComposer( renderer, new THREE.WebGLRenderTarget( rtWidth, rtHeight, rtParameters ) );
 
@@ -341,7 +323,6 @@
 				requestAnimationFrame( animate );
 
 				render();
-				stats.update();
 			}
 
 			function render() {
