@@ -206,7 +206,9 @@ var MPLAY = MPLAY || {};
 		this._closephone = "closephone";
 	};
 
-	 	// won't be referred inside phone interaction
+	MPlayPage.prototype._initPhoneInteraction = function() {		
+	 	// the page is only used to initialize some of the variables in phone interaction, the page itself
+	 	// the page won't be referred inside phone interaction
 		this._phoneInteraction = new MPLAY.PhoneInteraction(this);
 		MPlayPage._phoneInteraction = this._phoneInteraction;
 	};
@@ -812,17 +814,6 @@ var MPLAY = MPLAY || {};
 
 		flow._getPage().getOwner().getSoundManager().play("Text");
 	};
-		params.speaker = obj.speaker;
-
-		params.onComplete = function() {
-			pageObj._flow._next();
-			pageObj._flow._exec();
-		};
-
-		pageObj._phoneInteraction.addText(pageObj, params.speaker, params.text, params);
-
-		flow._getPage().getOwner().getSoundManager().play("Text");
-	};
 
 	MPlayPage.prototype._handleHidePhoneTextBox = function(obj, flow) {
 		var dialog = obj.dialog;
@@ -919,8 +910,6 @@ var MPLAY = MPLAY || {};
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
 
- 	};
-
-
-
 	MPLAY.MPlayPage = MPlayPage;
+
+}());
