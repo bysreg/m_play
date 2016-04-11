@@ -175,9 +175,9 @@ var GNOVEL = GNOVEL || {};
 		params.onComplete = function() {
 			if(!isOnCompleteAdded) {
 				if(oriComplete) {
-					oriComplete();	
+					oriComplete();
 				}
-				
+
 				isOnCompleteAdded = true;
 			}
 		};
@@ -188,7 +188,7 @@ var GNOVEL = GNOVEL || {};
 				return;
 
 			pageObj.tweenMat(obj3d, params);
-		});	
+		});
 	};
 
 	Page.prototype.tweenMat = function(obj, params) {
@@ -209,9 +209,9 @@ var GNOVEL = GNOVEL || {};
 					tweenMatIn = tween;
 					if (params.onComplete != null && params.chain==null) {
 						tween.onComplete(params.onComplete);
-					}				
+					}
 				}
-			}			
+			}
 		}
 		else
 		{
@@ -224,7 +224,7 @@ var GNOVEL = GNOVEL || {};
 			if (params.onComplete != null && params.chain==null) {
 				tweenMatIn.onComplete(params.onComplete);
 			}
-		}		
+		}
 
 		// TODO: have to handle obj an array in this case too
 		var tweenMatOut = new TWEEN.Tween(obj.material)
@@ -233,11 +233,11 @@ var GNOVEL = GNOVEL || {};
 			}, duration)
 			.easing(params.easing || TWEEN.Easing.Linear.None)
 			.delay(params.delay || 0);
-		
+
 		if (params.onComplete != null && params.chain!=null) {
 			tweenMatOut.onComplete(params.onComplete);
 		}
-		
+
 		if(params.chain == true) {
 			tweenMatIn.chain(tweenMatOut);
 		}
@@ -303,6 +303,9 @@ var GNOVEL = GNOVEL || {};
 		.easing(TWEEN.Easing.Quadratic.Out);
 		if (params.onComplete != null) {
 			tweenForward.onComplete(params.onComplete);
+		}
+		if(params.onUpdate != null){
+			tweenForward.onUpdate(params.onUpdate);
 		}
 		/*.onComplete(function() {
 			targetSize = prevSize;
@@ -414,7 +417,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	// will be called each frame, after onLoad and onStart complete
-	Page.prototype._update = function() {		
+	Page.prototype._update = function() {
 	};
 
 	// will be called after onStart called
@@ -428,7 +431,7 @@ var GNOVEL = GNOVEL || {};
 		var pageObj = this;
 		params.temp = true;
 		params.onComplete = function() {
-			// go to next dialog			
+			// go to next dialog
 		};
 		var dialog = new GNOVEL.Dialog(this, message, x, y, params);
 		return dialog;
@@ -463,7 +466,7 @@ var GNOVEL = GNOVEL || {};
 		this.tweenMat(obj, {
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
-			arr: params.arr, 
+			arr: params.arr,
 			onComplete: function() {
 				if(waitUntilShown) {
 					// go to next flow
@@ -533,7 +536,7 @@ var GNOVEL = GNOVEL || {};
 				}
 
 				pageObj._flow._exec();
-			}			
+			}
 
 			// if params.onChoiceComplete is undefined or null (or falsy)
 			if(!params.onChoiceComplete) {

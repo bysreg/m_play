@@ -11,7 +11,7 @@ var GNOVEL = GNOVEL || {};
 	 * @param {time} time for transition to play, in milliseconds
 	 **/
 	var Transition = function(time) {
-		this.time = time || 400;
+		this.time = 1000;//time || 400;
 		this.isOnCompleteAdded = true;
 	};
 
@@ -38,41 +38,56 @@ var GNOVEL = GNOVEL || {};
 		var outPos = {};
 		var inPos = {};
 		var bgInPos = {};
-		var newBgPos = {x:-gnovelWidth, y:0, z:-630};
+		var newBgPos = {x:-gnovelWidth-200, y:0, z:-630};
 		var container = new THREE.Object3D();
 
-		//container.position.set(0,0,0);
-		/*container.add(curPageRootObj);
+		/*container.position.set(0,0,0);
+		container.add(curPageRootObj);
 		container.add(nextPageRootObj);
 		container.add(transitionPanel);
 		params.gnovel._scene.add(container);*/
 
 		//Right to Left transition!!
 		transition.isOnCompleteAdded = false;
-		nextPageRootObj.position.x = gnovelWidth+50;
+		nextPageRootObj.position.x = gnovelWidth;
 		nextPageRootObj.position.y = 0;
-		nextPageRootObj.position.z = -580;
-		inPos.x = -100;
+		//nextPageRootObj.position.z = -580;
+		//nextPageRootObj.position.x = curPageRootObj.position.x;
+		//nextPageRootObj.position.y = curPageRootObj.position.y;
+
+		inPos.x = 0;
 		inPos.y = 0;
 		inPos.z = -80;
-		outPos.x = -gnovelWidth-50;
+		outPos.x = -gnovelWidth-100;
 		outPos.y = 0;
 		outPos.z = -500;
-		bgInPos.x = -gnovelWidth-100;
+		bgInPos.x = -gnovelWidth-200;
 		bgInPos.y = 0;
 		bgInPos.z = -200;
+		//var inScale = {x:1, y:1};
+		//var newBgScale = {x:.5, y:.5};
 		//1st, pause current page
 
-		/*transition.tweenZoom(container, outPos,{onComplete : function(){
+		/*transition.tweenZoom(container, newBgScale,{onComplete : function(){
 			transition.wait({onComplete : function(){
 				//tween previous page and new page at same time
 				var outTarget = {x:container.position.x + outPos.x, y: container.position.y + outPos.y};
 				var tweenOut= new TWEEN.Tween(container.position)
 				.to(outTarget,duration+10)
-				.easing(TWEEN.Easing.Linear.None);
+				.easing(TWEEN.Easing.Linear.None)
+				.onComplete(function(){
+						transition.tweenZoom(container, inScale,{duration: duration});});
+
+				var conTweenIn = new TWEEN.Tween(container.position)
+				.to({x:bgInPos.x, y:bgInPos.y},duration)
+				.easing(TWEEN.Easing.Linear.None)
+				.onComplete(function(){
+						transition.tweenZoom(container, inScale,{duration: duration});//params passes onComplete from gnovel
+				});
 
 				tweenOut.start();
-				tweenIn.start();
+
+				//conTweenIn.start();
 			}});
 		}});*/
 /*
@@ -99,7 +114,7 @@ var GNOVEL = GNOVEL || {};
 
 
 		//move BG
-		transition.tweenZoom(transitionPanel, newBgPos,{onComplete : function(){
+		transition.tweenZoom(transitionPanel, newBgPos,{duration: duration, onComplete : function(){
 			transition.wait({onComplete : function(){
 				//tween previous page and new page at same time
 				var outTarget = {x:transitionPanel.position.x + newBgPos.x, y: transitionPanel.position.y + newBgPos.y};
@@ -119,8 +134,9 @@ var GNOVEL = GNOVEL || {};
 			}});
 		}});
 
-		//zoom page out
-		transition.tweenZoom(curPageRootObj, outPos,{duration: duration+10, onComplete : function(){
+		//zoom pages out
+		transition.tweenZoom(nextPageRootObj,outPos,{duration: duration});
+		transition.tweenZoom(curPageRootObj, outPos,{duration: duration, onComplete : function(){
 			//make previous page no longer visible
 			//curPageRootObj.visible = false;
 			//tweenIn.onComplete(function(){});
@@ -156,7 +172,7 @@ var GNOVEL = GNOVEL || {};
 
 		//tween new page in
 		var tweenIn = new TWEEN.Tween(nextPageRootObj.position)
-		.to({x:inPos.x+100, y:inPos.y},duration)
+		.to({x:inPos.x, y:inPos.y},duration)
 		.easing(TWEEN.Easing.Linear.None)
 		.onComplete(function(){
 				transition.tweenZoom(nextPageRootObj, inPos, params);
@@ -213,7 +229,7 @@ var GNOVEL = GNOVEL || {};
 //pause tween
 	Transition.prototype.wait = function(params){
 		var o = {val:0};
-		var waitDuration = .3;
+		var waitDuration = .5;
 		var wait = new TWEEN.Tween(o)
 			.to({
 				val: 1,

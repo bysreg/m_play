@@ -57,13 +57,25 @@ var MPLAY = MPLAY || {};
 				}
 		}
 
-		for (var i = 0; i < choicesArr.length; i++) {
+		for(var i = 0;i<choicesArr.length; i++)
+		{
 			var choiceText = choicesArr[i];
 			params.posArr[i] = new THREE.Vector3();
 			params.posArr[i].x = params.x;
 
 			var textBg = null;
+			/**
+			**FIXME for displaying message text with choice box in same tween
+			var textbox = null;
+			textbox = this._page.createTextBox(this._choices[i], {charLine: this._params.charLine, center: this._params.center});
 
+			var x = startx;
+			var y = starty;
+			if(this._params.posArr!==null) {
+				x = params.posArr[i].x;
+				y = params.posArr[i].y;
+			}
+*/
 			// if(choiceText.length < 30) {
 			// 	params.posArr[i].y = oneLineY;
 
@@ -82,6 +94,26 @@ var MPLAY = MPLAY || {};
 			textBg.name = "choice_bg_" + i;
 			//set scale to 0
 			textBg.scale.set(0, 0, 1);
+/**
+**FIXME
+			if (textbox.canvas.textHeight > 23) {
+				if (textbox.canvas.textHeight > 46) {
+					textbox.position.set(x + (i * gapX), y + (i * gapY) + 20, startz);
+				}else {
+					textbox.position.set(x + (i * gapX), y + (i * gapY) + 5, startz);
+				}
+			}else {
+				textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
+			}
+
+			textbox.name = "choices";
+
+			// hack : because we are using Text2D, we are going to identify the raycast based on this name
+			textbox.children[0].name = "choice_" + i;
+
+			textbox.material.opacity = 0;
+			textbox.scale.set(0,0,1);
+*/
 			//show choice animation
 
 			//pop in and scale choice box
@@ -90,6 +122,25 @@ var MPLAY = MPLAY || {};
 				x:1,y:1,z:1,
 				duration:500,
 				easing: TWEEN.Easing.Back.Out
+				/**
+				**FIXME
+				onComplete: function(){
+					if(textBg.scale.x > .5){
+						page.tweenPulse(textbox,{
+							repeat: false,
+							x:1,y:1,z:1,
+							duration:500,
+							easing: TWEEN.Easing.Back.Out
+						});
+
+						//fade in box for text
+					this._page.tweenMat(textbox, {
+						duration: 500,
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out
+					});
+					}
+				}*/
 			});
 
 				//fade in choice box
@@ -99,8 +150,15 @@ var MPLAY = MPLAY || {};
 				easing: TWEEN.Easing.Cubic.Out
 			});
 
+
 			page._addToScene(textBg);
 			choicesTextBg.push(textBg);
+
+			/**
+			*FIXME
+			this._choicesBox.push(textbox);
+			this._page._addToScene(this._choicesArr[i]);
+			*/
 		}
 
 		GNOVEL.Choices.call(this, page, choicesArr, timedResponses, result, params);
@@ -345,7 +403,7 @@ var MPLAY = MPLAY || {};
 		this._mouse.x = event.clientX;
 		this._mouse.y = event.clientY;
 		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
-		
+
 		//update picking ray with camera and mouse pos
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
 
