@@ -76,6 +76,7 @@ var GNOVEL = GNOVEL || {};
 		var x = this._x;
 		var y = this._y;
 		var z = this._page.getDialogLayer();
+		var myDialog = this;
 
 		if (Dialog._textBg != null && this._hasTransition && !this._dontRemove) {
 			// if current speaker is different than the previous speaker, then we need to
@@ -119,7 +120,7 @@ var GNOVEL = GNOVEL || {};
 		}else {
 			y_text = y + textHeight / 2 + this._msgOffsetY;
 		}
-		
+
 		// if (textHeight > 23) {
 		// 	if (textHeight > 46) {
 		// 		this._messageText.position.set(x, y + 50 + this._msgOffsetY, z + 20 + this._msgOffsetZ);
@@ -178,9 +179,20 @@ var GNOVEL = GNOVEL || {};
 					repeat: false,
 					x:1,y:1,z:1,
 					duration:300,
-					easing: TWEEN.Easing.Back.Out});
+					easing: TWEEN.Easing.Back.Out,
+					onUpdate: function(){
+						//makes text come in after text box has began showing
+						if(myDialog._textBg.scale.x > .5){
+							myDialog._page.tweenMat(myDialog._messageText, {
+								duration: 1000,
+								opacity: 1,
+								easing: TWEEN.Easing.Cubic.Out
+							});
+						}
+					}
+				});
 
-					//fade in text box
+					//fade in text box while it is popping
 				this._page.tweenMat(Dialog._textBg, {
 					duration: 100,
 					opacity: opacityDest,

@@ -34,6 +34,11 @@ var GNOVEL = GNOVEL || {};
 		this._onMouseDownProcessing = false;
 
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
+		this._width = window.innerWidth;
+		this._height = window.innerHeight;
+		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
+		this._cameraDefault = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
+		this._cameraTrans = new THREE.OrthographicCamera(0, this._width, this._height/2, this._height/-2, 100, 1200);
 		this._renderer = null;
 		this._preloadPage = false;
 
@@ -244,6 +249,7 @@ var GNOVEL = GNOVEL || {};
 		this._load(page);
 	};
 
+	//called before transition runs to get set page properties but does not start the next scene
 	Gnovel.prototype._preLoad = function(page){
 		var pageRoot = new THREE.Object3D();
 	//	var pageOverlay1 = new THREE.Object3D();
@@ -255,6 +261,7 @@ var GNOVEL = GNOVEL || {};
 		page._onLoad();
 	}
 
+	//main load function that sets page properties and starts next scene
 	Gnovel.prototype._load = function(page) {
 			var pageRoot = new THREE.Object3D();
 		//	var pageOverlay1 = new THREE.Object3D();
@@ -324,18 +331,25 @@ var GNOVEL = GNOVEL || {};
 		else {
 			this._preLoad(nextPage);
 		}
-		//var nextPageImg = nextPage.
 
 		var curPageObj = this._pageRootObject[this.getPageAt(this._curPageIdx).getPageId()];
 		var nextPageObj = this._pageRootObject[pageIndex];
 		var transition = new GNOVEL.Transition(1000);
 		var gnovel = this;
-		var nextPageBG = new THREE.Mesh(nextPageObj.children[0].geometry, nextPageObj.children[0].material);
-		nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,nextPageObj.children[0].position.z);
+		var nextPageBG = new THREE.Object3D();
+		//if there are layers to BG, add them all nextPageBG object for transition
+		for(var i = 0;i<nextPageObj.children.length;i++){
+			nextPageBG.add(new THREE.Mesh(nextPageObj.children[i].geometry, nextPageObj.children[i].material));
+			nextPageBG.position.set(nextPageObj.children[i].position.x,nextPageObj.children[i].position.y,i*10);
+		}
+		//var nextPageBG = new THREE.Mesh(nextPageObj.children[0].geometry, nextPageObj.children[0].material);
+		//nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,0);
 
 		gnovel._scene.add(this.transitionPanel);
 		gnovel._scene.add(nextPageBG);
 
+
+		//gnovel._camera = gnovel._cameraTrans;
 		transition.run(curPage, nextPageBG,this.transitionPanel, {
 			onComplete : function() {
 				//gnovel._load(nextPage);

@@ -70,13 +70,12 @@ var MPLAY = MPLAY || {};
 			{type: "show_phone_notif"},
 
 			// phone email exchange begins
-			{type: "open_phone", layout:"email", subject: "Welcome to the team!", from: "TechFast", email: "hr@techfast.io", 
+			{type: "open_phone", layout:"email", subject: "Welcome to the team!", from: "TechFast", email: "hr@techfast.io",
 				text: "We are pleased to extend an early offer to you as a junior software developer on our team here at TechFast!  Your work impressed us, and we know we can expect great things from you.  You’ll be part of our advanced technology team, starting straight after graduation in May.  Best of luck on your final semester, and we’ll be in touch."},
-			{type: "close_phone"},	
+			{type: "close_phone"},
 			// phone email exchange ends
 
 			{type: "show_context", text:"You head to Scottie's", waitUntilShown:false},
-			{type: "show", img: transitionBg},
 			{type: "goto", page: "scene 1.b", label: "nextscene"},
 		];
 
