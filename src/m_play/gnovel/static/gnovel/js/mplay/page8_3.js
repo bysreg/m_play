@@ -149,7 +149,7 @@ var MPLAY = MPLAY || {};
 				text: player + ", did you get Sweeney’s email?  UGHHHH What now? If we fail the class, don’t know about the job…  You ok?"},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
@@ -167,7 +167,7 @@ var MPLAY = MPLAY || {};
 				text: "You get Sweeney’s email?  What now? Do you think the job thing is ok?"},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			// phone exchange begins
@@ -182,7 +182,7 @@ var MPLAY = MPLAY || {};
 				text: "Did you get Sweeney’s email?  What now?"},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 		];
 
 		return o;

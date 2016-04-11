@@ -22,6 +22,7 @@ var GNOVEL = GNOVEL || {};
 		this._showSpeaker = hasParam(params.showSpeaker, true);
 		this._charLine = params.charLine || 72;
 		this._font = params.font;
+		this._fillstyle = params.fillstyle;
 		this._bgWidth = params.bgWidth || 900;
 		this._bgHeight = params.bgHeight || 145.5;
 		this._bgPath = params.bgPath || "/static/gnovel/res/textures/ui/phone_textBox.png";
@@ -94,7 +95,8 @@ var GNOVEL = GNOVEL || {};
 			align: this._messageAlign,
 			charLine: this._charLine,
 			font: this._font,
-			center: this._center
+			center: this._center,
+			fillstyle: this._fillstyle,
 		});
 
 		this._nameText = this._page.createTextBox(this._params.speaker, {

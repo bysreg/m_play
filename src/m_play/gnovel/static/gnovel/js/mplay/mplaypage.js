@@ -68,6 +68,7 @@ var MPLAY = MPLAY || {};
 		this._flow._addCustomHandler("open_phone", this._handleOpenPhone);
 		this._flow._addCustomHandler("close_phone", this._handleClosePhone);
 		this._flow._addCustomHandler("show_context", this._handleShowContext);
+		this._flow._addCustomHandler("show_ed_context", this._handleShowEdContext);
 	};
 
 	MPlayPage.prototype = Object.create(GNOVEL.Page.prototype);
@@ -926,6 +927,34 @@ var MPLAY = MPLAY || {};
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
 
 		//var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
+		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
+	};
+
+	MPlayPage.prototype._handleShowEdContext = function(obj, flow) {
+		var pageObj = flow._getPage();
+		var hasParam = GNOVEL.Util.hasParam;
+		var params = {};
+		params.flowElement = obj;
+		params.showSpeaker = false;
+		params.charLine = 80;
+		params.messageAlign = "center";
+		params.msgOffsetY = 25;
+		// params.fillstyle = "#D4D4D4"
+
+		message = obj.text;
+		var x = 0;
+		var y = -230;
+
+		var toX;
+		var toY;
+
+		params.bgPath = "/static/gnovel/res/textures/ui/ed_bubble.png";
+		params.bgWidth = 960;
+		params.bgHeight = 180;
+		params.bgOffsetY = 15;
+		params.bgOffsetX = -20;
+		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
+
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
 

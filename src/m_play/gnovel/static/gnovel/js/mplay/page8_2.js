@@ -148,7 +148,7 @@ var MPLAY = MPLAY || {};
 				text: "Woo!!  I passed too!  I got a C.  Happy it turned out ok for us.  Definitely not taking any more advice from my bro anytime soon…"},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
@@ -166,7 +166,7 @@ var MPLAY = MPLAY || {};
 				text: "Did you pass?  I got a C."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			// phone exchange begins
@@ -181,7 +181,7 @@ var MPLAY = MPLAY || {};
 				text: "Got a C, this sucks."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			];
 
