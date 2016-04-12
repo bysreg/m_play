@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	PageTest.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setBackground("/static/gnovel/res/textures/backgrounds/enviroment concept.jpg");
+		this.setupUcBackground();
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._yourphone = "yourphone";

@@ -198,23 +198,18 @@ var MPLAY = MPLAY || {};
 		var height = this._owner._getHeight();
 		var effectHBlur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
 		var effectVBlur = new THREE.ShaderPass(THREE.VerticalBlurShader);
-		effectHBlur.uniforms['h'].value = 2 / width;
-		effectVBlur.uniforms['v'].value = 2 / height;
+		effectHBlur.uniforms['h'].value = 0; // 2 / width
+		effectVBlur.uniforms['v'].value = 0; // 2 / height
 		effectVBlur.renderToScreen = false;
-		// effectHBlur.camera = this._owner.getCamera();
-		// effectVBlur.camera = this._owner.getCamera();
-		
+
 		var shaderVignette = THREE.VignetteShader;
-		var effectVignette = new THREE.ShaderPass( shaderVignette );
-		effectVignette.uniforms[ "offset" ].value = 0.95;
-		effectVignette.uniforms[ "darkness" ].value = 1.6;
+		var effectVignette = new THREE.ShaderPass(shaderVignette);
+		effectVignette.uniforms["offset"].value = 0; // 0.95
+		effectVignette.uniforms["darkness"].value = 0; // 1.6
 		effectVignette.renderToScreen = true;
 
-		var clearMask = new THREE.ClearMaskPass();
-		var renderMaskInverse = new THREE.MaskPass( this._owner._scene, this._owner.getCamera());
-		renderMaskInverse.inverse = true;
-
-		var rtParameters = {
+		// background processing render target parameters
+		var bgRtParameters = {
 			minFilter: THREE.LinearFilter,
 			magFilter: THREE.LinearFilter,
 			format: THREE.RGBFormat,
@@ -225,25 +220,19 @@ var MPLAY = MPLAY || {};
 		var renderBgPass = new THREE.RenderPass(sceneBg, this._owner.getCamera());
 		renderBgPass.clear = true;
 
-		var renderOtherPass = new THREE.RenderPass(this._owner._scene, this._owner.getCamera());
-		renderOtherPass.clear = false;
+		var sceneBgComposer = new THREE.EffectComposer(this._owner._getRenderer(), new THREE.WebGLRenderTarget(width, height, bgRtParameters));
 
-		var sceneComposer = new THREE.EffectComposer(this._owner._getRenderer(), new THREE.WebGLRenderTarget(width, height, rtParameters));
-
-		sceneComposer.addPass(renderBgPass);	
-		// sceneComposer.addPass(renderOtherPass);		
-		// sceneComposer.addPass(renderMaskInverse);	
-		sceneComposer.addPass(effectHBlur);
-		sceneComposer.addPass(effectVBlur);
-		sceneComposer.addPass( clearMask );
-		sceneComposer.addPass(renderOtherPass);
-		sceneComposer.addPass(effectVignette);
+		sceneBgComposer.addPass(renderBgPass);
+		sceneBgComposer.addPass(effectHBlur);
+		sceneBgComposer.addPass(effectVBlur);
+		sceneBgComposer.addPass(effectVignette);		
 
 		// override gnovel's render function
 		this._owner._render = function() {
 			this._renderer.clear();
-			sceneComposer.render(0.01);
-			// this._renderer.render(this._scene, this._camera);
+			sceneBgComposer.render(0.01);			
+			this._renderer.clear(false, true, false);
+			this._renderer.render(this._scene, this._camera);
 		};
 
 		this._sceneBg = sceneBg;
