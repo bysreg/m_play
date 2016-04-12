@@ -54,6 +54,10 @@ var MPLAY = MPLAY || {};
 		// 	this._initChars();
 		// }
 
+		// for background postprocessing
+		this._sceneBg = null;
+		this._bgs = [];
+
 		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
 		} else {
@@ -81,6 +85,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
 	MPlayPage._phoneInteraction = null;
+	MPlayPage._sceneBg = null;
 
 	// characters stored as class static variable
 	// so that we can reuse it throughout the pages
@@ -92,7 +97,13 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isAnimInit = false;
 	MPlayPage._animCount = 0;
 	MPlayPage._loadedAnimCount = 0;
+	MPlayPage._isBgProcessingInit = false;
 	MPlayPage._anims = {};
+
+	MPlayPage._hblur = null;
+	MPlayPage._vblur = null;
+	MPlayPage._vignetteOffset = null;
+	MPlayPage._vignetteDarkness = null;
 
 	MPlayPage.prototype._initChars = function() {
 
@@ -190,6 +201,101 @@ var MPLAY = MPLAY || {};
 		}
 
 		MPlayPage._isAnimInit = true;
+	};
+
+	MPlayPage.prototype._initBgProcessing = function() {
+		var sceneBg = new THREE.Scene();
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var effectHBlur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+		var effectVBlur = new THREE.ShaderPass(THREE.VerticalBlurShader);
+		effectHBlur.uniforms['h'].value = 0; // 2 / width
+		effectVBlur.uniforms['v'].value = 0; // 2 / height
+		effectVBlur.renderToScreen = false;
+		MPlayPage._hblur = effectHBlur.uniforms['h'];
+		MPlayPage._vblur = effectVBlur.uniforms['v'];
+
+		var shaderVignette = THREE.VignetteShader;
+		var effectVignette = new THREE.ShaderPass(shaderVignette);
+		effectVignette.uniforms["offset"].value = 0; // 0.95
+		effectVignette.uniforms["darkness"].value = 0; // 1.6
+		effectVignette.renderToScreen = true;
+		MPlayPage._vignetteOffset = effectVignette.uniforms["offset"];
+		MPlayPage._vignetteDarkness = effectVignette.uniforms["darkness"];
+
+		// background processing render target parameters
+		var bgRtParameters = {
+			minFilter: THREE.LinearFilter,
+			magFilter: THREE.LinearFilter,
+			format: THREE.RGBFormat,
+			stencilBuffer: true,
+		};
+
+		var renderBgPass = new THREE.RenderPass(sceneBg, this._owner.getCamera());
+		renderBgPass.clear = true;
+
+		var sceneBgComposer = new THREE.EffectComposer(this._owner._getRenderer(), new THREE.WebGLRenderTarget(width, height, bgRtParameters));
+
+		sceneBgComposer.addPass(renderBgPass);
+		sceneBgComposer.addPass(effectHBlur);
+		sceneBgComposer.addPass(effectVBlur);
+		sceneBgComposer.addPass(effectVignette);
+
+		// override gnovel's render function
+		this._owner._render = function() {
+			this._renderer.clear();
+			sceneBgComposer.render(0.01);
+			this._renderer.clear(false, true, false); // clear the depth buffer
+			this._renderer.render(this._scene, this._camera);
+		};
+
+		this._sceneBg = sceneBg;
+		MPlayPage._sceneBg = sceneBg;
+	};
+
+	MPlayPage.prototype._setBlurBgEffect = function(params) {
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var duration = 2000;
+		var targetBlurH = 2 / width;
+		var targetBlurV = 2 / height;
+		var vignetteOffset = 0.95;
+		var vignetteDarkness = 1.6;
+		var pageObj = this;
+
+		params = params || {};
+
+		if(params.clear) {
+			targetBlurH = 0;
+			targetBlurV = 0;
+			vignetteOffset = 0;
+			vignetteDarkness = 0;
+		}
+
+		var t1 = new TWEEN.Tween(MPlayPage._hblur)
+			.to({
+				value: targetBlurH,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t1.start();
+		var t2 = new TWEEN.Tween(MPlayPage._vblur)
+			.to({
+				value: targetBlurV,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t2.start();
+		var t3 = new TWEEN.Tween(MPlayPage._vignetteOffset)
+			.to({
+				value: vignetteOffset,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t3.start();
+		var t4 = new TWEEN.Tween(MPlayPage._vignetteDarkness)
+			.to({
+				value: vignetteDarkness,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t4.start();
 	};
 
 	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
@@ -321,8 +427,30 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._onLoad = function() {
 		this._initPhoneNotification();
 
+		if (!MPlayPage._isBgProcessingInit) {
+			this._initBgProcessing();
+			MPlayPage._isBgProcessingInit = true;
+		}else{
+			this._sceneBg = MPlayPage._sceneBg;
+		}
+
 		GNOVEL.Page.prototype._onLoad.call(this);
 	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._onUnload = function() {
+		
+		// remove all backgrounds from the scene hierarchy
+		this._sceneBg.remove(this._bg);
+
+		for(var i=0;i<this._bgs.length;i++) {
+			this._sceneBg.remove(this._bgs[i]);
+		}
+
+		GNOVEL.Page.prototype._onUnload.call(this);
+	};	
 
 	/**
 	 * @override
@@ -431,6 +559,13 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params.jumpArr = jumpArr;
 
+		this._setBlurBgEffect();
+		var pageObj = this;
+
+		params.onChoiceComplete = function() {
+			pageObj._setBlurBgEffect({clear:true});
+		};
+
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
 	};
 
@@ -493,7 +628,7 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showDialog = function(message, x, y, params) {
 		params = params || {};
-		var flowElement = params.flowElement;
+		var flowElement = params.flowElement;		
 
 		var speaker = flowElement.speaker;
 		var relationshipScore = this._relationshipManager.getRelationship(speaker);
@@ -687,6 +822,11 @@ var MPLAY = MPLAY || {};
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background2);
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+
+		this._bgs.push(background2);
 	};
 
 	MPlayPage.prototype.setupUcBackground = function() {
@@ -697,22 +837,38 @@ var MPLAY = MPLAY || {};
 
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background3);
+
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+		this._sceneBg.add(background3);
+
+		this._bgs.push(background2);
+		this._bgs.push(background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/caf full png.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupOfficeBackground = function() {
@@ -723,6 +879,13 @@ var MPLAY = MPLAY || {};
 
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background3);
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+		this._sceneBg.add(background3);
+
+		this._bgs.push(background2);
+		this._bgs.push(background3);
 	};
 
 	MPlayPage.prototype.getIntegrityManager = function() {

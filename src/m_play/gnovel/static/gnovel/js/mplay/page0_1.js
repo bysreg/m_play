@@ -227,6 +227,8 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0_1.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 
 		if (this._owner._ambient != null) {

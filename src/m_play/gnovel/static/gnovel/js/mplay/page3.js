@@ -650,6 +650,8 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page3.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
