@@ -51,8 +51,9 @@ var MPLAY = MPLAY || {};
 		// 	this._initChars();
 		// }
 
-		// for postprocessing
+		// for background postprocessing
 		this._sceneBg = null;
+		this._bgs = [];
 
 		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
@@ -80,6 +81,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
 	MPlayPage._phoneInteraction = null;
+	MPlayPage._sceneBg = null;
 
 	// characters stored as class static variable
 	// so that we can reuse it throughout the pages
@@ -244,9 +246,10 @@ var MPLAY = MPLAY || {};
 		};
 
 		this._sceneBg = sceneBg;
+		MPlayPage._sceneBg = sceneBg;
 	};
 
-	MPlayPage.prototype._setBlurBgEffect = function(clear) {
+	MPlayPage.prototype._setBlurBgEffect = function(params) {
 		var width = this._owner._getWidth();
 		var height = this._owner._getHeight();
 		var duration = 2000;
@@ -256,7 +259,9 @@ var MPLAY = MPLAY || {};
 		var vignetteDarkness = 1.6;
 		var pageObj = this;
 
-		if(clear) {
+		params = params || {};
+
+		if(params.clear) {
 			targetBlurH = 0;
 			targetBlurV = 0;
 			vignetteOffset = 0;
@@ -421,10 +426,27 @@ var MPLAY = MPLAY || {};
 		if (!MPlayPage._isBgProcessingInit) {
 			this._initBgProcessing();
 			MPlayPage._isBgProcessingInit = true;
+		}else{
+			this._sceneBg = MPlayPage._sceneBg;
 		}
 
 		GNOVEL.Page.prototype._onLoad.call(this);
 	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._onUnload = function() {
+		
+		// remove all backgrounds from the scene hierarchy
+		this._sceneBg.remove(this._bg);
+
+		for(var i=0;i<this._bgs.length;i++) {
+			this._sceneBg.remove(this._bgs[i]);
+		}
+
+		GNOVEL.Page.prototype._onUnload.call(this);
+	};	
 
 	/**
 	 * @override
@@ -537,7 +559,7 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 
 		params.onChoiceComplete = function() {
-			pageObj._setBlurBgEffect(true);
+			pageObj._setBlurBgEffect({clear:true});
 		};
 
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
@@ -793,6 +815,11 @@ var MPLAY = MPLAY || {};
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background2);
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+
+		this._bgs.push(background2);
 	};
 
 	MPlayPage.prototype.setupUcBackground = function() {
@@ -808,22 +835,33 @@ var MPLAY = MPLAY || {};
 		this._sceneBg.add(this._bg);
 		this._sceneBg.add(background2);
 		this._sceneBg.add(background3);
+
+		this._bgs.push(background2);
+		this._bgs.push(background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/caf full png.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
+
+		this._sceneBg.add(this._bg);
 	};
 
 	MPlayPage.prototype.setupOfficeBackground = function() {
@@ -834,6 +872,13 @@ var MPLAY = MPLAY || {};
 
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background3);
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+		this._sceneBg.add(background3);
+
+		this._bgs.push(background2);
+		this._bgs.push(background3);
 	};
 
 	MPlayPage.prototype.getIntegrityManager = function() {

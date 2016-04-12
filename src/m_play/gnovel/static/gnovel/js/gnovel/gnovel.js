@@ -339,8 +339,10 @@ var GNOVEL = GNOVEL || {};
 		var nextPageObj = this._pageRootObject[pageIndex];
 		var transition = new GNOVEL.Transition(1000);
 		var gnovel = this;
-		var nextPageBG = new THREE.Mesh(nextPageObj.children[0].geometry, nextPageObj.children[0].material);
-		nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,nextPageObj.children[0].position.z);
+		var nextPageBG = new THREE.Mesh(nextPage.getBackground().geometry, nextPage.getBackground().material);
+		nextPageBG.position.set(nextPage.getBackground().position.x, 
+								nextPage.getBackground().position.y, 
+								nextPage.getBackground().position.z);
 
 		gnovel._scene.add(this.transitionPanel);
 		gnovel._scene.add(nextPageBG);

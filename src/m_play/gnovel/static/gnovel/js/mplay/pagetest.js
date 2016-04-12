@@ -52,7 +52,7 @@ var MPLAY = MPLAY || {};
 			
 			// ryan - left
 			// {type: "show",  position:"left", img: ryan, waitUntilShown: false},
-			{type: "show",  position:"left", img: ryan, expression: "happy", waitUntilShown: false},
+			// {type: "show",  position:"left", img: ryan, expression: "happy", waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "thoughtful", waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "angry", waitUntilShown: false},
@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 			// ryan - right
 			// {type: "show",  position:"right", img: ryan, waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "happy", waitUntilShown: false},
-			{type: "show",  position:"right", img: ryan, expression: "sad", waitUntilShown: false},
+			// {type: "show",  position:"right", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "thoughtful", waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "angry", waitUntilShown: false},
 
@@ -89,6 +89,15 @@ var MPLAY = MPLAY || {};
 			// {type: "show",  position:"right", img: professor, expression: "happy", waitUntilShown: false},
 			// {type: "show",  position:"right", img: professor, expression: "sad", waitUntilShown: false},
 
+			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
+
+			{type: "choices",
+				choices :
+					[{text: "Yeah!  Thanks again for forwarding my resume.",
+						go: "#cheers"},
+					{text : "Psyched to be working with you, Ryan!",
+						relationship: {name: this._ryan, score: 1},
+						go: "#cheers"}]},
 		];
 
 		return o;

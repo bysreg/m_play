@@ -87,6 +87,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
