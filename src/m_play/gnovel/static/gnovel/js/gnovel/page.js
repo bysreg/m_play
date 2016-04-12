@@ -473,7 +473,7 @@ var GNOVEL = GNOVEL || {};
 		if(this._showingFilter == false)
 		{
 			this._addToScene(params.convoFilter);
-			this._showingFilter = false;
+			this._showingFilter = true;
 		}
 		/*if(this._findInScene("convoFilter") != true)
 		{
@@ -512,6 +512,7 @@ var GNOVEL = GNOVEL || {};
 		//check if we no longer in conversation
 		if(params.nextElement.type != "show"){
 				params.removeFilter = true;
+				this._showingFilter = false;
 			}
 
 		this.tweenMat(obj, {
@@ -524,7 +525,9 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 					pageObj._removeFromScene(obj);
-					pageObj._removeFromScene(params.convoFilter);
+					if(pageObj._showingFilter == false)
+						pageObj._removeFromScene(params.convoFilter);
+				//	pageObj._showingFilter = false;
 				}
 			},
 			duration: params.duration || 800,
@@ -535,7 +538,9 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 			pageObj._removeFromScene(obj);
-			pageObj._removeFromScene(params.convoFilter);
+			if(pageObj._showingFilter == false)
+				pageObj._removeFromScene(params.convoFilter);
+			//pageObj._showingFilter = false;
 		}
 	};
 
