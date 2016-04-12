@@ -94,6 +94,11 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isBgProcessingInit = false;
 	MPlayPage._anims = {};
 
+	MPlayPage._hblur = null;
+	MPlayPage._vblur = null;
+	MPlayPage._vignetteOffset = null;
+	MPlayPage._vignetteDarkness = null;
+
 	MPlayPage.prototype._initChars = function() {
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
@@ -201,12 +206,16 @@ var MPLAY = MPLAY || {};
 		effectHBlur.uniforms['h'].value = 0; // 2 / width
 		effectVBlur.uniforms['v'].value = 0; // 2 / height
 		effectVBlur.renderToScreen = false;
+		MPlayPage._hblur = effectHBlur.uniforms['h'];
+		MPlayPage._vblur = effectVBlur.uniforms['v'];
 
 		var shaderVignette = THREE.VignetteShader;
 		var effectVignette = new THREE.ShaderPass(shaderVignette);
 		effectVignette.uniforms["offset"].value = 0; // 0.95
 		effectVignette.uniforms["darkness"].value = 0; // 1.6
 		effectVignette.renderToScreen = true;
+		MPlayPage._vignetteOffset = effectVignette.uniforms["offset"];
+		MPlayPage._vignetteDarkness = effectVignette.uniforms["darkness"];
 
 		// background processing render target parameters
 		var bgRtParameters = {
@@ -214,7 +223,6 @@ var MPLAY = MPLAY || {};
 			magFilter: THREE.LinearFilter,
 			format: THREE.RGBFormat,
 			stencilBuffer: true,
-			depthBuffer: false
 		};
 
 		var renderBgPass = new THREE.RenderPass(sceneBg, this._owner.getCamera());
@@ -225,17 +233,60 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(renderBgPass);
 		sceneBgComposer.addPass(effectHBlur);
 		sceneBgComposer.addPass(effectVBlur);
-		sceneBgComposer.addPass(effectVignette);		
+		sceneBgComposer.addPass(effectVignette);
 
 		// override gnovel's render function
 		this._owner._render = function() {
 			this._renderer.clear();
-			sceneBgComposer.render(0.01);			
-			this._renderer.clear(false, true, false);
+			sceneBgComposer.render(0.01);
+			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
 		};
 
 		this._sceneBg = sceneBg;
+	};
+
+	MPlayPage.prototype._setBlurBgEffect = function(clear) {
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var duration = 2000;
+		var targetBlurH = 2 / width;
+		var targetBlurV = 2 / height;
+		var vignetteOffset = 0.95;
+		var vignetteDarkness = 1.6;
+		var pageObj = this;
+
+		if(clear) {
+			targetBlurH = 0;
+			targetBlurV = 0;
+			vignetteOffset = 0;
+			vignetteDarkness = 0;
+		}
+
+		var t1 = new TWEEN.Tween(MPlayPage._hblur)
+			.to({
+				value: targetBlurH,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t1.start();
+		var t2 = new TWEEN.Tween(MPlayPage._vblur)
+			.to({
+				value: targetBlurV,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t2.start();
+		var t3 = new TWEEN.Tween(MPlayPage._vignetteOffset)
+			.to({
+				value: vignetteOffset,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t3.start();
+		var t4 = new TWEEN.Tween(MPlayPage._vignetteDarkness)
+			.to({
+				value: vignetteDarkness,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t4.start();
 	};
 
 	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
@@ -482,6 +533,13 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params.jumpArr = jumpArr;
 
+		this._setBlurBgEffect();
+		var pageObj = this;
+
+		params.onChoiceComplete = function() {
+			pageObj._setBlurBgEffect(true);
+		};
+
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
 	};
 
@@ -544,7 +602,7 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showDialog = function(message, x, y, params) {
 		params = params || {};
-		var flowElement = params.flowElement;
+		var flowElement = params.flowElement;		
 
 		var speaker = flowElement.speaker;
 		var relationshipScore = this._relationshipManager.getRelationship(speaker);
