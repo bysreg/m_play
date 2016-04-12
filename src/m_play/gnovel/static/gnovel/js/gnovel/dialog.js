@@ -278,6 +278,7 @@ var GNOVEL = GNOVEL || {};
 				}
 			}
 		} else {
+
 			if (dialog._params.onComplete != null) {
 				dialog._params.onComplete(dialog);
 			}

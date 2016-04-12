@@ -26,6 +26,7 @@ var GNOVEL = GNOVEL || {};
 		this._preSpeaker = null;
 
 		this._result = {};
+		this._showingFilter=false;
 
 		// layers
 		this._backgroundLayer = 0;
@@ -403,6 +404,11 @@ var GNOVEL = GNOVEL || {};
 		this._owner._addToScene(this, o);
 	};
 
+	Page.prototype._findInScene = function(name){
+		return this._owner._findInScene(this,name);
+
+	};
+
 	Page.prototype._getRootObject = function() {
 		return this._owner._getPageRootObject(this);
 	};
@@ -463,6 +469,17 @@ var GNOVEL = GNOVEL || {};
 			this._addToScene(obj);
 		}
 
+		//checks if conversation filter already showing on page
+		if(this._showingFilter == false)
+		{
+			this._addToScene(params.convoFilter);
+			this._showingFilter = false;
+		}
+		/*if(this._findInScene("convoFilter") != true)
+		{
+			this._addToScene(params.convoFilter);
+		}*/
+
 		this.tweenMat(obj, {
 			opacity: 1,
 			easing: TWEEN.Easing.Cubic.Out,
@@ -491,6 +508,12 @@ var GNOVEL = GNOVEL || {};
 		if (params.waitUntilHidden != null) {
 			waitUntilHidden = params.waitUntilHidden;
 		}
+
+		//check if we no longer in conversation
+		if(params.nextElement.type != "show"){
+				params.removeFilter = true;
+			}
+
 		this.tweenMat(obj, {
 			opacity: 0,
 			easing: TWEEN.Easing.Cubic.Out,
@@ -501,6 +524,7 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 					pageObj._removeFromScene(obj);
+					pageObj._removeFromScene(params.convoFilter);
 				}
 			},
 			duration: params.duration || 800,
@@ -511,6 +535,7 @@ var GNOVEL = GNOVEL || {};
 			pageObj._flow._next();
 			pageObj._flow._exec();
 			pageObj._removeFromScene(obj);
+			pageObj._removeFromScene(params.convoFilter);
 		}
 	};
 
@@ -537,7 +562,6 @@ var GNOVEL = GNOVEL || {};
 
 				pageObj._flow._exec();
 			}
-
 			// if params.onChoiceComplete is undefined or null (or falsy)
 			if(!params.onChoiceComplete) {
 				params.onChoiceComplete = onChoiceComplete;

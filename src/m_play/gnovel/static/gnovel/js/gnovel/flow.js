@@ -221,6 +221,7 @@ var GNOVEL = GNOVEL || {};
 
 		// pass the original flow element to params
 		params.flowElement = obj;
+		params.nextElement = this._peekNext();
 
 		//get speaker
 		params.speaker = obj.speaker;
@@ -250,12 +251,15 @@ var GNOVEL = GNOVEL || {};
 		// pass the original flow element to params
 		params.flowElement = obj;
 
+
 		this._page._show(img, params);
 	};
 
 	Flow.prototype._handleHide = function(obj) {
 		var img = obj.img;
 		var params = {};
+		//see what the next flow will be
+		params.nextElement = this._peekNext();
 
 		if(obj.waitUntilHidden != null) {
 			params.waitUntilHidden = obj.waitUntilHidden;

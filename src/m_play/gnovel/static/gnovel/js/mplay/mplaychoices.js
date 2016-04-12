@@ -196,8 +196,9 @@ var MPLAY = MPLAY || {};
 
 				//display visual notification of integrity choice
 				console.log("They will remember this");
-				var compass = pageObj.createImage("/static/gnovel/res/textures/compass_sm.png", new THREE.Vector3(-500, 250, pageObj._uiLayer - 40), 100, 100);
+				var compass = pageObj.createImage("/static/gnovel/res/textures/ui/compass_sm.png", new THREE.Vector3(-400, 250, pageObj._uiLayer - 40), 100, 100);
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
+				compass.material.opacity = 0;
 				pageObj._addToScene(compass);
 
 				pageObj.tweenMat(compass, {

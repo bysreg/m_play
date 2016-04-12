@@ -195,6 +195,14 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject[page.getPageId()].remove(o);
 	};
 
+	Gnovel.prototype._findInScene = function(page, name) {
+		if(this._pageRootObject[page.getPageId()].getObjectByName(name) != "undefined")
+			return true;
+		else {
+			return false;
+		}
+	};
+
 	Gnovel.prototype._onMouseDown = function(event) {
 
 		this._soundManager.play("Clicking");
@@ -259,6 +267,7 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		this._preloadPage = true;
 		page._onLoad();
+		this._scene.add(this._pageRootObject[page.getPageId()]);
 	}
 
 	//main load function that sets page properties and starts next scene
@@ -346,14 +355,14 @@ var GNOVEL = GNOVEL || {};
 		//nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,0);
 
 		gnovel._scene.add(this.transitionPanel);
-		gnovel._scene.add(nextPageBG);
+		//gnovel._scene.add(nextPageBG);
 
 
 		//gnovel._camera = gnovel._cameraTrans;
-		transition.run(curPage, nextPageBG,this.transitionPanel, {
+		transition.run(curPage, nextPageObj,this.transitionPanel, {
 			onComplete : function() {
 				//gnovel._load(nextPage);
-				gnovel._onPageTransitionComplete(gnovel, nextPage, nextPageBG);
+				gnovel._onPageTransitionComplete(gnovel, nextPage, nextPageObj);
 				},
 			onUpdate : function() {
 			}, gnovel
@@ -378,7 +387,7 @@ var GNOVEL = GNOVEL || {};
 		gnovelObj._scene.remove(this.transitionPanel);
 		//resert panel position
 		this.transitionPanel.position.set(0,0,-100);
-		gnovelObj._scene.remove(nextPageBG);
+		//gnovelObj._scene.remove(nextPageBG);
 		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
 		//start flow of next page
 		_onStart(page);

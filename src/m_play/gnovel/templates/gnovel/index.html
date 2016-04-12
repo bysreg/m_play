@@ -7,8 +7,8 @@
 		<title>Morality Play</title>
 
 		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
-		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>	
-		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>		
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
 
 		<!-- Third Party library files -->
 		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
@@ -72,7 +72,7 @@
 		<script src="{% static 'gnovel/js/mplay/pageending.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/pagetest.js' %}"></script>
 
-		<script id="blur.fs" type="x-shader/x-fragment">			
+		<script id="blur.fs" type="x-shader/x-fragment">
 			varying vec2 v_uv;
 
 			uniform sampler2D texture0;
@@ -93,7 +93,7 @@
 		</script>
 
 		<script id="blur.vs" type="x-shader/x-vertex">
-			
+
 			varying vec2 v_uv;
 
 			void main()
@@ -144,7 +144,7 @@
 				});
 
 				// add pages
-				gnovel.addPage("scene 1", MPLAY.Page0);
+				//gnovel.addPage("scene 1", MPLAY.Page0);
 				gnovel.addPage("scene 1.b", MPLAY.Page0_1);
 				gnovel.addPage("scene 2.a", MPLAY.Page1_0);
 				gnovel.addPage("scene 2.b", MPLAY.Page1_1);

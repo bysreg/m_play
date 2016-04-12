@@ -46,6 +46,9 @@ var MPLAY = MPLAY || {};
 		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
+		//filter for conversations
+		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter.png", new THREE.Vector3(12, 0, this._characterLayer-30), 1720, 980);
+		this._convoFilter.name = "convoFilter";
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
 		// 	this._initChars();
@@ -561,6 +564,7 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 		var pageObj = this;
 		var isChar = false;
+		params.convoFilter = this._convoFilter;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
 		var position = params.flowElement.position;
@@ -644,6 +648,8 @@ var MPLAY = MPLAY || {};
 		params = params || {};
 
 		var img = obj;
+		params.convoFilter = this._convoFilter;
+		params.removeFilter = false;
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character) {
@@ -928,6 +934,27 @@ var MPLAY = MPLAY || {};
 		//var dialog = new GNOVEL.Dialog(flow._getPage(), message, x, y, params);
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
+
+	MPlayPage.prototype.showBgFilter = function() {
+ 		//can also use this._background3Layer for the z-position
+ 		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._choicesLayer-20), 1430, 830);
+ 		this._filter.material.opacity = 0;
+ 		this._addToScene(this._filter);
+
+ 		//play animation effect for filter
+ 		this.tweenFlash(this._filter,{
+ 			opacityTo: 0.5,
+ 			opacityFrom:0.2,
+ 			duration: 2000,
+ 			easing: TWEEN.Easing.Linear.Out,
+ 			easingFrom:TWEEN.Easing.Linear.In
+ 		});
+ 	};
+
+ 	MPlayPage.prototype.hideBgFilter = function() {
+ 		this._removeFromScene(this._filter);
+ 	};
+
 
 	MPLAY.MPlayPage = MPlayPage;
 

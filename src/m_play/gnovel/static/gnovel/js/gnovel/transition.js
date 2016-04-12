@@ -33,6 +33,7 @@ var GNOVEL = GNOVEL || {};
 		var curPageRootObj = currentPage._getRootObject();
 		//var nextPageRootObj = nextPage._getRootObject();
 		var nextPageRootObj = nextPage;
+		//nextPageRootObj.position.set(100,nextPageRootObj.position);
 
 		//params.duration = this.time;
 		var outPos = {};
@@ -49,7 +50,7 @@ var GNOVEL = GNOVEL || {};
 
 		//Right to Left transition!!
 		transition.isOnCompleteAdded = false;
-		nextPageRootObj.position.x = gnovelWidth;
+		nextPageRootObj.position.x = gnovelWidth+50;
 		nextPageRootObj.position.y = 0;
 		//nextPageRootObj.position.z = -580;
 		//nextPageRootObj.position.x = curPageRootObj.position.x;
@@ -58,10 +59,10 @@ var GNOVEL = GNOVEL || {};
 		inPos.x = 0;
 		inPos.y = 0;
 		inPos.z = -80;
-		outPos.x = -gnovelWidth-100;
+		outPos.x = -gnovelWidth-50;
 		outPos.y = 0;
 		outPos.z = -500;
-		bgInPos.x = -gnovelWidth-200;
+		bgInPos.x = -gnovelWidth-100;
 		bgInPos.y = 0;
 		bgInPos.z = -200;
 		//var inScale = {x:1, y:1};
