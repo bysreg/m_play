@@ -355,6 +355,7 @@ var GNOVEL = GNOVEL || {};
 		var transition = new GNOVEL.Transition(1000);
 		var gnovel = this;
 		var nextPageBG = new THREE.Object3D();
+
 		//if there are layers to BG, add them all nextPageBG object for transition
 		//for(var i = 0;i<nextPageObj.children.length;i++){
 		//	nextPageBG.add(new THREE.Mesh(nextPageObj.children[i].geometry, nextPageObj.children[i].material));
