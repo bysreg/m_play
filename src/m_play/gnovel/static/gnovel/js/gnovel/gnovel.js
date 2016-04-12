@@ -32,6 +32,8 @@ var GNOVEL = GNOVEL || {};
 		this._started = false; // will be true if onStart is finished
 		this._savedData = {};
 		this._onMouseDownProcessing = false;
+		this._width = null;
+		this._height = null;
 
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
 		this._renderer = null;
@@ -120,8 +122,8 @@ var GNOVEL = GNOVEL || {};
 		var render = function () {
 			requestAnimationFrame(render);
 			TWEEN.update();
-			gnovel._renderer.render(scene, camera);
 
+			gnovel._render();			
 			gnovel._update();
 
 			if(gnovel._stats !== null) {
@@ -147,6 +149,10 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
+	Gnovel.prototype._render = function() {
+		this._renderer.render(this._scene, this._camera);
+	};
+
 	Gnovel.prototype._onWindowResize = function(event) {
 		var aspect_ratio = window.innerWidth / window.innerHeight;
 
@@ -159,6 +165,9 @@ var GNOVEL = GNOVEL || {};
 			this._cameraCanvas.width = window.innerWidth;
 			this._cameraCanvas.height = (9/16) * this._cameraCanvas.width;
 		}
+
+		this._width = this._cameraCanvas.width;
+		this._height = this._cameraCanvas.height;
 
 		this._renderer.setSize(this._cameraCanvas.width, this._cameraCanvas.height);
 	}
@@ -425,7 +434,19 @@ var GNOVEL = GNOVEL || {};
 		//console.log();
 		mouse.x = ((mouse.x - rect.left)/ this._renderer.domElement.clientWidth) * 2 - 1;
 		mouse.y = -((mouse.y - rect.top)/ this._renderer.domElement.clientHeight) * 2 + 1;
-	}
+	};
+
+	Gnovel.prototype._getRenderer = function() {
+		return this._renderer;
+	};
+
+	Gnovel.prototype._getWidth = function() {
+		return this._width;
+	};
+
+	Gnovel.prototype._getHeight = function() {
+		return this._height;
+	};
 
 	GNOVEL.Gnovel = Gnovel;
 }());

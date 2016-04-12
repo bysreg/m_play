@@ -51,6 +51,9 @@ var MPLAY = MPLAY || {};
 		// 	this._initChars();
 		// }
 
+		// for postprocessing
+		this._sceneBg = null;
+
 		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
 		} else {
@@ -88,6 +91,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isAnimInit = false;
 	MPlayPage._animCount = 0;
 	MPlayPage._loadedAnimCount = 0;
+	MPlayPage._isBgProcessingInit = false;
 	MPlayPage._anims = {};
 
 	MPlayPage.prototype._initChars = function() {
@@ -186,6 +190,63 @@ var MPLAY = MPLAY || {};
 		}
 
 		MPlayPage._isAnimInit = true;
+	};
+
+	MPlayPage.prototype._initBgProcessing = function() {
+		var sceneBg = new THREE.Scene();
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var effectHBlur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+		var effectVBlur = new THREE.ShaderPass(THREE.VerticalBlurShader);
+		effectHBlur.uniforms['h'].value = 2 / width;
+		effectVBlur.uniforms['v'].value = 2 / height;
+		effectVBlur.renderToScreen = false;
+		// effectHBlur.camera = this._owner.getCamera();
+		// effectVBlur.camera = this._owner.getCamera();
+		
+		var shaderVignette = THREE.VignetteShader;
+		var effectVignette = new THREE.ShaderPass( shaderVignette );
+		effectVignette.uniforms[ "offset" ].value = 0.95;
+		effectVignette.uniforms[ "darkness" ].value = 1.6;
+		effectVignette.renderToScreen = true;
+
+		var clearMask = new THREE.ClearMaskPass();
+		var renderMaskInverse = new THREE.MaskPass( this._owner._scene, this._owner.getCamera());
+		renderMaskInverse.inverse = true;
+
+		var rtParameters = {
+			minFilter: THREE.LinearFilter,
+			magFilter: THREE.LinearFilter,
+			format: THREE.RGBFormat,
+			stencilBuffer: true,
+			depthBuffer: false
+		};
+
+		var renderBgPass = new THREE.RenderPass(sceneBg, this._owner.getCamera());
+		renderBgPass.clear = true;
+
+		var renderOtherPass = new THREE.RenderPass(this._owner._scene, this._owner.getCamera());
+		renderOtherPass.clear = false;
+
+		var sceneComposer = new THREE.EffectComposer(this._owner._getRenderer(), new THREE.WebGLRenderTarget(width, height, rtParameters));
+
+		sceneComposer.addPass(renderBgPass);	
+		// sceneComposer.addPass(renderOtherPass);		
+		// sceneComposer.addPass(renderMaskInverse);	
+		sceneComposer.addPass(effectHBlur);
+		sceneComposer.addPass(effectVBlur);
+		sceneComposer.addPass( clearMask );
+		sceneComposer.addPass(renderOtherPass);
+		sceneComposer.addPass(effectVignette);
+
+		// override gnovel's render function
+		this._owner._render = function() {
+			this._renderer.clear();
+			sceneComposer.render(0.01);
+			// this._renderer.render(this._scene, this._camera);
+		};
+
+		this._sceneBg = sceneBg;
 	};
 
 	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
@@ -316,6 +377,11 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._onLoad = function() {
 		this._initPhoneNotification();
+
+		if (!MPlayPage._isBgProcessingInit) {
+			this._initBgProcessing();
+			MPlayPage._isBgProcessingInit = true;
+		}
 
 		GNOVEL.Page.prototype._onLoad.call(this);
 	};
@@ -690,6 +756,11 @@ var MPLAY = MPLAY || {};
 
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		this._addToScene(background3);
+
+
+		this._sceneBg.add(this._bg);
+		this._sceneBg.add(background2);
+		this._sceneBg.add(background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
