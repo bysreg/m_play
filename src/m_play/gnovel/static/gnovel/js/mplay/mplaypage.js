@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 		this._ioNumber = 0; // io stands for interactable object
 
 		//filter for conversations
-		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter.png", new THREE.Vector3(0, 0, this._characterLayer-30), 1820, 1080);
+		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer-30), 1820, 1080);
 		this._convoFilter.name = "convoFilter";
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
