@@ -58,7 +58,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, position: "right"},
 			{type: "dialog", speaker: this._priya, text: "He told me he has to talk to Prof. Sweeney to sort it out. Good thing you didn’t use it too."},
 			{type: "dialog", speaker: this._cat, text: "Yeah and good thing he didn't tell the professor that you saw the exam too - you'd be in trouble with him."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparepriya1"},
 			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-priya1", goFalse: "#neg-priya1"},
@@ -79,7 +79,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "You're lucky he didn't tell the professor that you saw the exam too - you'd be in trouble with him."},
 			{type: "show", img: priya, expression: "angry", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "I guess you're in the clear."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-priya1"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
@@ -101,7 +101,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
 			{type: "show", img: priya, position: "right"},
 			{type: "dialog", speaker: this._priya, text: "Let's hope."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 		];
 
 		return o;

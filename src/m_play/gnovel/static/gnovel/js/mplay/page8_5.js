@@ -129,7 +129,7 @@ var MPLAY = MPLAY || {};
 				text: player + "- how did it go?  Sweeney is giving me a 0 on the final.  I’m waiting to hear if he will report it to the dean… I’m sorry I dragged you into this."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
@@ -147,7 +147,7 @@ var MPLAY = MPLAY || {};
 				text: "Sweeney is giving me a 0 on the final – u?  I’m waiting to hear if he will report it to the dean…"},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			// phone exchange begins
@@ -162,7 +162,7 @@ var MPLAY = MPLAY || {};
 				text: "Sweeney is giving me a 0 on the final.  I’m waiting to hear if he will report it to the dean.  I can’t believe we were so stupid."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 		];
 
 		return o;

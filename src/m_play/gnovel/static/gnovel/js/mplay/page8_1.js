@@ -90,7 +90,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened.  You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too."},
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
@@ -103,7 +103,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too."},
 			{type: "dialog", speaker: this._cat, text: "It’s going to be an awkward conversation with his job if he fails the class.  I hope it works out."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
@@ -112,7 +112,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  He was an idiot."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 		];
 
 		return o;

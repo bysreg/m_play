@@ -106,7 +106,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
 			{type: "dialog", speaker: this._cat, text: "I think I’m going to stick with my business classes next semester…  Ready to hit the gym?"},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
@@ -118,7 +118,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  It’s a bit dramatic, don’t you think?  Let’s hit the gym."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
@@ -127,7 +127,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This is all too dramatic for me."},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 		];
 
 		return o;
