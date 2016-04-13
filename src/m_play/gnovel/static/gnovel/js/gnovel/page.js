@@ -19,6 +19,7 @@ var GNOVEL = GNOVEL || {};
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
 		this._interactableObjects = [];
+		this._multiTracksPlayer = null;
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -36,6 +37,9 @@ var GNOVEL = GNOVEL || {};
 		// ambient plays at next page
 		this._nextAmbient = null;
 		this._waitForTransition = true;
+
+		this._multiTracksPlayer = new GNOVEL.MultiTracksPlayer(this);
+
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -424,6 +428,7 @@ var GNOVEL = GNOVEL || {};
 
 	// will be called each frame, after onLoad and onStart complete
 	Page.prototype._update = function() {
+		
 	};
 
 	// will be called after onStart called
@@ -629,6 +634,16 @@ var GNOVEL = GNOVEL || {};
 			pageObj._owner._ambient.stop();
 			pageObj._owner._ambient = null;
 		};
+	};
+
+
+ 	Page.prototype._setMultiTracksPlayer = function() {
+		this._multiTracksPlayer.setPlaylist(this._createRandomPlaylist());
+	};
+
+	Page.prototype._createRandomPlaylist = function() {
+
+		return {};
 	};
 
 

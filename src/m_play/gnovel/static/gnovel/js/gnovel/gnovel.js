@@ -42,6 +42,8 @@ var GNOVEL = GNOVEL || {};
 		this._renderer = null;
 		this._preloadPage = false;
 
+		this._clock = new THREE.Clock();
+
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
 					// SFX UI
@@ -305,6 +307,7 @@ var GNOVEL = GNOVEL || {};
 	function _onStart(pageObj) {
 		pageObj._onStart();
 		pageObj._runFlow();
+		pageObj._setMultiTracksPlayer();
 	};
 
 	Gnovel.prototype._unload = function(page) {
@@ -448,7 +451,11 @@ var GNOVEL = GNOVEL || {};
 		//console.log();
 		mouse.x = ((mouse.x - rect.left)/ this._renderer.domElement.clientWidth) * 2 - 1;
 		mouse.y = -((mouse.y - rect.top)/ this._renderer.domElement.clientHeight) * 2 + 1;
-	}
+	};
+
+	Gnovel.prototype.getClock = function() {
+		return this._clock;
+	};
 
 	GNOVEL.Gnovel = Gnovel;
 }());

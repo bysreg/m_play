@@ -58,7 +58,7 @@ var GNOVEL = GNOVEL || {};
 
 		inPos.x = 0;
 		inPos.y = 0;
-		inPos.z = -80;
+		inPos.z = 0;
 		outPos.x = -gnovelWidth-50;
 		outPos.y = 0;
 		outPos.z = -500;

@@ -14,6 +14,7 @@ var MPLAY = MPLAY || {};
 		this._integrityManager = null;
 		this._relationshipManager = null;
 
+
 		// we will only have one instance of IntegrityManager
 		if (MPlayPage._integrityManager == null) {
 			this._integrityManager = new MPLAY.IntegrityManager();
@@ -141,6 +142,7 @@ var MPLAY = MPLAY || {};
 
 		// run the first flow
 		this._runFlow();
+		this._setMultiTracksPlayer();
 	};
 
 	MPlayPage.prototype._initAnim = function() {
@@ -949,7 +951,7 @@ var MPLAY = MPLAY || {};
 
 		message = obj.text;
 		var x = 0;
-		var y = -230;
+		var y = -255;
 
 		var toX;
 		var toY;
@@ -984,6 +986,9 @@ var MPLAY = MPLAY || {};
  		this._removeFromScene(this._filter);
  	};
 
+ 	MPlayPage.prototype._setMultiTracksPlayer = function() {
+ 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
+ 	};
 
 	MPLAY.MPlayPage = MPlayPage;
 

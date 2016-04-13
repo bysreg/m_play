@@ -72,7 +72,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.b"},
 		];
 
 		return o;
