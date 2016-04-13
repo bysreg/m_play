@@ -22,9 +22,6 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		// this._tweenVolumeIn();
-
 		this.setupUcBackground();
 
 		//create images
@@ -82,6 +79,15 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
+	Page0.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+					{audio: "Heyfriend-Cat", playrate: 0.2},
+					{audio: "Ohhi-Cat", playrate: 0.8},
+					];
+		return playlist;
+	};
+
 	/**
 	 * @override
 	 */
@@ -95,6 +101,10 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._onStart = function() {
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
+	};
+
+	Page0.prototype._update = function() {
+		this._multiTracksPlayer.shuffle();
 	};
 
 	MPLAY.Page0 = Page0;

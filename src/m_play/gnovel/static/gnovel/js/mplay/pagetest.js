@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 			// ryan - right
 			// {type: "show",  position:"right", img: ryan, waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "happy", waitUntilShown: false},
-			{type: "show",  position:"right", img: ryan, expression: "sad", waitUntilShown: false},
+			// {type: "show",  position:"right", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "thoughtful", waitUntilShown: false},
 			// {type: "show",  position:"right", img: ryan, expression: "angry", waitUntilShown: false},
 
@@ -73,7 +73,7 @@ var MPLAY = MPLAY || {};
 			
 
 			// priya - left
-			// {type: "show",  position:"left", img: priya, waitUntilShown: false},
+			{type: "show",  position:"right", img: priya, waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "angry", waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "happy", waitUntilShown: false},
