@@ -565,6 +565,7 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 		var pageObj = this;
 		var isChar = false;
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
 		params.convoFilter = this._convoFilter;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
@@ -596,9 +597,12 @@ var MPLAY = MPLAY || {};
 			if (position === "center" || position === "right" || position === "left") {
 				//console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
+
+				//move camera to face character position
+				cameraMove.setCamDirection(position, img.position);
 			}
 
-			//move camera to face character position
+
 		}
 
 		if (isChar && img.hasOwnProperty("oriScale")) {
