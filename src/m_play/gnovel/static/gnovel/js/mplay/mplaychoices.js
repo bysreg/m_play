@@ -243,7 +243,7 @@ var MPLAY = MPLAY || {};
 				console.log("a character will remember this");
 				//set what text should display based upon relationship score
 
-				//FIXME - STILL NEEDS TESTING
+				//FIXME - STILL NEEDS MORE TESTING
 
 				if(score > 0)
 					var charText = name + " feels good about that."
@@ -432,6 +432,7 @@ var MPLAY = MPLAY || {};
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
 			this._page._removeFromScene(this.timer2);
+			//this._page._timerInstance.stop();
 			for (var i = 0; i < this._choices.length; i++) {
 
 				if (this._choicesTextBg[i].name == intersects[0].object.name) {

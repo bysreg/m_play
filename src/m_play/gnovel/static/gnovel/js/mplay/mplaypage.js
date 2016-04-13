@@ -576,6 +576,7 @@ var MPLAY = MPLAY || {};
 			isChar = true;
 		}
 
+		//specify position of object in scene based upon character
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
@@ -591,10 +592,13 @@ var MPLAY = MPLAY || {};
 				img.position.z = this._characterLayer;
 			}
 
+			//set character position on screen
 			if (position === "center" || position === "right" || position === "left") {
 				//console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
 			}
+
+			//move camera to face character position
 		}
 
 		if (isChar && img.hasOwnProperty("oriScale")) {
