@@ -299,6 +299,7 @@ var GNOVEL = GNOVEL || {};
 		var targetSize = {x: params.x, y: params.y, z: params.z}
 		var duration = params.duration || 800;
 		var repeat = params.repeat;
+		var temporary = params.temp;
 
 		var tweenForward = new TWEEN.Tween(obj.scale)
 		.to({
@@ -312,6 +313,7 @@ var GNOVEL = GNOVEL || {};
 			tweenForward.onComplete(params.onComplete);
 		}
 		if(params.onUpdate != null){
+			if(!temporary)
 			tweenForward.onUpdate(params.onUpdate);
 		}
 		/*.onComplete(function() {
@@ -430,7 +432,7 @@ var GNOVEL = GNOVEL || {};
 
 	// will be called each frame, after onLoad and onStart complete
 	Page.prototype._update = function() {
-		
+
 	};
 
 	// will be called after onStart called

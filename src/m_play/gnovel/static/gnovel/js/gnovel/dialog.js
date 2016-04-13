@@ -184,6 +184,7 @@ var GNOVEL = GNOVEL || {};
 					x:1,y:1,z:1,
 					duration:300,
 					easing: TWEEN.Easing.Back.Out,
+					temp: this._temp,
 					onUpdate: function(){
 						//makes text come in after text box has began showing
 						if((myDialog._textBg.scale.x > .5) && !textShowing){

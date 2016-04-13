@@ -49,5 +49,10 @@ var GNOVEL = GNOVEL || {};
         tweenPos.start();
       };
 
+      CameraMove.prototype.resetCamDirection = function(){
+        var camera = this._gnovel.getCamera();
+        camera.lookAt(origin);
+      };
+
   GNOVEL.CameraMove = CameraMove;
 }());

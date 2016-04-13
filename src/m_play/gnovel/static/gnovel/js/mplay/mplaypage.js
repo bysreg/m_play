@@ -142,7 +142,7 @@ var MPLAY = MPLAY || {};
 
 		// run the first flow
 		this._runFlow();
-		this._setMultiTracksPlayer();
+		//this._setMultiTracksPlayer();
 	};
 
 	MPlayPage.prototype._initAnim = function() {

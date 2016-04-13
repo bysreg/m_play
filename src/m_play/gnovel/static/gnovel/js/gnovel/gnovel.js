@@ -307,7 +307,7 @@ var GNOVEL = GNOVEL || {};
 	function _onStart(pageObj) {
 		pageObj._onStart();
 		pageObj._runFlow();
-		pageObj._setMultiTracksPlayer();
+		//pageObj._setMultiTracksPlayer();
 	};
 
 	Gnovel.prototype._unload = function(page) {
