@@ -358,6 +358,10 @@ var GNOVEL = GNOVEL || {};
 		//nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,0);
 
 		gnovel._scene.add(this.transitionPanel);
+		if(curPage._showingFilter==true){
+			this._scene.remove(curPage.convoFilter);
+			curPage._showingFilter = false;
+		}
 		//gnovel._scene.add(nextPageBG);
 
 

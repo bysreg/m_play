@@ -224,7 +224,8 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
-			.easing(params.easing || TWEEN.Easing.Linear.None);
+			.easing(params.easing || TWEEN.Easing.Linear.None)
+			.delay(params.delay || 0);
 
 			if (params.onComplete != null && params.chain==null) {
 				tweenMatIn.onComplete(params.onComplete);
@@ -305,7 +306,8 @@ var GNOVEL = GNOVEL || {};
 		y: (params.y !== null ? targetSize.y : obj.scale.y),
 		z: (params.z !== null ? targetSize.z : obj.scale.z),
 		},duration)
-		.easing(TWEEN.Easing.Quadratic.Out);
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.delay(params.delay || 0);
 		if (params.onComplete != null) {
 			tweenForward.onComplete(params.onComplete);
 		}
@@ -477,7 +479,12 @@ var GNOVEL = GNOVEL || {};
 		//checks if conversation filter already showing on page
 		if(this._showingFilter == false)
 		{
+			params.convoFilter.material.opacity = 0;
 			this._addToScene(params.convoFilter);
+			pageObj.tweenMat(params.convoFilter, {
+				opacity: 1,
+				easing: TWEEN.Easing.Cubic.Out
+			});
 			this._showingFilter = true;
 		}
 		/*if(this._findInScene("convoFilter") != true)
@@ -530,8 +537,13 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 					pageObj._removeFromScene(obj);
-					if(pageObj._showingFilter == false)
+					if(pageObj._showingFilter == false){
+						pageObj.tweenMat(params.convoFilter, {
+							opacity: 0,
+							easing: TWEEN.Easing.Cubic.Out
+						});
 						pageObj._removeFromScene(params.convoFilter);
+					}
 				//	pageObj._showingFilter = false;
 				}
 			},
