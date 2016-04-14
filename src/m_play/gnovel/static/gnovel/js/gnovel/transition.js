@@ -12,7 +12,6 @@ var GNOVEL = GNOVEL || {};
 	 **/
 	var Transition = function(time) {
 		this.time = time || 400;
-		this.isOnCompleteAdded = true;
 
 		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/transitionPanel_plainSM.jpg");
 		var material = new THREE.MeshBasicMaterial({
@@ -22,7 +21,7 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		var plane = new THREE.PlaneBufferGeometry(6154, 3546);
-		this.transitionPanel = new THREE.Mesh(plane, material);		
+		this.transitionPanel = new THREE.Mesh(plane, material);
 	};
 
 	/**
@@ -38,29 +37,11 @@ var GNOVEL = GNOVEL || {};
 		var gnovelWidth = 1920; //params.gnovel._width;
 		var gnovelHeight = 1080; //params.gnovel._height;
 
-		var curPageRootObj = currentPage._getRootObject();
-		var nextPageRootObj = nextPage._getRootObject();
-
-		//Right to Left transition!!
-		transition.isOnCompleteAdded = false;
-		nextPageRootObj.position.x = gnovelWidth + 50;
-		nextPageRootObj.position.y = 0;
-
 		var newBgPos = {
 			x: -gnovelWidth - 200,
 			y: 0,
 			z: -630
 		};
-
-		var inPos = {};
-		inPos.x = 0;
-		inPos.y = 0;
-		inPos.z = 0;
-
-		var outPos = {};
-		outPos.x = -gnovelWidth - 50;
-		outPos.y = 0;
-		outPos.z = -500;
 
 		var bgInPos = {};
 		bgInPos.x = -gnovelWidth - 100;
@@ -91,7 +72,7 @@ var GNOVEL = GNOVEL || {};
 
 		transitionPanel.position.set(0, 0, -100);
 
-		//move transition
+		//zoom out the transition panel
 		transition.tweenZoom(transitionPanel, newBgPos, {
 			duration: duration,
 			onComplete: function() {
@@ -100,6 +81,7 @@ var GNOVEL = GNOVEL || {};
 				transition.wait({
 					onComplete: function() {
 
+						// move transition panel to the left
 						var bgTweenIn = new TWEEN.Tween(transitionPanel.position)
 							.to({
 								x: bgInPos.x,
@@ -107,11 +89,14 @@ var GNOVEL = GNOVEL || {};
 							}, duration)
 							.easing(TWEEN.Easing.Linear.None)
 							.onComplete(function() {
+
+								// zoom in transition panel 
 								transition.tweenZoom(transitionPanel, bgInPos, {
 									duration: duration,
 									onComplete: function() {
 										//remove transitionPanel
 										gnovelObj._scene.remove(transitionPanel);
+										params.onComplete();
 									}
 								}); //params passes onComplete from gnovel
 							});
@@ -121,84 +106,20 @@ var GNOVEL = GNOVEL || {};
 				});
 			}
 		});
-
-		// test
-		// move transition panel
-		// transition._move(transitionPanel, {
-		// 	duration: duration,
-		// 	easing: TWEEN.Easing.Cubic.Out,
-		// 	z: -100, 
-		// });
-
-		//zoom pages out
-		transition.tweenZoom(nextPageRootObj, outPos, {
-			duration: duration
-		});
-
-		transition.tweenZoom(curPageRootObj, outPos, {
-			duration: duration,
-			onComplete: function() {
-
-				//make previous page no longer visible
-				//curPageRootObj.visible = false;
-				//tweenIn.onComplete(function(){});
-				//Do slide and zoom in transition
-				transition.wait({
-					onComplete: function() {
-						//tween previous page and new page at same time
-						var outTarget = {
-							x: curPageRootObj.position.x + outPos.x,
-							y: curPageRootObj.position.y + outPos.y
-						};
-						var tweenOut = new TWEEN.Tween(curPageRootObj.position)
-							.to(outTarget, duration)
-							.easing(TWEEN.Easing.Linear.None);
-
-						tweenOut.start();
-						tweenIn.start();
-					}
-				});
-			}
-		});
-
-		//tween new page in
-		var tweenIn = new TWEEN.Tween(nextPageRootObj.position)
-			.to({
-				x: inPos.x,
-				y: inPos.y
-			}, duration)
-			.easing(TWEEN.Easing.Linear.None)
-			.onComplete(function() {
-				transition.tweenZoom(nextPageRootObj, inPos, params);
-				transition.tweenZoom(curPageRootObj, inPos, {});
-			});
-
-		if (params != null) {
-			if (params.onComplete != null && !this.isOnCompleteAdded) {
-				tweenIn.onComplete(params.onComplete);
-				this.isOnCompleteAdded = true;
-			}
-		}
 	}
 
 	//zoomm in-out tween
 	Transition.prototype.tweenZoom = function(obj, zoomPos, params) {
 		var transition = this;
 		var duration = params.duration;
-		var tweenZoom = new TWEEN.Tween(obj.position)
+		var tween = new TWEEN.Tween(obj.position)
 			.to({
 				z: zoomPos.z
 			}, duration)
 			.easing(TWEEN.Easing.Linear.None);
 
-		if (params.onComplete != null && !transition.isOnCompleteAdded) {
-			tweenZoom.onComplete(params.onComplete);
-			transition.isOnCompleteAdded = true;
-		} else if (params.onComplete != null) {
-			tweenZoom.onComplete(params.onComplete);
-		};
-
-		tweenZoom.start();
+		tween.onComplete(params.onComplete);
+		tween.start();
 	}
 
 	//pause tween
@@ -248,22 +169,6 @@ var GNOVEL = GNOVEL || {};
 			});
 		*/
 	}
-
-	Transition.prototype._tweenPos = function(obj, inPos, params) {
-		var duration = params.duration || 1000;
-		var target = inPos;
-		var tween = new TWEEN.Tween(obj.position)
-			.to(target, duration)
-			.easing(TWEEN.Easing.Linear.None);
-
-		if (params != null) {
-			if (params.onComplete != null && !isOnCompleteAdded) {
-				tween.onComplete(params.onComplete);
-				isOnCompleteAdded = true;
-			}
-		}
-		tween.start();
-	};
 
 	Transition.prototype._move = function(obj, params) {
 		var duration = params.duration || 1000;

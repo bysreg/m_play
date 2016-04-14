@@ -358,11 +358,15 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	function _onStart(pageObj) {
+		console.log("call onStart on page " + pageObj.getPageId());
+
 		pageObj._onStart();
 		pageObj._runFlow();
 	};
 
 	Gnovel.prototype._unload = function(page) {
+		console.log("unload page " + page.getPageId());
+
 		page._onUnload();
 
 		// remove all objects added to scene
@@ -397,7 +401,7 @@ var GNOVEL = GNOVEL || {};
 
 		this._transition.run(curPage, nextPage, {
 			onComplete: function() {
-				gnovel._onPageTransitionComplete(gnovel, nextPage);
+				gnovel._onPageTransitionComplete(nextPage);
 			},
 		});
 
@@ -414,18 +418,17 @@ var GNOVEL = GNOVEL || {};
 		this.goToPage(nextPageIndex, transitionType, transitionParam);
 	};
 
-	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj, page) {
-		
+	Gnovel.prototype._onPageTransitionComplete = function(page) {
 		// add the current page to the scene
-		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
-		
-		//start flow of next page
-		_onStart(page);
-		gnovelObj._onStart = true;
-		console.log("gnovel started");
+		this._scene.add(this._pageRootObject[page.getPageId()]);
 
 		// unload the previous page
-		gnovelObj._unload(gnovelObj._prevPage);
+		this._unload(this._prevPage);
+
+		//start flow of next page
+		_onStart(page);
+		this._onStart = true;
+		console.log("gnovel started");		
 	};
 
 	Gnovel.prototype.getCamera = function() {
