@@ -40,12 +40,12 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "R+"},
 			{type: "show", img: priya, position: "right", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "Priya still has another year left at school, but keeps in contact with both you and Ryan.  You suspect that there’s something happening between them, but you’re sure they’ll tell you when they’re ready!"},		
+			{type: "show_ed_context", text: "Priya still has another year left at school, but keeps in contact with both you and Ryan. You suspect that there’s something happening between them, but so far they’ve been pretty secretive. She no longer uses codeHub on her assignments."},		
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "R-"},
 			{type: "show", img: priya, position: "right", waitUntilShown: false},
-			{type: "show_ed_context", text: "Priya still has another year left at school, but you don’t really talk to her.  Last you heard, she wasn’t talking to Ryan much either."},
+			{type: "show_ed_context", text: "Priya still has another year left at school, but you don’t really talk to her. Last you heard, she wasn’t talking to Ryan much either."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},

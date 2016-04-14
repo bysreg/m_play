@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: professor, expression: "happy", position: "center"},
 			{type: "dialog", speaker: "Prof. Sweeney", text: "I hope you're making good progress on the projects!"},
 			{type: "dialog", speaker: "Prof. Sweeney", text: "Please make sure you get plenty of rest and build in lots of time to complete it."},
-			{type: "dialog", speaker: "Prof. Sweeney", text: "It will probably take longer than you think it will.  Dismissed."},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "It will probably take longer than you think it will."},
 
 			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
