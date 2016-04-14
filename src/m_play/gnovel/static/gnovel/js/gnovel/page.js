@@ -35,7 +35,6 @@ var GNOVEL = GNOVEL || {};
 
 		// ambient plays at next page
 		this._nextAmbient = null;
-		this._waitForTransition = true;
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -543,11 +542,6 @@ var GNOVEL = GNOVEL || {};
 			//pageObj._showingFilter = false;
 		}
 	};
-
-	Page.prototype._setWaitForTransition = function(value){
-		var pageObj = this;
-		pageObj._waitForTransition = value;
-	}
 
 	Page.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params = params || {};

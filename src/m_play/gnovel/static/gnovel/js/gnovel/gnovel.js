@@ -40,6 +40,8 @@ var GNOVEL = GNOVEL || {};
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
 		this._renderer = null;
 
+		this._transition = new GNOVEL.Transition(1000);
+
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
 			// SFX UI
@@ -170,18 +172,6 @@ var GNOVEL = GNOVEL || {};
 		var scene = this._scene;
 
 		scene.add(camera);
-
-		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/transitionPanel_plainSM.jpg");
-		var material = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			transparent: true,
-			map: texture
-		});
-		var plane = new THREE.PlaneBufferGeometry(6154, 3546);
-		// var plane = new THREE.PlaneBufferGeometry(1920, 1080);
-		this.transitionPanel = new THREE.Mesh(plane, material);
-		// this.transitionPanel.scale.set(3.2 * 0.1, 3.2 * 0.1, 1);
-		this.transitionPanel.position.set(0,0,-100);
 
 		this._renderer.setPixelRatio(window.devicePixelRatio);
 		this._renderer.autoClear = false;
@@ -403,36 +393,11 @@ var GNOVEL = GNOVEL || {};
 		//load next scene into root before showing on screen and transition
 		this._load(nextPage);	
 
-		var curPageObj = this._pageRootObject[this.getPageAt(this._curPageIdx).getPageId()];
-		var nextPageObj = this._pageRootObject[pageIndex];
-		var transition = new GNOVEL.Transition(1000);
-		var gnovel = this;
+		var gnovel = this;		
 
-		gnovel._scene.add(this.transitionPanel);
-
-		var redMaterial = new THREE.MeshBasicMaterial({
-			color: 0xff0000,
-		});
-		var blueMaterial = new THREE.MeshBasicMaterial({
-			color: 0x0000ff,
-		});
-		var plane = new THREE.PlaneBufferGeometry(192, 108);
-
-		// var curPageBg = new THREE.Mesh(plane, redMaterial);
-		// curPageBg.position.setX(10);
-		// curPageBg.position.setZ(1);
-		// curPageBg.scale.set(0.3, 0.3, 1);
-		// this.transitionPanel.add(curPageBg);
-		
-		// var nextPageBg = new THREE.Mesh(plane, blueMaterial);
-		// nextPageBg.position.setX(100 + 1090/2);
-		// nextPageBg.position.setZ(1);
-		// nextPageBg.scale.set(0.3, 0.3, 1);
-		// this.transitionPanel.add(nextPageBg);
-
-		transition.run(curPage, nextPage, this.transitionPanel, {
+		this._transition.run(curPage, nextPage, {
 			onComplete: function() {
-				gnovel._onPageTransitionComplete(gnovel, nextPage, nextPageObj);
+				gnovel._onPageTransitionComplete(gnovel, nextPage);
 			},
 		});
 
@@ -449,12 +414,7 @@ var GNOVEL = GNOVEL || {};
 		this.goToPage(nextPageIndex, transitionType, transitionParam);
 	};
 
-	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj, page, nextPageBG) {
-		//remove transitionPanel
-		gnovelObj._scene.remove(this.transitionPanel);
-
-		//resert panel position
-		this.transitionPanel.position.set(0, 0, -100);
+	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj, page) {
 		
 		// add the current page to the scene
 		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
