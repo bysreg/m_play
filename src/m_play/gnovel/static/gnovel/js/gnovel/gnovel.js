@@ -335,16 +335,6 @@ var GNOVEL = GNOVEL || {};
 		this._load(page);
 	};
 
-	//called before transition runs to get set page properties but does not start the next scene
-	Gnovel.prototype._preLoad = function(page) {
-		var pageRoot = new THREE.Object3D();
-		var gnovel = this;
-		pageRoot.name = "Page Root " + page.getPageLabel();
-		this._pageRootObject[page.getPageId()] = pageRoot;
-		page._onLoad();
-		this._scene.add(this._pageRootObject[page.getPageId()]);
-	};
-
 	//main load function that sets page properties and starts next scene
 	Gnovel.prototype._load = function(page) {
 		var pageRoot = new THREE.Object3D();
@@ -353,26 +343,28 @@ var GNOVEL = GNOVEL || {};
 		this._pageRootObject[page.getPageId()] = pageRoot;
 		page._onLoad();
 
-		this._scene.add(this._pageRootObject[page.getPageId()]);
-		// FIXME
-		// wait for several seconds
-		var o = {
-			val: 0
-		};
-		var loadDuration = 3;
-		var tween = new TWEEN.Tween(o)
-			.to({
-				val: 1,
-			}, loadDuration * 1000)
-			.onComplete(function() {
-				//if 1st page, load without panel transition btw. scenes
-				if (page._id == 0) {
+		// if it's the first page, then we add the current page right away
+		// if not, then we will add the page to the scene after the transition completed
+		if(page.getPageId() == 0) {
+			this._scene.add(this._pageRootObject[page.getPageId()]);
+
+			// FIXME
+			// wait for several seconds
+			var o = {
+				val: 0
+			};
+			var loadDuration = 3;
+			var tween = new TWEEN.Tween(o)
+				.to({
+					val: 1,
+				}, loadDuration * 1000)
+				.onComplete(function() {
 					_onStart(page);
 					gnovel._onStart = true;
 					console.log("gnovel started");
-				}
-			});
-		tween.start();
+				});
+			tween.start();
+		}		
 	};
 
 	function _onStart(pageObj) {
@@ -409,7 +401,7 @@ var GNOVEL = GNOVEL || {};
 		var nextPage = this.getPageAt(pageIndex);
 
 		//load next scene into root before showing on screen and transition
-		this._preLoad(nextPage);	
+		this._load(nextPage);	
 
 		var curPageObj = this._pageRootObject[this.getPageAt(this._curPageIdx).getPageId()];
 		var nextPageObj = this._pageRootObject[pageIndex];
