@@ -176,20 +176,25 @@ var GNOVEL = GNOVEL || {};
 				Dialog._textBg.material.opacity = 0;
 				//set scale to 0
 				Dialog._textBg.scale.set(0, 0, 1);
+				//bool that tells tween if text already showing from tween
+				var textShowing = false;
 				//pop in and scale dialog box
 				this._page.tweenPulse(Dialog._textBg,{
 					repeat: false,
 					x:1,y:1,z:1,
 					duration:300,
 					easing: TWEEN.Easing.Back.Out,
+					temp: this._temp,
 					onUpdate: function(){
 						//makes text come in after text box has began showing
-						if(myDialog._textBg.scale.x > .5){
+						if((myDialog._textBg.scale.x > .5) && !textShowing){
+							textShowing = true;
 							myDialog._page.tweenMat(myDialog._messageText, {
 								duration: 1000,
 								opacity: 1,
 								easing: TWEEN.Easing.Cubic.Out
 							});
+
 						}
 					}
 				});

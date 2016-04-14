@@ -142,7 +142,7 @@ var MPLAY = MPLAY || {};
 
 		// run the first flow
 		this._runFlow();
-		this._setMultiTracksPlayer();
+		//this._setMultiTracksPlayer();
 	};
 
 	MPlayPage.prototype._initAnim = function() {
@@ -567,6 +567,7 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 		var pageObj = this;
 		var isChar = false;
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
 		params.convoFilter = this._convoFilter;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
@@ -578,6 +579,7 @@ var MPLAY = MPLAY || {};
 			isChar = true;
 		}
 
+		//specify position of object in scene based upon character
 		if (position === "left") {
 			img.position.x = -300;
 		} else if (position === "center") {
@@ -593,10 +595,16 @@ var MPLAY = MPLAY || {};
 				img.position.z = this._characterLayer;
 			}
 
+			//set character position on screen
 			if (position === "center" || position === "right" || position === "left") {
 				//console.log("set " + obj.getName() + " " + position);
 				obj.setCharPosition(position);
+
+				//move camera to face character position
+				cameraMove.setCamDirection(position, img.position);
 			}
+
+
 		}
 
 		if (isChar && img.hasOwnProperty("oriScale")) {

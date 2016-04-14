@@ -227,7 +227,15 @@ var GNOVEL = GNOVEL || {};
 		params.speaker = obj.speaker;
 		params.charLine = obj.charLine;
 
-		// check whether the choices is time-based
+
+		/**
+		*@description To add a timer to a choice, add "seconds", "responses:[]", and "speaker" to the flow of the choice in the page
+		*@example
+		*seconds: 5,
+		*responses: [{text: "Did you hear me?"},{text: "Dude..."}],
+		*speaker: this._ryan},
+		*/
+		//check whether the choices is time-based
 		params.seconds = obj.seconds || 0;
 
 		params.onChoiceComplete = function(resultId) {

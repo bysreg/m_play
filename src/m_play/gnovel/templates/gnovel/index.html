@@ -7,8 +7,8 @@
 		<title>Morality Play</title>
 
 		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
-		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>	
-		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>		
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
 
 		<!-- Third Party library files -->
 		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
@@ -28,6 +28,7 @@
 		<script src="{% static 'gnovel/js/gnovel/page.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/transition.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/mousemovedcamera.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/cameraMove.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/choices.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/flow.js' %}"></script>
 		<script src="{% static 'gnovel/js/gnovel/dialog.js' %}"></script>
@@ -101,7 +102,7 @@
 
 			var init = function() {
 				var gnovel = new GNOVEL.Gnovel();
-				var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
+				//var mouseMovedCamera = new GNOVEL.MouseMovedCamera(gnovel);
 
 				// for debugging
 				gnovel.seeStats();
