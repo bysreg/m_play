@@ -11,7 +11,7 @@ var MPLAY = MPLAY || {};
 		this._name = name;
 		this._expression = {};
 		this._anims = [];
-		this._img = img; // default image		
+		this._img = img; // default image
 
 		var self = this;
 
@@ -122,7 +122,7 @@ var MPLAY = MPLAY || {};
 				params.onComplete();
 
 				onCompleteCalled = true;
-			}			
+			}
 		};
 
 		if (this.checkImageOpacity(this._img) == 1) {
@@ -131,7 +131,7 @@ var MPLAY = MPLAY || {};
 			if (img instanceof MPLAY.SpineAnimation) {
 				page.tweenMat(this._img, {
 					opacity: 0,
-					easing: TWEEN.Easing.Cubic.Out,
+					easing: TWEEN.Easing.Quadratic.In,
 					arr: img.meshes,
 					onComplete: function() {
 						page._removeFromScene(img);
@@ -142,7 +142,7 @@ var MPLAY = MPLAY || {};
 			} else {
 				page.tweenMat(this._img, {
 					opacity: 0,
-					easing: TWEEN.Easing.Cubic.Out,
+					easing: TWEEN.Easing.Quadratic.In,
 					onComplete: function() {
 						page._removeFromScene(img);
 						oneFadeComplete();
@@ -159,7 +159,7 @@ var MPLAY = MPLAY || {};
 				if (img instanceof MPLAY.SpineAnimation) {
 					page.tweenMat(this._expression[expression], {
 						opacity: 0,
-						easing: TWEEN.Easing.Cubic.Out,
+						easing: TWEEN.Easing.Quadratic.In,
 						arr: img.meshes,
 						onComplete: function() {
 							page._removeFromScene(img);
@@ -170,7 +170,7 @@ var MPLAY = MPLAY || {};
 				} else {
 					page.tweenMat(this._expression[expression], {
 						opacity: 0,
-						easing: TWEEN.Easing.Cubic.Out,
+						easing: TWEEN.Easing.Quadratic.In,
 						onComplete: function() {
 							page._removeFromScene(img);
 							oneFadeComplete();

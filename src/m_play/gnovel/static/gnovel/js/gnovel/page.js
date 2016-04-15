@@ -493,9 +493,10 @@ var GNOVEL = GNOVEL || {};
 			this._addToScene(params.convoFilter);
 		}*/
 
+		//fade in object
 		this.tweenMat(obj, {
 			opacity: 1,
-			easing: TWEEN.Easing.Cubic.Out,
+			easing: TWEEN.Easing.Quadratic.Out,
 			arr: params.arr,
 			onComplete: function() {
 				if(waitUntilShown) {

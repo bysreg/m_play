@@ -111,11 +111,8 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
 		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
-		// MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
-		// MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
-		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy"], "Ryan");
+		MPlayPage._ryan.setExpression("very happy", MPlayPage._anims["ryan happy"], "Ryan");
+		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy 2"], "Ryan");
 		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
 		MPlayPage._ryan.setExpression("sad", MPlayPage._anims["ryan sad"], "Ryan");
 		// MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
@@ -160,7 +157,8 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initAnim = function() {
 		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -260, this._characterLayer));
 		this._createAnim("ryan angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {
+		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {
 			x: -1,
 			y: 1
 		};
@@ -801,6 +799,8 @@ var MPLAY = MPLAY || {};
 
 		// console.log("show something");
 
+		//duration for fade in of next character
+			params.duration = 200;
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
@@ -816,10 +816,11 @@ var MPLAY = MPLAY || {};
 			}
 
 			characterTweenParam.onComplete = function() {
-				GNOVEL.Page.prototype._show.call(pageObj, img, params)
+			//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
 			};
 
 			obj.fadeVisibleImages(this, characterTweenParam);
+			GNOVEL.Page.prototype._show.call(pageObj, img, params);
 		} else {
 
 			if (img instanceof MPLAY.SpineAnimation) {
@@ -898,6 +899,13 @@ var MPLAY = MPLAY || {};
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
 
 		this._addToSceneBg(this._bg);
+		//this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
+
+		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer), 1920, 1080);
+		//this._addToScene(background2);
+
+		//var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-30, 0, this._background3Layer), 1920, 1080);
+		//this._addToScene(background3);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function() {

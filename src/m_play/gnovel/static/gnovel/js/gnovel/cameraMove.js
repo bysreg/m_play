@@ -19,7 +19,7 @@ var GNOVEL = GNOVEL || {};
      	CameraMove.prototype.setCamDirection = function(position, destPos){
 
         var camera = this._gnovel.getCamera();
-        var duration = 500;
+        var duration = 700;
         var curPos = camera.position;
         var newPos = new THREE.Vector3(curPos.x,curPos.y,curPos.z);
         //get vector of camera direction
@@ -38,7 +38,8 @@ var GNOVEL = GNOVEL || {};
         //increment curPos to newPos and set lookat position to curPos
         var tweenPos = new TWEEN.Tween(curPos)
         .to(newPos, duration)
-        .easing(TWEEN.Easing.Linear.None)
+        .easing(TWEEN.Easing.Cubic.Out)
+				.delay(300)
         .onUpdate(function(){
           camera.lookAt(curPos);
         })
