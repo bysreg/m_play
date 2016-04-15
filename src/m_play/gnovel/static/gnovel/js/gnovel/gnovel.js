@@ -407,11 +407,13 @@ var GNOVEL = GNOVEL || {};
 		//gnovelObj._scene.remove(nextPageBG);
 		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
 		//start flow of next page
+		
+		// unload the previous page
+		gnovelObj._unload(gnovelObj._prevPage);
+
 		_onStart(page);
 		gnovelObj._onStart = true;
 		console.log("gnovel started");
-		// unload the previous page
-		gnovelObj._unload(gnovelObj._prevPage);
 	};
 
 	Gnovel.prototype.getCamera = function() {
