@@ -277,7 +277,9 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._removeFromScene = function(page, o) {
-		this._pageRootObject[page.getPageId()].remove(o);
+		if(this._pageRootObject[page.getPageId()]) {
+			this._pageRootObject[page.getPageId()].remove(o);
+		}		
 	};
 
 	Gnovel.prototype._findInScene = function(page, name) {
@@ -344,6 +346,8 @@ var GNOVEL = GNOVEL || {};
 
 	//main load function that sets page properties and starts next scene
 	Gnovel.prototype._load = function(page) {
+		console.log("load page " + page.getPageId());
+
 		var pageRoot = new THREE.Object3D();
 		var gnovel = this;
 		pageRoot.name = "Page Root " + page.getPageLabel();
@@ -405,12 +409,17 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
+		console.log("go to page " + pageIndex);
+
 		// FIXME : for now regardless of transitionType and transitionParam,
 		// the transition is going to be FADE
 		
 		// load the next page during transition
 		var curPage = this.getCurrentPage();
 		var nextPage = this.getPageAt(pageIndex);
+
+		// unload the previous page
+		//this._unload(curPage);
 
 		//load next scene into root before showing on screen and transition
 		this._load(nextPage);	

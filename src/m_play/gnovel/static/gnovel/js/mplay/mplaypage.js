@@ -110,10 +110,10 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initChars = function() {
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
-		MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
-		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
+		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
+		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
+		// MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
+		// MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
 		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
 		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy"], "Ryan");
 		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
@@ -246,14 +246,24 @@ var MPLAY = MPLAY || {};
 
 		var curPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
 		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
-		
+
 		var curPageMaterial = new THREE.MeshBasicMaterial({
+		// var curPageMaterial = new THREE.ShaderMaterial({
+			uniforms: { tDiffuse: { type: "t", value: curPageRT } },
 			color: 0x00ff00,
 			transparent: true,
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
 		});
+
 		var nextPageMaterial = new THREE.MeshBasicMaterial({
+		// var nextPageMaterial = new THREE.ShaderMaterial({
+			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },	
 			color: 0xff0000,
 			transparent: true,
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+			depthWrite: false
 		});
 
 		// override gnovel's render function
@@ -263,14 +273,17 @@ var MPLAY = MPLAY || {};
 			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
 
-			this._renderer.render(this._scene, this._camera, this._rtTexture, true);
-			this._renderer.clear(false, true, false);
-			this._renderer.render(this._rttScene, this._camera);
+			// this._renderer.render(this._scene, this._camera, this._rtTexture, true);
+			// this._renderer.clear(false, true, false);
+			// this._renderer.render(this._rttScene, this._camera);
 		};
 
 		// override gnovel's _runTransition function
 		this._owner._runTransition = function(curPage, nextPage) {
 			var gnovel = this;
+
+			this._renderer.clear(false, true, false); // clear the depth buffer
+			//this._renderer.render(this._scene, this._camera, curPageRT, true);
 
 			this._transition._setCurPageBgMaterial(curPageMaterial);
 			this._transition._setNextPageBgMaterial(nextPageMaterial);
