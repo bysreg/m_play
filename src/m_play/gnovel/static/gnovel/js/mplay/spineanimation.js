@@ -139,7 +139,7 @@ var MPLAY = MPLAY || {};
 						self.stateData = new spine.AnimationStateData(skeletonData);
 						self.state = new spine.AnimationState(self.stateData);
 
-						console.log(animation + " loaded");
+						//console.log(animation + " loaded");
 						
 						self._loadCount++;
 						if(self._loadCount == 2) {
