@@ -32,7 +32,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"At the cafe..."},
+			{type:"show_context", text:"Go grab a coffee with Priya."},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore1"},
@@ -42,7 +42,7 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Priya");
 			// }},
 			{type: "play", audio: "Heyfriend-Priya"},
-			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great, congrats!"},
+			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great.  Congrats!"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "show", img: priya, position: "center", label: "neutural"},
@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "nice"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Yeah!  Well it was nice talking with you.  See you in class."},
+			{type: "dialog", speaker: "Priya", text: "Yeah!  Well it was good talking with you.  See you in class."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "close"},

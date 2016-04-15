@@ -54,7 +54,7 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Wtsnew-Cat");
 			// }},
 			{type: "play", audio: "Wtsnew-Cat"},
-			{type: "dialog", speaker: "Cat", text: "Hi!  What's new with you?"},
+			{type: "dialog", speaker: "Cat", text: "What's new with you?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "choices1"},
@@ -69,24 +69,32 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my GPA."},
 
 			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", go : "#beok"}]},
+
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Yeah, I think it will be ok. But you know what? Ask me again in May.", label: "beok"},
 			{type: "dialog", speaker: "Cat", text: "So… Priya told me about what happened with you guys the other day."},
-			{type: "dialog", speaker: "Cat", text: "It touches a nerve because of the whole international thing. They have more at stake."},
+			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
+			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},
+			{type: "show", img: cat, position: "center", waitUntilShown: false},			
 			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. what are you going to order?"},			
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "nothingmuch"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Nothing... sounds serious. Can I help?"},
-			{type: "choices", choices : [{text: "Ah no it was just this thing with Ryan… It’s ok.", go: "#itsok"}, {text : "Thanks, but it’s fine.", go : "#itsok"}]},
+			{type: "choices", choices : [{text: "Just this thing with Ryan.  It's ok.", go: "#itsok"}, {text : "Thanks, but it’s fine.", go : "#itsok"}]},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},
-			{type: "dialog", speaker: "Cat", text: "Priya told me a little bit about what happened."},
-			{type: "dialog", speaker: "Cat", text: "I think she got upset because for international students, they have a lot more at stake, you know?"},
+			{type: "dialog", speaker: "Cat", text: "So, Priya told me a little bit about what happened."},
+			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},			
+			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
+			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},
+			{type: "show", img: cat, position: "center", waitUntilShown: false},			
 			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. What are you going to order?"},
 
 			{type: "goto", page: "scene 6.a", label: "gonextscene"},
+
 		];
 
 		return o;

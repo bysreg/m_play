@@ -50,7 +50,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
-			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Might help, what do you think?"},
+			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Might help, what do you think?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "compareryan1"},
@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
-			{type: "dialog", speaker: this._ryan, text: "I have the actual exam from last year.  Want to take a look?"},
+			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
@@ -72,8 +72,8 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
 			{type: "play", audio: "Hey-Ryan-n"},
-			{type: "dialog", speaker: this._ryan, text: "So I got my hands on last year’s Programming & Society exam.  It’s not graded, but it’s the actual exam."},
-			{type: "dialog", speaker: this._ryan, text: "I think we should study with it.  My brother took this class last year.  I think I told you."},
+			{type: "dialog", speaker: this._ryan, text: "So my brother took this course last year, and gave me his stuff from the class.  "},
+			{type: "dialog", speaker: this._ryan, text: "Anyway, here's last year's exam.  It's not graded, but it's a blank copy of the actual exam.  I think we should study with it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "hideryan"},
@@ -90,7 +90,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Really? I don't remember Sweeney sending one out. I just went to his office hours too."},
 
-			{type: "dialog", speaker: this._ryan, text: "It's not from Sweeney - it's from last year."},
+			{type: "dialog", speaker: this._ryan, text: "It's not from Sweeney.  It's from last year."},
 
 			{type: "show", img: priya, position: "left", expression: "thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Sweeney didn't send it out, right? I don’t think -"},
@@ -99,11 +99,13 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "Yeah you don’t.  I need to use this, thanks to your work on our group project."},
 
 			{type: "show", img: priya, position: "left", expression: "sad", waitUntilShown: false},
-			{type: "dialog", speaker: this._priya, text: "I’m sorry… I told you guys I didn't realize..."},
+			{type: "dialog", speaker: this._priya, text: "I’m sorry.  I told you guys I didn't realize I couldn't use codeHub."},
 
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: this._ryan, text: "Look, I didn’t mean that.  It’s just, we’re only using this one time."},
 			{type: "dialog", speaker: this._ryan, text: "That B- really tanked my average, and I need to do well in the class."},
+			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: this._priya, text: "Look, I know I’m the last person you want to hear this from, but Sweeney was pretty clear in how we should study.  It’s not fair of you to use this test."},
 			{type: "custom", label: "integrityScore", func: function(page) {
 				return page.getIntegrityManager().getIntegrity();
 			}},
@@ -113,7 +115,7 @@ var MPLAY = MPLAY || {};
 					go: "#holdoff",
 					integrityScore: 1,
 					relationship: {name: this._priya, score: 2}},
-				{text : "Don't say anything - you need all the help on this exam you can get.",
+				{text : "I think it's OK to use, Priya.  It's not even graded.",
 					integrityScore: -1,
 					go : "#dontsay"},
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",

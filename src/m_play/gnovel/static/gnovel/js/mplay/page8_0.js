@@ -43,9 +43,9 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", text: "A few days after the test... "},
-			{type: "show_context", text: "you run into Ryan at the UC"},
-			{type: "show_context", text: "on your way to meet up with Cat to go work out together."},
+			{type: "show_context", text: "A few days after the test, "},
+			{type: "show_context", text: "you run into Ryan at the CUC,"},
+			{type: "show_context", text: "while you are on your way to meet up with Cat to go work out together."},
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
@@ -58,10 +58,11 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Yo-Ryan");
 			// }},
 			{type: "play", audio: "Yo-Ryan"},
-			{type: "dialog", speaker: this._ryan, text: player + "!  Glad I caught you.   I ended up doing ok on that test."},
+			{type: "dialog", speaker: this._ryan, text: player + "!  Glad I caught you.   I ended up doing OK on that test."},
 			{type: "dialog", speaker: this._ryan, text: "Probably not my best work, but what can you do.  I’m glad we held off on using it."},
+			{type: "dialog", speaker: this._ryan, text: "Better safe than sorry.  At least Priya won't be mad anymore."},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left"},
-			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
+			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet her for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 			
 			{type: "nothing", label: "compareryan1"},
@@ -73,9 +74,10 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-e");
 			// }},
 			{type: "play", audio: "Hey-Ryan-e"},
-			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing ok on that test.  Probably not my best work though."},
+			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing OK on that test.  Probably not my best work though."},
+			{type: "dialog", speaker: this._ryan, text: "I guess it's better to be safe than sorry.  At least Priya won't be mad anymore."},
 			{type: "show", img: ryan, expression: "sad", position: "left"},
-			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet Priya for lunch.  I have to patch things up with her.  See you."},
+			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet her for lunch.  I have to patch things up with her.  See you."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
@@ -84,7 +86,7 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
 			{type: "play", audio: "Hey-Ryan-p"},
-			{type: "dialog", speaker: this._ryan, text: "Hey!  I wanted to let you know that I ended up doing ok on that test."},
+			{type: "dialog", speaker: this._ryan, text: "I wanted to let you know that I ended up doing OK on that test."},
 			{type: "dialog", speaker: this._ryan, text: "Probably not my best work, but what can you do.  I’ll see you around."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -104,20 +106,29 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
 			{type: "play", audio: "Heyfriend-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
-			{type: "dialog", speaker: this._cat, text: "I think I’m going to stick with my business classes next semester…  Ready to hit the gym?"},
+			{type: "dialog", speaker: this._cat, text: player + "!  Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
+			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},
+			{type: "show", img: cat, expression: "happy", position: "center"},			
+			{type: "dialog", speaker: this._cat, text: "I mean, it's like that quote from Andrew Carnegie,"},
+			{type: "dialog", speaker: this._cat, text: "'I don't pay attention to what people say.  Only what they do.'"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that.  OK, now for important matters.  Lunch!"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
 			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
 
 			{type: "nothing", label: "zero-cat1"},
-			{type: "show", img: cat, expression: "thoughtful", position: "center"},
+			{type: "show", img: cat, position: "center"},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			{type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  It’s a bit dramatic, don’t you think?  Let’s hit the gym."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
+			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},
+			{type: "show", img: cat, expression: "happy", position: "center"},			
+			{type: "dialog", speaker: this._cat, text: "I mean, it's like that quote from Andrew Carnegie,"},
+			{type: "dialog", speaker: this._cat, text: "'I don't pay attention to what people say.  Only what they do.'"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that.  OK, enough of that.  Lunchtime!"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
@@ -126,7 +137,12 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			{type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about his fight with Priya.  This is all too dramatic for me."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
+			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},
+			{type: "show", img: cat, expression: "happy", position: "center"},						
+			{type: "dialog", speaker: this._cat, text: "I mean, it's like that quote from Andrew Carnegie,"},
+			{type: "dialog", speaker: this._cat, text: "'I don't pay attention to what people say.  Only what they do.'"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that.  OK, enough of that.  Lunchtime!"},
 			{type: "goto", page: "scene 10.a"},
 		];
 

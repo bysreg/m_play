@@ -115,11 +115,14 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "What’s wrong?"},
 			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source… I found it on a codeHub forum online."},
+			{type: "dialog", speaker: "Cat", text: "It looks like Priya took her code from another source. I found it on a codeHub forum online."},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. She would never cheat."},
-			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "I think it’s plagiarism.  What should we do, we have to submit the project in 2 hours!"},
+			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. It's common practice to use codeHub.  Did she cite it?"},
+			{type: "dialog", speaker: "Cat", text: "No, and even if she did cite it, we can't use it."},
+			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},			
+			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},
+			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},			
+			{type: "dialog", speaker: "Cat", text: "What should we do, we have to submit the project in 2 hours!"},
 			{type: "choices",
 					choices :
 						[{text: "Well, let's just ask her about it.",
@@ -152,7 +155,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "asst_given"},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your CG assignment."},
+			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your old problem sets"},
 			{type: "dialog", seconds: "Ryan", text: "Why don’t you text her, "+ player +"."},
 			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "hide", img: ryan, waitUntilHiden: false},
@@ -166,7 +169,7 @@ var MPLAY = MPLAY || {};
 				text: "P – there’s a violation with your part of the project."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
-				text: "k…"},
+				text: "What?"},
 			{type: "add_phone_textbox",				
 				speaker: this._ryan,
 				text: "Did u use codeHub for ur code?"},
@@ -175,22 +178,23 @@ var MPLAY = MPLAY || {};
 				text: "Yes – I used c-h to work thru the problem."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
-				text: "It’s common for programmers… did it @ undergrad."},
+				text: "It’s common for programmers… Thought that was allowed?"},
 			{type: "close_phone"},	
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},
+			{type: "dialog", speaker: "Cat", text: "We’re wasting time texting her.  She needs to redo it."},
 			{type:"hide", img: cat, waitUntilHiden: false},
 			{type:"hide", img: ryan},
 			{type: "choices",
 					choices :
-						[{text: "I agree, she needs to redo it.  We can’t submit plagiarized work.",
+						[{text: "I agree, she needs to redo it.",
 							go: "#finish_project_Priya"},
-						{text: "Let’s text her to come over and fix it. Let’s pitch all pitch in to help.",
+						{text: "Let’s text her to fix it. We can all pitch in to help.",
 							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
 			{type: "show_context", text: "Priya struggles to work through an answer with original code."},
-			{type: "show_context", text: "Luckily, She ends up finishing it in time."},
+			{type: "show_context", text: "Luckily, She ends up finishing it in time,"},
+			{type: "show_context", text: "but the work isn't her best, and everyone's frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 
@@ -219,20 +223,20 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Maybe we can tweak her work enough to make it ok?"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Worth a try."},
+			{type: "dialog", speaker: "Ryan", text: "That might not be enough.  Tweaking it won't make it original.  We need to redo it."},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "hide", img: cat},
 			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},
-			{type: "show_context", text: "You barely finish the assignment in time to submit it"},
+			{type: "show_context", text: "You barely finish the assignment in time to submit it,"},
 			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
 
 			{type: "nothing", label: "gonextscene"},
 			{type: "choices", choices : [
 				{text: "Go to the gym",
 					go: "#gogym"},
-				{text : "Go get a drink at Scottie’s Bar.",
+				{text : "Head to Scottie's for a bite.",
 					go : "#gobar"},
-				{text: "Go home and study for the finals.",
+				{text: "Head home for the day.",
 					go: "#gohome"}]},
 
 			{type: "goto", page: "scene 7.a", label: "gogym"},
@@ -273,7 +277,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "neg-cat1"},
 				{type: "show", img: cat, expression: "sad", position: "left"},
-				{type: "dialog", speaker: "Cat", text: "Almost done compiling the project!"},
+				{type: "dialog", speaker: "Cat", text: "Almost done compiling the project."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 
 				{type: "nothing", label: "gocommon"},
@@ -289,7 +293,7 @@ var MPLAY = MPLAY || {};
 				{type: "show", img: closephone, position: "center"},
 				{type: "phone_textbox",
 					label: "mom_text",
-					text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!! MOM"},
+					text: "Hey hon!  study hard, make good choices!! XOX MOM"},
 				{type: "hide_phone_textbox", dialog: "$mom_text"},
 				{type: "hide", img: closephone},
 				// phone text exchange ends
@@ -305,6 +309,7 @@ var MPLAY = MPLAY || {};
 					pageObj._removeFromScene(pageObj._sitryan);
 				}},
 			];
+
 
 			o = o.concat(common);
 		};

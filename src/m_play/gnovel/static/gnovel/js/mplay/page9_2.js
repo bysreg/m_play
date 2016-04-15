@@ -40,16 +40,16 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "R+"},
 			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "Cat ended up getting a job in finance after graduating.  You still keep in touch with her.  Last time you spoke she was enjoying her job, but still felt a little stressed… as expected."},		
+			{type: "show_ed_context", text: "Cat ended up getting a finance job in New York after graduation. You still keep in touch with her, and have made plans to visit her later this month. She’s extended an open invitation for you to visit her, and her new apartment in Brooklyn."},		
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "R-"},
 			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "Last you heard, Cat moved up to New York after graduating to work in finance.  You sometimes picture her toiling away in her cubicle, but otherwise she doesn’t cross your mind much."},
+			{type: "show_ed_context", text: "Cat moved up to New York after graduating to work in finance. Sometimes you picture her toiling away in her cubicle, but otherwise she doesn’t cross your mind much."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.d"},
 		];
 
 		return o;

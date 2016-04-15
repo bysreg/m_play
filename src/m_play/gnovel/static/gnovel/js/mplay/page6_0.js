@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type:"show_context", text:"at the gym..."},
-			{type: "show_context", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
+			{type: "show_context", speaker: "Your phone", text: "You get an email on your phone.  You open it."},
 
 			// phone email exchange begins
 			{type: "show", img: closephone, waitUntilShown: false},

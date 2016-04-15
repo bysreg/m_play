@@ -196,22 +196,37 @@ var MPLAY = MPLAY || {};
 
 				//display visual notification of integrity choice
 				console.log("They will remember this");
-				var compass = pageObj.createImage("/static/gnovel/res/textures/ui/compass_sm.png", new THREE.Vector3(-400, 250, pageObj._uiLayer - 40), 100, 100);
+				var compass = pageObj.createImage("/static/gnovel/res/textures/ui/compass_sm.png", new THREE.Vector3(-400, -250, pageObj._uiLayer - 40), 100, 100);
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
 				compass.material.opacity = 0;
 				pageObj._addToScene(compass);
+				var delayFX = 1000;
 
 				pageObj.tweenMat(compass, {
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800,
+					duration:500,
 					opacity: 1,
-					opacity2: 0,
-					chain: true,
-					delay: 1000,
 					onComplete: function() {
-						pageObj._removeFromScene(compass);
-					},
-				});
+
+					pageObj.tweenMat(compass, {
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						opacity: 0,
+						opacity2: 0,
+						//chain: true,
+						delay: delayFX,
+						onComplete: function() {
+							pageObj._removeFromScene(compass);
+						},
+					});
+					pageObj.tweenPulse(compass, {
+						x:5, y:5,
+						duration: 1000,
+						delay: delayFX,
+						repeat: false,
+					});
+				},
+			});
 
 				//remove bg filter after choice made
 				pageObj.hideBgFilter();
@@ -228,7 +243,7 @@ var MPLAY = MPLAY || {};
 				console.log("a character will remember this");
 				//set what text should display based upon relationship score
 
-				//FIXME - STILL NEEDS TESTING
+				//FIXME - STILL NEEDS MORE TESTING
 
 				if(score > 0)
 					var charText = name + " feels good about that."
@@ -241,7 +256,7 @@ var MPLAY = MPLAY || {};
 					font: "25px SF_Toontime Bold Italic",
 					fillstyle: '#ffffff',
 				});
-				relationText.position.set(230, 260, pageObj._uiLayer - 40);
+				relationText.position.set(-500, 260, pageObj._uiLayer - 40);
 				relationText.material.opacity = 0;
 				pageObj._addToScene(relationText);
 
@@ -417,6 +432,7 @@ var MPLAY = MPLAY || {};
 			this._choosed = true;
 			this._page._removeFromScene(this.timer);
 			this._page._removeFromScene(this.timer2);
+			//this._page._timerInstance.stop();
 			for (var i = 0; i < this._choices.length; i++) {
 
 				if (this._choicesTextBg[i].name == intersects[0].object.name) {

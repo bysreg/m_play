@@ -73,7 +73,7 @@ var MPLAY = MPLAY || {};
 			
 
 			// priya - left
-			// {type: "show",  position:"left", img: priya, waitUntilShown: false},
+			{type: "show",  position:"right", img: priya, waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "angry", waitUntilShown: false},
 			// {type: "show",  position:"left", img: priya, expression: "happy", waitUntilShown: false},

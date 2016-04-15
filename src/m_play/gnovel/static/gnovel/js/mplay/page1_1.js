@@ -73,7 +73,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "show", img: cat, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 				{type: "play", audio: "Ohhi-Cat"},
-				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little all over the place. I lost my wallet yesterday –"},
+				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little distracted. I lost my wallet yesterday."},
 				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 
 				// 

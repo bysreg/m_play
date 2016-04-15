@@ -19,6 +19,7 @@ var GNOVEL = GNOVEL || {};
 		this._flowCounter = 0;
 		this._flow = new GNOVEL.Flow(this);
 		this._interactableObjects = [];
+		this._multiTracksPlayer = null;
 
 		this._curTextBox = null;
 		this._textBg = null;
@@ -35,6 +36,9 @@ var GNOVEL = GNOVEL || {};
 
 		// ambient plays at next page
 		this._nextAmbient = null;
+
+		this._multiTracksPlayer = new GNOVEL.MultiTracksPlayer(this);
+
 
 		//add event listeners and bind them
 		window.addEventListener("sceneResume", this.onResume.bind(this));
@@ -219,7 +223,8 @@ var GNOVEL = GNOVEL || {};
 			.to({
 				opacity: (params.opacity !== null ? params.opacity : obj.material.opacity),
 			}, duration)
-			.easing(params.easing || TWEEN.Easing.Linear.None);
+			.easing(params.easing || TWEEN.Easing.Linear.None)
+			.delay(params.delay || 0);
 
 			if (params.onComplete != null && params.chain==null) {
 				tweenMatIn.onComplete(params.onComplete);
@@ -293,6 +298,7 @@ var GNOVEL = GNOVEL || {};
 		var targetSize = {x: params.x, y: params.y, z: params.z}
 		var duration = params.duration || 800;
 		var repeat = params.repeat;
+		var temporary = params.temp;
 
 		var tweenForward = new TWEEN.Tween(obj.scale)
 		.to({
@@ -300,11 +306,13 @@ var GNOVEL = GNOVEL || {};
 		y: (params.y !== null ? targetSize.y : obj.scale.y),
 		z: (params.z !== null ? targetSize.z : obj.scale.z),
 		},duration)
-		.easing(TWEEN.Easing.Quadratic.Out);
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.delay(params.delay || 0);
 		if (params.onComplete != null) {
 			tweenForward.onComplete(params.onComplete);
 		}
 		if(params.onUpdate != null){
+			if(!temporary)
 			tweenForward.onUpdate(params.onUpdate);
 		}
 		/*.onComplete(function() {
@@ -423,6 +431,7 @@ var GNOVEL = GNOVEL || {};
 
 	// will be called each frame, after onLoad and onStart complete
 	Page.prototype._update = function() {
+
 	};
 
 	// will be called after onStart called
@@ -471,7 +480,12 @@ var GNOVEL = GNOVEL || {};
 		//checks if conversation filter already showing on page
 		if(this._showingFilter == false)
 		{
+			params.convoFilter.material.opacity = 0;
 			this._addToScene(params.convoFilter);
+			pageObj.tweenMat(params.convoFilter, {
+				opacity: 1,
+				easing: TWEEN.Easing.Cubic.Out
+			});
 			this._showingFilter = true;
 		}
 		/*if(this._findInScene("convoFilter") != true)
@@ -524,8 +538,13 @@ var GNOVEL = GNOVEL || {};
 					pageObj._flow._next();
 					pageObj._flow._exec();
 					pageObj._removeFromScene(obj);
-					if(pageObj._showingFilter == false)
+					if(pageObj._showingFilter == false){
+						pageObj.tweenMat(params.convoFilter, {
+							opacity: 0,
+							easing: TWEEN.Easing.Cubic.Out
+						});
 						pageObj._removeFromScene(params.convoFilter);
+					}
 				//	pageObj._showingFilter = false;
 				}
 			},
@@ -623,6 +642,16 @@ var GNOVEL = GNOVEL || {};
 			pageObj._owner._ambient.stop();
 			pageObj._owner._ambient = null;
 		};
+	};
+
+
+ 	Page.prototype._setMultiTracksPlayer = function() {
+		this._multiTracksPlayer.setPlaylist(this._createRandomPlaylist());
+	};
+
+	Page.prototype._createRandomPlaylist = function() {
+
+		return {};
 	};
 
 

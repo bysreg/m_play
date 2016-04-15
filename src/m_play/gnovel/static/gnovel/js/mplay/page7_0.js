@@ -43,14 +43,14 @@ var MPLAY = MPLAY || {};
 		o = [
 			{type:"show_context", text:"A few more weeks pass"},
 			{type:"show_context", text:"and it’s the end of the semester!"},
-			{type:"show_context", text:"You prepare for your final in Programming & Society…"},
+			{type:"show_context", text:"You prepare for your take home final exam in Programming & Society…"},
 			//{type: "show", img: professor, position: "center", waitUntilShown: false},
 			//{type: "dialog", speaker: "Your phone", text: "I want to remind everyone about our final coming up next week. Please visit me during office hours, I am here to help..."},
 			// {type: "show_phone_notif"},
 
 			// phone email exchange begins
 			{type: "show", img: professor, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Prof. Sweeney", text: "I want to remind everyone about our final coming up next week.  Please visit me during office hours, I am here to help..."},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "I want to remind everyone about our take home final coming up next week.  Please visit me during office hours, I am here to help..."},
 			
 			// phone email exchange ends
 			//{type: "show", img: transitionBg, waitUntilShown:false},

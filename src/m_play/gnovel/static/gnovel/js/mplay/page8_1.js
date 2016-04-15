@@ -35,9 +35,9 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", text: "A few days after the test... "},
-			{type: "show_context", text: "you run into Ryan at the UC"},
-			{type: "show_context", text: "on your way to meet up with Cat to work out together."},
+			{type: "show_context", text: "A few days after the test,"},
+			{type: "show_context", text: "you run into Ryan at the CUC"},
+			{type: "show_context", text: "while you're on your way to meet up with Cat to work out together."},
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
@@ -52,6 +52,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Heyfriend-Ryan"},
 			{type: "dialog", speaker: this._ryan, text: "Hi "+ player +".  I'm on my way to meet with Sweeney.  Apparently they do cycle some of the questions."},
 			{type: "dialog", speaker: this._ryan, text: "I think it will end up ok though.  I just have to face the music.  Thanks for trying to convince me not to use it though."},
+			{type: "dialog", speaker: this._ryan, text: "I feel like an idiot.  It was not worth using it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 			
 			{type: "nothing", label: "compareryan1"},
@@ -64,12 +65,14 @@ var MPLAY = MPLAY || {};
 			// }},
 			{type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
-			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},			
+			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},	
+			{type: "dialog", speaker: this._ryan, text: "I feel stupid for using it.  It was not worth it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, expression: "angry", position: "left"},
-			{type: "dialog", speaker: this._ryan, text: "So apparently they do cycle some of the questions... I’m on my way to talk to Sweeney.  See you around."},
+			{type: "dialog", speaker: this._ryan, text: "So apparently they do cycle some of the questions..."},
+			{type: "dialog", speaker: this._ryan, text: "I’m on my way to talk to Sweeney.  See you around."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "hideryan"},
@@ -88,8 +91,15 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
 			{type: "play", audio: "Heyfriend-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened.  You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened."},
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
+			{type: "dialog", speaker: this._cat, text: "I’m surprised he used it, I thought he was smarter than that.  It was smart of you not to look at it."},
+			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},
+			{type: "dialog", speaker: this._cat, text: "It was smart of you not to look at it.  Even seeing something like that can get you in trouble."},
+			{type: "show", img: cat, position: "center"},						
+			{type: "dialog", speaker: this._cat, text: "I mean, it’s like that quote from Andrew Carnegie,"},
+			{type: "dialog", speaker: this._cat, text: "‘As I get older, I don’t pay attention to what people say.  Only what they do.’"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that.  OK, now on to important matters… where to for lunch?"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
@@ -101,17 +111,27 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			{type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too."},
-			{type: "dialog", speaker: this._cat, text: "It’s going to be an awkward conversation with his job if he fails the class.  I hope it works out."},
+			{type: "dialog", speaker: this._cat, text: "Oh boy, was that Ryan?  I heard what happened.  It’s going to be an awkward conversation with his job"},
+			{type: "dialog", speaker: this._cat, text: "if he fails the class.  I hope it works out.  I’m surprised he used it, I thought he was smarter than that."},
+			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},
+			{type: "show", img: cat, position: "center"},						
+			{type: "dialog", speaker: this._cat, text: "I mean, it’s like that quote from Andrew Carnegie,"},
+			{type: "dialog", speaker: this._cat, text: "‘As I get older, I don’t pay attention to what people say.  Only what they do.’"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that.  OK, now on to important matters… where to for lunch?"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
-			{type: "show", img: cat, expression: "thoughtful", position: "center"},
+			{type: "show", img: cat, position: "center"},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			{type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "You're lucky Ryan didn't tell them he showed you the test.  That's enough to get you in trouble too.  He was an idiot."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened.  If you had looked at the exam,"},
+			{type: "dialog", speaker: this._cat, text: "you’d have been in trouble too.  Lucky break."},
+			{type: "show", img: cat, expression: "angry", position: "center"},						
+			{type: "dialog", speaker: this._cat, text: "I mean, it’s like that quote from Andrew Carnegie, ‘As I get older,"},
+			{type: "dialog", speaker: this._cat, text: "I don’t pay attention to what people say.  Only what they do.’"},
+			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that."},
 			{type: "goto", page: "scene 10.a"},
 		];
 
