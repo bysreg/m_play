@@ -715,6 +715,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
+		//this._bg.setPos
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
 		//this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
 
