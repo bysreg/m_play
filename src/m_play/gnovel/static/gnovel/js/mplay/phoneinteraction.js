@@ -173,10 +173,17 @@ var MPLAY = MPLAY || {};
 
 	PhoneInteraction.prototype._getPicPath = function(name) {
 		if(name === "Ryan") {
-			return "/static/gnovel/res/textures/ui/ryan_profpic.png";
+			return "/static/gnovel/res/textures/ui/ryan phone icon.png";
 		}
-
-		return "/static/gnovel/res/textures/ui/ryan_profpic.png"; // default
+		if(name === "Priya") {
+			return "/static/gnovel/res/textures/ui/priya phone icon.png";
+		}
+		if(name === "Cat") {
+			return "/static/gnovel/res/textures/ui/cat phone icon.png";
+		}
+		if(name === "Sweeny") {
+			return "/static/gnovel/res/textures/ui/prof phone icon.png";
+		}
 	};
 
 	PhoneInteraction.prototype.addText = function(page, speaker, text, params) {				
