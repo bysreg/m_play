@@ -181,23 +181,24 @@ var MPLAY = MPLAY || {};
 		if(name === "Cat") {
 			return "/static/gnovel/res/textures/ui/cat phone icon.png";
 		}
-		if(name === "Sweeny") {
+		if(name === "Prof. Sweeny") {
 			return "/static/gnovel/res/textures/ui/prof phone icon.png";
 		}
 	};
 
 	PhoneInteraction.prototype.addText = function(page, speaker, text, params) {				
 		var messageBgWidth = 250;
-		var messageBgHeight = 113;
+		var messageBgHeight = 93;
 		var self = this;		
 
-		var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_text_box.png", new THREE.Vector3(30, -150, 7), messageBgWidth, messageBgHeight);
+		var messageBg = page.createImage("/static/gnovel/res/textures/ui/phone_textbox_blue.png", new THREE.Vector3(30, -150, 7), messageBgWidth, messageBgHeight);
 		messageBg.material.opacity = 0;		
 
 		var messageText = page.createTextBox(text, {
 			align: "left",
 			charLine: 32,
-			font: "15px Arial"
+			font: "15px Arial",
+			fillstyle: "#ECECEC"
 		});		
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
