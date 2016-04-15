@@ -399,16 +399,16 @@ var GNOVEL = GNOVEL || {};
 
 		var gnovel = this;		
 
+		this._onStart = false;
+
+		this._prevPage = curPage;
+		this._curPageIdx = pageIndex;
+
 		this._transition.run(curPage, nextPage, {
 			onComplete: function() {
 				gnovel._onPageTransitionComplete(nextPage);
 			},
 		});
-
-		this._onStart = false;
-
-		this._prevPage = curPage;
-		this._curPageIdx = pageIndex;
 	};
 
 	Gnovel.prototype.goToPageByLabel = function(pageLabel, transitionType, transitionParam) {

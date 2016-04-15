@@ -13,15 +13,19 @@ var GNOVEL = GNOVEL || {};
 	var Transition = function(time) {
 		this.time = time || 400;
 
-		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/transitionPanel_plainSM.jpg");
+		this._width = 1920;
+		this._height = 1080;
+
+		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/transitionPanel_plain.jpg");
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xffffff,
 			transparent: true,
 			map: texture
 		});
 
-		var plane = new THREE.PlaneBufferGeometry(6154, 3546);
+		var plane = new THREE.PlaneBufferGeometry(this._width, this._height);
 		this.transitionPanel = new THREE.Mesh(plane, material);
+		this.transitionPanel.name = "transitionPanel";
 	};
 
 	/**
@@ -34,73 +38,82 @@ var GNOVEL = GNOVEL || {};
 		var transition = this;
 		var transitionPanel = this.transitionPanel;
 		var gnovelObj = currentPage.getOwner();
-		var gnovelWidth = 1920; //params.gnovel._width;
-		var gnovelHeight = 1080; //params.gnovel._height;
 
-		var newBgPos = {
-			x: -gnovelWidth - 200,
-			y: 0,
-			z: -630
-		};
+		var farZ = -300;
+		var leftX = -600;
+		var initialScale = 2.2;
 
-		var bgInPos = {};
-		bgInPos.x = -gnovelWidth - 100;
-		bgInPos.y = 0;
-		bgInPos.z = -200;
-
-		transitionPanel.position.set(0, 0, -100);
+		transitionPanel.position.set(0, 0, 0);
+		transitionPanel.scale.set(initialScale, initialScale, 1);
 		currentPage.getOwner()._scene.add(transitionPanel);
 
 		var redMaterial = new THREE.MeshBasicMaterial({
 			color: 0xff0000,
+			transparent: true,
 		});
 		var blueMaterial = new THREE.MeshBasicMaterial({
 			color: 0x0000ff,
+			transparent: true,
 		});
-		var plane = new THREE.PlaneBufferGeometry(192, 108);
+		var plane1 = new THREE.PlaneBufferGeometry(this._width, this._height);
+		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);
 
-		// var curPageBg = new THREE.Mesh(plane, redMaterial);
-		// curPageBg.position.setX(10);
-		// curPageBg.position.setZ(1);
-		// curPageBg.scale.set(0.3, 0.3, 1);
-		// this.transitionPanel.add(curPageBg);
+		var curPageBg = new THREE.Mesh(plane1, redMaterial);
+		curPageBg.position.setX(-10);
+		curPageBg.position.setZ(3);
+		curPageBg.scale.set(0.33, 0.33, 1);
+		curPageBg.name = "curPageBg";
+		transitionPanel.add(curPageBg);
 
-		// var nextPageBg = new THREE.Mesh(plane, blueMaterial);
-		// nextPageBg.position.setX(100 + 1090/2);
-		// nextPageBg.position.setZ(1);
-		// nextPageBg.scale.set(0.3, 0.3, 1);
-		// this.transitionPanel.add(nextPageBg);
+		var nextPageBg = new THREE.Mesh(plane2, blueMaterial);
+		nextPageBg.position.setX(545 + 90);
+		nextPageBg.position.setZ(3);
+		nextPageBg.scale.set(0.33, 0.33, 1);
+		nextPageBg.name = "nextPageBg";
+		transitionPanel.add(nextPageBg);
 
-		//zoom out the transition panel
-		transition._move(transitionPanel, {
+		this._runOnHierarchy(transitionPanel, {
+			opacity: 1
+		}, {
 			duration: duration,
-			z: newBgPos.z,
 			onComplete: function() {
-
-				// wait for several second
-				transition._wait({
-					duration: .5,
+				//zoom out the transition panel
+				transition._scale(transitionPanel, {
+					duration: duration,
+					easing: TWEEN.Easing.Cubic.Out,
+					// z: farZ,
+					x: 1,
+					y: 1,
 					onComplete: function() {
 
-						// move transition panel to the left
-						transition._move(transitionPanel, {
-							x: bgInPos.x, 
-							y: bgInPos.y,
-							duration: duration,
-							easing: TWEEN.Easing.Linear.None,
+						// wait for several second
+						transition._wait({
+							duration: .5,
 							onComplete: function() {
 
-								// zoom in transition panel 
+								// move transition panel to the left
 								transition._move(transitionPanel, {
+									x: leftX,
 									duration: duration,
-									z: bgInPos.z, 
+									easing: TWEEN.Easing.Cubic.Out,
 									onComplete: function() {
-										//remove transitionPanel
-										gnovelObj._scene.remove(transitionPanel);
-										params.onComplete();
-									}
-								}); //params passes onComplete from gnovel
 
+										// zoom in transition panel 
+										transition._scale(transitionPanel, {
+											duration: duration,
+											// z: initialZ,
+											x: initialScale,
+											y: initialScale,
+											easing: TWEEN.Easing.Cubic.Out,
+											onComplete: function() {
+												//remove transitionPanel
+												gnovelObj._scene.remove(transitionPanel);
+												params.onComplete();
+											}
+										}); //params passes onComplete from gnovel
+
+									}
+								});
 							}
 						});
 					}
@@ -143,34 +156,48 @@ var GNOVEL = GNOVEL || {};
 		tween.start();
 	};
 
+	Transition.prototype._scale = function(obj, params) {
+		var duration = params.duration || 1000;
+
+		var tween = new TWEEN.Tween(obj.scale)
+			.to({
+				x: (params.x !== null ? params.x : obj.scale.x),
+				y: (params.y !== null ? params.y : obj.scale.y),
+				z: (params.z !== null ? params.z : obj.scale.z),
+			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None);
+		if (params.onComplete != null) {
+			tween.onComplete(params.onComplete);
+		}
+		tween.start();
+	};
+
 	Transition.prototype._runOnHierarchy = function(h, toObj, params) {
-		var duration = this.time;
+		var duration = params.duration;
 		var isOnCompleteAdded = false;
 
-		/*		
-			h.traverseVisible(function(obj3d) {
-				if(obj3d.material == null || obj3d.material.opacity == 0)
-					return;
+		h.traverseVisible(function(obj3d) {
+			// if (obj3d.material == null || obj3d.material.opacity == 0)
+			// 	return;
 
-				if(toObj.opacity == 1)
-					obj3d.material.opacity = 0;
-				else
-					obj3d.material.opacity = 1;
+			if (toObj.opacity == 1)
+				obj3d.material.opacity = 0;
+			else
+				obj3d.material.opacity = 1;
 
-				//tween opacity for fade over duration time
-				var tween = new TWEEN.Tween(obj3d.material)
-				.to(toObj, duration);
+			//tween opacity for fade over duration time
+			var tween = new TWEEN.Tween(obj3d.material)
+				.to(toObj, duration).easing(TWEEN.Easing.Cubic.Out);
 
-				if(params != null)
-				{
-					if(params.onComplete != null && !isOnCompleteAdded) {
-						tween.onComplete(params.onComplete);
-						isOnCompleteAdded = true;
-					}
+			if (params != null) {
+				if (params.onComplete != null && !isOnCompleteAdded) {
+					tween.onComplete(params.onComplete);
+					isOnCompleteAdded = true;
 				}
-				tween.start();
-			});
-		*/
+			}
+			tween.start();
+		});
+
 	};
 
 	// transition type
