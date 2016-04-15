@@ -489,6 +489,8 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.getClock = function() {
 		return this._clock;
+	};
+
 	Gnovel.prototype._getRenderer = function() {
 		return this._renderer;
 	};
