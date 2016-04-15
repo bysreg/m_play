@@ -22,7 +22,8 @@ var MPLAY = MPLAY || {};
 	Page1_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupUcBackground();
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/uc foreground with characters.png";
+		this.setupUcBackground(foregroundImg);
 
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
@@ -76,7 +77,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little distracted. I lost my wallet yesterday."},
 				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 
-				// 
+				//
 				{type: "compare", leftop: isWalletWithWaiter, operator: "equal", rightop: 1, goTrue: "#wallet_withwaiter", goFalse: "#wallet_atpolice"},
 				{type: "dialog", speaker: "Ryan", text: "Were you at Scottie's yesterday?  We found a wallet there. Might be yours.", label: "wallet_withwaiter"},
 				{type: "show", img: cat, expression: "happy", position: "right", waitUntilShown: false, flip: true},
@@ -152,7 +153,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page1_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -160,7 +161,7 @@ var MPLAY = MPLAY || {};
 
 	Page1_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

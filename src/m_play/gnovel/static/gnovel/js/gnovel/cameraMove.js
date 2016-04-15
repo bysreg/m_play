@@ -10,7 +10,8 @@ var GNOVEL = GNOVEL || {};
 
      var CameraMove = function(gnovel){
        this._gnovel = gnovel;
-       var origin = new THREE.Vector3(0,0,0);
+			 this._camera = gnovel.getCamera();
+       this._origin = new THREE.Vector3(0,0,this._camera.position.z);
      };
 
      /**
@@ -34,7 +35,7 @@ var GNOVEL = GNOVEL || {};
           newPos.x = destPos.x - 350;
         }
 
-        //tween camera direction
+        //tween camera direction and look at that direction
         //increment curPos to newPos and set lookat position to curPos
         var tweenPos = new TWEEN.Tween(curPos)
         .to(newPos, duration)
@@ -52,7 +53,24 @@ var GNOVEL = GNOVEL || {};
 
       CameraMove.prototype.resetCamDirection = function(){
         var camera = this._gnovel.getCamera();
-        camera.lookAt(origin);
+				var curPos = camera.position;
+				var duration = 700;
+
+				//reset camera to look at origin
+				var tweenPos = new TWEEN.Tween(curPos)
+        .to(this._origin, duration)
+        .easing(TWEEN.Easing.Cubic.Out)
+				.delay(300)
+        .onUpdate(function(){
+          camera.lookAt(curPos);
+        })
+        .onComplete(function(){
+          console.log("camera move complete");
+        });
+
+        tweenPos.start();
+
+        //camera.lookAt(this._origin);
       };
 
   GNOVEL.CameraMove = CameraMove;

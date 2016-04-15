@@ -256,7 +256,7 @@ var MPLAY = MPLAY || {};
 
 		var nextPageMaterial = new THREE.MeshBasicMaterial({
 		// var nextPageMaterial = new THREE.ShaderMaterial({
-			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },	
+			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },
 			color: 0xff0000,
 			transparent: true,
 			vertexShader: document.getElementById( 'vertexShader' ).textContent,
@@ -486,6 +486,9 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._onUnload = function() {
+		//reset camera look at direction
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
+		cameraMove.resetCamDirection();
 		this._sceneBg.remove(this._pageSceneBg);
 
 		GNOVEL.Page.prototype._onUnload.call(this);
@@ -497,7 +500,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._onStart = function() {
 		GNOVEL.Page.prototype._onStart.call(this);
 
-		// add this page's scene bg to overall scene bg 
+		// add this page's scene bg to overall scene bg
 		this._sceneBg.add(this._pageSceneBg);
 	};
 
@@ -599,6 +602,9 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params.jumpArr = jumpArr;
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
+		//center camera when choices are shown
+		cameraMove.resetCamDirection();
 
 		this._setBlurBgEffect();
 		var pageObj = this;
@@ -884,33 +890,53 @@ var MPLAY = MPLAY || {};
 		this._addToSceneBg(background2);
 	};
 
-	MPlayPage.prototype.setupUcBackground = function() {
+	MPlayPage.prototype.setupUcBackground = function(foreground) {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-
+		var background3;
+		//if special foreground for scene, add that instead
+		if(foreground != null)
+			background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			else {
+				background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			}
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
 		this._addToSceneBg(background3);
 	};
 
-	MPlayPage.prototype.setupLibraryBackground = function() {
-		//this._bg.setPos
-		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+	MPlayPage.prototype.setupLibraryBackground = function(foreground) {
+		//this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
+		this._bg.position.set(0,-30,this._backgroundLayer-50);
+		//this._bg.scale.set(.85,.85,1);
 
+		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer-170), 1920, 1080);
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer-50), 1920, 1080);
+		background2.scale.set(1,1,1);
+		//if special foreground for scene, add that instead
+		var background3;
+		if(foreground != null){
+			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
+			background3.scale.set(.85,.85,1);
+		}
+		else{
+			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
+		}
+		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
-		//this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
-
-		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer), 1920, 1080);
-		//this._addToScene(background2);
-
-		//var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-30, 0, this._background3Layer), 1920, 1080);
-		//this._addToScene(background3);
+		this._addToScene(background2);
+		this._addToScene(background3);
 	};
 
-	MPlayPage.prototype.setupBarBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+	MPlayPage.prototype.setupBarBackground = function(background) {
+		if(background != null){
+			this.setBackground(background);
+		}
+		else{
+			this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+		}
 
 		this._addToSceneBg(this._bg);
 	};

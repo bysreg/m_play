@@ -22,7 +22,8 @@ var MPLAY = MPLAY || {};
 	Page4_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupBarBackground();
+		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with cat.png"
+		this.setupBarBackground(background);
 
 	};
 
@@ -58,10 +59,10 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "choices1"},
-			{type: "choices", choices : 
-								[{text: "Not much.  What’s up with you?", 
-									go: "#wtsup"}, 
-								 {text: "Nothing much.", 
+			{type: "choices", choices :
+								[{text: "Not much.  What’s up with you?",
+									go: "#wtsup"},
+								 {text: "Nothing much.",
 								 	go: "#nothingmuch"}]},
 
 			{type: "nothing", label: "wtsup"},
@@ -76,8 +77,8 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
 			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},
-			{type: "show", img: cat, position: "center", waitUntilShown: false},			
-			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. what are you going to order?"},			
+			{type: "show", img: cat, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. what are you going to order?"},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "nothingmuch"},
@@ -87,10 +88,10 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},
 			{type: "dialog", speaker: "Cat", text: "So, Priya told me a little bit about what happened."},
-			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},			
+			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
 			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},
-			{type: "show", img: cat, position: "center", waitUntilShown: false},			
+			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. What are you going to order?"},
 
 			{type: "goto", page: "scene 6.a", label: "gonextscene"},
@@ -102,7 +103,7 @@ var MPLAY = MPLAY || {};
 
 	Page4_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -110,7 +111,7 @@ var MPLAY = MPLAY || {};
 
 	Page4_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

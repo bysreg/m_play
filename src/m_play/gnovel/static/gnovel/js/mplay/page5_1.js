@@ -22,19 +22,22 @@ var MPLAY = MPLAY || {};
 	Page5_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupLibraryBackground();
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and cat.png";
+		this.setupLibraryBackground(foregroundImg);
 
 		this._talked = 0;
 
 		var z = this.getBackgroundLayer() + 50;
 		var pageObj = this;
 
-		this._sitryan = this.createImage("/static/gnovel/res/textures/ryan-clickable-lib.png", new THREE.Vector3(-215, -185, z), 250, 431);
-		this._addToScene(this._sitryan);
+		//@FIXME not needed anymore since the scene already has ryan in it
+		//this._sitryan = this.createImage("/static/gnovel/res/textures/ryan-clickable-lib.png", new THREE.Vector3(-215, -185, z), 250, 431);
+		//this._addToScene(this._sitryan);
 
+		//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/cat-lib.png",
-			{type: "character", x: 65, y: -160, z: z, width : 280, height : 526, onClick: function(io) {
+			"/static/gnovel/res/textures/panel.png",
+			{type: "character", x: 45, y: -60, z: z, width : 300, height : 656, opacity: 0, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -50,14 +53,16 @@ var MPLAY = MPLAY || {};
 				});
 
 				pageObj._removePhoneNotification();
-				pageObj.tweenMat(pageObj._sitryan, {
+
+				//@FIXME not needed since no longer using This
+				/*pageObj.tweenMat(pageObj._sitryan, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
 					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromScene(pageObj._sitryan);
 					},
-				});
+				});*/
 			}});
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
@@ -72,7 +77,7 @@ var MPLAY = MPLAY || {};
 
 	Page5_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		var pageObj = this;
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
@@ -119,9 +124,9 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. It's common practice to use codeHub.  Did she cite it?"},
 			{type: "dialog", speaker: "Cat", text: "No, and even if she did cite it, we can't use it."},
-			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},			
+			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},
-			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},			
+			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "What should we do, we have to submit the project in 2 hours!"},
 			{type: "choices",
 					choices :
@@ -320,7 +325,7 @@ var MPLAY = MPLAY || {};
 
 	Page5_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}

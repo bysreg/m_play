@@ -24,7 +24,9 @@ var MPLAY = MPLAY || {};
 
 		// this._ambientInstance = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
 
-		this.setupLibraryBackground();
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and priya.png";
+		//specify which foreground with the characters
+		this.setupLibraryBackground(foregroundImg);
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
 
@@ -45,7 +47,7 @@ var MPLAY = MPLAY || {};
 
 		this._talked = 0;
 
-		var z = this.getBackgroundLayer() + 50;
+		var z = this._background3Layer + 50;
 		var pageObj = this;
 
 		var onInteractableObjectClicked = function(io) {
@@ -54,9 +56,10 @@ var MPLAY = MPLAY || {};
 			pageObj._io2.setEnable(false);
 		};
 
+		//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/ryan-clickable-lib.png",
-			{type: "character", x: -215, y: -185, z: z, width : 250, height : 431, onClick: function(io) {
+			"/static/gnovel/res/textures/panel.png",
+			{type: "character", x: -280, y: -35, z: z, width : 280, height : 631, opacity: 0, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -72,10 +75,11 @@ var MPLAY = MPLAY || {};
 					},
 				});
 			}});
-
+			//this._io1.getImage().opacity = 0;
+			//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/priya-clickable-lib.png",
-			{type: "character", x: 400, y: -220, z: z, width : 280, height : 414, onClick: function(io) {
+			"/static/gnovel/res/textures/char/scene char/priya-clickable-lib.png",
+			{type: "character", x: 280, y: -60, z: z, width : 380, height : 620, opacity: 0, onClick: function(io) {
 				pageObj._talked = 2;
 				pageObj._runFlow();
 
@@ -116,9 +120,9 @@ var MPLAY = MPLAY || {};
 				{type: "show_phone_notif"},
 
 				// phone email exchange begins
-				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu", 
+				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
 					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. - Prof. Sweeney"},
-				{type: "close_phone"},	
+				{type: "close_phone"},
 				// phone email exchange ends
 
 				{type: "custom", func: function(pageObj){
@@ -663,7 +667,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page3.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
@@ -672,7 +676,7 @@ var MPLAY = MPLAY || {};
 
 	Page3.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

@@ -67,9 +67,9 @@ var MPLAY = MPLAY || {};
 			// {type: "show_phone_notif"},
 
 			// // phone email exchange begins
-			// {type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu", 
+			// {type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
 			// 	text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
-			// {type: "close_phone"},	
+			// {type: "close_phone"},
 			// phone email exchange ends
 
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
