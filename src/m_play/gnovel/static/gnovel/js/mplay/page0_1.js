@@ -219,7 +219,9 @@ var MPLAY = MPLAY || {};
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
-			{type: "goto", page: "scene 2.a", label: "nextscene"},
+			{type: "nothing", label:"nextscene"},
+			{type: "hide", img: this._ryan},
+			{type: "goto", page: "scene 2.a"},
 		];
 
 		return o;
@@ -244,6 +246,8 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0_1.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 
 		if (this._owner._ambient != null) {
@@ -253,6 +257,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page0_1.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

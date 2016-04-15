@@ -22,7 +22,7 @@ var GNOVEL = GNOVEL || {};
 		this._labels = [];
 		this._storedData = [];
 
-		console.log("flow is reset");
+		// console.log("flow is reset");
 	};
 
 	Flow.DIALOG = "dialog";

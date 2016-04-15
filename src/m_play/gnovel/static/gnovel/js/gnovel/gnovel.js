@@ -1,4 +1,3 @@
-
 /**
  * @module gnovel
  */
@@ -25,63 +24,113 @@ var GNOVEL = GNOVEL || {};
 		this._container = document.getElementById("container");
 		this._cameraCanvas = document.getElementById("application-canvas");
 		this._prevPage = null;
-		this._pageRootObject = {curPage : null, prevPage : null};
+		this._pageRootObject = {
+			curPage: null,
+			prevPage: null
+		};
 		this._raycaster = new THREE.Raycaster();
 		this._mouseDownListeners = [];
 		this._mouseMoveListeners = [];
 		this._started = false; // will be true if onStart is finished
 		this._savedData = {};
 		this._onMouseDownProcessing = false;
+		this._width = null;
+		this._height = null;
 
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
-		this._width = window.innerWidth;
-		this._height = window.innerHeight;
-		this._camera = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
-		this._cameraDefault = new THREE.PerspectiveCamera(50, this._width / this._height, 100, 1200);
-		this._cameraTrans = new THREE.OrthographicCamera(0, this._width, this._height/2, this._height/-2, 100, 1200);
 		this._renderer = null;
-		this._preloadPage = false;
+
+		this._transition = new GNOVEL.Transition(1000);
 
 		this._clock = new THREE.Clock();
 
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
-					// SFX UI
-					{id:"Clicking", src:"sfx-ui-clicking.ogg"},
-					{id:"Timer", src:"sfx-ui-timer.ogg"},
-					{id:"Message", src:"sfx-ui-message.ogg"},
-					{id:"Text", src:"sfx-ui-text.ogg"},
+			// SFX UI
+			{
+				id: "Clicking",
+				src: "sfx-ui-clicking.ogg"
+			}, {
+				id: "Timer",
+				src: "sfx-ui-timer.ogg"
+			}, {
+				id: "Message",
+				src: "sfx-ui-message.ogg"
+			}, {
+				id: "Text",
+				src: "sfx-ui-text.ogg"
+			},
 
-					// SFX Waiting dialog
-					{id:"Hello?-Ryan", src: "sfx-waiting-hello-ryan.ogg"},
+			// SFX Waiting dialog
+			{
+				id: "Hello?-Ryan",
+				src: "sfx-waiting-hello-ryan.ogg"
+			},
 
-					// SFX Greeting dialog
-					  // Ryan
-					{id:"Heyfriend-Ryan", src: "sfx-greeting-heyfriend-ryan-p.ogg"},
-					{id:"Hey-Ryan-n", src: "sfx-greeting-hey-ryan-n.ogg"},
-					{id:"Hey-Ryan-p", src: "sfx-greeting-hey-ryan-p.ogg"},
-					{id:"Hey-Ryan-e", src: "sfx-greeting-hey-ryan-e.ogg"},
-					{id:"Ohhi-Ryan", src: "sfx-greeting-ohhi-ryan-n.ogg"},
-					{id:"Sup-Ryan", src: "sfx-greeting-sup-ryan-n.ogg"},
-					{id:"Yo-Ryan", src: "sfx-greeting-yo-ryan-p.ogg"},
+			// SFX Greeting dialog
+			// Ryan
+			{
+				id: "Heyfriend-Ryan",
+				src: "sfx-greeting-heyfriend-ryan-p.ogg"
+			}, {
+				id: "Hey-Ryan-n",
+				src: "sfx-greeting-hey-ryan-n.ogg"
+			}, {
+				id: "Hey-Ryan-p",
+				src: "sfx-greeting-hey-ryan-p.ogg"
+			}, {
+				id: "Hey-Ryan-e",
+				src: "sfx-greeting-hey-ryan-e.ogg"
+			}, {
+				id: "Ohhi-Ryan",
+				src: "sfx-greeting-ohhi-ryan-n.ogg"
+			}, {
+				id: "Sup-Ryan",
+				src: "sfx-greeting-sup-ryan-n.ogg"
+			}, {
+				id: "Yo-Ryan",
+				src: "sfx-greeting-yo-ryan-p.ogg"
+			},
 
-					  // Cat
-					{id:"Hey-Cat", src: "sfx-greeting-hey-cat-n.ogg"},
-					{id:"Heyfriend-Cat", src: "sfx-greeting-heyfriend-cat-p.ogg"},
-					{id:"Ohhi-Cat", src: "sfx-greeting-ohhi-cat-n.ogg"},
-					{id:"Wtsnew-Cat", src: "sfx-greeting-whatsnew-cat-n.ogg"},
-					{id:"Sup-Cat", src:"sfx-greeting-sup-cat-p.ogg"},
+			// Cat
+			{
+				id: "Hey-Cat",
+				src: "sfx-greeting-hey-cat-n.ogg"
+			}, {
+				id: "Heyfriend-Cat",
+				src: "sfx-greeting-heyfriend-cat-p.ogg"
+			}, {
+				id: "Ohhi-Cat",
+				src: "sfx-greeting-ohhi-cat-n.ogg"
+			}, {
+				id: "Wtsnew-Cat",
+				src: "sfx-greeting-whatsnew-cat-n.ogg"
+			}, {
+				id: "Sup-Cat",
+				src: "sfx-greeting-sup-cat-p.ogg"
+			},
 
-					  // Priya
-					{id:"Hello-Priya", src: "sfx-greeting-hello-priya-p.ogg"},
-					{id:"Heyfriend-Priya", src: "sfx-greeting-heyfriend-priya-p.ogg"},
-					{id:"Hey-Priya", src: "sfx-greeting-hey-priya-n.ogg"},
-					{id:"Ohhi-Priya", src: "sfx-greeting-ohhi-priya-p.ogg"},
-					{id:"Wtsnew-Priya", src: "sfx-greeting-whatsnew-priya-n.ogg"},
+			// Priya
+			{
+				id: "Hello-Priya",
+				src: "sfx-greeting-hello-priya-p.ogg"
+			}, {
+				id: "Heyfriend-Priya",
+				src: "sfx-greeting-heyfriend-priya-p.ogg"
+			}, {
+				id: "Hey-Priya",
+				src: "sfx-greeting-hey-priya-n.ogg"
+			}, {
+				id: "Ohhi-Priya",
+				src: "sfx-greeting-ohhi-priya-p.ogg"
+			}, {
+				id: "Wtsnew-Priya",
+				src: "sfx-greeting-whatsnew-priya-n.ogg"
+			},
 
 
 
-					// ambient
+			// ambient
 					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
 					{id:"Office-bg", src:"ambient-office.ogg"},
 					{id:"Gym-bg", src:"ambient-gym.ogg"},
@@ -99,7 +148,7 @@ var GNOVEL = GNOVEL || {};
 					{id:"Bar-liquid", src:"bgnoises-bar-liquid.ogg"},
 					{id:"Bar-mantalking", src:"bgnoises-bar-mantalking.ogg"},
 					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"}
-					];
+		];
 		this._soundManager = createjs.Sound;
 
 		this._soundManager.alternateExtensions = ["mp3"];
@@ -107,7 +156,10 @@ var GNOVEL = GNOVEL || {};
 		this._ambient = null;
 
 		var canvas = document.getElementById("application-canvas");
-		this._renderer = new THREE.WebGLRenderer({canvas: canvas, logarithmicDepthBuffer: true});
+		this._renderer = new THREE.WebGLRenderer({
+			canvas: canvas,
+			logarithmicDepthBuffer: true
+		});
 
 		var gnovel = this;
 
@@ -118,30 +170,38 @@ var GNOVEL = GNOVEL || {};
 
 		scene.add(camera);
 
-		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/transitionPanel_plainSM.jpg");
-		var material = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			transparent: true,
-			map: texture
-		});
-		var plane = new THREE.PlaneBufferGeometry(6154, 3546);
-		//var plane = new THREE.PlaneBufferGeometry(1920, 1080);
-		this.transitionPanel = new THREE.Mesh(plane, material);
-		//z is background layer position
-		this.transitionPanel.position.set(0,0,-100);
-
 		this._renderer.setPixelRatio(window.devicePixelRatio);
 		this._renderer.autoClear = false;
 
+		var rtTexture = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xff0000,
+			transparent: true,
+		});
+		this._rtTexture = rtTexture;
+
+		var materialScreen = new THREE.ShaderMaterial( {
+			uniforms: { tDiffuse: { type: "t", value: rtTexture } },
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+			depthWrite: false
+		});
+
+		var plane = new THREE.PlaneBufferGeometry(1920 / 2, 1080 / 2);
+		var quad = new THREE.Mesh(plane, materialScreen);
+		this._rttScene = new THREE.Scene();
+		quad.position.setZ(10);
+		this._rttScene.add(quad);
+
 		// setup render loop
-		var render = function () {
+		var render = function() {
 			requestAnimationFrame(render);
 			TWEEN.update();
-			gnovel._renderer.render(scene, camera);
 
+			gnovel._render();
 			gnovel._update();
 
-			if(gnovel._stats !== null) {
+			if (gnovel._stats !== null) {
 				gnovel._stats.update();
 			}
 		};
@@ -152,30 +212,43 @@ var GNOVEL = GNOVEL || {};
 
 		this._onWindowResize();
 		var gnovel = this;
-		document.addEventListener('mousedown', function(event) { gnovel._onMouseDown(event); }, false);
-		document.addEventListener('mousemove', function(event) { gnovel._onMouseMove(event); }, false);
-		window.addEventListener( 'resize', function(event) {gnovel._onWindowResize(event); }, false );
+		document.addEventListener('mousedown', function(event) {
+			gnovel._onMouseDown(event);
+		}, false);
+		document.addEventListener('mousemove', function(event) {
+			gnovel._onMouseMove(event);
+		}, false);
+		window.addEventListener('resize', function(event) {
+			gnovel._onWindowResize(event);
+		}, false);
 	};
 
 	Gnovel.prototype._update = function() {
 		var page = this.getCurrentPage();
-		if(this._onStart) {
+		if (this._onStart) {
 			page._update();
 		}
+	};
+
+	Gnovel.prototype._render = function() {		
+		this._renderer.render(this._scene, this._camera);				
 	};
 
 	Gnovel.prototype._onWindowResize = function(event) {
 		var aspect_ratio = window.innerWidth / window.innerHeight;
 
-		if(aspect_ratio > 16/9) {
+		if (aspect_ratio > 16 / 9) {
 			// fill height
 			this._cameraCanvas.height = window.innerHeight;
-			this._cameraCanvas.width = (16/9) * this._cameraCanvas.height;
-		}else{
+			this._cameraCanvas.width = (16 / 9) * this._cameraCanvas.height;
+		} else {
 			// fill width
 			this._cameraCanvas.width = window.innerWidth;
-			this._cameraCanvas.height = (9/16) * this._cameraCanvas.width;
+			this._cameraCanvas.height = (9 / 16) * this._cameraCanvas.width;
 		}
+
+		this._width = this._cameraCanvas.width;
+		this._height = this._cameraCanvas.height;
 
 		this._renderer.setSize(this._cameraCanvas.width, this._cameraCanvas.height);
 	}
@@ -191,9 +264,9 @@ var GNOVEL = GNOVEL || {};
 		page._owner = this;
 		this._pages.push(page);
 
-		if(!this._pageDict[label]) {
+		if (!this._pageDict[label]) {
 			this._pageDict[label] = page;
-		}else{
+		} else {
 			// there is already a page called with that label
 			console.warn("there is already page called with that label");
 		}
@@ -204,11 +277,13 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._removeFromScene = function(page, o) {
-		this._pageRootObject[page.getPageId()].remove(o);
+		if(this._pageRootObject[page.getPageId()]) {
+			this._pageRootObject[page.getPageId()].remove(o);
+		}		
 	};
 
 	Gnovel.prototype._findInScene = function(page, name) {
-		if(this._pageRootObject[page.getPageId()].getObjectByName(name) != "undefined")
+		if (this._pageRootObject[page.getPageId()].getObjectByName(name) != "undefined")
 			return true;
 		else {
 			return false;
@@ -219,10 +294,10 @@ var GNOVEL = GNOVEL || {};
 
 		this._soundManager.play("Clicking");
 
-		if(!this._onStart) return;
+		if (!this._onStart) return;
 
 		// if we are still processing a onMouseDown event, then don't process
-		if(this._onMouseDownProcessing) {
+		if (this._onMouseDownProcessing) {
 			return;
 		}
 
@@ -230,7 +305,7 @@ var GNOVEL = GNOVEL || {};
 
 		//console.log("on mouse down");
 		var page = this.getCurrentPage();
-		if(page != null) {
+		if (page != null) {
 			page._onMouseDown(event);
 		}
 
@@ -238,7 +313,7 @@ var GNOVEL = GNOVEL || {};
 		var listenersCopy = this._mouseDownListeners.slice();
 
 		// notify all the listeners
-		for(var i=0;i<listenersCopy.length;i++) {
+		for (var i = 0; i < listenersCopy.length; i++) {
 			listenersCopy[i](event);
 		}
 
@@ -246,16 +321,16 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseMove = function(event) {
-		if(!this._onStart) return;
+		if (!this._onStart) return;
 
 		//console.log("on mouse move");
 		var page = this.getCurrentPage();
-		if(page != null) {
+		if (page != null) {
 			page._onMouseMove(event);
 		}
 
 		// notify all the listeners
-		for(var i=0;i<this._mouseMoveListeners.length;i++) {
+		for (var i = 0; i < this._mouseMoveListeners.length; i++) {
 			this._mouseMoveListeners[i](event);
 		}
 	};
@@ -269,58 +344,51 @@ var GNOVEL = GNOVEL || {};
 		this._load(page);
 	};
 
-	//called before transition runs to get set page properties but does not start the next scene
-	Gnovel.prototype._preLoad = function(page){
+	//main load function that sets page properties and starts next scene
+	Gnovel.prototype._load = function(page) {
+		console.log("load page " + page.getPageId());
+
 		var pageRoot = new THREE.Object3D();
-	//	var pageOverlay1 = new THREE.Object3D();
-	//	var pageOverlay2 = new THREE.Object3D();
 		var gnovel = this;
 		pageRoot.name = "Page Root " + page.getPageLabel();
 		this._pageRootObject[page.getPageId()] = pageRoot;
-		this._preloadPage = true;
 		page._onLoad();
-		this._scene.add(this._pageRootObject[page.getPageId()]);
-	}
 
-	//main load function that sets page properties and starts next scene
-	Gnovel.prototype._load = function(page) {
-			var pageRoot = new THREE.Object3D();
-		//	var pageOverlay1 = new THREE.Object3D();
-		//	var pageOverlay2 = new THREE.Object3D();
-			var gnovel = this;
-			pageRoot.name = "Page Root " + page.getPageLabel();
-			this._pageRootObject[page.getPageId()] = pageRoot;
-			page._onLoad();
-
-		if(this._preloadPage!=true){
+		// if it's the first page, then we add the current page right away
+		// if not, then we will add the page to the scene after the transition completed
+		if(page.getPageId() == 0) {
 			this._scene.add(this._pageRootObject[page.getPageId()]);
+
 			// FIXME
 			// wait for several seconds
-			var o = {val:0};
+			var o = {
+				val: 0
+			};
 			var loadDuration = 3;
 			var tween = new TWEEN.Tween(o)
 				.to({
 					val: 1,
 				}, loadDuration * 1000)
 				.onComplete(function() {
-					//if 1st page, load without panel transition btw. scenes
-					if(page._id==0){
 					_onStart(page);
 					gnovel._onStart = true;
 					console.log("gnovel started");
-				}
 				});
 			tween.start();
-		}
+		}		
 	};
 
 	function _onStart(pageObj) {
+		console.log("call onStart on page " + pageObj.getPageId());
+
 		pageObj._onStart();
 		pageObj._runFlow();
 		pageObj._setMultiTracksPlayer();
 	};
 
 	Gnovel.prototype._unload = function(page) {
+		console.log("unload page " + page.getPageId());
+
 		page._onUnload();
 
 		// remove all objects added to scene
@@ -331,7 +399,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.getCurrentPage = function() {
-		if(this._curPageIdx < 0 || this._curPageIdx >= this._pages.length)
+		if (this._curPageIdx < 0 || this._curPageIdx >= this._pages.length)
 			return null;
 		return this.getPageAt(this._curPageIdx);
 	};
@@ -341,55 +409,37 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype.goToPage = function(pageIndex, transitionType, transitionParam) {
+		console.log("go to page " + pageIndex);
+
 		// FIXME : for now regardless of transitionType and transitionParam,
 		// the transition is going to be FADE
+		
 		// load the next page during transition
 		var curPage = this.getCurrentPage();
 		var nextPage = this.getPageAt(pageIndex);
 
+		// unload the previous page
+		//this._unload(curPage);
+
 		//load next scene into root before showing on screen and transition
-		if(pageIndex == 0)
-			this._load(nextPage);
-		else {
-			this._preLoad(nextPage);
-		}
+		this._load(nextPage);	
 
-		var curPageObj = this._pageRootObject[this.getPageAt(this._curPageIdx).getPageId()];
-		var nextPageObj = this._pageRootObject[pageIndex];
-		var transition = new GNOVEL.Transition(1000);
-		var gnovel = this;
-		var nextPageBG = new THREE.Object3D();
-		//if there are layers to BG, add them all nextPageBG object for transition
-		for(var i = 0;i<nextPageObj.children.length;i++){
-			nextPageBG.add(new THREE.Mesh(nextPageObj.children[i].geometry, nextPageObj.children[i].material));
-			nextPageBG.position.set(nextPageObj.children[i].position.x,nextPageObj.children[i].position.y,i*10);
-		}
-		//var nextPageBG = new THREE.Mesh(nextPageObj.children[0].geometry, nextPageObj.children[0].material);
-		//nextPageBG.position.set(nextPageObj.children[0].position.x,nextPageObj.children[0].position.y,0);
-
-		gnovel._scene.add(this.transitionPanel);
-		if(curPage._showingFilter==true){
-			this._scene.remove(curPage.convoFilter);
-			curPage._showingFilter = false;
-		}
-		//gnovel._scene.add(nextPageBG);
-
-
-		//gnovel._camera = gnovel._cameraTrans;
-		transition.run(curPage, nextPageObj,this.transitionPanel, {
-			onComplete : function() {
-				//gnovel._load(nextPage);
-				gnovel._onPageTransitionComplete(gnovel, nextPage, nextPageObj);
-				},
-			onUpdate : function() {
-			}, gnovel
-		});
 		this._onStart = false;
-
-
 
 		this._prevPage = curPage;
 		this._curPageIdx = pageIndex;
+
+		this._runTransition(curPage, nextPage);
+	};
+
+	Gnovel.prototype._runTransition = function(curPage, nextPage) {
+		var gnovel = this;	
+		
+		this._transition.run(curPage, nextPage, {
+			onComplete: function() {
+				gnovel._onPageTransitionComplete(nextPage);
+			},
+		});
 	};
 
 	Gnovel.prototype.goToPageByLabel = function(pageLabel, transitionType, transitionParam) {
@@ -399,21 +449,17 @@ var GNOVEL = GNOVEL || {};
 		this.goToPage(nextPageIndex, transitionType, transitionParam);
 	};
 
-	Gnovel.prototype._onPageTransitionComplete = function(gnovelObj, page, nextPageBG) {
-		//remove transitionPanel
-		gnovelObj._scene.remove(this.transitionPanel);
-		//resert panel position
-		this.transitionPanel.position.set(0,0,-100);
-		//gnovelObj._scene.remove(nextPageBG);
-		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
-		//start flow of next page
-		
-		// unload the previous page
-		gnovelObj._unload(gnovelObj._prevPage);
+	Gnovel.prototype._onPageTransitionComplete = function(page) {
+		// add the current page to the scene
+		this._scene.add(this._pageRootObject[page.getPageId()]);
 
+		// unload the previous page
+		this._unload(this._prevPage);
+
+		//start flow of next page
 		_onStart(page);
-		gnovelObj._onStart = true;
-		console.log("gnovel started");
+		this._onStart = true;
+		console.log("gnovel started");		
 	};
 
 	Gnovel.prototype.getCamera = function() {
@@ -424,7 +470,7 @@ var GNOVEL = GNOVEL || {};
 		var stats = new Stats();
 		stats.domElement.style.position = 'absolute';
 		stats.domElement.style.top = '0px';
-		this._container.appendChild( stats.domElement );
+		this._container.appendChild(stats.domElement);
 		this._stats = stats;
 	};
 
@@ -438,7 +484,7 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.removeMouseDownListener = function(obj) {
 		var index = GNOVEL.Util.findElement(this._mouseDownListeners, obj);
-		if(index != -1) this._mouseDownListeners.splice(index, 1);
+		if (index != -1) this._mouseDownListeners.splice(index, 1);
 	};
 
 	Gnovel.prototype.addMouseMoveListener = function(obj) {
@@ -447,30 +493,42 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype.removeMouseMoveListener = function(obj) {
 		var index = GNOVEL.Util.findElement(this._mouseMoveListeners, obj);
-		if(index != -1) this._mouseMoveListeners.splice(index, 1);
+		if (index != -1) this._mouseMoveListeners.splice(index, 1);
 	};
 
 	Gnovel.prototype.saveData = function(label, data) {
 		this._savedData[label] = data;
 	};
 
-	Gnovel.prototype.getSavedData = function (label) {
+	Gnovel.prototype.getSavedData = function(label) {
 		return this._savedData[label];
 	};
 
-	Gnovel.prototype.getSoundManager = function () {
+	Gnovel.prototype.getSoundManager = function() {
 		return this._soundManager;
 	};
 
 	Gnovel.prototype.calcMousePositionRelativeToCanvas = function(mouse) {
 		var rect = this._renderer.domElement.getBoundingClientRect();
 		//console.log();
-		mouse.x = ((mouse.x - rect.left)/ this._renderer.domElement.clientWidth) * 2 - 1;
-		mouse.y = -((mouse.y - rect.top)/ this._renderer.domElement.clientHeight) * 2 + 1;
+		mouse.x = ((mouse.x - rect.left) / this._renderer.domElement.clientWidth) * 2 - 1;
+		mouse.y = -((mouse.y - rect.top) / this._renderer.domElement.clientHeight) * 2 + 1;
 	};
 
 	Gnovel.prototype.getClock = function() {
 		return this._clock;
+	};
+
+	Gnovel.prototype._getRenderer = function() {
+		return this._renderer;
+	};
+
+	Gnovel.prototype._getWidth = function() {
+		return this._width;
+	};
+
+	Gnovel.prototype._getHeight = function() {
+		return this._height;
 	};
 
 	GNOVEL.Gnovel = Gnovel;

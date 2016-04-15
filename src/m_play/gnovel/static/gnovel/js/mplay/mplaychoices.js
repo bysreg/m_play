@@ -20,7 +20,7 @@ var MPLAY = MPLAY || {};
 		this._integrityManager = page._integrityManager;
 		this._relationshipManager = page._relationshipManager;
 		var pageObj = page;
-		params._waitForTransition = true;
+		
 		//FIXME
 		//Need to speicify position of dialog box
 		params.dialogX = params.x;

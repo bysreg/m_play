@@ -662,6 +662,8 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page3.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
@@ -669,6 +671,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page3.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+		
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

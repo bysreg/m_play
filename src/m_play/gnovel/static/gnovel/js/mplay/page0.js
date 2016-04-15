@@ -64,12 +64,12 @@ var MPLAY = MPLAY || {};
 		o = [
 			//NEW INTRO FOR PLAYTEST
 			// phone email exchange begins
-			{type: "show_phone_notif"},
+			// {type: "show_phone_notif"},
 
-			// phone email exchange begins
-			{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu", 
-				text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
-			{type: "close_phone"},	
+			// // phone email exchange begins
+			// {type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu", 
+			// 	text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
+			// {type: "close_phone"},	
 			// phone email exchange ends
 
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
@@ -92,6 +92,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
@@ -99,6 +100,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page0.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

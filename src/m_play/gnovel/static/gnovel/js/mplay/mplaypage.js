@@ -48,12 +48,16 @@ var MPLAY = MPLAY || {};
 		this._ioNumber = 0; // io stands for interactable object
 
 		//filter for conversations
-		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer-30), 1820, 1080);
+		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer - 30), 1820, 1080);
 		this._convoFilter.name = "convoFilter";
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
 		// 	this._initChars();
 		// }
+
+		// for background postprocessing
+		this._sceneBg = null;
+		this._pageSceneBg = new THREE.Object3D();;
 
 		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
@@ -82,6 +86,8 @@ var MPLAY = MPLAY || {};
 	MPlayPage._integrityManager = null;
 	MPlayPage._relationshipManager = null;
 	MPlayPage._phoneInteraction = null;
+	MPlayPage._sceneBg = null; // for all pages
+	MPlayPage._pageSceneBg = null; // page will add bg to this object instead of directly to _sceneBg
 
 	// characters stored as class static variable
 	// so that we can reuse it throughout the pages
@@ -93,15 +99,17 @@ var MPLAY = MPLAY || {};
 	MPlayPage._isAnimInit = false;
 	MPlayPage._animCount = 0;
 	MPlayPage._loadedAnimCount = 0;
+	MPlayPage._isBgProcessingInit = false;
 	MPlayPage._anims = {};
+
+	MPlayPage._hblur = null;
+	MPlayPage._vblur = null;
+	MPlayPage._vignetteOffset = null;
+	MPlayPage._vignetteDarkness = null;
 
 	MPlayPage.prototype._initChars = function() {
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
-		//MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
-		MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
-		MPlayPage._ryan.setExpression("angry", this.createImage("/static/gnovel/res/textures/char/ryan-angry.png", new THREE.Vector3(0, -200, this._characterLayer), 845, 920), "Ryan");
 		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
 		MPlayPage._ryan.setExpression("very happy", MPlayPage._anims["ryan happy"], "Ryan");
 		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy 2"], "Ryan");
@@ -149,11 +157,11 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._initAnim = function() {
 		this._createAnim("ryan neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -260, this._characterLayer));
 		this._createAnim("ryan angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {
+		this._createAnim("ryan happy", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer)).oriScale = {
 			x: -1,
 			y: 1
 		};
+		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
 		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -130, this._characterLayer));
 		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 
@@ -194,6 +202,145 @@ var MPLAY = MPLAY || {};
 		}
 
 		MPlayPage._isAnimInit = true;
+	};
+
+	MPlayPage.prototype._initBgProcessing = function() {
+		var sceneBg = new THREE.Scene();
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var effectHBlur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
+		var effectVBlur = new THREE.ShaderPass(THREE.VerticalBlurShader);
+		effectHBlur.uniforms['h'].value = 0; // 2 / width
+		effectVBlur.uniforms['v'].value = 0; // 2 / height
+		effectVBlur.renderToScreen = false;
+		MPlayPage._hblur = effectHBlur.uniforms['h'];
+		MPlayPage._vblur = effectVBlur.uniforms['v'];
+
+		var shaderVignette = THREE.VignetteShader;
+		var effectVignette = new THREE.ShaderPass(shaderVignette);
+		effectVignette.uniforms["offset"].value = 0; // 0.95
+		effectVignette.uniforms["darkness"].value = 0; // 1.6
+		effectVignette.renderToScreen = true;
+		MPlayPage._vignetteOffset = effectVignette.uniforms["offset"];
+		MPlayPage._vignetteDarkness = effectVignette.uniforms["darkness"];
+
+		// background processing render target parameters
+		var bgRtParameters = {
+			minFilter: THREE.LinearFilter,
+			magFilter: THREE.LinearFilter,
+			format: THREE.RGBFormat,
+			stencilBuffer: true,
+		};
+
+		var renderBgPass = new THREE.RenderPass(sceneBg, this._owner.getCamera());
+		renderBgPass.clear = true;
+
+		var sceneBgComposer = new THREE.EffectComposer(this._owner._getRenderer(), new THREE.WebGLRenderTarget(width, height, bgRtParameters));
+
+		sceneBgComposer.addPass(renderBgPass);
+		sceneBgComposer.addPass(effectHBlur);
+		sceneBgComposer.addPass(effectVBlur);
+		sceneBgComposer.addPass(effectVignette);
+
+		var curPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+
+		var curPageMaterial = new THREE.MeshBasicMaterial({
+		// var curPageMaterial = new THREE.ShaderMaterial({
+			uniforms: { tDiffuse: { type: "t", value: curPageRT } },
+			color: 0x00ff00,
+			transparent: true,
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+		});
+
+		var nextPageMaterial = new THREE.MeshBasicMaterial({
+		// var nextPageMaterial = new THREE.ShaderMaterial({
+			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },	
+			color: 0xff0000,
+			transparent: true,
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+			depthWrite: false
+		});
+
+		// override gnovel's render function
+		this._owner._render = function() {
+			this._renderer.clear();
+			sceneBgComposer.render(0.01);
+			this._renderer.clear(false, true, false); // clear the depth buffer
+			this._renderer.render(this._scene, this._camera);
+
+			// this._renderer.render(this._scene, this._camera, this._rtTexture, true);
+			// this._renderer.clear(false, true, false);
+			// this._renderer.render(this._rttScene, this._camera);
+		};
+
+		// override gnovel's _runTransition function
+		this._owner._runTransition = function(curPage, nextPage) {
+			var gnovel = this;
+
+			this._renderer.clear(false, true, false); // clear the depth buffer
+			//this._renderer.render(this._scene, this._camera, curPageRT, true);
+
+			this._transition._setCurPageBgMaterial(curPageMaterial);
+			this._transition._setNextPageBgMaterial(nextPageMaterial);
+
+			this._transition.run(curPage, nextPage, {
+				onComplete: function() {
+					gnovel._onPageTransitionComplete(nextPage);
+				},
+			});
+		};
+
+
+		this._sceneBg = sceneBg;
+		MPlayPage._sceneBg = sceneBg;
+	};
+
+	MPlayPage.prototype._setBlurBgEffect = function(params) {
+		var width = this._owner._getWidth();
+		var height = this._owner._getHeight();
+		var duration = 2000;
+		var targetBlurH = 2 / width;
+		var targetBlurV = 2 / height;
+		var vignetteOffset = 0.95;
+		var vignetteDarkness = 1.6;
+		var pageObj = this;
+
+		params = params || {};
+
+		if (params.clear) {
+			targetBlurH = 0;
+			targetBlurV = 0;
+			vignetteOffset = 0;
+			vignetteDarkness = 0;
+		}
+
+		var t1 = new TWEEN.Tween(MPlayPage._hblur)
+			.to({
+				value: targetBlurH,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t1.start();
+		var t2 = new TWEEN.Tween(MPlayPage._vblur)
+			.to({
+				value: targetBlurV,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t2.start();
+		var t3 = new TWEEN.Tween(MPlayPage._vignetteOffset)
+			.to({
+				value: vignetteOffset,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t3.start();
+		var t4 = new TWEEN.Tween(MPlayPage._vignetteDarkness)
+			.to({
+				value: vignetteDarkness,
+			}, duration)
+			.easing(TWEEN.Easing.Cubic.Out);
+		t4.start();
 	};
 
 	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
@@ -325,15 +472,33 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._onLoad = function() {
 		this._initPhoneNotification();
 
+		if (!MPlayPage._isBgProcessingInit) {
+			this._initBgProcessing();
+			MPlayPage._isBgProcessingInit = true;
+		} else {
+			this._sceneBg = MPlayPage._sceneBg;
+		}
+
 		GNOVEL.Page.prototype._onLoad.call(this);
 	};
 
 	/**
 	 * @override
 	 */
-	MPlayPage.prototype._onStart = function() {
+	MPlayPage.prototype._onUnload = function() {
+		this._sceneBg.remove(this._pageSceneBg);
 
+		GNOVEL.Page.prototype._onUnload.call(this);
+	};
+
+	/**
+	 * @override
+	 */
+	MPlayPage.prototype._onStart = function() {
 		GNOVEL.Page.prototype._onStart.call(this);
+
+		// add this page's scene bg to overall scene bg 
+		this._sceneBg.add(this._pageSceneBg);
 	};
 
 	/**
@@ -434,6 +599,15 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params.jumpArr = jumpArr;
+
+		this._setBlurBgEffect();
+		var pageObj = this;
+
+		params.onChoiceComplete = function() {
+			pageObj._setBlurBgEffect({
+				clear: true
+			});
+		};
 
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
 	};
@@ -697,26 +871,35 @@ var MPLAY = MPLAY || {};
 		MPlayPage._professor.update();
 	};
 
+	MPlayPage.prototype._addToSceneBg = function(val) {
+		this._pageSceneBg.add(val);
+	};
+
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-		this._addToScene(background2);
+
+		this._addToSceneBg(this._bg);
+		this._addToSceneBg(background2);
 	};
 
 	MPlayPage.prototype.setupUcBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		this._addToScene(background2);
-
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-		this._addToScene(background3);
+
+		this._addToSceneBg(this._bg);
+		this._addToSceneBg(background2);
+		this._addToSceneBg(background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
 		//this._bg.setPos
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
+
+		this._addToSceneBg(this._bg);
 		//this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
 
 		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer), 1920, 1080);
@@ -728,24 +911,31 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.setupBarBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+
+		this._addToSceneBg(this._bg);
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/caf full png.png");
+
+		this._addToSceneBg(this._bg);
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
+
+		this._addToSceneBg(this._bg);
 	};
 
 	MPlayPage.prototype.setupOfficeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/professor office background.png");
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		this._addToScene(background2);
-
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
-		this._addToScene(background3);
+
+		this._addToSceneBg(this._bg);
+		this._addToSceneBg(background2);
+		this._addToSceneBg(background3);
 	};
 
 	MPlayPage.prototype.getIntegrityManager = function() {
@@ -988,28 +1178,28 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.showBgFilter = function() {
- 		//can also use this._background3Layer for the z-position
- 		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._choicesLayer-20), 1430, 830);
- 		this._filter.material.opacity = 0;
- 		this._addToScene(this._filter);
+		//can also use this._background3Layer for the z-position
+		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png", new THREE.Vector3(0, 0, this._choicesLayer - 20), 1430, 830);
+		this._filter.material.opacity = 0;
+		this._addToScene(this._filter);
 
- 		//play animation effect for filter
- 		this.tweenFlash(this._filter,{
- 			opacityTo: 0.5,
- 			opacityFrom:0.2,
- 			duration: 2000,
- 			easing: TWEEN.Easing.Linear.Out,
- 			easingFrom:TWEEN.Easing.Linear.In
- 		});
- 	};
+		//play animation effect for filter
+		this.tweenFlash(this._filter, {
+			opacityTo: 0.5,
+			opacityFrom: 0.2,
+			duration: 2000,
+			easing: TWEEN.Easing.Linear.Out,
+			easingFrom: TWEEN.Easing.Linear.In
+		});
+	};
 
- 	MPlayPage.prototype.hideBgFilter = function() {
- 		this._removeFromScene(this._filter);
- 	};
+	MPlayPage.prototype.hideBgFilter = function() {
+		this._removeFromScene(this._filter);
+	};
 
- 	MPlayPage.prototype._setMultiTracksPlayer = function() {
- 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
- 	};
+	MPlayPage.prototype._setMultiTracksPlayer = function() {
+		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
+	};
 
 	MPLAY.MPlayPage = MPlayPage;
 
