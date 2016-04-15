@@ -44,6 +44,8 @@ var GNOVEL = GNOVEL || {};
 		this._temp = params.temp;
 		this._center = params.center;
 		this._isDialog = params.isDialog || false;
+		this._mouseDownListenerAdded = false;
+
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
@@ -54,8 +56,6 @@ var GNOVEL = GNOVEL || {};
 			this._hasTransition = params.createNewBg;
 		}
 
-		this._init();
-
 		var dialog = this;
 		this._mouseDownListener = function(event) {
 			if (dialog._tweenComplete == false) {
@@ -64,9 +64,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-		if(!this._unclickable) {
-			this._page.getOwner().addMouseDownListener(this._mouseDownListener);
-		}
+		this._init();
 	};
 
 	// static class variable
@@ -84,8 +82,7 @@ var GNOVEL = GNOVEL || {};
 			// close the previous dialog box if it still exists
 			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
 			this._closeDialog();
-		}
-		else if(this._temp==true){
+		} else if (this._temp == true) {
 			// if current speaker is different than the previous speaker, then we need to
 			// close the previous dialog box if it still exists
 			this._textBg = Dialog._textBg; // because this._textBg is null because of the ctor
@@ -111,7 +108,7 @@ var GNOVEL = GNOVEL || {};
 			var tailOffset;
 			if (x == 0) {
 				tailOffset = this._middleBubbleTailOffset;
-			}else {
+			} else {
 				tailOffset = this._otherBubbleTailOffset;
 			}
 			var camera = this._page.getOwner().getCamera();
@@ -119,7 +116,7 @@ var GNOVEL = GNOVEL || {};
 			textHeight = textHeight / scale;
 			var y_far = y + textHeight / 2 - tailOffset + this._msgOffsetY;
 			y_text = camera.position.y - (camera.position.y - y_far) * scale;
-		}else {
+		} else {
 			y_text = y + textHeight / 2 + this._msgOffsetY;
 		}
 
@@ -132,8 +129,8 @@ var GNOVEL = GNOVEL || {};
 		// 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
 		// 	}
 		// }else {
-			this._messageText.position.set(x, y_text, z + 20 + this._msgOffsetZ);
-			this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
+		this._messageText.position.set(x, y_text, z + 20 + this._msgOffsetZ);
+		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 		// }
 
 		// add background textbox
@@ -144,62 +141,69 @@ var GNOVEL = GNOVEL || {};
 				this._bgWidth, this._bgHeight);
 
 			var opacityDest = 1;
-			if(this._params.dontShowBg) {
+			if (this._params.dontShowBg) {
 				opacityDest = 0;
-			}else{
+			} else {
 				this._page._addToScene(Dialog._textBg);
 			}
 
-			if(this._type == "context") {
-					var targetPos = {};
-					targetPos.x = Dialog._textBg.position.x;
-					Dialog._textBg.position.x = (Dialog._textBg.position.x-400);
-					this._page.move(Dialog._textBg,{
-						duration:600,
-						x:targetPos.x,
-						easing: TWEEN.Easing.Back.Out  //target position
-					});
+			if (this._type == "context") {
+				var targetPos = {};
+				targetPos.x = Dialog._textBg.position.x;
+				Dialog._textBg.position.x = (Dialog._textBg.position.x - 400);
+				this._page.move(Dialog._textBg, {
+					duration: 600,
+					x: targetPos.x,
+					easing: TWEEN.Easing.Back.Out //target position
+				});
 
 				this._textBg = Dialog._textBg;
 
 				//slide in animation for message inside context box
 				var targetPos = {};
 				targetPos.x = this._messageText.position.x;
-				this._messageText.position.x = (this._messageText.position.x-400);
-				this._page.move(this._messageText,{
-					duration:600,
-					x:targetPos.x,  //target position
-					easing: TWEEN.Easing.Back.Out
+				this._messageText.position.x = (this._messageText.position.x - 400);
+				this._page.move(this._messageText, {
+					duration: 600,
+					x: targetPos.x, //target position
+					easing: TWEEN.Easing.Back.Out,
 				});
-			}
-			else {
+
+				this._addMouseDownListener();
+
+			} else {
 				Dialog._textBg.material.opacity = 0;
 				//set scale to 0
 				Dialog._textBg.scale.set(0, 0, 1);
 				//bool that tells tween if text already showing from tween
 				var textShowing = false;
 				//pop in and scale dialog box
-				this._page.tweenPulse(Dialog._textBg,{
+				this._page.tweenPulse(Dialog._textBg, {
 					repeat: false,
-					x:1,y:1,z:1,
-					duration:300,
+					x: 1,
+					y: 1,
+					z: 1,
+					duration: 300,
 					easing: TWEEN.Easing.Back.Out,
 					temp: this._temp,
-					onUpdate: function(){
+					onUpdate: function() {
 						//makes text come in after text box has began showing
-						if((myDialog._textBg.scale.x > .5) && !textShowing){
+						if ((myDialog._textBg.scale.x > .5) && !textShowing) {
 							textShowing = true;
 							myDialog._page.tweenMat(myDialog._messageText, {
-								duration: 1000,
+								duration: 500,
 								opacity: 1,
-								easing: TWEEN.Easing.Cubic.Out
+								easing: TWEEN.Easing.Cubic.Out,
+								onComplete: function() {
+									myDialog._addMouseDownListener();
+								}
 							});
 
 						}
 					}
 				});
 
-					//fade in text box while it is popping
+				//fade in text box while it is popping
 				this._page.tweenMat(Dialog._textBg, {
 					duration: 100,
 					opacity: opacityDest,
@@ -209,13 +213,7 @@ var GNOVEL = GNOVEL || {};
 				this._textBg = Dialog._textBg;
 
 				// fade in text and speaker
-				//text should start writing at the very end of the text box popping up
 				this._messageText.material.opacity = 0;
-				this._page.tweenMat(this._messageText, {
-					duration: 1000,
-					opacity: 1,
-					easing: TWEEN.Easing.Cubic.Out
-				});
 
 				this._nameText.material.opacity = 0;
 				this._page.tweenMat(this._nameText, {
@@ -224,15 +222,25 @@ var GNOVEL = GNOVEL || {};
 					easing: TWEEN.Easing.Cubic.Out
 				});
 			}
+		}else{
+			// we reuse the background from the previous dialog
+			
+			if (!this._mouseDownListenerAdded) {
+				this._addMouseDownListener();
+			}
 		}
 
-		this._page._addToScene(this._messageText);
+		this._page._addToScene(this._messageText);		
 
 		// if (this._showSpeaker)
 		// 	this._page._addToScene(this._nameText);
 	};
 
-
+	Dialog.prototype._addMouseDownListener = function() {
+		if (!this._mouseDownListenerAdded && !this._unclickable) {
+			this._page.getOwner().addMouseDownListener(this._mouseDownListener);
+		}
+	};
 
 	Dialog.prototype._onComplete = function() {
 		Dialog._prevSpeaker = this._params.speaker;
@@ -276,11 +284,11 @@ var GNOVEL = GNOVEL || {};
 			// if the next flow is not dialog, or it has different speaker, then we need to close the
 			// dialog
 			if (!this._isDialogNext() || this._isDifferentSpeakerNext()) {
-				if(this._textBg != null) {
+				if (this._textBg != null) {
 					this._closeDialog();
 				}
-				if(Dialog._textBg != null) {
-					this._textBg =Dialog._textBg;
+				if (Dialog._textBg != null) {
+					this._textBg = Dialog._textBg;
 					this._closeDialog();
 				}
 			}
@@ -312,10 +320,10 @@ var GNOVEL = GNOVEL || {};
 		var dialog = this;
 		var textBgObj = this._textBg;
 
-		if(this._textBg != null){
+		if (this._textBg != null) {
 			this._page.tweenMat(this._textBg, {
-			duration: 800,
-			opacity: 0,
+				duration: 800,
+				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() {
 					dialog._page._removeFromScene(textBgObj);
@@ -355,7 +363,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Dialog.prototype.getImage = function() {
-			return this._textBg;
+		return this._textBg;
 	};
 
 	GNOVEL.Dialog = Dialog;
