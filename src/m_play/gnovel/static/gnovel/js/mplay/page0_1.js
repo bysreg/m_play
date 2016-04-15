@@ -219,7 +219,9 @@ var MPLAY = MPLAY || {};
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
-			{type: "goto", page: "scene 2.a", label: "nextscene"},
+			{type: "nothing", label:"nextscene"},
+			{type: "hide", img: this._ryan},
+			{type: "goto", page: "scene 2.a"},
 		];
 
 		return o;
