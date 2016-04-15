@@ -158,14 +158,14 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "txtxchange"},
 			// phone exchange begins
-			{type: "open_phone", layout:"text", people: [this._ryan, this._priya]},			
+			{type: "open_phone", layout:"text", people: [this._ryan, this._priya]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "P – there’s a violation with your part of the project."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
 				text: "k…"},
-			{type: "add_phone_textbox",				
+			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Did u use codeHub for ur code?"},
 			{type: "add_phone_textbox",
@@ -174,7 +174,7 @@ var MPLAY = MPLAY || {};
 			{type: "add_phone_textbox",
 				speaker: this._priya,
 				text: "It’s common for programmers… did it @ undergrad."},
-			{type: "close_phone"},	
+			{type: "close_phone"},
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "We don’t have much time – she needs to come back and work on it asap. We’re wasting time texting her."},

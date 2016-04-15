@@ -1,0 +1,41 @@
+
+ryan happy 2.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+regular happy ryan blink
+  rotate: false
+  xy: 1381, 385
+  size: 108, 67
+  orig: 632, 761
+  offset: 237, 407
+  index: -1
+regular happy ryan head
+  rotate: false
+  xy: 1113, 59
+  size: 190, 228
+  orig: 632, 761
+  offset: 221, 267
+  index: -1
+regular happy ryan left arm
+  rotate: true
+  xy: 779, 289
+  size: 163, 600
+  orig: 542, 2001
+  offset: 190, 701
+  index: -1
+regular happy ryan right arm
+  rotate: true
+  xy: 779, 42
+  size: 245, 332
+  orig: 817, 1104
+  offset: 286, 386
+  index: -1
+regular happy ryan torso
+  rotate: true
+  xy: 2, 2
+  size: 450, 775
+  orig: 1498, 2583
+  offset: 524, 904
+  index: -1
