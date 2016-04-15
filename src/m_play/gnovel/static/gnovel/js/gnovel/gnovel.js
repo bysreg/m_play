@@ -133,11 +133,35 @@ var GNOVEL = GNOVEL || {};
 		this._renderer.setPixelRatio(window.devicePixelRatio);
 		this._renderer.autoClear = false;
 
+		var rtTexture = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xff0000,
+			transparent: true,
+		});
+		this._rtTexture = rtTexture;
+
+		var materialScreen = new THREE.ShaderMaterial( {
+			uniforms: { tDiffuse: { type: "t", value: rtTexture } },
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+			depthWrite: false
+		});
+
+		var plane = new THREE.PlaneBufferGeometry(1920 / 2, 1080 / 2);
+		var quad = new THREE.Mesh(plane, materialScreen);
+		this._rttScene = new THREE.Scene();
+		quad.position.setZ(10);
+		this._rttScene.add(quad);
+
 		// setup render loop
 		var render = function () {
 			requestAnimationFrame(render);
 			TWEEN.update();
+
+			gnovel._renderer.render(scene, camera, gnovel._rtTexture, true);
 			gnovel._renderer.render(scene, camera);
+			gnovel._renderer.clear(false, true, false);
+			gnovel._renderer.render(gnovel._rttScene, camera);
 
 			gnovel._update();
 
