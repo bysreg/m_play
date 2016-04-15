@@ -633,14 +633,14 @@ var GNOVEL = GNOVEL || {};
 	Page.prototype._tweenVolumeOut = function() {
 		var duration = 1000;
 		var pageObj = this;
+		var ambient = pageObj._owner._ambient;
 		var tween = new createjs.Tween.get(this._owner._ambient)
 						.to({
 							volume: 0.0
 						}, duration)
 						.call(handleComplete);
 		function handleComplete() {
-			pageObj._owner._ambient.stop();
-			pageObj._owner._ambient = null;
+			ambient.stop();
 		};
 	};
 

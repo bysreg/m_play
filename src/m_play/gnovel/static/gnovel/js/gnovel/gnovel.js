@@ -131,28 +131,23 @@ var GNOVEL = GNOVEL || {};
 
 
 			// ambient
-			{
-				id: "Cafe-bg",
-				src: "ambient-cafe.ogg"
-			}, {
-				id: "Office-bg",
-				src: "ambient-office.ogg"
-			}, {
-				id: "Gym-bg",
-				src: "ambient-gym.ogg"
-			}, {
-				id: "Bar-bg",
-				src: "ambient-bar.ogg"
-			}, {
-				id: "Classroom-bg",
-				src: "ambient-classroom.ogg"
-			}, {
-				id: "UC-bg",
-				src: "ambient-uc.ogg"
-			}, {
-				id: "Library-bg",
-				src: "ambient-lib.ogg"
-			}
+					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
+					{id:"Office-bg", src:"ambient-office.ogg"},
+					{id:"Gym-bg", src:"ambient-gym.ogg"},
+					{id:"Bar-bg", src:"ambient-bar-new.ogg"},
+					{id:"Classroom-bg", src:"ambient-classroom.ogg"},
+					{id:"UC-bg", src:"ambient-uc.ogg"},
+					{id:"Library-bg", src:"ambient-lib.ogg"},
+
+					// bacakground noises layer
+					{id:"Bar-glasses1", src:"bgnoises-bar-glasses1.ogg"},
+					{id:"Bar-glasses2", src:"bgnoises-bar-glasses2.ogg"},
+					{id:"Bar-glasses3", src:"bgnoises-bar-glasses3.ogg"},
+					{id:"Bar-distantglasses", src:"bgnoises-bar-distantglasses.ogg"},
+					{id:"Bar-girltalking", src:"bgnoises-bar-girltalking.ogg"},
+					{id:"Bar-liquid", src:"bgnoises-bar-liquid.ogg"},
+					{id:"Bar-mantalking", src:"bgnoises-bar-mantalking.ogg"},
+					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"}
 		];
 		this._soundManager = createjs.Sound;
 
@@ -178,10 +173,34 @@ var GNOVEL = GNOVEL || {};
 		this._renderer.setPixelRatio(window.devicePixelRatio);
 		this._renderer.autoClear = false;
 
+		var rtTexture = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xff0000,
+			transparent: true,
+		});
+		this._rtTexture = rtTexture;
+
+		var materialScreen = new THREE.ShaderMaterial( {
+			uniforms: { tDiffuse: { type: "t", value: rtTexture } },
+			vertexShader: document.getElementById( 'vertexShader' ).textContent,
+			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+			depthWrite: false
+		});
+
+		var plane = new THREE.PlaneBufferGeometry(1920 / 2, 1080 / 2);
+		var quad = new THREE.Mesh(plane, materialScreen);
+		this._rttScene = new THREE.Scene();
+		quad.position.setZ(10);
+		this._rttScene.add(quad);
+
 		// setup render loop
 		var render = function() {
 			requestAnimationFrame(render);
 			TWEEN.update();
+
+			gnovel._renderer.render(scene, camera, gnovel._rtTexture, true);
+			gnovel._renderer.clear(false, true, false);
+			gnovel._renderer.render(gnovel._rttScene, camera);
 
 			gnovel._render();
 			gnovel._update();
@@ -364,7 +383,7 @@ var GNOVEL = GNOVEL || {};
 
 		pageObj._onStart();
 		pageObj._runFlow();
-		//pageObj._setMultiTracksPlayer();
+		pageObj._setMultiTracksPlayer();
 	};
 
 	Gnovel.prototype._unload = function(page) {
@@ -429,6 +448,10 @@ var GNOVEL = GNOVEL || {};
 		this._unload(this._prevPage);
 
 		//start flow of next page
+		
+		// unload the previous page
+		gnovelObj._unload(gnovelObj._prevPage);
+
 		_onStart(page);
 		this._onStart = true;
 		console.log("gnovel started");		

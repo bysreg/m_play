@@ -16,21 +16,17 @@ var GNOVEL = GNOVEL || {};
 		this._playLevels = null;
 		this._shufflePeriod = null;
 		this._shuffleRates = null;
-		this._oldTime = 0;
 		this._delta = 0;
 	};
 
 	MultiTracksPlayer.prototype.setPlaylist = function(playlist) {
 		if (playlist.length > 0) {
-			this._player = this._page.getOwner().getSoundManager().createInstance("bgNoises");
 			this._playlist = playlist;
 			this._shufflePeriod = 10 * Math.random();
-			this._shuffleRates = new Array();
-			this._shuffleRates[0] = Math.random();
+			this._shuffleRates = Math.random();
 			this._playLevels = new Array();
 			this._playLevels[0] = playlist[0].playrate;
 			for (var i = 1; i < this._playlist.length; i++) {
-				this._shuffleRates[i] = Math.random();
 				this._playLevels[i] = this._playLevels[i-1] + this._playlist[i].playrate;
 			}
 		};
@@ -50,24 +46,18 @@ var GNOVEL = GNOVEL || {};
 
 				// new period
 				this._shufflePeriod = 10 * Math.random();
-				for (var i = 0; i < this._shuffleRates.length; i++) {
-					var hit = false;	
-					for (var j = 0; j <= this._playLevels.length; j++) {
-						if (this._playLevels[j] >= this._shuffleRates[i]) {
-							if (!played[j]) {
-								this._play(this._playlist[j].audio);
-								console.log("playing " + this._playlist[j].audio);
-								console.log("Rate: " + this._shuffleRates[i]);
-								played[j] = true;
-								hit = true;
-								break;
-							};							
-						}
-					}										
-					if (hit === true) {
-						this._shuffleRates[i] = Math.random();
-					}					
+				for (var j = 0; j <= this._playLevels.length; j++) {
+					if (this._playLevels[j] >= this._shuffleRates) {
+						if (!played[j]) {
+							this._play(this._playlist[j].audio);
+							console.log("playing " + this._playlist[j].audio);
+							console.log("Rate: " + this._shuffleRates);
+							played[j] = true;
+							break;
+						};							
+					}
 				}
+				this._shuffleRates = Math.random();
 			}else {
 				this._delta += this._page.getOwner().getClock().getDelta();
 			}
@@ -75,7 +65,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	MultiTracksPlayer.prototype._play = function(audio) {
-		this._player.play(audio);	
+		this._player = this._page.getOwner().getSoundManager().play(audio);	
 	};
 
 	GNOVEL.MultiTracksPlayer = MultiTracksPlayer;
