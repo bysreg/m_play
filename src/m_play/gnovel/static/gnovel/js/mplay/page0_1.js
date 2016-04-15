@@ -25,11 +25,12 @@ var MPLAY = MPLAY || {};
 		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		// this._tweenVolumeIn();
 
-		this.setupBarBackground();
+		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
+		this.setupBarBackground(background);
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
-		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
+		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -135, this.getBackgroundLayer()+10), 100, 25);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -240,14 +241,14 @@ var MPLAY = MPLAY || {};
 					{audio:"Bar-pia", playrate: 0.05}
 					];
 		return playlist;
-	};	
+	};
 
 	/**
 	 * @override
 	 */
 	Page0_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 
 		if (this._owner._ambient != null) {

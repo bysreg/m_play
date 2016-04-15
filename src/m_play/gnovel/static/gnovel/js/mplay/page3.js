@@ -24,7 +24,9 @@ var MPLAY = MPLAY || {};
 
 		// this._ambientInstance = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
 
-		this.setupLibraryBackground();
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and priya.png";
+		//specify which foreground with the characters
+		this.setupLibraryBackground(foregroundImg);
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
 
@@ -45,7 +47,7 @@ var MPLAY = MPLAY || {};
 
 		this._talked = 0;
 
-		var z = this.getBackgroundLayer() + 50;
+		var z = this._background3Layer + 50;
 		var pageObj = this;
 
 		var onInteractableObjectClicked = function(io) {
@@ -54,9 +56,10 @@ var MPLAY = MPLAY || {};
 			pageObj._io2.setEnable(false);
 		};
 
+		//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/ryan-clickable-lib.png",
-			{type: "character", x: -215, y: -185, z: z, width : 250, height : 431, onClick: function(io) {
+			"/static/gnovel/res/textures/panel.png",
+			{type: "character", x: -280, y: -35, z: z, width : 280, height : 631, opacity: 0, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -72,10 +75,11 @@ var MPLAY = MPLAY || {};
 					},
 				});
 			}});
-
+			//this._io1.getImage().opacity = 0;
+			//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io2 = this.createInteractableObject(
-			"/static/gnovel/res/textures/priya-clickable-lib.png",
-			{type: "character", x: 400, y: -220, z: z, width : 280, height : 414, onClick: function(io) {
+			"/static/gnovel/res/textures/char/scene char/priya-clickable-lib.png",
+			{type: "character", x: 280, y: -60, z: z, width : 380, height : 620, opacity: 0, onClick: function(io) {
 				pageObj._talked = 2;
 				pageObj._runFlow();
 
@@ -116,9 +120,9 @@ var MPLAY = MPLAY || {};
 				{type: "show_phone_notif"},
 
 				// phone email exchange begins
-				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu", 
+				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
 					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. - Prof. Sweeney"},
-				{type: "close_phone"},	
+				{type: "close_phone"},
 				// phone email exchange ends
 
 				{type: "custom", func: function(pageObj){
@@ -129,72 +133,8 @@ var MPLAY = MPLAY || {};
 		];
 
 		var common = [
+			
 			{type: "nothing", label: "email"},
-			{type: "show_phone_notif"},
-
-			// phone email exchange begins
-			{type: "show", img: closephone, waitUntilShown: false},
-			{type: "phone_textbox",
-				label: "phone_bg",
-				bgOffsetY: -230,
-				bgOffsetX: -15,
-				bgHeight: 790,
-				bgWidth: 1230,
-				y: 230,
-				charLine: 37,
-				bgPath: "/static/gnovel/res/textures/Email-graphic.png",
-				waitUntilShown: false,
-				text: ""},
-			{type: "phone_textbox",
-				label: "address_from",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 210,
-				dontShowBg: true,
-				text: "From: Prof. Sweeney",
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "address_to",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 180,
-				dontShowBg: true,
-				text: "To: " + player,
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "email_subject",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 80,
-				dontShowBg: true,
-				charLine: 40,
-				text: "Subject: [ProgSoc] Class Update",
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "email_textbox",
-				bgHeight: 10,
-				bgWidth: 10,
-				y: 0,
-				charLine: 37,
-				dontShowBg: true,
-				text: "Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
-			{type: "hide_phone_textbox", dialog: "$phone_bg"},
-			{type: "hide_phone_textbox", dialog: "$address_from"},
-			{type: "hide_phone_textbox", dialog: "$address_to"},
-			{type: "hide_phone_textbox", dialog: "$email_subject"},
-			{type: "hide_phone_textbox", dialog: "$email_textbox"},
-			{type: "hide", img: closephone},
-			// phone email exchange ends
-
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
 			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like your old problem sets?"},
@@ -344,21 +284,40 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+
+
+			{type: "nothing", label: "aside2"},
+			{type: "show_context", text: "Later that week…"},
+			{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
+			{type: "add_phone_textbox",
+				speaker: this._priya,
+				text: "I’m at the café, anyone nearby want to join?"},
+			{type: "add_phone_textbox",
+				speaker: this._cat,
+				text: "Oh shoot!  I’m already across campus at Scottie’s grabbing a bite."},
+			{type: "add_phone_textbox",
+				speaker: this._ryan,
+				text: "Studying T^T"},
+			
+
+			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
+			{type: "close_phone"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
 			{type: "show_context", text:"You head to the cafe", waitUntilShown:false},
 			{type: "goto", page: "scene 5.a"},
 
 			{type: "nothing", label: "gobar"},
+			{type: "close_phone"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
 			{type: "show_context", text:"You head to the bar", waitUntilShown:false},
 			{type: "goto", page: "scene 5.b"},
 
 			{type: "nothing", label: "gohome"},
+			{type: "close_phone"},
 				{type: "custom", func: function(page) {
 						page.getRelationshipManager().addRelationship("Priya", -1);
 						page.getRelationshipManager().addRelationship("Cat", -1);
@@ -663,7 +622,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page3.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
@@ -672,7 +631,7 @@ var MPLAY = MPLAY || {};
 
 	Page3.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

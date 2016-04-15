@@ -22,7 +22,8 @@ var MPLAY = MPLAY || {};
 	Page7_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		this.setupLibraryBackground();
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
+		this.setupLibraryBackground(foregroundImg);
 	};
 
 	Page7_1.prototype._createFlowElements = function() {
@@ -54,7 +55,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
@@ -156,7 +157,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "She'll get over it. This whole thing has been blown so out of proportion."},
 			{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#go9c", goFalse: "#go9d"},
-			
+
 			{type: "goto", page: "scene 9.c", label: "go9c"},
 			{type: "goto", page: "scene 9.d", label: "go9d"},
 
@@ -179,7 +180,7 @@ var MPLAY = MPLAY || {};
 
 	Page7_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -187,7 +188,7 @@ var MPLAY = MPLAY || {};
 
 	Page7_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

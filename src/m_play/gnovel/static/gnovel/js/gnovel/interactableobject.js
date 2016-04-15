@@ -25,6 +25,7 @@ var GNOVEL = GNOVEL || {};
 		var x = params.x || 0;
 		var y = params.y || 0;
 		var z = params.z || 100;
+
 		var pos = new THREE.Vector3(x, y, z);
 		var mouse = new THREE.Vector2(),
 			hoveredObj;
@@ -38,7 +39,9 @@ var GNOVEL = GNOVEL || {};
 			this._img.position.set(pos.x, pos.y, pos.z);
 		}else{
 			this._img = this._page.createImage(path, pos, this._params.width, this._params.height);
-		}		
+		}
+		if(params.opacity != null)
+			this._img.material.opacity = params.opacity;
 
 		//this._img.hightlightShape = highlightShape;
 		//this._img.highlightShape2 = highlightShape2;
@@ -124,9 +127,9 @@ var GNOVEL = GNOVEL || {};
 				this._hoveredObj.material.color.setHex(this._hoveredObj.currentHex);
 				this._page._owner.getContainer().style.cursor = 'auto';
 			}
-			this._hoveredObj = null;	
+			this._hoveredObj = null;
 			return;
-		}			
+		}
 
 		var rect = this._page._owner._renderer.domElement.getBoundingClientRect();
 

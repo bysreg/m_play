@@ -38,7 +38,7 @@ var MPLAY = MPLAY || {};
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore"},
 			{type: "compare", leftop: "$catRelationshipScore", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#neutural"},
-			
+
 			{type: "nothing", label: "happy"},
 			{type: "show", img: cat, expression: "happy", position: "center"},
 			// {type: "custom", func: function(page) {
@@ -87,7 +87,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page2_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
