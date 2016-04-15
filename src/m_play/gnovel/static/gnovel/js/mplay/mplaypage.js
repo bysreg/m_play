@@ -48,7 +48,7 @@ var MPLAY = MPLAY || {};
 		this._ioNumber = 0; // io stands for interactable object
 
 		//filter for conversations
-		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer-30), 1820, 1080);
+		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer - 30), 1820, 1080);
 		this._convoFilter.name = "convoFilter";
 		// // instantiate characters, if it is not instantiated yet
 		// if (!MPlayPage._isCharInit) {
@@ -244,13 +244,44 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(effectVBlur);
 		sceneBgComposer.addPass(effectVignette);
 
+		var curPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+		
+		var curPageMaterial = new THREE.MeshBasicMaterial({
+			color: 0x00ff00,
+			transparent: true,
+		});
+		var nextPageMaterial = new THREE.MeshBasicMaterial({
+			color: 0xff0000,
+			transparent: true,
+		});
+
 		// override gnovel's render function
 		this._owner._render = function() {
 			this._renderer.clear();
 			sceneBgComposer.render(0.01);
 			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
+
+			this._renderer.render(this._scene, this._camera, this._rtTexture, true);
+			this._renderer.clear(false, true, false);
+			this._renderer.render(this._rttScene, this._camera);
 		};
+
+		// override gnovel's _runTransition function
+		this._owner._runTransition = function(curPage, nextPage) {
+			var gnovel = this;
+
+			this._transition._setCurPageBgMaterial(curPageMaterial);
+			this._transition._setNextPageBgMaterial(nextPageMaterial);
+
+			this._transition.run(curPage, nextPage, {
+				onComplete: function() {
+					gnovel._onPageTransitionComplete(nextPage);
+				},
+			});
+		};
+
 
 		this._sceneBg = sceneBg;
 		MPlayPage._sceneBg = sceneBg;
@@ -268,7 +299,7 @@ var MPLAY = MPLAY || {};
 
 		params = params || {};
 
-		if(params.clear) {
+		if (params.clear) {
 			targetBlurH = 0;
 			targetBlurV = 0;
 			vignetteOffset = 0;
@@ -433,7 +464,7 @@ var MPLAY = MPLAY || {};
 		if (!MPlayPage._isBgProcessingInit) {
 			this._initBgProcessing();
 			MPlayPage._isBgProcessingInit = true;
-		}else{
+		} else {
 			this._sceneBg = MPlayPage._sceneBg;
 		}
 
@@ -447,7 +478,7 @@ var MPLAY = MPLAY || {};
 		this._sceneBg.remove(this._pageSceneBg);
 
 		GNOVEL.Page.prototype._onUnload.call(this);
-	};	
+	};
 
 	/**
 	 * @override
@@ -562,7 +593,9 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 
 		params.onChoiceComplete = function() {
-			pageObj._setBlurBgEffect({clear:true});
+			pageObj._setBlurBgEffect({
+				clear: true
+			});
 		};
 
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
@@ -627,7 +660,7 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showDialog = function(message, x, y, params) {
 		params = params || {};
-		var flowElement = params.flowElement;		
+		var flowElement = params.flowElement;
 
 		var speaker = flowElement.speaker;
 		var relationshipScore = this._relationshipManager.getRelationship(speaker);
@@ -842,10 +875,10 @@ var MPLAY = MPLAY || {};
 
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-		
+
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
-		this._addToSceneBg(background3);		
+		this._addToSceneBg(background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function() {
@@ -1123,28 +1156,28 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.showBgFilter = function() {
- 		//can also use this._background3Layer for the z-position
- 		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png",new THREE.Vector3(0, 0, this._choicesLayer-20), 1430, 830);
- 		this._filter.material.opacity = 0;
- 		this._addToScene(this._filter);
+		//can also use this._background3Layer for the z-position
+		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png", new THREE.Vector3(0, 0, this._choicesLayer - 20), 1430, 830);
+		this._filter.material.opacity = 0;
+		this._addToScene(this._filter);
 
- 		//play animation effect for filter
- 		this.tweenFlash(this._filter,{
- 			opacityTo: 0.5,
- 			opacityFrom:0.2,
- 			duration: 2000,
- 			easing: TWEEN.Easing.Linear.Out,
- 			easingFrom:TWEEN.Easing.Linear.In
- 		});
- 	};
+		//play animation effect for filter
+		this.tweenFlash(this._filter, {
+			opacityTo: 0.5,
+			opacityFrom: 0.2,
+			duration: 2000,
+			easing: TWEEN.Easing.Linear.Out,
+			easingFrom: TWEEN.Easing.Linear.In
+		});
+	};
 
- 	MPlayPage.prototype.hideBgFilter = function() {
- 		this._removeFromScene(this._filter);
- 	};
+	MPlayPage.prototype.hideBgFilter = function() {
+		this._removeFromScene(this._filter);
+	};
 
- 	MPlayPage.prototype._setMultiTracksPlayer = function() {
- 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
- 	};
+	MPlayPage.prototype._setMultiTracksPlayer = function() {
+		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
+	};
 
 	MPLAY.MPlayPage = MPlayPage;
 

@@ -26,6 +26,34 @@ var GNOVEL = GNOVEL || {};
 		var plane = new THREE.PlaneBufferGeometry(this._width, this._height);
 		this.transitionPanel = new THREE.Mesh(plane, material);
 		this.transitionPanel.name = "transitionPanel";
+		var transitionPanel = this.transitionPanel;
+
+		var redMaterial = new THREE.MeshBasicMaterial({
+			color: 0xff0000,
+			transparent: true,
+		});
+		var blueMaterial = new THREE.MeshBasicMaterial({
+			color: 0x0000ff,
+			transparent: true,
+		});
+		var plane1 = new THREE.PlaneBufferGeometry(this._width, this._height);
+		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);				
+
+		var curPageBg = new THREE.Mesh(plane1, redMaterial);
+		curPageBg.position.setX(-10);
+		curPageBg.position.setZ(3);
+		curPageBg.scale.set(0.33, 0.33, 1);
+		curPageBg.name = "curPageBg";
+		transitionPanel.add(curPageBg);
+		this._curPageBg = curPageBg;
+
+		var nextPageBg = new THREE.Mesh(plane2, blueMaterial);
+		nextPageBg.position.setX(545 + 90);
+		nextPageBg.position.setZ(3);
+		nextPageBg.scale.set(0.33, 0.33, 1);
+		nextPageBg.name = "nextPageBg";
+		transitionPanel.add(nextPageBg);
+		this._nextPageBg = nextPageBg;
 	};
 
 	/**
@@ -46,31 +74,6 @@ var GNOVEL = GNOVEL || {};
 		transitionPanel.position.set(0, 0, 0);
 		transitionPanel.scale.set(initialScale, initialScale, 1);
 		currentPage.getOwner()._scene.add(transitionPanel);
-
-		var redMaterial = new THREE.MeshBasicMaterial({
-			color: 0xff0000,
-			transparent: true,
-		});
-		var blueMaterial = new THREE.MeshBasicMaterial({
-			color: 0x0000ff,
-			transparent: true,
-		});
-		var plane1 = new THREE.PlaneBufferGeometry(this._width, this._height);
-		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);
-
-		var curPageBg = new THREE.Mesh(plane1, redMaterial);
-		curPageBg.position.setX(-10);
-		curPageBg.position.setZ(3);
-		curPageBg.scale.set(0.33, 0.33, 1);
-		curPageBg.name = "curPageBg";
-		transitionPanel.add(curPageBg);
-
-		var nextPageBg = new THREE.Mesh(plane2, blueMaterial);
-		nextPageBg.position.setX(545 + 90);
-		nextPageBg.position.setZ(3);
-		nextPageBg.scale.set(0.33, 0.33, 1);
-		nextPageBg.name = "nextPageBg";
-		transitionPanel.add(nextPageBg);
 
 		this._runOnHierarchy(transitionPanel, {
 			opacity: 1
@@ -198,6 +201,14 @@ var GNOVEL = GNOVEL || {};
 			tween.start();
 		});
 
+	};
+
+	Transition.prototype._setCurPageBgMaterial = function(mat) {
+		this._curPageBg.material = mat;
+	};
+
+	Transition.prototype._setNextPageBgMaterial = function(mat) {
+		this._nextPageBg.material = mat;
 	};
 
 	// transition type

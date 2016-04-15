@@ -198,10 +198,6 @@ var GNOVEL = GNOVEL || {};
 			requestAnimationFrame(render);
 			TWEEN.update();
 
-			gnovel._renderer.render(scene, camera, gnovel._rtTexture, true);
-			gnovel._renderer.clear(false, true, false);
-			gnovel._renderer.render(gnovel._rttScene, camera);
-
 			gnovel._render();
 			gnovel._update();
 
@@ -234,8 +230,8 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	Gnovel.prototype._render = function() {
-		this._renderer.render(this._scene, this._camera);
+	Gnovel.prototype._render = function() {		
+		this._renderer.render(this._scene, this._camera);				
 	};
 
 	Gnovel.prototype._onWindowResize = function(event) {
@@ -419,13 +415,17 @@ var GNOVEL = GNOVEL || {};
 		//load next scene into root before showing on screen and transition
 		this._load(nextPage);	
 
-		var gnovel = this;		
-
 		this._onStart = false;
 
 		this._prevPage = curPage;
 		this._curPageIdx = pageIndex;
 
+		this._runTransition(curPage, nextPage);
+	};
+
+	Gnovel.prototype._runTransition = function(curPage, nextPage) {
+		var gnovel = this;	
+		
 		this._transition.run(curPage, nextPage, {
 			onComplete: function() {
 				gnovel._onPageTransitionComplete(nextPage);
@@ -448,10 +448,6 @@ var GNOVEL = GNOVEL || {};
 		this._unload(this._prevPage);
 
 		//start flow of next page
-		
-		// unload the previous page
-		gnovelObj._unload(gnovelObj._prevPage);
-
 		_onStart(page);
 		this._onStart = true;
 		console.log("gnovel started");		
