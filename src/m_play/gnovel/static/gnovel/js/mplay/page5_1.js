@@ -236,13 +236,19 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
 
 			{type: "nothing", label: "gonextscene"},
+			{type: "open_phone", layout:"text", people: [this._ryan]},
+			{type: "add_phone_textbox",
+				speaker: this._ryan,
+				text: "Hey [You] – do you have time to meet up today?"},			
 			{type: "choices", choices : [
-				{text: "Go to the gym",
+				{text: "I’m heading to the gym, do u want to join me?",
 					go: "#gogym"},
-				{text : "Head to Scottie's for a bite.",
+				{text : "Let’s go grab a bite at Scottie’s.",
 					go : "#gobar"},
-				{text: "Head home for the day.",
+				{text: "Raincheck?  I have to head home to study.",
 					go: "#gohome"}]},
+			{type: "close_phone"},		
+			
 
 			{type: "goto", page: "scene 7.a", label: "gogym"},
 			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},

@@ -133,72 +133,8 @@ var MPLAY = MPLAY || {};
 		];
 
 		var common = [
+			
 			{type: "nothing", label: "email"},
-			{type: "show_phone_notif"},
-
-			// phone email exchange begins
-			{type: "show", img: closephone, waitUntilShown: false},
-			{type: "phone_textbox",
-				label: "phone_bg",
-				bgOffsetY: -230,
-				bgOffsetX: -15,
-				bgHeight: 790,
-				bgWidth: 1230,
-				y: 230,
-				charLine: 37,
-				bgPath: "/static/gnovel/res/textures/Email-graphic.png",
-				waitUntilShown: false,
-				text: ""},
-			{type: "phone_textbox",
-				label: "address_from",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 210,
-				dontShowBg: true,
-				text: "From: Prof. Sweeney",
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "address_to",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 180,
-				dontShowBg: true,
-				text: "To: " + player,
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "email_subject",
-				bgHeight: 10,
-				bgWidth: 10,
-				x: -170,
-				y: 80,
-				dontShowBg: true,
-				charLine: 40,
-				text: "Subject: [ProgSoc] Class Update",
-				messageAlign: "left",
-				waitUntilShown: false,
-				},
-			{type: "phone_textbox",
-				label: "email_textbox",
-				bgHeight: 10,
-				bgWidth: 10,
-				y: 0,
-				charLine: 37,
-				dontShowBg: true,
-				text: "Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
-			{type: "hide_phone_textbox", dialog: "$phone_bg"},
-			{type: "hide_phone_textbox", dialog: "$address_from"},
-			{type: "hide_phone_textbox", dialog: "$address_to"},
-			{type: "hide_phone_textbox", dialog: "$email_subject"},
-			{type: "hide_phone_textbox", dialog: "$email_textbox"},
-			{type: "hide", img: closephone},
-			// phone email exchange ends
-
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
 			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like your old problem sets?"},
@@ -348,21 +284,40 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
+
+
+			{type: "nothing", label: "aside2"},
+			{type: "show_context", text: "Later that week…"},
+			{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
+			{type: "add_phone_textbox",
+				speaker: this._priya,
+				text: "I’m at the café, anyone nearby want to join?"},
+			{type: "add_phone_textbox",
+				speaker: this._cat,
+				text: "Oh shoot!  I’m already across campus at Scottie’s grabbing a bite."},
+			{type: "add_phone_textbox",
+				speaker: this._ryan,
+				text: "Studying T^T"},
+			
+
+			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
+			{type: "close_phone"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
 			{type: "show_context", text:"You head to the cafe", waitUntilShown:false},
 			{type: "goto", page: "scene 5.a"},
 
 			{type: "nothing", label: "gobar"},
+			{type: "close_phone"},
 			{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
 			{type: "show_context", text:"You head to the bar", waitUntilShown:false},
 			{type: "goto", page: "scene 5.b"},
 
 			{type: "nothing", label: "gohome"},
+			{type: "close_phone"},
 				{type: "custom", func: function(page) {
 						page.getRelationshipManager().addRelationship("Priya", -1);
 						page.getRelationshipManager().addRelationship("Cat", -1);
