@@ -33,7 +33,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"At the gym..."},
+			{type:"show_context", text:"Go to the gym with Cat."},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore"},
@@ -64,12 +64,17 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "howru"},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "I’m in some tough classes, but that’s why we’re here, right? Challenging yourself is a good thing!"},
-			{type: "dialog", speaker: "Cat", text: "At least that’s what I keep saying in my head. Let’s head to the weights, what do you say?"},
+			{type: "dialog", speaker: "Cat", text: "I’m in some tough classes, but that’s why we’re here, right? Oh well, see you in class..."},
+			{type: "dialog", speaker: "Cat", text: "Oh wait that riminds me.  If you see Ryan, can you tell him thanks for me?"},
+			{type: "dialog", speaker: "Cat", text: "I mentioned to him that I've been interested in the business side of startups,"},
+			{type: "dialog", speaker: "Cat", text: "And he put me in touch with his friends in the Business and Technology club."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "cu"},
 			{type: "dialog", speaker: "Cat", text: "See you later."},
+			{type: "dialog", speaker: "Cat", text: "Oh wait, that reminds me.  If you see Ryan, can you tell him thanks for me?"},
+			{type: "dialog", speaker: "Cat", text: "He put me in touch with some of his friends from the Business and Technology club."},
+			{type: "dialog", speaker: "Cat", text: "It was such a big help."},
 
 			{type: "goto", page: "scene 4", label: "gonextscene"},
 		];

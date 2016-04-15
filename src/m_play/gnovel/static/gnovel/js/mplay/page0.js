@@ -67,12 +67,12 @@ var MPLAY = MPLAY || {};
 			{type: "show_phone_notif"},
 
 			// phone email exchange begins
-			{type: "open_phone", layout:"email", subject: "Welcome to the team!", from: "TechFast", email: "hr@techfast.io",
-				text: "We are pleased to extend an early offer to you as a junior software developer on our team here at TechFast!  Your work impressed us, and we know we can expect great things from you.  You’ll be part of our advanced technology team, starting straight after graduation in May.  Best of luck on your final semester, and we’ll be in touch."},
-			{type: "close_phone"},
+			{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu", 
+				text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
+			{type: "close_phone"},	
 			// phone email exchange ends
 
-			{type: "show_context", text:"You head to Scottie's", waitUntilShown:false},
+			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 			{type: "goto", page: "scene 1.b", label: "nextscene"},
 		];
 

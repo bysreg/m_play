@@ -85,10 +85,20 @@ var GNOVEL = GNOVEL || {};
 					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
 					{id:"Office-bg", src:"ambient-office.ogg"},
 					{id:"Gym-bg", src:"ambient-gym.ogg"},
-					{id:"Bar-bg", src:"ambient-bar.ogg"},
+					{id:"Bar-bg", src:"ambient-bar-new.ogg"},
 					{id:"Classroom-bg", src:"ambient-classroom.ogg"},
 					{id:"UC-bg", src:"ambient-uc.ogg"},
-					{id:"Library-bg", src:"ambient-lib.ogg"}
+					{id:"Library-bg", src:"ambient-lib.ogg"},
+
+					// bacakground noises layer
+					{id:"Bar-glasses1", src:"bgnoises-bar-glasses1.ogg"},
+					{id:"Bar-glasses2", src:"bgnoises-bar-glasses2.ogg"},
+					{id:"Bar-glasses3", src:"bgnoises-bar-glasses3.ogg"},
+					{id:"Bar-distantglasses", src:"bgnoises-bar-distantglasses.ogg"},
+					{id:"Bar-girltalking", src:"bgnoises-bar-girltalking.ogg"},
+					{id:"Bar-liquid", src:"bgnoises-bar-liquid.ogg"},
+					{id:"Bar-mantalking", src:"bgnoises-bar-mantalking.ogg"},
+					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"}
 					];
 		this._soundManager = createjs.Sound;
 
@@ -307,7 +317,7 @@ var GNOVEL = GNOVEL || {};
 	function _onStart(pageObj) {
 		pageObj._onStart();
 		pageObj._runFlow();
-		//pageObj._setMultiTracksPlayer();
+		pageObj._setMultiTracksPlayer();
 	};
 
 	Gnovel.prototype._unload = function(page) {
@@ -397,11 +407,13 @@ var GNOVEL = GNOVEL || {};
 		//gnovelObj._scene.remove(nextPageBG);
 		gnovelObj._scene.add(gnovelObj._pageRootObject[page.getPageId()]);
 		//start flow of next page
+		
+		// unload the previous page
+		gnovelObj._unload(gnovelObj._prevPage);
+
 		_onStart(page);
 		gnovelObj._onStart = true;
 		console.log("gnovel started");
-		// unload the previous page
-		gnovelObj._unload(gnovelObj._prevPage);
 	};
 
 	Gnovel.prototype.getCamera = function() {

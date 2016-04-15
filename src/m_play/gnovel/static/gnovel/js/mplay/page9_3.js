@@ -40,12 +40,12 @@ var MPLAY = MPLAY || {};
 			
 			{type: "nothing", label: "I+"},
 			{type: "show", img: professor, position: "center", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming & Society.  To this day he has no idea what chaos his class caused in your final semester in school."},		
+			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming &amp; Society. You kept in touch with him, and he often sends you articles on the state of affairs for technology in the modern world. You usually read them."},		
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I-"},
 			{type: "show", img: professor, position: "center", waitUntilShown: false},
-			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming & Society.  He has since changed his exams to avoid other situations like the one you and Ryan caused."},
+			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming &amp; Society. He has since changed his exams to avoid situations like the one you and Ryan caused."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},

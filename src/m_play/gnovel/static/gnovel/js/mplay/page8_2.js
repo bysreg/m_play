@@ -39,7 +39,7 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text: "A few days after the test,"},
 			{type: "show_context", text: "Professor Sweeny calls you and Ryan to his office"},
 			{type: "show", img: professor, expression: "sad", position: "center"},
-			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the exam.  You see, last year there was an error on one of the prompts."},
+			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the take home exam.  You see, last year there was an error on one of the prompts."},
 
 			{type: "choices", choices : [
 				{text: "I can explain-"},
@@ -57,9 +57,11 @@ var MPLAY = MPLAY || {};
 			seconds: 5},
 
 
-			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs."},
+			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
-			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please tell me your side of the story."},
+			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},
+			{type: "dialog", speaker: this._professor, text: "'As I grow older, I pay less attention to what men say.  I just watch what they do.'"},
+			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please explain what happened."},
 			{type: "hide", img: this._professor},
 
 			{type: "nothing", label: "email"},
@@ -119,7 +121,7 @@ var MPLAY = MPLAY || {};
 				y: 40,
 				charLine: 37,
 				dontShowBg: true,
-				text: "After much deliberation, I have made up my own solution to address your violation. As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the final, with the highest possible grade starting at the class average, an 80%. As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  Since I believe you did not consciously act in bad faith, I will not be moving forward with proceedings for this violation. "},
+				text: "After much deliberation, I have decided to address your violation of the University’s Policy on Academic Integrity with the following action: As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the take home exam, which will be different from the exam previously provided this semester. As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  I will be formally advancing this violation to the Division of Student Affairs for additional follow up.  Know that if I am made aware of an additional violation in this course, I will be reporting that as well.  There is no statute of limitations in reporting a violation.  Please take this as a learning experience to reflect on your actions.  -Prof. Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$phone_bg"},
 			{type: "hide_phone_textbox", dialog: "$address_from"},
 			{type: "hide_phone_textbox", dialog: "$address_to"},
@@ -145,7 +147,7 @@ var MPLAY = MPLAY || {};
 				bgWidth: 330,
 				y: 250,
 				charLine: 37,
-				text: "Woo!!  I passed too!  I got a C.  Happy it turned out ok for us.  Definitely not taking any more advice from my bro anytime soon…"},
+				text: "Woo!!  I got a C, like you.  Happy it turned out ok for us, Sweeney definitely cut us a break on that final.  He could have failed us.  Sorry I dragged you into this. Sucks about that violation though."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
 			{type: "goto", page: "scene 10.a"},
@@ -163,7 +165,7 @@ var MPLAY = MPLAY || {};
 				bgWidth: 330,
 				y: 250,
 				charLine: 37,
-				text: "Did you pass?  I got a C."},
+				text: "Did you pass?  I got a C, like you.  Sweeney cut us a break… I found out that we could have failed for that.  Sucks about the violation."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
 			{type: "goto", page: "scene 10.a"},
@@ -178,7 +180,7 @@ var MPLAY = MPLAY || {};
 				bgWidth: 330,
 				y: 250,
 				charLine: 37,
-				text: "Got a C, this sucks."},
+				text: "Same as you – got a C.  Sucks about that violation."},
 			{type: "hide_phone_textbox", dialog: "$text1"},
 			{type: "hide", img: closephone},
 			{type: "goto", page: "scene 10.a"},

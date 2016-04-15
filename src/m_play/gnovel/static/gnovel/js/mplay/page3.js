@@ -109,8 +109,18 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-				{type: "show_context", text: "A few weeks pass, and work starts piling up"},
-				{type: "show_context", text: "You head to the library to study"},
+				{type: "show_context", text: "A few weeks pass, and work starts piling up."},
+				{type: "show_context", text: "You head to the library to study,"},
+				{type: "show_context", text: "and you run into Ryan and Priya together."},
+
+				{type: "show_phone_notif"},
+
+				// phone email exchange begins
+				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu", 
+					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. - Prof. Sweeney"},
+				{type: "close_phone"},	
+				// phone email exchange ends
+
 				{type: "custom", func: function(pageObj){
 					//disable the characters from being clickable while context showing
 					pageObj._io1.setEnable(true);
@@ -176,7 +186,7 @@ var MPLAY = MPLAY || {};
 				y: 0,
 				charLine: 37,
 				dontShowBg: true,
-				text: "Programmers & Society goers - I wanted to send off a quick note, wishing you all good luck on midterms.  Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
+				text: "Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. Attch: PROG_SOC_SYLLABUS.PDF - Prof. Sweeney"},
 			{type: "hide_phone_textbox", dialog: "$phone_bg"},
 			{type: "hide_phone_textbox", dialog: "$address_from"},
 			{type: "hide_phone_textbox", dialog: "$address_to"},
@@ -186,13 +196,14 @@ var MPLAY = MPLAY || {};
 			// phone email exchange ends
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: player + ", you took CG last semester."},
-			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like notes and old assignments?"},
+			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
+			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like your old problem sets?"},
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year.  My friend got in trouble for doing that, it’s not worth it."},
+			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year."},
 			{type: "dialog", speaker: "Priya", text: "My friend got in trouble for doing that, it’s not worth it."},
+			{type: "dialog", speaker: "Priya", text: "Can't you work through it yourself?"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I’m just stuck on some problems - I’m only going to use it to check my work."},
+			{type: "dialog", speaker: "Ryan", text: "I’m just stuck on some problems.  I’m only going to use it to check my work."},
 			{type: "dialog", speaker: "Priya", text: "If you do, you probably won’t get caught, but why risk it?"},
 			{type: "show", img: ryan, position: "left", expression: "sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I won’t get caught, Priya. I’m so behind in my work, I just need something to help me catch up."},
@@ -227,9 +238,9 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Thanks, "+ player +"! This is such a huge help."},
 			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Ok... Listen, I’ll see you both in class later."},
+			{type: "dialog", speaker: "Priya", text: "I just think you guys should be more careful.  I'll see you both in class later."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well, see you."},
+			{type: "dialog", speaker: "Ryan", text: "Oh.  OK. See you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. I should talk to her later."},
@@ -242,8 +253,8 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "This is going to be a huge help. Thanks."},
 			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Listen, I’m late for a meeting.  See you."},
-			{type: "dialog", speaker: "Oh.  Uh, ok, well, see you."},
+			{type: "dialog", speaker: "Priya", text: "Listen, I’m late for a meeting.  See you later."},
+			{type: "dialog", speaker: "Ryan", text: "Oh.  See you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
@@ -251,8 +262,8 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "neg"},
 			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "Right, well.  See you in class."},
-			{type: "dialog", speaker: "Oh.  Uh, ok, well, see you."},
+			{type: "dialog", speaker: "Priya", text: "If you both won't listen that's fine.  See you in class."},
+			{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well, see you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
@@ -269,7 +280,8 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Hey "+ player +", if you don't want to help me out, just say so."},
 			{type: "show", img: ryan, expression: "sad", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that. I actually have to get going..."},
+			{type: "dialog", speaker: "Ryan", text: "I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
@@ -285,7 +297,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
@@ -298,7 +310,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Wow, way to be passive aggressive about it."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Look, didn’t mean for it to come out that… I actually have to get going, I'll see you both later."},
+			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
@@ -316,7 +328,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Seriously?  I’m sure it’s fine, but if it’ll make you feel better, I’ll email the TA."},
+			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare5"},
@@ -324,12 +336,12 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "zero2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "I guess I can email the TA to check."},
+			{type: "dialog", speaker: "Ryan", text: "Seriously?  I mean, I'll do it.  But still..."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg2"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself.  Thanks anyway."},
+			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}], label: "aside2"},
@@ -352,8 +364,6 @@ var MPLAY = MPLAY || {};
 						page.getRelationshipManager().addRelationship("Cat", -1);
 					}},
 				{type: "show", img: transitionBg, waitUntilShown:false},
-				// after transition
-				{type: "show_context", text:"You head to the bar", waitUntilShown:false},
 				{type: "goto", page: "scene 6.a"},
 
 		];
@@ -398,7 +408,7 @@ var MPLAY = MPLAY || {};
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
 							go: "#study-r"},
-						{text: "Not much",
+						{text: "I'm here to study.",
 							go: "#sayhi-r"}], label: "choices1"},
 
 				{type: "nothing", label: "study-r"},
@@ -430,7 +440,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "neg-priya"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Ryan keeps distracting me."},
+				{type: "dialog", speaker: "Priya", text: "Yeah.  I'm trying to study.  Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
 
 				{type: "nothing", label: "compareryan"},
@@ -441,12 +451,13 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  I don’t want to work on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya."},
+				{type: "dialog", speaker: "Ryan", text: "I don’t want to work on my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "neg-ryan"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 
@@ -475,7 +486,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah… I’m trying to study.  Ryan is avoiding his Computer Graphics work."},
+				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study.  Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
 
 				{type: "nothing", label: "neg-priya2"},
@@ -491,12 +502,12 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Speaking of CG, that does remind me of my take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Speaking of Computational Systems, that reminds me of my problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "neg-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 			];
 			o = o.concat(common);
@@ -526,7 +537,7 @@ var MPLAY = MPLAY || {};
 				// 	page.getOwner().getSoundManager().play("Hey-Priya");
 				// }},
 				{type: "play", audio: "Hey-Priya"},
-				{type: "dialog", speaker: "Priya", text: "Oh hi. Coming to join us?"},
+				{type: "dialog", speaker: "Priya", text: "Hi" + player +"!. Join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "nothing", label: "neutural2"},
@@ -542,7 +553,7 @@ var MPLAY = MPLAY || {};
 					choices :
 						[{text: "I need to study, but wanted to say hi first.",
 							go: "#study-p"},
-						{text: "Not much",
+						{text: "I'm here to study.",
 							go: "#sayhi-p"}], label: "choices1"},
 
 				{type: "nothing", label: "study-p"},
@@ -585,12 +596,13 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya.  I don’t want to work on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya."},
+				{type: "dialog", speaker: "Ryan", text: "I don’t want to work on my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "neg-ryan"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "What can I say?  Talking is more fun than my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "sayhi-p"},
@@ -616,7 +628,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah… I’m trying to study.  Ryan is avoiding his Computer Graphics work."},
+				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study.  Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
 
 				{type: "nothing", label: "neg-priya2"},
@@ -632,12 +644,12 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "Speaking of CG, that does remind me of my take home test."},
+				{type: "dialog", speaker: "Ryan", text: "Speaking of Comp Systems, that does remind me of my problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "neg-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
-				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computer Graphics take home test."},
+				{type: "dialog", speaker: "Ryan", text: "I’m working on my Computational Systems problem set."},
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 			];
 			o = o.concat(common);

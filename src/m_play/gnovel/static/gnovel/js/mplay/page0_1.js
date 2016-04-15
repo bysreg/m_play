@@ -66,7 +66,7 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			// need a flow here to show a buzzing phone before choices
-			{type: "show_context", text:"You go to meet your friend Ryan for a bite at Scottie’s.", waitUntilShown:false},
+			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 
 			{type: "show", img: catsphone, waitUntilShown:false},
 			/*{type: "show", img: yourphone},
@@ -138,8 +138,9 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Oh man, this semester is gonna be tough.  I think our class - Programming and Society should be good though."},
-			{type: "dialog", speaker: this._ryan, text: "My brother took it last year."},
+			{type: "dialog", speaker: this._ryan, text: "I'm so happy we'll be working together after graduation!  You're going to love being at techFast."},
+			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class - Programming and Society should be good though."},
+			{type: "dialog", speaker: this._ryan, text: "My brother took it last year.  He said it was tough, but he learned a ton."},
 			{type: "choices",
 				choices :
 					[{text: "Should be good.",
@@ -155,11 +156,11 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$RelationshipScore", operator: "greater", rightop: 0, goTrue: "#intro_priya", goFalse: "#not_intro_priya"},
 
 			// relationship score > 0
-			{type: "dialog", speaker: this._ryan, text: "It's cross listed with CS and psych or something.  My friend Priya is in it too.  I’ll introduce you guys.", label: "intro_priya"},
+			{type: "dialog", speaker: this._ryan, text: "Gotta love that Computer Science!  My friend Priya is in it too.  I’ll introduce you guys.", label: "intro_priya"},
 			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
 
 			// relationship score <= 0
-			{type: "dialog", speaker: this._ryan, text: "I think it's cross listed with CS and psych or something.  My friend Priya is in it too.", label: "not_intro_priya"},
+			{type: "dialog", speaker: this._ryan, text: "Computer Science... Good stuff.  My friend Priya is in the class too.", label: "not_intro_priya"},
 			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
 
 			// see a phone on the table.
@@ -167,14 +168,14 @@ var MPLAY = MPLAY || {};
 			* FIXME angle camera towards phone
 			*/
 			{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "seeaphone"},
-			{type: "dialog", speaker: this._ryan, text: "Looks like someone left their wallet."},
+			{type: "dialog", speaker: this._ryan, text: "Oh hey, looks like someone left their wallet."},
 			// this choice affects scene 2
 			{type: "choices",
 				choices :
 					[{text: "Let’s give it to the waiter.",
 						integrityScore:0,
 						go: "#waiter"},
-					{text: "Let’s take a look – maybe we can contact the owner.",
+					{text: "Let’s take a look.  Maybe we can contact the owner.",
 						onChoose: function(page) {
 							page._catsPhoneStatus = 1;
 						},
@@ -186,7 +187,7 @@ var MPLAY = MPLAY || {};
 						relationship: {name: this._ryan, score: -1},
 						go: "#cash"}]},
 
-			{type: "dialog", speaker: this._ryan, text: "Good idea.  So anyway, congrats again.  Better keep up that GPA – our boss warned me before I left last summer to keep it above a 3.5.", label: "waiter"},
+			{type: "dialog", speaker: this._ryan, text: "Good idea.  Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades.", label: "waiter"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			// if phone is picked up
@@ -205,15 +206,16 @@ var MPLAY = MPLAY || {};
 						}}]},*/
 
 			{type:"nothing", label: "pickup"},
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student –"},
 			{type: "dialog", speaker: this._ryan, text: "Cat Davis.  Her CMU ID card is in here."},
 			{type: "dialog", speaker: this._ryan, text: "Let’s turn it into campus police."},
+			{type: "dialog", speaker: this._ryan, text: "Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades."},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
 
 			{type: "nothing", label: "cash"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Ha!  I didn’t know you were so mean. Let’s just give it to the waiter."},
+			{type: "dialog", speaker: this._ryan, text: "Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades."},
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
@@ -222,6 +224,21 @@ var MPLAY = MPLAY || {};
 
 		return o;
 	};
+
+	Page0_1.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+				    {audio:"Bar-glasses1", playrate: 0.1},
+					{audio:"Bar-glasses2", playrate: 0.1},
+					{audio:"Bar-glasses3", playrate: 0.1},
+					{audio:"Bar-distantglasses", playrate: 0.4},
+					{audio:"Bar-girltalking", playrate: 0.05},
+					{audio:"Bar-liquid", playrate: 0.05},
+					{audio:"Bar-mantalking", playrate: 0.05},
+					{audio:"Bar-pia", playrate: 0.05}
+					];
+		return playlist;
+	};	
 
 	/**
 	 * @override
@@ -238,6 +255,10 @@ var MPLAY = MPLAY || {};
 	Page0_1.prototype._onStart = function() {
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
+	};
+
+	Page0_1.prototype._update = function() {
+		this._multiTracksPlayer.shuffle();
 	};
 
 	MPLAY.Page0_1 = Page0_1;
