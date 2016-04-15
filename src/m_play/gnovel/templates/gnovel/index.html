@@ -47,6 +47,15 @@
 
 		<!-- MPLAY dependency files -->
 		<script src="{% static 'gnovel/third_party/spine.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/CopyShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/HorizontalBlurShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/VerticalBlurShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/EffectComposer.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/RenderPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/ShaderPass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/TexturePass.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/shaders/VignetteShader.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js_extra/postprocessing/MaskPass.js' %}"></script>
 
 		<!-- pages -->
 		<script src="{% static 'gnovel/js/mplay/page0.js' %}"></script>
@@ -77,6 +86,22 @@
 		<script src="{% static 'gnovel/js/mplay/page9_3.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/pageending.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/pagetest.js' %}"></script>
+
+		<script id="vertexShader" type="x-shader/x-vertex">
+			varying vec2 vUv;
+			void main() {
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+			}
+		</script>
+
+		<script id="fragment_shader_screen" type="x-shader/x-fragment">
+			varying vec2 vUv;
+			uniform sampler2D tDiffuse;
+			void main() {
+				gl_FragColor = texture2D( tDiffuse, vUv );
+			}
+		</script>
 
 		<script>
 			var getCookie = function(name) {
@@ -118,7 +143,7 @@
 				});
 
 				// add pages
-				gnovel.addPage("scene 1", MPLAY.Page0);
+				/*gnovel.addPage("scene 1", MPLAY.Page0);*/
 				gnovel.addPage("scene 1.b", MPLAY.Page0_1);
 				gnovel.addPage("scene 2.a", MPLAY.Page1_0);
 				gnovel.addPage("scene 2.b", MPLAY.Page1_1);

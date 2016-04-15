@@ -191,12 +191,16 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page8_2.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
 	};
 
 	Page8_2.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+		
 		this._owner._ambient = this._owner.getSoundManager().play("Office-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

@@ -36,7 +36,6 @@ var GNOVEL = GNOVEL || {};
 
 		// ambient plays at next page
 		this._nextAmbient = null;
-		this._waitForTransition = true;
 
 		this._multiTracksPlayer = new GNOVEL.MultiTracksPlayer(this);
 
@@ -494,9 +493,10 @@ var GNOVEL = GNOVEL || {};
 			this._addToScene(params.convoFilter);
 		}*/
 
+		//fade in object
 		this.tweenMat(obj, {
 			opacity: 1,
-			easing: TWEEN.Easing.Cubic.Out,
+			easing: TWEEN.Easing.Quadratic.Out,
 			arr: params.arr,
 			onComplete: function() {
 				if(waitUntilShown) {
@@ -562,11 +562,6 @@ var GNOVEL = GNOVEL || {};
 			//pageObj._showingFilter = false;
 		}
 	};
-
-	Page.prototype._setWaitForTransition = function(value){
-		var pageObj = this;
-		pageObj._waitForTransition = value;
-	}
 
 	Page.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params = params || {};

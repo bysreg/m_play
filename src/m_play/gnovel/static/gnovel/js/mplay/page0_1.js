@@ -95,7 +95,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends*/
 
-			{type: "show", img: ryan, expression: "neutral", position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
@@ -109,7 +109,7 @@ var MPLAY = MPLAY || {};
 						relationship: {name: this._ryan, score: 1},
 						go: "#cheers"}]},
 
-			{type: "show", img: ryan, expression: "happy", position: "center", label: "cheers"},
+			{type: "show", img: ryan, expression: "very happy", position: "center", label: "cheers"},
 			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
 			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
@@ -219,7 +219,9 @@ var MPLAY = MPLAY || {};
 
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
-			{type: "goto", page: "scene 2.a", label: "nextscene"},
+			{type: "nothing", label:"nextscene"},
+			{type: "hide", img: this._ryan},
+			{type: "goto", page: "scene 2.a"},
 		];
 
 		return o;
@@ -244,6 +246,8 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	Page0_1.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
 
 		if (this._owner._ambient != null) {
@@ -253,6 +257,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page0_1.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};

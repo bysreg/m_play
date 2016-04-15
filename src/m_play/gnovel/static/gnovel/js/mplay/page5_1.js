@@ -71,6 +71,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page5_1.prototype._onStart = function() {
+		MPLAY.MPlayPage.prototype._onStart.call(this);
+		
 		var pageObj = this;
 		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
@@ -161,14 +163,14 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "txtxchange"},
 			// phone exchange begins
-			{type: "open_phone", layout:"text", people: [this._ryan, this._priya]},			
+			{type: "open_phone", layout:"text", people: [this._ryan, this._priya]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "P – there’s a violation with your part of the project."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
 				text: "What?"},
-			{type: "add_phone_textbox",				
+			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Did u use codeHub for ur code?"},
 			{type: "add_phone_textbox",
@@ -177,7 +179,7 @@ var MPLAY = MPLAY || {};
 			{type: "add_phone_textbox",
 				speaker: this._priya,
 				text: "It’s common for programmers… Thought that was allowed?"},
-			{type: "close_phone"},	
+			{type: "close_phone"},
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "We’re wasting time texting her.  She needs to redo it."},
@@ -317,6 +319,8 @@ var MPLAY = MPLAY || {};
 	};
 
 	Page5_1.prototype._onUnload = function() {
+		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
