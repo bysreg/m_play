@@ -48,8 +48,8 @@ var MPLAY = MPLAY || {};
 
 		var messageText = page.createTextBox(text, {
 			align: "left",
-			charLine: 33,
-			font: "20px Arial",
+			charLine: 45,
+			font: "15px Arial",
 		});		
 		messageText.position.set(-150, 80, 10);
 
@@ -61,13 +61,13 @@ var MPLAY = MPLAY || {};
 
 		var emailText = page.createTextBox(email, {
 			align: "left",
-			font: "20px Arial",
+			font: "15px Arial",
 		});
 		emailText.position.set(-40, 160, 10);
 
 		var subjectText = page.createTextBox(subject, {
 			align: "left",
-			font: "bold 25px Arial",
+			font: "bold 20px Arial",
 		});
 		subjectText.position.set(-180, 260, 10);
 
@@ -103,7 +103,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		var peopleText = page.createTextBox(peopleStr, {
-			align: "center", 
+			align: "center",
 			font: "20px Arial"
 		});
 		peopleText.position.set(0, 270, 10);
@@ -181,7 +181,7 @@ var MPLAY = MPLAY || {};
 		if(name === "Cat") {
 			return "/static/gnovel/res/textures/ui/cat phone icon.png";
 		}
-		if(name === "Prof. Sweeny") {
+		if(name === "Prof. Sweeney") {
 			return "/static/gnovel/res/textures/ui/prof phone icon.png";
 		}
 	};
@@ -199,12 +199,13 @@ var MPLAY = MPLAY || {};
 			charLine: 32,
 			font: "15px Arial",
 			fillstyle: "#ECECEC"
-		});		
-		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
+		});
+		var textHeight = messageText.canvas.textHeight;		
+		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20 - textHeight / 2, 3);
 		messageText.material.opacity = 0;
 
 		// create prof pic of sender
-		var speakerPic = page.createImage(this._getPicPath(speaker), new THREE.Vector3(-messageBgWidth/2 - 40, (messageBgHeight / 2) - 20, 7), 59, 59);
+		var speakerPic = page.createImage(this._getPicPath(speaker), new THREE.Vector3(-messageBgWidth/2 - 40, (messageBgHeight / 2) - 30, 7), 59, 59);
 		speakerPic.material.opacity = 0;
 
 		// set text and picture as a child of the background
