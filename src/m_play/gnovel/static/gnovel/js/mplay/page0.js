@@ -99,6 +99,9 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
+	/**
+	 * @override
+	 */
 	Page0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
@@ -106,7 +109,12 @@ var MPLAY = MPLAY || {};
 		this._tweenVolumeIn();
 	};
 
+	/**
+	 * @override
+	 */
 	Page0.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+		
 		this._multiTracksPlayer.shuffle();
 	};
 
