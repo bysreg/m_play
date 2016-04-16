@@ -138,6 +138,17 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
+	Page8_1.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+					{audio:"Uc-girllaughing", playrate: 0.02},
+					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-womantalking", playrate: 0.03},
+					{audio:"Uc-steps", playrate: 0.1}
+					];
+		return playlist;
+	};	
+
 	Page8_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 		
@@ -152,6 +163,15 @@ var MPLAY = MPLAY || {};
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};
+
+	/**
+	 * @override
+	 */
+	Page8_1.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+
+		this._multiTracksPlayer.shuffle();
+	};		
 
 	MPLAY.Page8_1 = Page8_1;
 }());

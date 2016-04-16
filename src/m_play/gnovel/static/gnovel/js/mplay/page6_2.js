@@ -38,12 +38,15 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text: "Your cell phone pings with an email. You open it."},
 
 			// phone email exchange begins
-			{type: "show", img: closephone, waitUntilShown: false},
-			{type: "phone_textbox",
-				label: "email",
-				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B-. I will hand back your comments in greater detail in class. -Prof Sweeney "},
-			{type: "hide_phone_textbox", dialog: "$email"},
-			{type: "hide", img: closephone},
+			// {type: "show", img: closephone, waitUntilShown: false},
+			// {type: "phone_textbox",
+			// 	label: "email",
+			// 	text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B-. I will hand back your comments in greater detail in class. -Prof Sweeney "},
+			// {type: "hide_phone_textbox", dialog: "$email"},
+			// {type: "hide", img: closephone},
+			{type: "open_phone", layout:"email", subject: "Group Project Grade", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
+				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
+			{type: "close_phone"},
 			// phone email exchange ends
 
 			{type: "goto", page: "scene 8.a"},
