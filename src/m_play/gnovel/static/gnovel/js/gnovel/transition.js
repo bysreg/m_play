@@ -10,11 +10,12 @@ var GNOVEL = GNOVEL || {};
 	 * @constructor
 	 * @param {time} time for transition to play, in milliseconds
 	 **/
-	var Transition = function(time) {
+	var Transition = function(time, scene, curPageRT, nextPageRT) {
 		this.time = time || 400;
 
 		this._width = 1920;
 		this._height = 1080;
+		this._scene = scene;
 
 		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/transitionPanel_plain.jpg");
 		var material = new THREE.MeshBasicMaterial({
@@ -29,12 +30,14 @@ var GNOVEL = GNOVEL || {};
 		var transitionPanel = this.transitionPanel;
 
 		var redMaterial = new THREE.MeshBasicMaterial({
-			color: 0xff0000,
 			transparent: true,
+			map: curPageRT,
 		});
+		
 		var blueMaterial = new THREE.MeshBasicMaterial({
-			color: 0x0000ff,
+			// color: 0x0000ff,
 			transparent: true,
+			map: nextPageRT,
 		});
 		var plane1 = new THREE.PlaneBufferGeometry(this._width, this._height);
 		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);				
@@ -66,14 +69,20 @@ var GNOVEL = GNOVEL || {};
 		var transition = this;
 		var transitionPanel = this.transitionPanel;
 		var gnovelObj = currentPage.getOwner();
+		var scene = this._scene;
 
 		var farZ = -300;
-		var leftX = -600;
+		var leftX = -900;
 		var initialScale = 2.2;
+		var toScale = 1.5;
+		var initialZ = 270;
 
-		transitionPanel.position.set(0, 0, 0);
+		console.log("transition is running");
+
+		transitionPanel.position.set(0, 0, initialZ);
 		transitionPanel.scale.set(initialScale, initialScale, 1);
 		currentPage.getOwner()._scene.add(transitionPanel);
+		this._scene.add(transitionPanel);
 
 		this._runOnHierarchy(transitionPanel, {
 			opacity: 1
@@ -85,8 +94,8 @@ var GNOVEL = GNOVEL || {};
 					duration: duration,
 					easing: TWEEN.Easing.Cubic.Out,
 					// z: farZ,
-					x: 1,
-					y: 1,
+					x: toScale,
+					y: toScale,
 					onComplete: function() {
 
 						// wait for several second
@@ -110,7 +119,8 @@ var GNOVEL = GNOVEL || {};
 											easing: TWEEN.Easing.Cubic.Out,
 											onComplete: function() {
 												//remove transitionPanel
-												gnovelObj._scene.remove(transitionPanel);
+												// gnovelObj._scene.remove(transitionPanel);
+												scene.remove(transitionPanel);
 												params.onComplete();
 											}
 										}); //params passes onComplete from gnovel
@@ -201,14 +211,6 @@ var GNOVEL = GNOVEL || {};
 			tween.start();
 		});
 
-	};
-
-	Transition.prototype._setCurPageBgMaterial = function(mat) {
-		this._curPageBg.material = mat;
-	};
-
-	Transition.prototype._setNextPageBgMaterial = function(mat) {
-		this._nextPageBg.material = mat;
 	};
 
 	// transition type
