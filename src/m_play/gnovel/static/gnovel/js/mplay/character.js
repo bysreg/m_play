@@ -159,7 +159,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		for (var expression in this._expression) {
-			if (this.checkImageOpacity(this._expression[expression]) == 1  && this._expression[expression] !== params.exception) {
+			if (this.checkImageOpacity(this._expression[expression]) == 1  && this._expression[expression]._expression !== params.exception) {
 				var img = this._expression[expression]
 
 				if (img instanceof MPLAY.SpineAnimation) {
