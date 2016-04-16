@@ -214,6 +214,11 @@ var GNOVEL = GNOVEL || {};
 
 				// fade in text and speaker
 				this._messageText.material.opacity = 0;
+				this._page.tweenMat(this._messageText, {
+					duration: 500,
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out
+				});
 
 				this._nameText.material.opacity = 0;
 				this._page.tweenMat(this._nameText, {
@@ -224,13 +229,13 @@ var GNOVEL = GNOVEL || {};
 			}
 		}else{
 			// we reuse the background from the previous dialog
-			
+
 			if (!this._mouseDownListenerAdded) {
 				this._addMouseDownListener();
 			}
 		}
 
-		this._page._addToScene(this._messageText);		
+		this._page._addToScene(this._messageText);
 
 		// if (this._showSpeaker)
 		// 	this._page._addToScene(this._nameText);

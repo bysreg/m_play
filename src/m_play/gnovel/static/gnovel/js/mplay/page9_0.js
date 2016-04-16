@@ -50,7 +50,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I+R+"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming &amp; Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},		
+			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming &amp; Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I+R-"},
@@ -58,7 +58,7 @@ var MPLAY = MPLAY || {};
 			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming &amp; Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
-	// negative integrity			
+	// negative integrity
 			{type: "nothing", label: "neg-int"},
 
 			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 0, goTrue: "#I-R+", goFalse: "#I-R-"},
@@ -82,7 +82,7 @@ var MPLAY = MPLAY || {};
 
 	Page9_0.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
