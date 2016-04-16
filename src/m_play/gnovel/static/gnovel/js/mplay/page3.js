@@ -300,7 +300,7 @@ var MPLAY = MPLAY || {};
 				text: "Studying T^T"},
 
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
+			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
 			{type: "close_phone"},
