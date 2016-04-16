@@ -201,7 +201,7 @@ var MPLAY = MPLAY || {};
 			fillstyle: "#ECECEC"
 		});
 		var textHeight = messageText.canvas.textHeight;		
-		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20 - textHeight / 2, 3);
+		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 25, 3);
 		messageText.material.opacity = 0;
 
 		// create prof pic of sender
