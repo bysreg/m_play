@@ -268,7 +268,6 @@ var MPLAY = MPLAY || {};
 
 			// render next page's scene bg to render target
 			this._renderer.render(nextPage._getPageSceneBg(), this._camera, this._nextPageRT, true);
-			this._renderer.render(this._scene, this._camera, this._nextPageRT, false);
 
 			this._renderer.render(this._rttScene, this._camera);
 

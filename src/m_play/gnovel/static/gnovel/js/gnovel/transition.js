@@ -33,6 +33,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true,
 			map: curPageRT,
 		});
+		
 		var blueMaterial = new THREE.MeshBasicMaterial({
 			// color: 0x0000ff,
 			transparent: true,
@@ -210,14 +211,6 @@ var GNOVEL = GNOVEL || {};
 			tween.start();
 		});
 
-	};
-
-	Transition.prototype._setCurPageBgMaterial = function(mat) {
-		this._curPageBg.material = mat;
-	};
-
-	Transition.prototype._setNextPageBgMaterial = function(mat) {
-		this._nextPageBg.material = mat;
 	};
 
 	// transition type
