@@ -1130,6 +1130,9 @@ var MPLAY = MPLAY || {};
 		var pageObj = flow._getPage();
 		var hasParam = GNOVEL.Util.hasParam;
 		var params = {};
+		var cameraMove = new GNOVEL.CameraMove(pageObj.getOwner());
+		cameraMove.resetCamDirection();
+
 		//params.type = "context";
 		params.flowElement = obj;
 		params.showSpeaker = false;
