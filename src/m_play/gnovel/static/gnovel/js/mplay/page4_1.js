@@ -101,6 +101,23 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
+
+	Page4_1.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+				    {audio:"Bar-glasses1", playrate: 0.1},
+					{audio:"Bar-glasses2", playrate: 0.1},
+					{audio:"Bar-glasses3", playrate: 0.1},
+					{audio:"Bar-distantglasses", playrate: 0.4},
+					{audio:"Bar-girltalking", playrate: 0.05},
+					{audio:"Bar-liquid", playrate: 0.05},
+					{audio:"Bar-mantalking", playrate: 0.05},
+					{audio:"Bar-pia", playrate: 0.05}
+					];
+		return playlist;
+	};
+
+
 	Page4_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
@@ -115,6 +132,15 @@ var MPLAY = MPLAY || {};
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};
+
+	/**
+	 * @override
+	 */
+	Page4_1.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+
+		this._multiTracksPlayer.shuffle();
+	};	
 
 	MPLAY.Page4_1 = Page4_1;
 }());
