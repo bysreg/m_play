@@ -68,10 +68,12 @@ var GNOVEL = GNOVEL || {};
 		var gnovelObj = currentPage.getOwner();
 
 		var farZ = -300;
-		var leftX = -600;
+		var leftX = -900;
 		var initialScale = 2.2;
+		var toScale = 1.5;
+		var initialZ = 100;
 
-		transitionPanel.position.set(0, 0, 0);
+		transitionPanel.position.set(0, 0, 200);
 		transitionPanel.scale.set(initialScale, initialScale, 1);
 		currentPage.getOwner()._scene.add(transitionPanel);
 
@@ -85,8 +87,8 @@ var GNOVEL = GNOVEL || {};
 					duration: duration,
 					easing: TWEEN.Easing.Cubic.Out,
 					// z: farZ,
-					x: 1,
-					y: 1,
+					x: toScale,
+					y: toScale,
 					onComplete: function() {
 
 						// wait for several second
