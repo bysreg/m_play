@@ -125,9 +125,10 @@ var MPLAY = MPLAY || {};
 
 		var oneFadeComplete = function() {
 			if(!onCompleteCalled) {
-				params.onComplete();
-
-				onCompleteCalled = true;
+				if(params.onComplete) {
+					params.onComplete();
+					onCompleteCalled = true;
+				}				
 			}
 		};
 
