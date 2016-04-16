@@ -4,6 +4,13 @@ size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+ryan head without dot
+  rotate: false
+  xy: 1692, 224
+  size: 165, 206
+  orig: 551, 694
+  offset: 193, 249
+  index: -1
 ryan thoughtful blink eyes
   rotate: false
   xy: 2, 2
