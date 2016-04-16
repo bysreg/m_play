@@ -257,6 +257,9 @@ var MPLAY = MPLAY || {};
 		//this._showRelationshipInfo("Ryan");
 	};
 
+	/**
+	 * @override
+	 */
 	Page0_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
@@ -264,7 +267,12 @@ var MPLAY = MPLAY || {};
 		this._tweenVolumeIn();
 	};
 
+	/**
+	 * @override
+	 */
 	Page0_1.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+
 		this._multiTracksPlayer.shuffle();
 	};
 
