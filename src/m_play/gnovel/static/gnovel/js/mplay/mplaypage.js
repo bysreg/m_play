@@ -918,8 +918,8 @@ var MPLAY = MPLAY || {};
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
-		this._addToScene(background2);
-		this._addToScene(background3);
+		this._addToSceneBg(background2);
+		this._addToSceneBg(background3);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function(background) {
