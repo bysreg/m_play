@@ -159,7 +159,7 @@ var GNOVEL = GNOVEL || {};
 		var choices = this;
 		//position of dialog based upon speaker
 		var dialogX = this._params.dialogX;
-		var dialogY = this._params.dialogY;
+		var dialogY = this._params.dialogY-20;
 		var duration = this._params.seconds * 1000 || 1000;
 		var timer = this.timer;
 		var timer2 = this.timer2;
@@ -262,7 +262,8 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		mainTimer.onStart(function() {
-			pageObj._timerInstance = pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
+			//@FIXME need new sound for timer?
+			//pageObj._timerInstance = pageObj.getOwner().getSoundManager().play("Timer", {interrupt: pageObj.getOwner().getSoundManager().INTERRUPT_ANY, loop: 20});
 		});
 		mainTimer.start();
 		shortTimer.start();
@@ -279,7 +280,7 @@ var GNOVEL = GNOVEL || {};
 			this._page._removeFromScene(this.timer);
 			this._page._removeFromScene(this.timer2);
 			//stop playing timer sound
-			this._page._timerInstance.stop();
+			//this._page._timerInstance.stop();
 		}
 
 		//removed boxes for timed response
@@ -331,8 +332,8 @@ var GNOVEL = GNOVEL || {};
 			clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
-			this._page._removeFromScene(this.timer);
-			this._page._removeFromScene(this.timer2);
+			//this._page._removeFromScene(this.timer);
+			//this._page._removeFromScene(this.timer2);
 			for (var i = 0; i < this._choices.length; i++) {
 
 				if (this._choicesBox[i].children[0].name == intersects[0].object.name) {

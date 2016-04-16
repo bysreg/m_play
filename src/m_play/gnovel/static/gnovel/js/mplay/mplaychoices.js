@@ -20,7 +20,7 @@ var MPLAY = MPLAY || {};
 		this._integrityManager = page._integrityManager;
 		this._relationshipManager = page._relationshipManager;
 		var pageObj = page;
-		
+
 		//FIXME
 		//Need to speicify position of dialog box
 		params.dialogX = params.x;
@@ -50,10 +50,11 @@ var MPLAY = MPLAY || {};
 		}
 
 		//display BG filter for integrity choices
+		//@FIXME show stronger BG blur for integrity chocies
 		if (flowElement != null) {
 			if (typeof flowElement.choices[0].integrityScore !== 'undefined' &&
 				flowElement.choices[0].integrityScore != null) {
-					page.showBgFilter();
+					
 				}
 		}
 
@@ -227,9 +228,6 @@ var MPLAY = MPLAY || {};
 					});
 				},
 			});
-
-				//remove bg filter after choice made
-				pageObj.hideBgFilter();
 			}
 
 			if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
@@ -430,8 +428,8 @@ var MPLAY = MPLAY || {};
 			// clickedObj.material.color.setHex(0.5 * 0xffffff | 0x80000000);
 
 			this._choosed = true;
-			this._page._removeFromScene(this.timer);
-			this._page._removeFromScene(this.timer2);
+			//this._page._removeFromScene(this.timer);
+			//this._page._removeFromScene(this.timer2);
 			//this._page._timerInstance.stop();
 			for (var i = 0; i < this._choices.length; i++) {
 

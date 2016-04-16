@@ -133,7 +133,7 @@ var MPLAY = MPLAY || {};
 		];
 
 		var common = [
-			
+
 			{type: "nothing", label: "email"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
@@ -298,7 +298,7 @@ var MPLAY = MPLAY || {};
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Studying T^T"},
-			
+
 
 			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go get a drink at Scottie’s Bar and run into Cat.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
 

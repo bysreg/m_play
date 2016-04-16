@@ -356,7 +356,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._initPhoneNotification = function() {
-		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
+		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 0), 90, 135);
 
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
@@ -919,7 +919,7 @@ var MPLAY = MPLAY || {};
 		var background3;
 		if(foreground != null){
 			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
-			background3.scale.set(.85,.85,1);
+			background3.scale.set(.90,.85,1);
 		}
 		else{
 			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
