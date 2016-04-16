@@ -242,28 +242,6 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(effectVBlur);
 		sceneBgComposer.addPass(effectVignette);
 
-		var curPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
-		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
-
-		var curPageMaterial = new THREE.MeshBasicMaterial({
-		// var curPageMaterial = new THREE.ShaderMaterial({
-			uniforms: { tDiffuse: { type: "t", value: curPageRT } },
-			color: 0x00ff00,
-			transparent: true,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
-		});
-
-		var nextPageMaterial = new THREE.MeshBasicMaterial({
-		// var nextPageMaterial = new THREE.ShaderMaterial({
-			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },
-			color: 0xff0000,
-			transparent: true,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
-			depthWrite: false
-		});
-
 		// override gnovel's render function
 		this._owner._render = function() {
 			this._renderer.clear();
@@ -271,28 +249,10 @@ var MPLAY = MPLAY || {};
 			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
 
-			// this._renderer.render(this._scene, this._camera, this._rtTexture, true);
-			// this._renderer.clear(false, true, false);
-			// this._renderer.render(this._rttScene, this._camera);
+			this._renderer.render(sceneBg, this._camera, this._rtTexture, true);
+			this._renderer.render(this._scene, this._camera, this._rtTexture, false);			
+			this._renderer.render(this._rttScene, this._camera);
 		};
-
-		// override gnovel's _runTransition function
-		this._owner._runTransition = function(curPage, nextPage) {
-			var gnovel = this;
-
-			this._renderer.clear(false, true, false); // clear the depth buffer
-			//this._renderer.render(this._scene, this._camera, curPageRT, true);
-
-			this._transition._setCurPageBgMaterial(curPageMaterial);
-			this._transition._setNextPageBgMaterial(nextPageMaterial);
-
-			this._transition.run(curPage, nextPage, {
-				onComplete: function() {
-					gnovel._onPageTransitionComplete(nextPage);
-				},
-			});
-		};
-
 
 		this._sceneBg = sceneBg;
 		MPlayPage._sceneBg = sceneBg;
