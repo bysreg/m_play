@@ -437,10 +437,10 @@ var GNOVEL = GNOVEL || {};
 		this._prevPage = curPage;
 		this._curPageIdx = pageIndex;
 
-		this._runTransition(curPage, nextPage);
+		this._runTransition(curPage, nextPage, transitionType);
 	};
 
-	Gnovel.prototype._runTransition = function(curPage, nextPage) {
+	Gnovel.prototype._runTransition = function(curPage, nextPage, transitionType) {
 		var gnovel = this;	
 		
 		this._transition.run(curPage, nextPage, {
@@ -450,6 +450,7 @@ var GNOVEL = GNOVEL || {};
 			onSafeToUnload: function() {
 				gnovel._unload(curPage);
 			},
+			transitionType: transitionType
 		});
 	};
 

@@ -252,7 +252,7 @@ var MPLAY = MPLAY || {};
 		};
 
 		// override gnovel's runTransition function
-		this._owner._runTransition = function(curPage, nextPage) {
+		this._owner._runTransition = function(curPage, nextPage, transitionType) {
 			var gnovel = this;
 
 			this._renderer.clear();
@@ -269,7 +269,7 @@ var MPLAY = MPLAY || {};
 
 			this._renderer.render(this._rttScene, this._camera);
 
-			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage);
+			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage, transitionType);
 		};
 
 		this._sceneBg = sceneBg;
@@ -278,6 +278,10 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._getPageSceneBg = function() {
 		return this._pageSceneBg;
+	};
+
+	MPlayPage.prototype._getSceneBg = function() {
+		return this._sceneBg;
 	};
 
 	MPlayPage.prototype._setEffect = function(value) {	

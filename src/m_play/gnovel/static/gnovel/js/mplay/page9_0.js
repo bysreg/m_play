@@ -55,7 +55,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I+R-"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming &amp; Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
+			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming & Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 	// negative integrity			
@@ -65,7 +65,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I-R+"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming &amp; Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
+			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming & Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I-R-"},
@@ -74,7 +74,8 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},
-			{type: "goto", page: "scene 10.b"},
+			// {type: "hide", img: ryan},
+			{type: "goto", page: "scene 10.b", transition: "fade"},
 		];
 
 		return o;
