@@ -287,7 +287,7 @@ var MPLAY = MPLAY || {};
 
 
 			{type: "nothing", label: "aside2"},
-			{type: "show_context", text: "Later that week…"},
+			//{type: "show_context", text: "Later that week…"},
 			{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
@@ -304,16 +304,16 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "gocafe"},
 			{type: "close_phone"},
-			{type: "show", img: transitionBg, waitUntilShown:false},
+			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "show_context", text:"You head to the cafe", waitUntilShown:false},
+			//{type: "show_context", text:"You head to the cafe", waitUntilShown:false},
 			{type: "goto", page: "scene 5.a"},
 
 			{type: "nothing", label: "gobar"},
 			{type: "close_phone"},
-			{type: "show", img: transitionBg, waitUntilShown:false},
+			//{type: "show", img: transitionBg, waitUntilShown:false},
 			// after transition
-			{type: "show_context", text:"You head to the bar", waitUntilShown:false},
+			//{type: "show_context", text:"You head to the bar", waitUntilShown:false},
 			{type: "goto", page: "scene 5.b"},
 
 			{type: "nothing", label: "gohome"},
@@ -496,7 +496,7 @@ var MPLAY = MPLAY || {};
 				// 	page.getOwner().getSoundManager().play("Hey-Priya");
 				// }},
 				{type: "play", audio: "Hey-Priya"},
-				{type: "dialog", speaker: "Priya", text: "Hi" + player +"!. Join us?"},
+				{type: "dialog", speaker: "Priya", text: "Hi " + player +"! Join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "nothing", label: "neutural2"},

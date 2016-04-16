@@ -134,7 +134,7 @@ var MPLAY = MPLAY || {};
 				*/
 
 				{type: "nothing", label: "aside1"},
-				{type: "show_context", text: "Later that week..."},
+				//{type: "show_context", text: "Later that week..."},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",
