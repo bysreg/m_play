@@ -215,8 +215,8 @@ var MPLAY = MPLAY || {};
 			font: "15px Arial",
 			fillstyle: "#ECECEC"
 		});
-		var textHeight = messageText.canvas.textHeight;
-		messageText.position.set(-messageBgWidth / 2 + 20, (messageBgHeight / 2) - 20 - textHeight / 2, 3);
+		var textHeight = messageText.canvas.textHeight;		
+		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 25, 3);
 		messageText.material.opacity = 0;
 
 		// create profile pic of sender
