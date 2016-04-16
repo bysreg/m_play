@@ -33,7 +33,7 @@ var GNOVEL = GNOVEL || {};
 			transparent: true,
 			map: curPageRT,
 		});
-		
+
 		var blueMaterial = new THREE.MeshBasicMaterial({
 			// color: 0x0000ff,
 			transparent: true,
@@ -51,12 +51,15 @@ var GNOVEL = GNOVEL || {};
 		this._curPageBg = curPageBg;
 
 		var nextPageBg = new THREE.Mesh(plane2, blueMaterial);
-		nextPageBg.position.setX(545 + 90);
+		nextPageBg.position.setX(635);
 		nextPageBg.position.setZ(3);
 		nextPageBg.scale.set(0.33, 0.33, 1);
 		nextPageBg.name = "nextPageBg";
 		transitionPanel.add(nextPageBg);
 		this._nextPageBg = nextPageBg;
+
+		var container = new THREE.Object3D();
+		this._container = container;
 	};
 
 	/**
@@ -70,27 +73,36 @@ var GNOVEL = GNOVEL || {};
 		var transitionPanel = this.transitionPanel;
 		var gnovelObj = currentPage.getOwner();
 		var scene = this._scene;
+		var container = this._container;
 
 		var farZ = -300;
-		var leftX = -900;
-		var initialScale = 2.2;
-		var toScale = 1.5;
+		var leftX = -633;
+		var initialScale = 1.65;
+		var toScale = 1.2;
 		var initialZ = 270;
 
 		console.log("transition is running");
 
-		transitionPanel.position.set(0, 0, initialZ);
-		transitionPanel.scale.set(initialScale, initialScale, 1);
-		currentPage.getOwner()._scene.add(transitionPanel);
-		this._scene.add(transitionPanel);
+		// transitionPanel.position.set(0, 0, initialZ);
+		// transitionPanel.scale.set(initialScale, initialScale, 1);
+		// this._scene.add(transitionPanel);
 
-		this._runOnHierarchy(transitionPanel, {
+		container.position.set(0, 0, initialZ);
+		container.scale.set(initialScale, initialScale, 1);
+		container.add(transitionPanel);
+		this._scene.add(container);
+		transitionPanel.position.set(0, 0, 0);
+
+		this._runOnHierarchy(container, {
 			opacity: 1
 		}, {
 			duration: duration,
 			onComplete: function() {
+
+				params.onSafeToUnload();
+
 				//zoom out the transition panel
-				transition._scale(transitionPanel, {
+				transition._scale(container, {
 					duration: duration,
 					easing: TWEEN.Easing.Cubic.Out,
 					// z: farZ,
@@ -111,19 +123,31 @@ var GNOVEL = GNOVEL || {};
 									onComplete: function() {
 
 										// zoom in transition panel 
-										transition._scale(transitionPanel, {
+										transition._scale(container, {
 											duration: duration,
 											// z: initialZ,
 											x: initialScale,
 											y: initialScale,
 											easing: TWEEN.Easing.Cubic.Out,
 											onComplete: function() {
-												//remove transitionPanel
-												// gnovelObj._scene.remove(transitionPanel);
-												scene.remove(transitionPanel);
+
 												params.onComplete();
+
+												transition._runOnHierarchy(container, {
+													opacity: 0
+												}, {
+													duration: duration, 
+													onComplete: function() {
+														//remove transitionPanel
+														// gnovelObj._scene.remove(transitionPanel);
+														scene.remove(container);
+														// scene.remove(transitionPanel);
+														//params.onComplete();
+													}																										
+												});
+
 											}
-										}); //params passes onComplete from gnovel
+										});
 
 									}
 								});
@@ -190,8 +214,8 @@ var GNOVEL = GNOVEL || {};
 		var isOnCompleteAdded = false;
 
 		h.traverseVisible(function(obj3d) {
-			// if (obj3d.material == null || obj3d.material.opacity == 0)
-			// 	return;
+			if (obj3d.material == null)
+				return;
 
 			if (toObj.opacity == 1)
 				obj3d.material.opacity = 0;

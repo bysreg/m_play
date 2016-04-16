@@ -253,7 +253,7 @@ var MPLAY = MPLAY || {};
 			this._renderer.render(this._rttScene, this._camera);
 		};
 
-		// override completely gnovel's runTransition function
+		// override gnovel's runTransition function
 		this._owner._runTransition = function(curPage, nextPage) {
 			var gnovel = this;
 
@@ -271,11 +271,7 @@ var MPLAY = MPLAY || {};
 
 			this._renderer.render(this._rttScene, this._camera);
 
-			this._transition.run(curPage, nextPage, {
-				onComplete: function() {
-					gnovel._onPageTransitionComplete(nextPage);
-				},
-			});
+			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage);
 		};
 
 		this._sceneBg = sceneBg;
