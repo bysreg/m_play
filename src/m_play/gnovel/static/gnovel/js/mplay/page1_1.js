@@ -163,6 +163,17 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
+	Page1_1.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+					{audio:"Uc-girllaughing", playrate: 0.02},
+					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-womantalking", playrate: 0.03},
+					{audio:"Uc-steps", playrate: 0.1}
+					];
+		return playlist;
+	};
+
 	/**
 	 * @override
 	 */
@@ -181,6 +192,14 @@ var MPLAY = MPLAY || {};
 		this._tweenVolumeIn();
 	};
 
+	/**
+	 * @override
+	 */
+	Page1_1.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+
+		this._multiTracksPlayer.shuffle();
+	};	
 
 	MPLAY.Page1_1 = Page1_1;
 }());

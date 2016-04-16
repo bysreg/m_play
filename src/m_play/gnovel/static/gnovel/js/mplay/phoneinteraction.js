@@ -212,11 +212,11 @@ var MPLAY = MPLAY || {};
 		var messageText = page.createTextBox(text, {
 			align: "left",
 			charLine: 32,
-			font: "15px Arial",
+			font: "12px Arial",
 			fillstyle: "#ECECEC"
 		});
-		var textHeight = messageText.canvas.textHeight;		
-		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 25, 3);
+		// var textHeight = messageText.canvas.textHeight;		
+		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
 
 		// create profile pic of sender

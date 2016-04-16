@@ -231,7 +231,7 @@ var MPLAY = MPLAY || {};
 	Page0_1.prototype._createRandomPlaylist = function() {
 		var playlist = null;
 		playlist = [
-				    {audio:"Bar-glasses1", playrate: 0.1},
+					{audio:"Bar-glasses1", playrate: 0.1},
 					{audio:"Bar-glasses2", playrate: 0.1},
 					{audio:"Bar-glasses3", playrate: 0.1},
 					{audio:"Bar-distantglasses", playrate: 0.4},
@@ -240,6 +240,7 @@ var MPLAY = MPLAY || {};
 					{audio:"Bar-mantalking", playrate: 0.05},
 					{audio:"Bar-pia", playrate: 0.05}
 					];
+
 		return playlist;
 	};
 

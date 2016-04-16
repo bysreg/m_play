@@ -138,21 +138,27 @@ var GNOVEL = GNOVEL || {};
 					{id: "Library-bg", src: "ambient-lib.ogg"},
 
 					// bacakground noises layer
-					{id:"Bar-glasses1", src:"bgnoises-bar-glasses1.ogg"},
-					{id:"Bar-glasses2", src:"bgnoises-bar-glasses2.ogg"},
-					{id:"Bar-glasses3", src:"bgnoises-bar-glasses3.ogg"},
-					{id:"Bar-distantglasses", src:"bgnoises-bar-distantglasses.ogg"},
-					{id:"Bar-girltalking", src:"bgnoises-bar-girltalking.ogg"},
-					{id:"Bar-liquid", src:"bgnoises-bar-liquid.ogg"},
-					{id:"Bar-mantalking", src:"bgnoises-bar-mantalking.ogg"},
-					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"},
+					{id: "Bar-glasses1", src: "bgnoises-bar-glasses1.ogg"},
+					{id: "Bar-glasses2", src: "bgnoises-bar-glasses2.ogg"},
+					{id: "Bar-glasses3", src: "bgnoises-bar-glasses3.ogg"},
+					{id: "Bar-distantglasses", src: "bgnoises-bar-distantglasses.ogg"},
+					{id: "Bar-girltalking", src: "bgnoises-bar-girltalking.ogg"},
+					{id: "Bar-liquid", src: "bgnoises-bar-liquid.ogg"},
+					{id: "Bar-mantalking", src: "bgnoises-bar-mantalking.ogg"},
+					{id: "Bar-pia", src: "bgnoises-bar-pia.ogg"},
 
-					{id:"Lib-beeping", src: "bgnoises-lib-beeping.ogg"},
-					{id:"Lib-chairs1", src: "bgnoises-lib-chairs1.ogg"},
-					{id:"Lib-chairs2", src: "bgnoises-lib-chairs2.ogg"},
-					{id:"Lib-chairs3", src: "bgnoises-lib-chairs3.ogg"},
-					{id:"Lib-distantchairs", src: "bgnoises-lib-distantchairs.ogg"},
-					{id:"Lib-pia", src: "bgnoises-lib-pia.ogg"},
+					{id: "Lib-beeping", src: "bgnoises-lib-beeping.ogg"},
+					{id: "Lib-chairs1", src: "bgnoises-lib-chairs1.ogg"},
+					{id: "Lib-chairs2", src: "bgnoises-lib-chairs2.ogg"},
+					{id: "Lib-chairs3", src: "bgnoises-lib-chairs3.ogg"},
+					{id: "Lib-distantchairs", src: "bgnoises-lib-distantchairs.ogg"},
+					{id: "Lib-pia", src: "bgnoises-lib-pia.ogg"},
+
+					{id: "Uc-girllaughing", src: "bgnoises-uc-girllaughing.ogg"},
+					{id: "Uc-mantalking", src: "bgnoises-uc-mantalking.ogg"},
+					{id: "Uc-steps", src: "bgnoises-uc-steps.ogg"},
+					{id: "Uc-womantalking", src: "bgnoises-uc-womantalking.ogg"},
+
 
 		];
 		this._soundManager = createjs.Sound;
@@ -437,10 +443,10 @@ var GNOVEL = GNOVEL || {};
 		this._prevPage = curPage;
 		this._curPageIdx = pageIndex;
 
-		this._runTransition(curPage, nextPage);
+		this._runTransition(curPage, nextPage, transitionType);
 	};
 
-	Gnovel.prototype._runTransition = function(curPage, nextPage) {
+	Gnovel.prototype._runTransition = function(curPage, nextPage, transitionType) {
 		var gnovel = this;	
 		
 		this._transition.run(curPage, nextPage, {
@@ -450,6 +456,7 @@ var GNOVEL = GNOVEL || {};
 			onSafeToUnload: function() {
 				gnovel._unload(curPage);
 			},
+			transitionType: transitionType
 		});
 	};
 

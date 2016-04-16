@@ -82,8 +82,10 @@ var MPLAY = MPLAY || {};
 	Page0.prototype._createRandomPlaylist = function() {
 		var playlist = null;
 		playlist = [
-					{audio: "Heyfriend-Cat", playrate: 0.2},
-					{audio: "Ohhi-Cat", playrate: 0.8},
+					{audio:"Uc-girllaughing", playrate: 0.02},
+					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-womantalking", playrate: 0.03},
+					{audio:"Uc-steps", playrate: 0.1}
 					];
 		return playlist;
 	};

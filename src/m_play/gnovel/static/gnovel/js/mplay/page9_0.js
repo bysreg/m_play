@@ -55,7 +55,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I+R-"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming &amp; Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
+			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming & Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 	// negative integrity
@@ -65,7 +65,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I-R+"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming &amp; Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
+			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming & Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I-R-"},
@@ -74,11 +74,23 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},
-			{type: "goto", page: "scene 10.b"},
+			// {type: "hide", img: ryan},
+			{type: "goto", page: "scene 10.b", transition: "fade"},
 		];
 
 		return o;
 	};
+
+	Page9_0.prototype._createRandomPlaylist = function() {
+		var playlist = null;
+		playlist = [
+					{audio:"Uc-girllaughing", playrate: 0.02},
+					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-womantalking", playrate: 0.03},
+					{audio:"Uc-steps", playrate: 0.1}
+					];
+		return playlist;
+	};	
 
 	Page9_0.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
@@ -94,6 +106,15 @@ var MPLAY = MPLAY || {};
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};
+
+	/**
+	 * @override
+	 */
+	Page9_0.prototype._update = function() {
+		MPLAY.MPlayPage.prototype._update.call(this);
+
+		this._multiTracksPlayer.shuffle();
+	};	
 
 	MPLAY.Page9_0 = Page9_0;
 }());
