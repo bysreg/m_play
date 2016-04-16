@@ -129,13 +129,13 @@ var GNOVEL = GNOVEL || {};
 
 
 			// ambient
-					{id:"Cafe-bg", src:"ambient-cafe.ogg"},
-					{id:"Office-bg", src:"ambient-office.ogg"},
-					{id:"Gym-bg", src:"ambient-gym.ogg"},
-					{id:"Bar-bg", src:"ambient-bar-new.ogg"},
-					{id:"Classroom-bg", src:"ambient-classroom.ogg"},
-					{id:"UC-bg", src:"ambient-uc.ogg"},
-					{id:"Library-bg", src:"ambient-lib.ogg"},
+					{id: "Cafe-bg", src: "ambient-cafe.ogg"},
+					{id: "Office-bg", src: "ambient-office.ogg"},
+					{id: "Gym-bg", src: "ambient-gym.ogg"},
+					{id: "Bar-bg", src: "ambient-bar-new.ogg"},
+					{id: "Classroom-bg", src: "ambient-classroom.ogg"},
+					{id: "UC-bg", src: "ambient-uc.ogg"},
+					{id: "Library-bg", src: "ambient-lib.ogg"},
 
 					// bacakground noises layer
 					{id:"Bar-glasses1", src:"bgnoises-bar-glasses1.ogg"},
@@ -145,7 +145,15 @@ var GNOVEL = GNOVEL || {};
 					{id:"Bar-girltalking", src:"bgnoises-bar-girltalking.ogg"},
 					{id:"Bar-liquid", src:"bgnoises-bar-liquid.ogg"},
 					{id:"Bar-mantalking", src:"bgnoises-bar-mantalking.ogg"},
-					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"}
+					{id:"Bar-pia", src: "bgnoises-bar-pia.ogg"},
+
+					{id:"Lib-beeping", src: "bgnoises-lib-beeping.ogg"},
+					{id:"Lib-chairs1", src: "bgnoises-lib-chairs1.ogg"},
+					{id:"Lib-chairs2", src: "bgnoises-lib-chairs2.ogg"},
+					{id:"Lib-chairs3", src: "bgnoises-lib-chairs3.ogg"},
+					{id:"Lib-distantchairs", src: "bgnoises-lib-distantchairs.ogg"},
+					{id:"Lib-pia", src: "bgnoises-lib-pia.ogg"},
+
 		];
 		this._soundManager = createjs.Sound;
 

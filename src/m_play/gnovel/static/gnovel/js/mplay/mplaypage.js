@@ -39,8 +39,6 @@ var MPLAY = MPLAY || {};
 		this._background3Layer = 30;
 		this._interactableObjectLayer = 150;
 		this._characterLayer = 140;
-		this._character2Layer = 250;
-		this._character3Layer = 300;
 		this._uiLayer = 250;
 
 		// for logging
@@ -283,16 +281,16 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._setBlurBgEffect = function(params) {
+		params = params || {};
+
 		var width = this._owner._getWidth();
 		var height = this._owner._getHeight();
 		var duration = 2000;
-		var targetBlurH = 2 / width;
-		var targetBlurV = 2 / height;
-		var vignetteOffset = 0.95;
-		var vignetteDarkness = 1.6;
-		var pageObj = this;
-
-		params = params || {};
+		var targetBlurH = params.blurH || 2 / width;
+		var targetBlurV = params.blurV || 2 / height;
+		var vignetteOffset = params.vignetteOffset || 0.95;
+		var vignetteDarkness = params.vignetteDarkness || 1.6;
+		var pageObj = this;		
 
 		if (params.clear) {
 			targetBlurH = 0;
@@ -456,6 +454,16 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._onLoad = function() {
 		this._initPhoneNotification();
 
+		// blurring parameters
+		this._softBlurH = 1 / this._owner._getWidth();
+		this._softBlurV = 1 / this._owner._getHeight();
+		this._hardBlurH = 2 / this._owner._getWidth();
+		this._hardBlurV = 2 / this._owner._getHeight();
+		this._softVignetteOffset = 0.45;
+		this._softVignetteDarkness = 0.8;
+		this._hardVignetteOffset =  0.95;
+		this._hardVignetteDarkness = 1.6;
+
 		if (!MPlayPage._isBgProcessingInit) {
 			this._initBgProcessing();
 			MPlayPage._isBgProcessingInit = true;
@@ -483,6 +491,8 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._onStart = function() {
 		GNOVEL.Page.prototype._onStart.call(this);
+
+		this._setBlurBgEffect({clear: true});
 
 		// add this page's scene bg to overall scene bg
 		this._sceneBg.add(this._pageSceneBg);
@@ -590,12 +600,21 @@ var MPLAY = MPLAY || {};
 		//center camera when choices are shown
 		cameraMove.resetCamDirection();
 
-		this._setBlurBgEffect();
+		this._setBlurBgEffect({
+			blurH: this._hardBlurH, 
+			blurV: this._hardBlurV,
+			vignetteDarkness: this._hardVignetteDarkness,
+			vignetteOffset: this._hardVignetteOffset,
+		});
 		var pageObj = this;
 
 		params.onChoiceComplete = function() {
 			pageObj._setBlurBgEffect({
-				clear: true
+				//clear: true
+				blurH: this._softBlurH, 
+				blurV: this._softBlurV,
+				vignetteDarkness: this._softVignetteDarkness,
+				vignetteOffset: this._softVignetteOffset,
 			});
 		};
 
@@ -755,6 +774,15 @@ var MPLAY = MPLAY || {};
 		}
 
 		if (isChar) {
+
+			// if we show character, blur the background too
+			this._setBlurBgEffect({
+				blurH: this._softBlurH, 
+				blurV: this._softBlurV,
+				vignetteDarkness: this._softVignetteDarkness,
+				vignetteOffset: this._softVignetteOffset,
+			});
+
 			if (position === "center") {
 				img.position.z = this._characterLayer + 10;
 			} else {
@@ -769,8 +797,6 @@ var MPLAY = MPLAY || {};
 				//move camera to face character position
 				cameraMove.setCamDirection(position, img.position);
 			}
-
-
 		}
 
 		if (isChar && img.hasOwnProperty("oriScale")) {
@@ -798,17 +824,13 @@ var MPLAY = MPLAY || {};
 				exception: img._expression
 			};
 
-			// if(obj.getVisibleImage() instanceof MPLAY.SpineAnimation) {
-			// 	characterTweenParam.arr = img.meshes
-			// }
-
 			if (img instanceof MPLAY.SpineAnimation) {
 				params.arr = img.meshes;
 			}
 
-			characterTweenParam.onComplete = function() {
+			// characterTweenParam.onComplete = function() {
 				//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
-			};
+			// };
 
 			obj.fadeVisibleImages(this, characterTweenParam);
 			GNOVEL.Page.prototype._show.call(pageObj, img, params);
