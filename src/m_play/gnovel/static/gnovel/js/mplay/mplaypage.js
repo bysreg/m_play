@@ -794,7 +794,7 @@ var MPLAY = MPLAY || {};
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
-				duration: 200, 
+				duration: 200,
 				exception: img._expression
 			};
 
@@ -867,9 +867,9 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupClassBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background with sweeney.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground with characters.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);

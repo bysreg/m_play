@@ -23,7 +23,7 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
+		<!--<div class="container">
 			<div class="row top-buffer">
 			</div>
 
@@ -32,16 +32,50 @@
 					{% csrf_token %}
 					<div class="row">
 						<div class="form-group col-xs-12">
-							<input type="text" class="form-control input-lg" id="username" name="username" placeholder="Username" required="true">
+							<input type="text" class="form-control input-lg" id="username" name="username" placeholder="Your Name" required="true">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary btn-lg center-block">Sign in</button>
+							<button type="submit" class="gnovel-button"></button>
 						</div>
 					</div>
 				</form>
 			</div>
+		</div>-->
+
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="pr-wrap">
+		                <div class="pass-reset">
+		                    <label>
+		                        Enter the email you signed up with</label>
+		                    <input type="email" placeholder="Email" />
+		                    <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+		                </div>
+		            </div>
+		            <div class="wrap">
+		                <p class="form-title">    </p>
+		                <form class="login" action="/gnovel/" method="post">
+											{% csrf_token %}
+		                <input type="text" id="username" name="username" placeholder="Name" required="true"/>
+		                <input type="text" placeholder="Email" />
+		                <!--<input type="phone" placeholder="Cell" />-->
+		                <input type="submit" value="" />
+		                <div class="remember-forgot">
+		                    <div class="row">
+		                        <div class="col-md-6">
+
+		                        </div>
+
+		                    </div>
+		                </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		   <!--- <div class="posted-by">Posted By: <a href="http://www.jquery2dotnet.com">Bhaumik Patel</a></ div>-->
 		</div>
 	</body>
 </html>
