@@ -301,12 +301,11 @@ var MPLAY = MPLAY || {};
 			o = [
 
 				// phone text exchange begins
-				{type: "show", img: closephone, position: "center"},
-				{type: "phone_textbox",
-					label: "mom_text",
-					text: "Hey hon!  study hard, make good choices!! XOX MOM"},
-				{type: "hide_phone_textbox", dialog: "$mom_text"},
-				{type: "hide", img: closephone},
+				{type: "open_phone", layout:"text", people: ["Mom"]},
+				{type: "add_phone_textbox",
+					speaker: "Mom",
+					text: "Hey hon!  study hard, make good choices!! XOX"},
+				{type: "close_phone"},
 				// phone text exchange ends
 
 				{type: "custom", func: function(page) {
