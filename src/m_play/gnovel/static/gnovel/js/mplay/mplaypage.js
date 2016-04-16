@@ -798,7 +798,8 @@ var MPLAY = MPLAY || {};
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
-				duration: 200
+				duration: 200, 
+				exception: img._expression
 			};
 
 			// if(obj.getVisibleImage() instanceof MPLAY.SpineAnimation) {
