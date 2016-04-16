@@ -1186,8 +1186,8 @@ var MPLAY = MPLAY || {};
 		var toY;
 
 		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
-		params.bgWidth = 520;
-		params.bgHeight = 90;
+		params.bgWidth = params.flowElement.bgWidth || 520;
+		params.bgHeight = params.flowElement.bgHeight || 90;
 		params.bgOffsetY = 40;
 		params.bgOffsetX = 100;
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);

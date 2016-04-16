@@ -134,7 +134,9 @@ var MPLAY = MPLAY || {};
 				*/
 
 				{type: "nothing", label: "aside1"},
-				//{type: "show_context", text: "Later that week..."},
+				{type: "hide", img: ryan, waitUntilHidden: false},
+				{type: "hide", img: cat, waitUntilHidden: false},
+				{type: "show_context", text: "Later that week...", bgWidth: 600, bgHeight: 103},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",
