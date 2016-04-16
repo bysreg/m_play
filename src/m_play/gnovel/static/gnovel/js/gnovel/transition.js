@@ -34,6 +34,7 @@ var GNOVEL = GNOVEL || {};
 			map: curPageRT,
 		});
 		var blueMaterial = new THREE.MeshBasicMaterial({
+			// color: 0x0000ff,
 			transparent: true,
 			map: nextPageRT,
 		});
@@ -73,9 +74,11 @@ var GNOVEL = GNOVEL || {};
 		var leftX = -900;
 		var initialScale = 2.2;
 		var toScale = 1.5;
-		var initialZ = 100;
+		var initialZ = 270;
 
-		transitionPanel.position.set(0, 0, 200);
+		console.log("transition is running");
+
+		transitionPanel.position.set(0, 0, initialZ);
 		transitionPanel.scale.set(initialScale, initialScale, 1);
 		currentPage.getOwner()._scene.add(transitionPanel);
 		this._scene.add(transitionPanel);

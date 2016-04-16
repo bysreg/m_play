@@ -191,7 +191,7 @@ var GNOVEL = GNOVEL || {};
 		// this._rttScene.add(quad);
 
 		// setup transition
-		this._transition = new GNOVEL.Transition(1000, this._rttScene, rtTexture, rtTexture);
+		this._transition = new GNOVEL.Transition(1000, this._rttScene, rtTexture, nextPageRT);
 
 		// setup render loop
 		var render = function() {
