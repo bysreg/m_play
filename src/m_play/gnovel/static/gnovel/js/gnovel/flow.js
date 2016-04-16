@@ -283,8 +283,10 @@ var GNOVEL = GNOVEL || {};
 
 		switch(transitionType) {
 			case "fade" :
-			default:
 				transitionType = GNOVEL.TransitionType.FADE;
+				break;
+			default:				
+				transitionType = GNOVEL.TransitionType.COMIC_SLIDE;
 				break;
 		};
 

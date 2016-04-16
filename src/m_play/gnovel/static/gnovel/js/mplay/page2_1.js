@@ -65,7 +65,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "howru"},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m in some tough classes, but that’s why we’re here, right? Oh well, see you in class..."},
-			{type: "dialog", speaker: "Cat", text: "Oh wait that riminds me.  If you see Ryan, can you tell him thanks for me?"},
+			{type: "dialog", speaker: "Cat", text: "Oh wait that reminds me.  If you see Ryan, can you tell him thanks for me?"},
 			{type: "dialog", speaker: "Cat", text: "I mentioned to him that I've been interested in the business side of startups,"},
 			{type: "dialog", speaker: "Cat", text: "And he put me in touch with his friends in the Business and Technology club."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},

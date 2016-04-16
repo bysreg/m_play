@@ -40,7 +40,7 @@ var GNOVEL = GNOVEL || {};
 			map: nextPageRT,
 		});
 		var plane1 = new THREE.PlaneBufferGeometry(this._width, this._height);
-		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);				
+		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);
 
 		var curPageBg = new THREE.Mesh(plane1, redMaterial);
 		curPageBg.position.setX(-10);
@@ -68,6 +68,54 @@ var GNOVEL = GNOVEL || {};
 	 * @param {nextPage} the new page to show
 	 **/
 	Transition.prototype.run = function(currentPage, nextPage, params) {
+		if (params.transitionType === GNOVEL.TransitionType.COMIC_SLIDE) {
+			this._comicSlide(currentPage, nextPage, params);
+		} else {
+			this._fade(currentPage, nextPage, params);
+		}
+	};
+
+	Transition.prototype._fade = function(currentPage, nextPage, params) {
+		var duration = this.time;
+		var transition = this;
+		var gnovelObj = currentPage.getOwner();
+
+		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
+		var material = new THREE.MeshBasicMaterial({
+			color: 0x000000,
+			transparent: true
+		});
+		var transitionBgImg = new THREE.Mesh(geometry, material);
+		transitionBgImg.material.opacity = 0;
+		transitionBgImg.position.z = 210;
+
+		// fade out current scene
+		gnovelObj._scene.add(transitionBgImg);
+
+		this._runOnHierarchy(transitionBgImg, {
+			opacity: 1,
+		}, {
+			duration: duration / 2,
+			onComplete: function() {
+
+				params.onSafeToUnload();
+				params.onComplete();
+
+				transition._runOnHierarchy(transitionBgImg, {
+					opacity: 0,
+				}, {
+					duration: duration / 2, 
+					onComplete: function() {
+						gnovelObj._scene.remove(transitionBgImg);
+					}					
+				});
+			}
+		});
+
+
+	};
+
+	Transition.prototype._comicSlide = function(currentPage, nextPage, params) {
 		var duration = this.time;
 		var transition = this;
 		var transitionPanel = this.transitionPanel;
@@ -136,14 +184,14 @@ var GNOVEL = GNOVEL || {};
 												transition._runOnHierarchy(container, {
 													opacity: 0
 												}, {
-													duration: duration, 
+													duration: duration,
 													onComplete: function() {
 														//remove transitionPanel
 														// gnovelObj._scene.remove(transitionPanel);
 														scene.remove(container);
 														// scene.remove(transitionPanel);
 														//params.onComplete();
-													}																										
+													}
 												});
 
 											}
@@ -240,6 +288,7 @@ var GNOVEL = GNOVEL || {};
 	// transition type
 	GNOVEL.TransitionType = {};
 	GNOVEL.TransitionType.FADE = 0;
+	GNOVEL.TransitionType.COMIC_SLIDE = 1;
 
 	GNOVEL.Transition = Transition;
 

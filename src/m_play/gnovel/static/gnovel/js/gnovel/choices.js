@@ -159,7 +159,7 @@ var GNOVEL = GNOVEL || {};
 		var choices = this;
 		//position of dialog based upon speaker
 		var dialogX = this._params.dialogX;
-		var dialogY = this._params.dialogY-20;
+		var dialogY = this._params.dialogY+200;
 		var duration = this._params.seconds * 1000 || 1000;
 		var timer = this.timer;
 		var timer2 = this.timer2;
@@ -170,7 +170,7 @@ var GNOVEL = GNOVEL || {};
 				x: 0,
 				y: 1,
 				z: 1,
-			}, 10000)
+			}, duration)
 			.easing(TWEEN.Easing.Linear.None).onComplete(function() {
 			if (choices._choosed) {
 				// do nothing
@@ -178,16 +178,18 @@ var GNOVEL = GNOVEL || {};
 				shortTimer.stop();
 			} else {
 				// auto select the first option
-				choices._result.choiceId = 0;
-				choices._onChoiceComplete(choices._result.choiceId);
+				//@FIXME, not auto select right now
+				/*choices._result.choiceId = 0;
+				choices._onChoiceComplete(choices._result.choiceId);*/
 				shortTimer.stop();
 			}
 		})
 		.onUpdate(function() {
 			//if timer is halfway done, show the short timer
-			if(timer.scale.x < .3){
+			//FIXME, don't show timer for now
+			/*if(timer.scale.x < .3){
 					timer.material.opacity = 1;
-				}
+				}*/
 			if (choices._choosed) {
 				// stop all timers
 				//choices._onChoiceComplete(choices._result.choiceId);
@@ -205,7 +207,7 @@ var GNOVEL = GNOVEL || {};
 				x: 0,
 				y: 1,
 				z: 1,
-			}, 3000)
+			}, duration/3)
 			.easing(TWEEN.Easing.Linear.None)
 			.onUpdate(function() {
 				//timer2.material.opacity = 0;
@@ -215,7 +217,7 @@ var GNOVEL = GNOVEL || {};
 					//shortTimer.stop();
 				}
 				//if timer almost over, remove previous text box
-				if((timer2.scale.x < .3) && responseShowing){
+				if((timer2.scale.x < .5) && responseShowing){
 					if(count>0){
 						// pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
 						// 	opacity: 0,
@@ -241,7 +243,15 @@ var GNOVEL = GNOVEL || {};
 				//move to next text in responses array
 				if(count <= choices._timedResponses.length-1){
 					//
+					choices._params.speaker = speaker;
 					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
+					//tween in opacity just to make sure message is showing
+					/*pageObj.tweenMat(choices._responseBox[count]._messageText,{
+					 	opacity: 1,
+					 	easing: TWEEN.Easing.Cubic.Out,
+					 	duration: 400,
+					});*/
+
 					responseShowing = true;
 
 					//after the first response displays, then make invisible & move to next response

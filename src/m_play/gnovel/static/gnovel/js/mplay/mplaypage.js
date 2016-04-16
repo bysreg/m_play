@@ -252,7 +252,7 @@ var MPLAY = MPLAY || {};
 		};
 
 		// override gnovel's runTransition function
-		this._owner._runTransition = function(curPage, nextPage) {
+		this._owner._runTransition = function(curPage, nextPage, transitionType) {
 			var gnovel = this;
 
 			this._renderer.clear();
@@ -269,7 +269,7 @@ var MPLAY = MPLAY || {};
 
 			this._renderer.render(this._rttScene, this._camera);
 
-			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage);
+			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage, transitionType);
 		};
 
 		this._sceneBg = sceneBg;
@@ -278,6 +278,10 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._getPageSceneBg = function() {
 		return this._pageSceneBg;
+	};
+
+	MPlayPage.prototype._getSceneBg = function() {
+		return this._sceneBg;
 	};
 
 	MPlayPage.prototype._setEffect = function(value) {	
@@ -297,7 +301,7 @@ var MPLAY = MPLAY || {};
 		var targetBlurV = params.blurV || 2 / height;
 		var vignetteOffset = params.vignetteOffset || 0.95;
 		var vignetteDarkness = params.vignetteDarkness || 1.6;
-		var pageObj = this;		
+		var pageObj = this;
 
 		if (params.clear) {
 			targetBlurH = 0;
@@ -487,7 +491,7 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._onUnload = function() {
 		//reset camera look at direction
-		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner(),this);
 		cameraMove.resetCamDirection();
 		this._sceneBg.remove(this._pageSceneBg);
 
@@ -501,7 +505,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._onStart = function() {
-		GNOVEL.Page.prototype._onStart.call(this);		
+		GNOVEL.Page.prototype._onStart.call(this);
 
 		// add this page's scene bg to overall scene bg
 		this._sceneBg.add(this._pageSceneBg);
@@ -605,12 +609,12 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._showChoices = function(choicesArr, responsesArr, params, jumpArr) {
 		params.jumpArr = jumpArr;
-		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner(), this);
 		//center camera when choices are shown
 		cameraMove.resetCamDirection();
 
 		this._setBlurBgEffect({
-			blurH: this._hardBlurH, 
+			blurH: this._hardBlurH,
 			blurV: this._hardBlurV,
 			vignetteDarkness: this._hardVignetteDarkness,
 			vignetteOffset: this._hardVignetteOffset,
@@ -620,7 +624,7 @@ var MPLAY = MPLAY || {};
 		params.onChoiceComplete = function() {
 			pageObj._setBlurBgEffect({
 				//clear: true
-				blurH: this._softBlurH, 
+				blurH: this._softBlurH,
 				blurV: this._softBlurV,
 				vignetteDarkness: this._softVignetteDarkness,
 				vignetteOffset: this._softVignetteOffset,
@@ -761,7 +765,7 @@ var MPLAY = MPLAY || {};
 		var img = obj;
 		var pageObj = this;
 		var isChar = false;
-		var cameraMove = new GNOVEL.CameraMove(this.getOwner());
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner(), this);
 		params.convoFilter = this._convoFilter;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
@@ -786,7 +790,7 @@ var MPLAY = MPLAY || {};
 
 			// if we show character, blur the background too
 			this._setBlurBgEffect({
-				blurH: this._softBlurH, 
+				blurH: this._softBlurH,
 				blurV: this._softBlurV,
 				vignetteDarkness: this._softVignetteDarkness,
 				vignetteOffset: this._softVignetteOffset,
@@ -1161,7 +1165,7 @@ var MPLAY = MPLAY || {};
 		var pageObj = flow._getPage();
 		var hasParam = GNOVEL.Util.hasParam;
 		var params = {};
-		var cameraMove = new GNOVEL.CameraMove(pageObj.getOwner());
+		var cameraMove = new GNOVEL.CameraMove(pageObj.getOwner(), this);
 		cameraMove.resetCamDirection();
 
 		//params.type = "context";
