@@ -22,6 +22,8 @@ var MPLAY = MPLAY || {};
 	Page9_0.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
+		this._setEffect(false);
+
 		this.setupUcBackground();
 	};
 

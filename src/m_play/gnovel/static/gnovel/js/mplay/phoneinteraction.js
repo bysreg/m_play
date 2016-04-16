@@ -219,7 +219,7 @@ var MPLAY = MPLAY || {};
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 25, 3);
 		messageText.material.opacity = 0;
 
-		// create prof pic of sender
+		// create profile pic of sender
 		var speakerPicPath = this._getPicPath(speaker);
 		var speakerPic = null;
 		if (speakerPicPath) {
