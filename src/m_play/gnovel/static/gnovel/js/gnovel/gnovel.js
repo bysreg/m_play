@@ -439,6 +439,9 @@ var GNOVEL = GNOVEL || {};
 			onComplete: function() {
 				gnovel._onPageTransitionComplete(nextPage);
 			},
+			onSafeToUnload: function() {
+				gnovel._unload(curPage);
+			},
 		});
 	};
 
@@ -454,7 +457,7 @@ var GNOVEL = GNOVEL || {};
 		this._scene.add(this._pageRootObject[page.getPageId()]);
 
 		// unload the previous page
-		this._unload(this._prevPage);
+		// this._unload(this._prevPage);
 
 		//start flow of next page
 		_onStart(page);

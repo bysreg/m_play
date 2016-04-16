@@ -253,7 +253,7 @@ var MPLAY = MPLAY || {};
 			this._renderer.render(this._rttScene, this._camera);
 		};
 
-		// override completely gnovel's runTransition function
+		// override gnovel's runTransition function
 		this._owner._runTransition = function(curPage, nextPage) {
 			var gnovel = this;
 
@@ -271,11 +271,7 @@ var MPLAY = MPLAY || {};
 
 			this._renderer.render(this._rttScene, this._camera);
 
-			this._transition.run(curPage, nextPage, {
-				onComplete: function() {
-					gnovel._onPageTransitionComplete(nextPage);
-				},
-			});
+			GNOVEL.Gnovel.prototype._runTransition.call(this, curPage, nextPage);
 		};
 
 		this._sceneBg = sceneBg;
@@ -798,7 +794,7 @@ var MPLAY = MPLAY || {};
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
-				duration: 200, 
+				duration: 200,
 				exception: img._expression
 			};
 
@@ -871,9 +867,9 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupClassBackground = function() {
-		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background.png");
+		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background with sweeney.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground with characters.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
@@ -918,8 +914,8 @@ var MPLAY = MPLAY || {};
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
-		this._addToScene(background2);
-		this._addToScene(background3);
+		this._addToSceneBg(background2);
+		this._addToSceneBg(background3);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function(background) {

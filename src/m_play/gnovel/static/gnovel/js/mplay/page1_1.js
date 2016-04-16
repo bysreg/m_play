@@ -135,7 +135,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "aside1"},
 				{type: "show_context", text: "Later that week..."},
-				
+
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",
 					speaker: this._priya,
@@ -145,10 +145,10 @@ var MPLAY = MPLAY || {};
 					text: "Thx!  But I’m actually at the gym right now.  U guys should come!"},
 				{type: "add_phone_textbox",
 					speaker: this._ryan,
-					text: "Can’t – wish I could join for coffee (sry Cat, gym sounds terrible).  My comp graphics class is kicking my ass! I need to study."},
+					text: "Can’t – wish I could join for coffee, need to study.  My comp systems class is kicking my ass!"},
 				{type: "close_phone"},
 
-				{type: "choices", choices : [{text: "Grab a coffee at the café – you run into Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Go to the gym – you run into Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}]},
+				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}]},
 				{type: "goto", page: "scene 3.a", label: "gocafe"},
 				{type: "goto", page: "scene 3.b", label: "gogym"},
 

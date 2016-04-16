@@ -239,7 +239,7 @@ var MPLAY = MPLAY || {};
 			{type: "open_phone", layout:"text", people: [this._ryan]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
-				text: "Hey [You] – do you have time to meet up today?"},			
+				text: "Hey [You] – do you have time to meet up today?"},
 			{type: "choices", choices : [
 				{text: "I’m heading to the gym, do u want to join me?",
 					go: "#gogym"},
@@ -247,8 +247,8 @@ var MPLAY = MPLAY || {};
 					go : "#gobar"},
 				{text: "Raincheck?  I have to head home to study.",
 					go: "#gohome"}]},
-			{type: "close_phone"},		
-			
+			{type: "close_phone"},
+
 
 			{type: "goto", page: "scene 7.a", label: "gogym"},
 			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
