@@ -57,7 +57,7 @@ var MPLAY = MPLAY || {};
 
 		// for background postprocessing
 		this._sceneBg = null;
-		this._pageSceneBg = new THREE.Object3D();;
+		this._pageSceneBg = new THREE.Object3D();
 
 		if (MPlayPage._phoneInteraction == null) {
 			this._initPhoneInteraction();
@@ -206,6 +206,7 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._initBgProcessing = function() {
 		var sceneBg = new THREE.Scene();
+		var page = this;
 		var width = this._owner._getWidth();
 		var height = this._owner._getHeight();
 		var effectHBlur = new THREE.ShaderPass(THREE.HorizontalBlurShader);
@@ -242,28 +243,6 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(effectVBlur);
 		sceneBgComposer.addPass(effectVignette);
 
-		var curPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
-		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
-
-		var curPageMaterial = new THREE.MeshBasicMaterial({
-		// var curPageMaterial = new THREE.ShaderMaterial({
-			uniforms: { tDiffuse: { type: "t", value: curPageRT } },
-			color: 0x00ff00,
-			transparent: true,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
-		});
-
-		var nextPageMaterial = new THREE.MeshBasicMaterial({
-		// var nextPageMaterial = new THREE.ShaderMaterial({
-			uniforms: { tDiffuse: { type: "t", value: nextPageRT } },
-			color: 0xff0000,
-			transparent: true,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
-			depthWrite: false
-		});
-
 		// override gnovel's render function
 		this._owner._render = function() {
 			this._renderer.clear();
@@ -271,20 +250,26 @@ var MPLAY = MPLAY || {};
 			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
 
-			// this._renderer.render(this._scene, this._camera, this._rtTexture, true);
-			// this._renderer.clear(false, true, false);
-			// this._renderer.render(this._rttScene, this._camera);
+			this._renderer.render(this._rttScene, this._camera);
 		};
 
-		// override gnovel's _runTransition function
+		// override completely gnovel's runTransition function
 		this._owner._runTransition = function(curPage, nextPage) {
 			var gnovel = this;
 
+			this._renderer.clear();
+			sceneBgComposer.render(0.01);
 			this._renderer.clear(false, true, false); // clear the depth buffer
-			//this._renderer.render(this._scene, this._camera, curPageRT, true);
+			this._renderer.render(this._scene, this._camera);
 
-			this._transition._setCurPageBgMaterial(curPageMaterial);
-			this._transition._setNextPageBgMaterial(nextPageMaterial);
+			// render current page's scene bg to render target
+			this._renderer.render(curPage._getPageSceneBg(), this._camera, this._rtTexture, true);
+			this._renderer.render(this._scene, this._camera, this._rtTexture, false);
+
+			// render next page's scene bg to render target
+			this._renderer.render(nextPage._getPageSceneBg(), this._camera, this._nextPageRT, true);
+
+			this._renderer.render(this._rttScene, this._camera);
 
 			this._transition.run(curPage, nextPage, {
 				onComplete: function() {
@@ -293,9 +278,12 @@ var MPLAY = MPLAY || {};
 			});
 		};
 
-
 		this._sceneBg = sceneBg;
 		MPlayPage._sceneBg = sceneBg;
+	};
+
+	MPlayPage.prototype._getPageSceneBg = function() {
+		return this._pageSceneBg;
 	};
 
 	MPlayPage.prototype._setBlurBgEffect = function(params) {
@@ -356,7 +344,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._initPhoneNotification = function() {
-		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone_notify.png", new THREE.Vector3(0, 0, 0), 150, 155);
+		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 0), 90, 135);
 
 		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
 		this._closephoneImg.material.opacity = 0;
@@ -806,11 +794,12 @@ var MPLAY = MPLAY || {};
 		// console.log("show something");
 
 		//duration for fade in of next character
-			params.duration = 200;
+		params.duration = 200;
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
-				duration: 200
+				duration: 200, 
+				exception: img._expression
 			};
 
 			// if(obj.getVisibleImage() instanceof MPLAY.SpineAnimation) {
@@ -822,7 +811,7 @@ var MPLAY = MPLAY || {};
 			}
 
 			characterTweenParam.onComplete = function() {
-			//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
+				//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
 			};
 
 			obj.fadeVisibleImages(this, characterTweenParam);
@@ -896,11 +885,15 @@ var MPLAY = MPLAY || {};
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		var background3;
 		//if special foreground for scene, add that instead
-		if(foreground != null)
+		if (foreground != null) {
 			background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-			else {
-				background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
-			}
+		} else {
+			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+		}
+
+		// testing
+		this._bg.name = "UCUCUCUCUC";
+
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
 		this._addToSceneBg(background3);
@@ -909,19 +902,18 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.setupLibraryBackground = function(foreground) {
 		//this.setBackground("/static/gnovel/res/textures/backgrounds/library.png");
 		this.setBackground("/static/gnovel/res/textures/backgrounds/library background.png");
-		this._bg.position.set(0,-30,this._backgroundLayer-50);
+		this._bg.position.set(0, -30, this._backgroundLayer - 50);
 		//this._bg.scale.set(.85,.85,1);
 
 		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer-170), 1920, 1080);
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer-50), 1920, 1080);
-		background2.scale.set(1,1,1);
+		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer - 50), 1920, 1080);
+		background2.scale.set(1, 1, 1);
 		//if special foreground for scene, add that instead
 		var background3;
-		if(foreground != null){
-			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
-			background3.scale.set(.85,.85,1);
-		}
-		else{
+		if (foreground != null) {
+			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
+			background3.scale.set(.90, .85, 1);
+		} else {
 			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
 		}
 		//background3.scale.set(.8,.8,1);
@@ -931,10 +923,9 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype.setupBarBackground = function(background) {
-		if(background != null){
+		if (background != null) {
 			this.setBackground(background);
-		}
-		else{
+		} else {
 			this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
 		}
 

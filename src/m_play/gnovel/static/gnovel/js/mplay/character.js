@@ -25,6 +25,8 @@ var MPLAY = MPLAY || {};
 			self._anims.push(img);
 		}
 
+		this._img._expression = "default";
+
 		// we always make sure the image is always transparent first
 		this.setImageOpacity(img, 0);
 
@@ -67,6 +69,7 @@ var MPLAY = MPLAY || {};
 		}
 	};
 
+	// expression can be anything except "default"
 	Character.prototype.setExpression = function(expression, img) {
 		if (img instanceof MPLAY.SpineAnimation) {
 			var self = this;
@@ -77,6 +80,9 @@ var MPLAY = MPLAY || {};
 			this._expression[expression] = img;
 			img.material.side = THREE.DoubleSide;
 		}
+
+		//put expression information on the image itself (HACK)
+		img._expression = expression;
 
 		// we always make sure the image is always transparent first
 		this.setImageOpacity(img, 0);
@@ -125,7 +131,7 @@ var MPLAY = MPLAY || {};
 			}
 		};
 
-		if (this.checkImageOpacity(this._img) == 1) {
+		if (this.checkImageOpacity(this._img) == 1 && this._img._expression !== params.exception) {
 			var img = this._img;
 
 			if (img instanceof MPLAY.SpineAnimation) {
@@ -153,7 +159,7 @@ var MPLAY = MPLAY || {};
 		}
 
 		for (var expression in this._expression) {
-			if (this.checkImageOpacity(this._expression[expression]) == 1) {
+			if (this.checkImageOpacity(this._expression[expression]) == 1  && this._expression[expression]._expression !== params.exception) {
 				var img = this._expression[expression]
 
 				if (img instanceof MPLAY.SpineAnimation) {
