@@ -280,8 +280,15 @@ var MPLAY = MPLAY || {};
 		return this._pageSceneBg;
 	};
 
+	MPlayPage.prototype._setEffect = function(value) {	
+		this._useEffect = value;
+	};
+
 	MPlayPage.prototype._setBlurBgEffect = function(params) {
 		params = params || {};
+
+		if(!this._useEffect)
+			return;
 
 		var width = this._owner._getWidth();
 		var height = this._owner._getHeight();
@@ -463,6 +470,7 @@ var MPLAY = MPLAY || {};
 		this._softVignetteDarkness = 0.8;
 		this._hardVignetteOffset =  0.95;
 		this._hardVignetteDarkness = 1.6;
+		this._useEffect = true;
 
 		if (!MPlayPage._isBgProcessingInit) {
 			this._initBgProcessing();
@@ -483,6 +491,9 @@ var MPLAY = MPLAY || {};
 		cameraMove.resetCamDirection();
 		this._sceneBg.remove(this._pageSceneBg);
 
+		// deblur
+		this._setBlurBgEffect({clear: true});
+
 		GNOVEL.Page.prototype._onUnload.call(this);
 	};
 
@@ -490,9 +501,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._onStart = function() {
-		GNOVEL.Page.prototype._onStart.call(this);
-
-		this._setBlurBgEffect({clear: true});
+		GNOVEL.Page.prototype._onStart.call(this);		
 
 		// add this page's scene bg to overall scene bg
 		this._sceneBg.add(this._pageSceneBg);

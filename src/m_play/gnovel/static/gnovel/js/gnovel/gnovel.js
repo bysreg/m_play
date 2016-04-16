@@ -354,7 +354,7 @@ var GNOVEL = GNOVEL || {};
 
 	//main load function that sets page properties and starts next scene
 	Gnovel.prototype._load = function(page) {
-		console.log("load page " + page.getPageId());
+		console.log("load page " + page.getPageId() + " " + page.getPageLabel());
 
 		var pageRoot = new THREE.Object3D();
 		var gnovel = this;
