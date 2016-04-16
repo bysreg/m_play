@@ -102,7 +102,7 @@ var MPLAY = MPLAY || {};
 			for (var i = 0; i < people.length - 1; i++) {
 				peopleStr += people[i] + ", ";
 			}
-			peopleStr += "and " + peopleStr[people.length - 1];
+			peopleStr += "and " + people[people.length - 1];
 		} else if(people.length == 1) {
 			peopleStr = people[0];
 		}
