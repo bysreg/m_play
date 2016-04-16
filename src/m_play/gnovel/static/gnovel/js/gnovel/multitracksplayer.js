@@ -36,28 +36,26 @@ var GNOVEL = GNOVEL || {};
 	MultiTracksPlayer.prototype.shuffle = function() {
 		if (this._shufflePeriod != null) {
 			if ( this._delta >= this._shufflePeriod) {
-				console.log(this._delta);
 			    this._delta = 0;
 
-			    var played = new Array();
-			    for (var i = 0; i < this._playlist.length; i++) {
-			    	played[i] = false;
-			    };
-
-				// new period
-				this._shufflePeriod = 10 * Math.random();
+			    var hit = false;
+				
 				for (var j = 0; j <= this._playLevels.length; j++) {
 					if (this._playLevels[j] >= this._shuffleRates) {
-						if (!played[j]) {
+						if (!hit) {
 							this._play(this._playlist[j].audio);
 							console.log("playing " + this._playlist[j].audio);
 							console.log("Rate: " + this._shuffleRates);
-							played[j] = true;
+							hit = true;
 							break;
 						};							
 					}
 				}
 				this._shuffleRates = Math.random();
+				if (hit) {
+					this._shufflePeriod = 10 * Math.random();
+				}
+				
 			}else {
 				this._delta += this._page.getOwner().getClock().getDelta();
 			}
