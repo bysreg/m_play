@@ -174,17 +174,20 @@ var GNOVEL = GNOVEL || {};
 		var rtTexture = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat } );
 		this._rtTexture = rtTexture;
 
-		var materialScreen = new THREE.ShaderMaterial( {
-			uniforms: { tDiffuse: { type: "t", value: rtTexture } },
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById('fragment_shader_screen').textContent,
-			depthWrite: false
-		});
+		var nextPageRT = new THREE.WebGLRenderTarget(1920, 1080, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat } );
+		this._nextPageRT = nextPageRT;
 
-		var plane = new THREE.PlaneBufferGeometry(1920 / 2, 1080 / 2);
-		var quad = new THREE.Mesh(plane, materialScreen);
+		// var materialScreen = new THREE.ShaderMaterial( {
+		// 	uniforms: { tDiffuse: { type: "t", value: rtTexture } },
+		// 	vertexShader: document.getElementById( 'vertexShader' ).textContent,
+		// 	fragmentShader: document.getElementById('fragment_shader_screen').textContent,
+		// 	depthWrite: false
+		// });
+
+		// var plane = new THREE.PlaneBufferGeometry(1920 / 2, 1080 / 2);
+		// var quad = new THREE.Mesh(plane, materialScreen);
 		this._rttScene = new THREE.Scene();
-		quad.position.setZ(200);
+		// quad.position.setZ(200);
 		// this._rttScene.add(quad);
 
 		// setup transition

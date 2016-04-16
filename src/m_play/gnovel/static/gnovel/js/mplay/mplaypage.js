@@ -249,9 +249,30 @@ var MPLAY = MPLAY || {};
 			this._renderer.clear(false, true, false); // clear the depth buffer
 			this._renderer.render(this._scene, this._camera);
 
-			this._renderer.render(sceneBg, this._camera, this._rtTexture, true);
-			this._renderer.render(this._scene, this._camera, this._rtTexture, false);			
+			// this._renderer.render(sceneBg, this._camera, this._rtTexture, true);
+			// this._renderer.render(this._scene, this._camera, this._rtTexture, false);			
 			this._renderer.render(this._rttScene, this._camera);
+		};
+
+		// override completely gnovel's runTransition function
+		this._owner._runTransition = function(curPage, nextPage) {
+			var gnovel = this;	
+		
+			this._renderer.clear();
+			sceneBgComposer.render(0.01);
+			this._renderer.clear(false, true, false); // clear the depth buffer
+			this._renderer.render(this._scene, this._camera);
+
+			this._renderer.render(sceneBg, this._camera, this._rtTexture, true);
+			this._renderer.render(this._scene, this._camera, this._rtTexture, false);	
+
+			this._renderer.render(this._rttScene, this._camera);
+
+			this._transition.run(curPage, nextPage, {
+				onComplete: function() {
+					gnovel._onPageTransitionComplete(nextPage);
+				},
+			});
 		};
 
 		this._sceneBg = sceneBg;
