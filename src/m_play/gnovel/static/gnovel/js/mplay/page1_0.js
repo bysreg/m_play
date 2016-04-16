@@ -31,10 +31,10 @@ var MPLAY = MPLAY || {};
 
 		o = [
 			{type: "show_context", text:"A few days later, in Programming & Society class…", waitUntilShown: true},
-			// {type: "show", img: professor, position: "center", waitUntilShown: false},
-			// {type: "dialog", speaker: "Prof. Sweeney", text: "My aim in Programming and Society is to help you become a better programmer. "},
-			// {type: "dialog", speaker: "Prof. Sweeney", text: "In the second half of each lesson, you will break into your assigned study groups."},
-			// {type: "dialog", speaker: "Prof. Sweeney", text: "Please use this time wisely, you’ll have a group project later in the semester."},
+			{type: "show", img: professor, position: "center", waitUntilShown: false},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "My aim in Programming and Society is to help you become a better programmer. "},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "In the second half of each lesson, you will break into your assigned study groups."},
+			{type: "dialog", speaker: "Prof. Sweeney", text: "Please use this time wisely, you’ll have a group project later in the semester."},
 			{type: "goto", page: "scene 2.b"},
 		];
 
