@@ -134,9 +134,9 @@ var MPLAY = MPLAY || {};
 				*/
 
 				{type: "nothing", label: "aside1"},
-				{type: "hide", img: ryan, waitUntilHidden: false},
-				{type: "hide", img: cat, waitUntilHidden: false},
-				{type: "show_context", text: "Later that week...", bgWidth: 600, bgHeight: 103},
+				{type: "hide", img: ryan},
+				{type: "hide", img: cat},
+				{type: "show_context", text: "The group leaves...some time passes", bgWidth: 600, bgHeight: 103},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",
@@ -148,13 +148,14 @@ var MPLAY = MPLAY || {};
 				{type: "add_phone_textbox",
 					speaker: this._ryan,
 					text: "Can’t – wish I could join for coffee, need to study.  My comp systems class is kicking my ass!"},
-				{type: "close_phone"},
 
 				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}]},
-				{type: "goto", page: "scene 3.a", label: "gocafe"},
-				{type: "goto", page: "scene 3.b", label: "gogym"},
+				{type: "close_phone", label: "gocafe"},
+				{type: "goto", page: "scene 3.a"},
+				{type: "close_phone", label: "gogym"},
+				{type: "goto", page: "scene 3.b"},
 
-				{type: "nothing", label: "gohome"},
+				{type: "close_phone", label: "gohome"},
 				{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Cat", -1);
 					page.getRelationshipManager().addRelationship("Priya", -1);
@@ -201,7 +202,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};	
+	};
 
 	MPLAY.Page1_1 = Page1_1;
 }());
