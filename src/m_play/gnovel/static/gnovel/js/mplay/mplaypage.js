@@ -284,7 +284,7 @@ var MPLAY = MPLAY || {};
 		return this._sceneBg;
 	};
 
-	MPlayPage.prototype._setEffect = function(value) {	
+	MPlayPage.prototype._setEffect = function(value) {
 		this._useEffect = value;
 	};
 
@@ -932,6 +932,10 @@ var MPLAY = MPLAY || {};
 		this._pageSceneBg.add(val);
 	};
 
+	MPlayPage.prototype._removeFromSceneBg = function(val) {
+		this._pageSceneBg.remove(val);
+	};
+
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background with sweeney.png");
 
@@ -971,17 +975,17 @@ var MPLAY = MPLAY || {};
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer - 50), 1920, 1080);
 		background2.scale.set(1, 1, 1);
 		//if special foreground for scene, add that instead
-		var background3;
+		//var background3;
 		if (foreground != null) {
-			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
-			background3.scale.set(.90, .85, 1);
+			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
+			this._background3.scale.set(.90, .85, 1);
 		} else {
-			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
+			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
-		this._addToSceneBg(background3);
+		this._addToSceneBg(this._background3);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function(background) {

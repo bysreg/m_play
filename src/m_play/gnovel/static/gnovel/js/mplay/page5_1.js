@@ -250,11 +250,14 @@ var MPLAY = MPLAY || {};
 			{type: "close_phone"},
 
 
-			{type: "goto", page: "scene 7.a", label: "gogym"},
+			{type: "close_phone", label: "gogym"},
+			{type: "goto", page: "scene 7.a" },
 			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
-			{type: "goto", page: "scene 7.b", label: "gobar"},
+			{type: "close_phone", label: "gobar"},
+			{type: "goto", page: "scene 7.b"},
 			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
-			{type: "goto", page: "scene 7.c", label: "gohome"},
+			{type: "close_phone", label: "gohome"},
+			{type: "goto", page: "scene 7.c"},
 			{type: "jump", condition: true, goTrue: 1000, goFalse: 1000},
 		];
 
@@ -360,7 +363,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};	
+	};
 
 	MPLAY.Page5_1 = Page5_1;
 }());

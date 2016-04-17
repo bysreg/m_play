@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"You head home..."},
+			{type:"show_context", text:"Later that week..."},
 			{type: "show_context", text: "Your cell phone pings with an email. You open it."},
 
 			// phone email exchange begins
@@ -57,7 +57,7 @@ var MPLAY = MPLAY || {};
 
 	Page6_2.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -65,7 +65,7 @@ var MPLAY = MPLAY || {};
 
 	Page6_2.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		// this._owner._ambient = this._owner.getSoundManager().play("Home-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		// this._tweenVolumeIn();
 	};

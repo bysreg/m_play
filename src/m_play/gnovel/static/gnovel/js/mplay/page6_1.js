@@ -24,6 +24,8 @@ var MPLAY = MPLAY || {};
 
 		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
 		this.setupBarBackground(background);
+
+		var pageObj = this;
 	};
 
 	Page6_1.prototype._createFlowElements = function() {
@@ -34,23 +36,24 @@ var MPLAY = MPLAY || {};
 
 		var o = null;
 
-		o = [
-			{type:"show_context", text:"at Scottie's..."},
-			{type: "dialog", speaker: "Your phone", text: "Your cell phone pings with an email. You open it."},
 
-			// phone email exchange begins
-			// {type: "show", img: closephone, waitUntilShown: false},
-			// {type: "phone_textbox",
-			// 	label: "email",
-			// 	text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
-			// {type: "hide_phone_textbox", dialog: "$email"},
-			// {type: "hide", img: closephone},
+			o = [
+				// phone email exchange begins
+				// {type: "show", img: closephone, waitUntilShown: false},
+				// {type: "phone_textbox",
+				// 	label: "email",
+				// 	text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
+				// {type: "hide_phone_textbox", dialog: "$email"},
+				// {type: "hide", img: closephone},
 
-			{type: "open_phone", layout:"email", subject: "Group Project Grade", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
-			{type: "close_phone"},
+				{type:"show_context", text:"at Scottie's..."},
+				{type: "show_phone_notif"},
 
-			// phone email exchange ends
+				{type: "open_phone", layout:"email", subject: "Group Project Grade", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
+					text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
+				{type: "close_phone"},
+
+				// phone email exchange ends
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
@@ -90,6 +93,7 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene 8.a"},
 		];
 
+
 		return o;
 	};
 
@@ -106,7 +110,7 @@ var MPLAY = MPLAY || {};
 					{audio:"Bar-pia", playrate: 0.05}
 					];
 		return playlist;
-	};	
+	};
 
 	Page6_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
@@ -130,7 +134,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};	
+	};
 
 	MPLAY.Page6_1 = Page6_1;
 }());
