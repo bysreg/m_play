@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", "text": "At the Scottie's..."},
+			{type: "show_context", "text": "At Scottie's..."},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore1"},
