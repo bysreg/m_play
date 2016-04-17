@@ -240,7 +240,6 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "zero1"},
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
-			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
