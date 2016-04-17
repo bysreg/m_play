@@ -284,7 +284,7 @@ var MPLAY = MPLAY || {};
 		return this._sceneBg;
 	};
 
-	MPlayPage.prototype._setEffect = function(value) {	
+	MPlayPage.prototype._setEffect = function(value) {
 		this._useEffect = value;
 	};
 
@@ -559,17 +559,6 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
 		var type = params.type;
-		if (type == "character") {
-			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
-			this._addToScene(tripledot)
-			pageObj.tweenPulse(tripledot, {
-				x: 1.2,
-				y: 1.2,
-				z: 1,
-				duration: 650,
-				repeat: true
-			});
-		}
 
 		var onClick = function(io) {
 			if (typeof obj === 'object') {
@@ -581,16 +570,6 @@ var MPLAY = MPLAY || {};
 			pageObj._ioNumber++;
 		};
 
-		var onEnableChange = function(io) {
-			if (!io.isEnabled()) {
-				pageObj._removeFromScene(tripledot);
-			}
-			if (io.isEnabled()) {
-				pageObj._addToScene(tripledot);
-			}
-		};
-		params.onEnableChange = onEnableChange;
-
 		if (params.onClick) {
 			var oriClick = params.onClick;
 			params.onClick = function(io) {
@@ -601,7 +580,59 @@ var MPLAY = MPLAY || {};
 			params.onClick = onClick;
 		}
 
-		return GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
+		var mouseDownListener = null;
+		if (type == "character") {
+			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
+			this._addToScene(tripledot)
+			pageObj.tweenPulse(tripledot, {
+				x: 1.2,
+				y: 1.2,
+				z: 1,
+				duration: 650,
+				repeat: true
+			});
+
+			mouseDownListener = function(event) {
+				event.preventDefault();
+				var mouse = {};
+				mouse.x = event.clientX;
+				mouse.y = event.clientY;
+				pageObj._owner.calcMousePositionRelativeToCanvas(mouse);
+
+				pageObj._owner._raycaster.setFromCamera(mouse, pageObj._owner.getCamera());
+				//create array of objects intersected with
+				var intersects = pageObj._owner._raycaster.intersectObjects([tripledot], true);
+				if (intersects.length > 0) {
+					//run onClick function in the page
+					if (params.onClick != null) {
+						params.onClick(io);
+					}
+				}
+			};			
+		}
+
+		var onEnableChange = function(io) {
+			if (!io.isEnabled()) {
+				pageObj._removeFromScene(tripledot);
+
+				if(mouseDownListener) {
+					pageObj.getOwner().removeMouseDownListener(mouseDownListener);
+				}
+			}
+			if (io.isEnabled()) {
+				pageObj._addToScene(tripledot);
+
+				if(mouseDownListener) {
+					pageObj.getOwner().addMouseDownListener(mouseDownListener);
+				}
+			}
+		};
+
+		params.onEnableChange = onEnableChange;
+
+		var io = GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
+
+		return io;
 	};
 
 	/**
@@ -901,6 +932,10 @@ var MPLAY = MPLAY || {};
 		this._pageSceneBg.add(val);
 	};
 
+	MPlayPage.prototype._removeFromSceneBg = function(val) {
+		this._pageSceneBg.remove(val);
+	};
+
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background with sweeney.png");
 
@@ -940,17 +975,17 @@ var MPLAY = MPLAY || {};
 		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer - 50), 1920, 1080);
 		background2.scale.set(1, 1, 1);
 		//if special foreground for scene, add that instead
-		var background3;
+		//var background3;
 		if (foreground != null) {
-			background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
-			background3.scale.set(.90, .85, 1);
+			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
+			this._background3.scale.set(.90, .85, 1);
 		} else {
-			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
+			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(background2);
-		this._addToSceneBg(background3);
+		this._addToSceneBg(this._background3);
 	};
 
 	MPlayPage.prototype.setupBarBackground = function(background) {
