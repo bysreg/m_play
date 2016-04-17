@@ -61,7 +61,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
 			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},
 			{type: "dialog", speaker: this._professor, text: "'As I grow older, I pay less attention to what men say.  I just watch what they do.'"},
-			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please explain what happened."},
+			{type: "dialog", speaker: this._professor, text: "Ryan, " + this._player + ", please explain what happened."},
 			{type: "hide", img: this._professor},
 
 			{type: "nothing", label: "email"},
@@ -85,7 +85,10 @@ var MPLAY = MPLAY || {};
 			{type: "open_phone", layout:"text", people: [this._ryan]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
-				text: "Woo!!  I got a C, like you.  Happy it turned out ok for us, Sweeney definitely cut us a break on that final.  He could have failed us.  Sorry I dragged you into this. Sucks about that violation though."},
+				text: "Woo!!  I got a C, like you. Happy it turned out ok for us, Sweeney definitely cut us a break on that final."},
+			{type: "add_phone_textbox", 
+				speaker: this._ryan, 
+				text: "He could have failed us. Sorry I dragged you into this. Sucks about that violation though."},	
 			{type: "close_phone"},			
 			{type: "goto", page: "scene 10.a"},
 
