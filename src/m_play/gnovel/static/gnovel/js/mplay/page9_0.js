@@ -50,7 +50,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "I+R+"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming &amp; Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
+			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming & Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I+R-"},

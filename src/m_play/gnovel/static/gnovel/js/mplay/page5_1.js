@@ -135,7 +135,7 @@ var MPLAY = MPLAY || {};
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
-							relationship: {name: "priya", score: 1},
+							relationship: {name: this._priya, score: 1},
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
@@ -239,7 +239,7 @@ var MPLAY = MPLAY || {};
 			{type: "open_phone", layout:"text", people: [this._ryan]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
-				text: "Hey [You] – do you have time to meet up today?"},
+				text: "Hey "+ player +" – do you have time to meet up today?"},
 			{type: "choices", choices : [
 				{text: "I’m heading to the gym, do u want to join me?",
 					go: "#gogym"},

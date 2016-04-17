@@ -265,12 +265,11 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare4"},
-			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "equal", rightop: 0, goTrue: "#zero1", goFalse: "neg1" },
+			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "equal", rightop: 0, goTrue: "#zero1", goFalse: "#neg1" },
 
 			{type: "nothing", label: "zero1"},
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
-			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "custom", func: function(page) {
@@ -358,7 +357,7 @@ var MPLAY = MPLAY || {};
 				text: "Studying T^T"},
 
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: {name:"cat", score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
+			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: {name:this._cat, score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
 			{type: "close_phone"},
