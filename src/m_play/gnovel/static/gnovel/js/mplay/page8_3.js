@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
 
-			{type: "dialog", speaker: this._professor, text: "RYAN, " + this._player + ", please explain yourselves."},
+			{type: "dialog", speaker: this._professor, text: "Ryan, " + this._player + ", please explain yourselves."},
 			{type: "hide", img: this._professor},
 
 			{type: "nothing", label: "email"},
