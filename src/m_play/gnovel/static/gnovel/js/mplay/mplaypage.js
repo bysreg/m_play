@@ -559,17 +559,6 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.createInteractableObject = function(obj, params) {
 		var pageObj = this;
 		var type = params.type;
-		if (type == "character") {
-			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
-			this._addToScene(tripledot)
-			pageObj.tweenPulse(tripledot, {
-				x: 1.2,
-				y: 1.2,
-				z: 1,
-				duration: 650,
-				repeat: true
-			});
-		}
 
 		var onClick = function(io) {
 			if (typeof obj === 'object') {
@@ -581,16 +570,6 @@ var MPLAY = MPLAY || {};
 			pageObj._ioNumber++;
 		};
 
-		var onEnableChange = function(io) {
-			if (!io.isEnabled()) {
-				pageObj._removeFromScene(tripledot);
-			}
-			if (io.isEnabled()) {
-				pageObj._addToScene(tripledot);
-			}
-		};
-		params.onEnableChange = onEnableChange;
-
 		if (params.onClick) {
 			var oriClick = params.onClick;
 			params.onClick = function(io) {
@@ -601,7 +580,59 @@ var MPLAY = MPLAY || {};
 			params.onClick = onClick;
 		}
 
-		return GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
+		var mouseDownListener = null;
+		if (type == "character") {
+			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
+			this._addToScene(tripledot)
+			pageObj.tweenPulse(tripledot, {
+				x: 1.2,
+				y: 1.2,
+				z: 1,
+				duration: 650,
+				repeat: true
+			});
+
+			mouseDownListener = function(event) {
+				event.preventDefault();
+				var mouse = {};
+				mouse.x = event.clientX;
+				mouse.y = event.clientY;
+				pageObj._owner.calcMousePositionRelativeToCanvas(mouse);
+
+				pageObj._owner._raycaster.setFromCamera(mouse, pageObj._owner.getCamera());
+				//create array of objects intersected with
+				var intersects = pageObj._owner._raycaster.intersectObjects([tripledot], true);
+				if (intersects.length > 0) {
+					//run onClick function in the page
+					if (params.onClick != null) {
+						params.onClick(io);
+					}
+				}
+			};			
+		}
+
+		var onEnableChange = function(io) {
+			if (!io.isEnabled()) {
+				pageObj._removeFromScene(tripledot);
+
+				if(mouseDownListener) {
+					pageObj.getOwner().removeMouseDownListener(mouseDownListener);
+				}
+			}
+			if (io.isEnabled()) {
+				pageObj._addToScene(tripledot);
+
+				if(mouseDownListener) {
+					pageObj.getOwner().addMouseDownListener(mouseDownListener);
+				}
+			}
+		};
+
+		params.onEnableChange = onEnableChange;
+
+		var io = GNOVEL.Page.prototype.createInteractableObject.call(this, obj, params);
+
+		return io;
 	};
 
 	/**
@@ -1194,8 +1225,8 @@ var MPLAY = MPLAY || {};
 		var toY;
 
 		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
-		params.bgWidth = 520;
-		params.bgHeight = 90;
+		params.bgWidth = params.flowElement.bgWidth || 520;
+		params.bgHeight = params.flowElement.bgHeight || 90;
 		params.bgOffsetY = 40;
 		params.bgOffsetX = 100;
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);

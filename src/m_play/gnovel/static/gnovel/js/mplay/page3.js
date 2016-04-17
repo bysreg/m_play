@@ -191,6 +191,7 @@ var MPLAY = MPLAY || {};
 			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. I should talk to her later."},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare3"},
@@ -213,6 +214,7 @@ var MPLAY = MPLAY || {};
 			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg"},
@@ -230,6 +232,7 @@ var MPLAY = MPLAY || {};
 			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
@@ -258,6 +261,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext1"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext1"}]},
 			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare4"},
@@ -281,6 +285,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext2"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext2"}]},
 			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext2"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg1"},
@@ -301,6 +306,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext3"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext3"}]},
 			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext3"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
@@ -314,6 +320,9 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
+			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: ryan, waitUntilHidden: false},
+			
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare5"},
@@ -322,18 +331,20 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "zero2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seriously?  I mean, I'll do it.  But still..."},
+			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg2"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
+			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
 
 			{type: "nothing", label: "aside2"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "show_context", text: "Ryan and Priya leave... and some time passes"},
 			{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 			{type: "add_phone_textbox",
