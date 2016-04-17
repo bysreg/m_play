@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "He’s sweet.  Last semester, Ryan was my date to the Indian Association’s banquet."},
 			{type: "dialog", speaker: "Priya", text: "Really goes out of his way for his friends."},
-			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: "priya", score: "1"}, go : "#close"}]},
+			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: this._priya, score: "1"}, go : "#close"}]},
 
 			{type: "nothing", label: "nice"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},

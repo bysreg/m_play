@@ -135,7 +135,7 @@ var MPLAY = MPLAY || {};
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
-							relationship: {name: "priya", score: 1},
+							relationship: {name: this._priya, score: 1},
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
