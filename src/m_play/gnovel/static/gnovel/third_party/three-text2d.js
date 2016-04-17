@@ -35,7 +35,7 @@ var CanvasText = (function () {
       this.fontHeight = getFontHeight(this.ctx.font);
       this.ctxCenter = ctxOptions.ctxCenter;
 
-      this.widthOffset = 5;
+      this.widthOffset = 15;
 
       var textArr = new Array();
       textArr[0] = text;

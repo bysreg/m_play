@@ -142,8 +142,8 @@ var MPLAY = MPLAY || {};
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
-			{type: "dialog", speaker: this._priya, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
-			{type: "dialog", speaker: this._priya, text: "I think it's a little hypocritical of both of you to get on my back about this."},
+			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
+			{type: "dialog", speaker: this._ryan, text: "I think it's a little hypocritical of both of you to get on my back about this."},
 			{type: "goto", page: "scene 9.b"},
 
 			// dontsay
