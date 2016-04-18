@@ -12,7 +12,7 @@ body
     height: 100%;
     min-height: 100%;
     position: absolute;
-    top:500px;
+    top:800px;
     left: 0;
     z-index: 99;
 }

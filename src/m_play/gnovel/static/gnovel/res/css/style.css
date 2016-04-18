@@ -16,19 +16,29 @@
 }
 @font-face{
 	font-family: 'Toontime';
-	src: url('../font/SF Toontime Bold Italic.ttf') format('truetype');
+	src: url('../font/SFToontime.ttf') format('truetype');
 }
 @font-face{	
 	font-family: 'AleoBold';
 	src: url('../font/Aleo-Bold.otf') format('truetype');
 }
 @font-face{
-	font-family: 'sfToonTime';
-	src: url('../font/SFToontimeBold.ttf') format('truetype');
+	font-family: 'sfToontime';
+	src:url('../font/SF_Toontime_Bold_Italic-webfont.woff') format('truetype');
+	src: url('../font/SF_Toontime_Bold_Italic-webfont.woff');
+}
+@font-face{
+	font-family: 'Badaboom';
+	src: url('../font/BADABB.eot');
+	src: local('BADABB'), url('../font/BADABB.woff') format('woff'), url('../font/BADABB.ttf') format('truetype');
 }
 @font-face{
 	font-family: 'Noteworthy';
 	src: url('../font/Noteworthy Bold.otf') format('truetype');
+}
+@font-face{
+	font-family: 'NoteworthyLight';
+	src: url('../font/Noteworthy Light.ttf') format('truetype');
 }
 @font-face{
 	font-family: 'wg_legacy_edition';

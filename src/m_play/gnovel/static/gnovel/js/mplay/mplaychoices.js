@@ -54,7 +54,7 @@ var MPLAY = MPLAY || {};
 		if (flowElement != null) {
 			if (typeof flowElement.choices[0].integrityScore !== 'undefined' &&
 				flowElement.choices[0].integrityScore != null) {
-					
+
 				}
 		}
 
@@ -244,14 +244,14 @@ var MPLAY = MPLAY || {};
 				//FIXME - STILL NEEDS MORE TESTING
 
 				if(score > 0)
-					var charText = name + " feels good about that."
+					var charText = name + " feels good about that"
 				else if (score < 0)
-					var charText = name + " feels negatively about that."
+					var charText = name + " feels negatively about that"
 
 				var relationText = pageObj.createTextBox(charText,{
 					align: 'left',
 					charLine: pageObj._charLine,
-					font: "25px SF_Toontime Bold Italic",
+					font: "25px Noteworthy",
 					fillstyle: '#ffffff',
 				});
 				relationText.position.set(-500, 260, pageObj._uiLayer - 40);
