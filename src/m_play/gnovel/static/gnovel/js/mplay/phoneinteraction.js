@@ -128,8 +128,8 @@ var MPLAY = MPLAY || {};
 		if (this._layout == "email") {
 			this._hideEmail(page, params.onComplete);
 		} else if (this._layout == "text") {
-			// this._hideText(page, params.onComplete);	
-			this._hideEmail(page, params.onComplete);
+			this._hideText(page, params.onComplete);	
+			//this._hideEmail(page, params.onComplete);
 		}
 	};
 
