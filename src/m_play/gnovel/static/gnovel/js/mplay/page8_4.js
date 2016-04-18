@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "He told me he has to talk to Prof. Sweeney to sort it out. Good thing you didn’t use it too."},
 			{type: "dialog", speaker: this._priya, text: "I didn't think Ryan was the kind of guy who cheated."},
 			{type: "dialog", speaker: this._cat, text: "Yeah and good thing you didn't use it too.  You'd be in trouble with him."},
-			{type: "jump", condition: true, goTrue: "goend", goFalse: 1000},
+			{type: "jump", condition: true, goTrue: "#goend", goFalse: 1000},
 
 			{type: "nothing", label: "comparepriya1"},
 			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-priya1", goFalse: "#neg-priya1"},
