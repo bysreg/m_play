@@ -325,7 +325,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare5"},
-			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "equal", rightop: 0, goTrue: "#zero2", goFalse: "neg2" },
+			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "equal", rightop: 0, goTrue: "#zero2", goFalse: "#neg2" },
 
 			{type: "nothing", label: "zero2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
