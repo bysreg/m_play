@@ -75,7 +75,7 @@ var CanvasText = (function () {
       }
       
 
-      this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth);
+      this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth) + 10;
       this.canvas.height = THREE.Math.nextPowerOfTwo(this.textHeight);
 
       // this.textHeight = getFontHeight(this.ctx.font);

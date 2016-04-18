@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 		o = [
 			{type: "show_context", text: "A few days after the test, "},
 			{type: "show_context", text: "you run into Ryan at the CUC,"},
-			{type: "show_context", text: "while you are on your way to meet up with Cat to go work out together."},
+			{type: "show_context", text: "while you are on your way to meet up with Cat to grab lunch"},
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
@@ -171,7 +171,7 @@ var MPLAY = MPLAY || {};
 	Page8_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 		
-		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 

@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", "text": "At the Scottie's..."},
+			{type: "show_context", "text": "At Scottie's..."},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore1"},
@@ -129,7 +129,7 @@ var MPLAY = MPLAY || {};
 	Page4_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
-		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 

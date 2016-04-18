@@ -66,7 +66,7 @@ var MPLAY = MPLAY || {};
 				speaker: this._ryan,
 				text: player + "- how did it go?  Sweeney is giving me a 0 on the final.  I’m sorry I dragged you into this."},
 			{type: "close_phone"},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
@@ -78,7 +78,7 @@ var MPLAY = MPLAY || {};
 				speaker: this._ryan,
 				text: "Sweeney is giving me a 0 on the final – u?  I’m waiting to hear back from Student Affairs"},
 			{type: "close_phone"},
-			{type: "goto", page: "scene ending"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			// phone exchange begins
@@ -104,7 +104,7 @@ var MPLAY = MPLAY || {};
 	Page8_5.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 		
-		this._owner._ambient = this._owner.getSoundManager().play("Classroom-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("Classroom-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 

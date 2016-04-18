@@ -153,14 +153,11 @@ var MPLAY = MPLAY || {};
 					speaker: this._ryan,
 					text: "Can’t – wish I could join for coffee, need to study.  My comp systems class is kicking my ass!"},
 
-				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:"priya", score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:"cat", score:1}}, {text: "Head home and study.", go: "#gohome"}]},
+				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home and study.", go: "#gohome"}]},
 				{type: "close_phone", label: "gocafe"},
 				{type: "goto", page: "scene 3.a"},
 				{type: "close_phone", label: "gogym"},
 				{type: "goto", page: "scene 3.b"},
-				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home and study.", go: "#gohome"}]},
-				{type: "goto", page: "scene 3.a", label: "gocafe"},
-				{type: "goto", page: "scene 3.b", label: "gogym"},
 
 				{type: "close_phone", label: "gohome"},
 				{type: "custom", func: function(page) {
@@ -198,7 +195,7 @@ var MPLAY = MPLAY || {};
 	Page1_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
-		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 
