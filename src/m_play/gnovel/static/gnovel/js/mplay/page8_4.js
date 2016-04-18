@@ -103,15 +103,16 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote from Andrew Carnegie as his status."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
-			{type: "dialog", speaker: this._priya, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
+			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
 			{type: "show", img: priya, expression: "thoughtful", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "‘As I grow older, I pay less attention to what men say. I just watch what they do.’"},
+			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "goend"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote from Andrew Carnegie as his status."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
-			{type: "dialog", speaker: this._priya, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
+			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
 			{type: "show", img: priya, expression: "thoughtful", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "‘As I grow older, I pay less attention to what men say. I just watch what they do.’"},			
 
@@ -132,7 +133,7 @@ var MPLAY = MPLAY || {};
 	Page8_4.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
-		this._owner._ambient = this._owner.getSoundManager().play("Classroom-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("Cafe-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 
