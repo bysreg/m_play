@@ -183,7 +183,7 @@ var MPLAY = MPLAY || {};
 		var playlist = null;
 		playlist = [
 				    {audio:"Lib-beeping", playrate: 0.03},
-					{audio:"Lib-chairs2", playrate: 0.1},
+					// {audio:"Lib-chairs2", playrate: 0.1},
 					{audio:"Lib-chairs3", playrate: 0.1},
 					{audio:"Lib-chairs1", playrate: 0.1},
 					{audio:"Lib-distantchairs", playrate: 0.3},
