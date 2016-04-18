@@ -75,14 +75,6 @@ var MPLAY = MPLAY || {};
 
 	};
 
-	Page5_1.prototype._onStart = function() {
-		MPLAY.MPlayPage.prototype._onStart.call(this);
-
-		var pageObj = this;
-		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		this._tweenVolumeIn();
-	};
-
 	Page5_1.prototype._createFlowElements = function() {
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
@@ -355,7 +347,7 @@ var MPLAY = MPLAY || {};
 	Page5_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
-		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
+		this._owner._ambient = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
 
