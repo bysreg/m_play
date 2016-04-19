@@ -25,8 +25,13 @@ var MPLAY = MPLAY || {};
 		// this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
 		// this._tweenVolumeIn();
 
-		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
-		this.setupBarBackground(background);
+		var background_ryan = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
+		this.setupBarBackground(background_ryan);
+
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._background3Layer - 105), 1920, 1080);
+		//this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		this._addToSceneBg(this._background_empty);
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
@@ -62,6 +67,7 @@ var MPLAY = MPLAY || {};
 		var yourphone = "%" + this._yourphone;
 		var transitionBg = "%" + this._transitionBg;
 		var player = this._player;
+		var background = this._background_empty;
 
 		var o = null;
 
@@ -100,6 +106,10 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
+			{type: "custom", func: function(page){
+				background.material.opacity = 1;
+				page._removeFromSceneBg(page._background3);
+			}},
 			{type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",

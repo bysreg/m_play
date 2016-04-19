@@ -24,6 +24,11 @@ var MPLAY = MPLAY || {};
 
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
 		this.setupLibraryBackground(foregroundImg);
+
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-55, -45, this._background3Layer-100), 1920, 1080);
+		this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		this._addToSceneBg(this._background_empty);
 	};
 
 	Page7_1.prototype._createFlowElements = function() {
@@ -31,6 +36,7 @@ var MPLAY = MPLAY || {};
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var player = this._player; // player's name
+		var background = this._background_empty;
 
 		var integrityThreshold = 0;
 
@@ -42,6 +48,10 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
+			{type: "custom", func: function(page){
+				background.material.opacity = 1;
+				page._removeFromSceneBg(page._background3);
+			}},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
@@ -52,7 +62,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Might help, what do you think?"},
-			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
 			{type: "nothing", label: "compareryan1"},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
@@ -65,7 +75,7 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Want to take a look?"},
-			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
 			{type: "nothing", label: "neg-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
@@ -75,13 +85,12 @@ var MPLAY = MPLAY || {};
 			{type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "So my brother took this course last year, and gave me his stuff from the class.  "},
 			{type: "dialog", speaker: this._ryan, text: "Anyway, here's last year's exam.  It's not graded, but it's a blank copy of the actual exam.  I think we should study with it."},
-			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
+			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
-			{type: "nothing", label: "hideryan"},
-			{type: "hide", img: ryan, waitUntilHidden: false},
-
+			{type: "nothing", label: "showpriya"},
 			{type:"show_context", text:"Priya sees you and Ryan together, and comes over to say hi."},
 
+			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Hey you two. Studying for our favorite class? What are you looking at there?"},
 
@@ -211,7 +220,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};	
+	};
 
 	MPLAY.Page7_1 = Page7_1;
 }());

@@ -22,8 +22,13 @@ var MPLAY = MPLAY || {};
 	Page6_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
-		this.setupBarBackground(background);
+		var background_ryan = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
+		this.setupBarBackground(background_ryan);
+
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._background3Layer - 105), 1920, 1080);
+		//this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		this._addToSceneBg(this._background_empty);
 
 		var pageObj = this;
 	};
@@ -33,6 +38,7 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var player = this._player;
 		var closephone = "%" + this._closephone;
+		var background = this._background_empty;
 
 		var o = null;
 
@@ -58,6 +64,10 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
+			{type: "custom", func: function(page){
+				background.material.opacity = 1;
+				page._removeFromSceneBg(page._background3);
+			}},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
