@@ -1,6 +1,8 @@
-#application-canvas {
-	display: block;
-	margin: auto;
+@media screen {
+	#application-canvas.fill-mode-KEEP_ASPECT {
+		display: block;
+		margin: auto;
+	}
 }
 @font-face{
 	font-family: 'Arvo', serif;
