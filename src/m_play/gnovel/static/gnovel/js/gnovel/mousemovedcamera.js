@@ -43,9 +43,9 @@ var GNOVEL = GNOVEL || {};
 
 		//gnovelObj._scene.position.x = mouse.x * 10;
 		//gnovelObj._scene.position.y = mouse.y * 10;
-		gnovelObj.getCurrentPage()._getRootObject().position.x = mouse.x * 10;
+		gnovelObj.getCurrentPage()._getRootObject().position.x = -mouse.x * 10;
 		gnovelObj.getCurrentPage()._getRootObject().position.y = -mouse.y * 10;
-		gnovelObj.getCurrentPage()._getPageSceneBg().position.x = mouse.x * 10;
+		gnovelObj.getCurrentPage()._getPageSceneBg().position.x = -mouse.x * 10;
 		gnovelObj.getCurrentPage()._getPageSceneBg().position.y = -mouse.y * 10;
 	};
 
