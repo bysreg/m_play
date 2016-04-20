@@ -120,6 +120,18 @@ var MPLAY = MPLAY || {};
 			y: 0,
 			easing: TWEEN.Easing.Back.Out
 		});
+
+		// for text, we are going to go to the next flow instantly,
+		// so that we have one text shows up
+		var flow = page._getFlow();
+		var next = flow._peekNext();
+
+		if(next !== null && next.type === "add_phone_textbox") {
+			this._onCompleteF = null;
+
+			page._flow._next();
+			page._flow._exec();
+		}
 	};
 
 	PhoneInteraction.prototype.hide = function(page, params) {

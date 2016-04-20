@@ -76,31 +76,7 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 
 			{type: "show", img: catsphone, waitUntilShown:false},
-			/*{type: "show", img: yourphone},
-			{type: "custom", func: function(page) {
-				page.getOwner().getSoundManager().play("Message");
-			}},
-			{type: "choices",
-				choices :
-					[{text: "Look at your Phone ",
-						go: "#lookatphone",
-					relationship: {name: this._ryan, score: -1}},
-					{text: "Talk to Ryan First",
-						go: "#talktoryan",
-					relationship: {name: this._ryan, score: 1}}],
-					seconds: 10},
-			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
-
-			// phone email exchange begins
-			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
-			{type: "show", img: closephone},
-			{type: "phone_textbox",
-				label: "email",
-				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
-				bgHeight: 200},
-			{type: "hide_phone_textbox", dialog: "$email"},
-			{type: "hide", img: closephone},
-			// phone email exchange ends*/
+			
 
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
@@ -148,13 +124,13 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text: "Later on at Scottie’s…"},
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
-			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "very happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "I'm so happy we'll be working together after graduation!  You're going to love being at techFast."},
 			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class - Programming and Society should be good though."},
 			{type: "dialog", speaker: this._ryan, text: "My brother took it last year.  He said it was tough, but he learned a ton."},
 			{type: "choices",
 				choices :
-					[{text: "Should be good.",
+					[{text: "Tough, huh?",
 						go: "#RelationshipScore"},
 					{text : "Glad we’re in it together.",
 						relationship: {name: this._ryan, score: 1},
