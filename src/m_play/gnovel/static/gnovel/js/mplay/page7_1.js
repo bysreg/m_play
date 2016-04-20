@@ -132,8 +132,8 @@ var MPLAY = MPLAY || {};
 					integrityScore: 0,
 					relationship: {name: this._ryan, score: 1},
 					go: "#decline"} ],
-				seconds: 10,
-				responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
+				//seconds: 10,
+				//responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
 				speaker: this._ryan},
 
 			// holdoff jump

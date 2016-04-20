@@ -31,10 +31,12 @@ var GNOVEL = GNOVEL || {};
 		this._bgOffsetY = params.bgOffsetY || 0;
 		this._msgOffsetZ = params.msgOffsetZ || 0;
 		this._msgOffsetY = params.msgOffsetY || 0;
+		this._msgOffsetX = params.msgOffsetX || 0;
 		this._speakerOffsetX = params.speakerOffsetX || 0;
 		this._speakerOffsetY = params.speakerOffsetY || 0;
-		this._middleBubbleTailOffset = 12;
-		this._otherBubbleTailOffset = 8;
+		this._middleBubbleTailOffsetY = 12;
+		this._otherBubbleTailOffsetY = 8;
+		this._otherBubbleTailOffsetX = 30;
 		this._unclickable = params.unclickable || false;
 		this._textBg = null; // private copy(might be shallow, might be referenced by Dialog.textBg)
 		this._message = message;
@@ -109,21 +111,32 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		var textHeight = this._messageText.canvas.textHeight;
+		var textWidth = this._messageText.canvas.textWidth;
 		var y_text;
+		var x_text;
 		if (this._isDialog) {
-			var tailOffset;
+			var tailOffsetY;
+			var tailOffsetX;
 			if (x == 0) {
-				tailOffset = this._middleBubbleTailOffset;
+				tailOffsetY = this._middleBubbleTailOffsetY;
 			} else {
-				tailOffset = this._otherBubbleTailOffset;
+				tailOffsetY = this._otherBubbleTailOffsetY;
+				tailOffsetX = this._otherBubbleTailOffsetX;
 			}
+
+
 			var camera = this._page.getOwner().getCamera();
 			var scale = (camera.position.z - (z + 20)) / (camera.position.z - (z - 20));
 			textHeight = textHeight / scale;
-			var y_far = y + textHeight / 2 - tailOffset + this._msgOffsetY;
+			var y_far = y + textHeight / 2 - tailOffsetY + this._msgOffsetY;
 			y_text = camera.position.y - (camera.position.y - y_far) * scale;
-		} else {
+
+			var x_far = x + textWidth / 2 - tailOffsetX + this._msgOffsetX;
+			x_text = camera.position.x - (camera.position.x  - x_far) * scale;
+		}
+		else {
 			y_text = y + textHeight / 2 + this._msgOffsetY;
+			x_text = x;
 		}
 
 		// if (textHeight > 23) {
@@ -135,7 +148,7 @@ var GNOVEL = GNOVEL || {};
 		// 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
 		// 	}
 		// }else {
-		this._messageText.position.set(x, y_text, z + 20 + this._msgOffsetZ);
+		this._messageText.position.set(x_text, y_text, z + 20 + this._msgOffsetZ);
 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 		// }
 
@@ -168,7 +181,7 @@ var GNOVEL = GNOVEL || {};
 					this._messageText.position.y -= textHeight / 4;
 				}else {
 					var scale = 0.375;
-				}				
+				}
 				Dialog._textBg.scale.set(scale, scale, 1);
 				var targetPos = {};
 				targetPos.x = Dialog._textBg.position.x;

@@ -207,8 +207,8 @@ var MPLAY = MPLAY || {};
 						go: "#dontknow", integrityScore: 0, relationship: {name: this._ryan, score: -1}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
 						go: "#notes", integrityScore: 1, relationship: {name: this._priya, score: 2}}],
-				seconds: 10,
-				responses: [{text: "hey!"}, {text:"did you hear me"}],
+				//seconds: 10,
+				//responses: [{text: "hey!"}, {text:"did you hear me"}],
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},

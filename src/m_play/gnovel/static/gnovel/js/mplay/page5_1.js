@@ -160,8 +160,8 @@ var MPLAY = MPLAY || {};
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							go: "#submit" }],
-					seconds: 10,
-					responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
+					//seconds: 10,
+					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
 
 			{type: "nothing", label: "ask"},
