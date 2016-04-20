@@ -213,6 +213,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "materials"},
 			{type: "custom", func: function(page) {
+					page._cgAssignmentStatus = 1;
 					page.getRelationshipManager().addRelationship("Priya", -1);
 					page.getRelationshipManager().addRelationship("Ryan", 2);
 				}},

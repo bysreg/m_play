@@ -147,11 +147,11 @@ var MPLAY = MPLAY || {};
 				{type: "nothing", label: "aside1"},
 				{type: "hide", img: ryan},
 				{type: "hide", img: cat},
-				{type: "show_context", text: "The group leaves...some time passes", bgWidth: 600, bgHeight: 103},
+				{type: "show_context", text: "The group leaves...some time passes"},
 				{type: "hide", img: ryan, waitUntilHidden: false},
 				{type: "hide", img: cat, waitUntilHidden: false},
 				{type: "hide", img: priya, waitUntilHidden: false},
-				{type: "show_context", text: "Later that week...", bgWidth: 600, bgHeight: 103},
+				{type: "show_context", text: "Later that week..."},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",

@@ -217,6 +217,9 @@ var MPLAY = MPLAY || {};
 						}}]},*/
 
 			{type:"nothing", label: "pickup"},
+			{type: "custom", func: function(page) {
+				page._catsPhoneStatus = 1;
+			}},
 			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student –"},
 			{type: "dialog", speaker: this._ryan, text: "Cat Davis.  Her CMU ID card is in here."},
 			{type: "dialog", speaker: this._ryan, text: "Let’s turn it into campus police."},

@@ -789,15 +789,16 @@ var MPLAY = MPLAY || {};
 				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
-				x = Math.random() < 0.5 ? left : right;
-				//x = right;
-				if(x == right){
+				x = Math.random() <= 0.5 ? left : right;
+				if(x === left){
 					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
 					//params.msgOffsetX = -100;
 
+					params.bubble = "left";
 				}
 				else{
 					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+					params.bubble = "right";
 					params.bgOffsetX = 15;
 				}
 			} else if (chara.getCharPosition() === "right") {

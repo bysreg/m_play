@@ -48,11 +48,21 @@ var GNOVEL = GNOVEL || {};
 		this._isDialog = params.isDialog || false;
 		this._mouseDownListenerAdded = false;
 
+		this._bubble = params.bubble;
+
+
+
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
 			this._hasTransition = false;
 		}
+
+		var curbub = params.bubble;
+		var prebub = Dialog._prevBubble;
+		if (curbub != prebub) {
+			this._hasTransition = true;
+		};
 
 		if (params.hasOwnProperty('createNewBg')) {
 			this._hasTransition = params.createNewBg;
@@ -72,6 +82,7 @@ var GNOVEL = GNOVEL || {};
 	// static class variable
 	Dialog._textBg = null;
 	Dialog._prevSpeaker = null;
+	Dialog._prevBubble = null;
 
 	Dialog.prototype._init = function() {
 		var x = this._x;
@@ -167,6 +178,7 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			if (this._type == "context") {
+				this._messageText.position.x -= 10;
 				var textHeight = this._messageText.canvas.textHeight;
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
@@ -180,7 +192,7 @@ var GNOVEL = GNOVEL || {};
 					};
 					this._messageText.position.y -= textHeight / 4;
 				}else {
-					var scale = 0.375;
+					var scale = 0.5;
 				}
 				Dialog._textBg.scale.set(scale, scale, 1);
 				var targetPos = {};
@@ -284,6 +296,7 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._onComplete = function() {
 		Dialog._prevSpeaker = this._params.speaker;
+		Dialog._prevBubble = this._params.bubble;
 
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
@@ -399,6 +412,7 @@ var GNOVEL = GNOVEL || {};
 
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
+		Dialog._prevBubble = null;
 		this._textBg = null;
 	};
 
