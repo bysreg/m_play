@@ -24,7 +24,7 @@ var MPLAY = MPLAY || {};
 
 		// this._ambientInstance = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
 
-		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and priya.png";
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan and priya.png";
 		//specify which foreground with the characters
 		this.setupLibraryBackground(foregroundImg);
 
@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 		background_priya.material.opacity = 0;
 		pageObj._addToSceneBg(background_priya);
 
-		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-55, -45, this._background3Layer-100), 1920, 1080);
+		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
 		this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_empty);
@@ -451,6 +451,11 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore2"},
+				//remove priya bg and replace
+				{type: "custom", func: function(pageObj){
+					background.material.opacity = 1;
+					pageObj._removeFromSceneBg(pageObj._background3);
+				}},
 				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
 
 				{type: "nothing", label: "pos-priya"},
@@ -467,11 +472,6 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore2"},
-				//remove ryan bg and replace
-				{type: "custom", func: function(pageObj){
-					background.material.opacity = 1;
-					pageObj._removeFromSceneBg(pageObj._background3);
-				}},
 				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
@@ -506,6 +506,11 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore3"},
+				//remove ryan bg and replace
+				{type: "custom", func: function(pageObj){
+					background.material.opacity = 1;
+					pageObj._removeFromSceneBg(pageObj._background3);
+				}},
 				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
 
 				{type: "nothing", label: "pos-priya2"},

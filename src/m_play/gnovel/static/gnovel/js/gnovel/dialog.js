@@ -308,9 +308,9 @@ var GNOVEL = GNOVEL || {};
 
 		if (!dialog._dontRemove) {
 
-			// fade out dialog speaker
+			// fade out dialog message text
 			this._page.tweenMat(this._messageText, {
-				duration: 800,
+				duration: 500,
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() {
@@ -324,7 +324,7 @@ var GNOVEL = GNOVEL || {};
 
 			// fade out dialog text
 			this._page.tweenMat(this._nameText, {
-				duration: 800,
+				duration: 500,
 				opacity: 0,
 				easing: TWEEN.Easing.Cubic.Out,
 				onComplete: function() {
