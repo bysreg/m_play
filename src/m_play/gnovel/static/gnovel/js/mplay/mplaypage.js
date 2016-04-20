@@ -109,8 +109,8 @@ var MPLAY = MPLAY || {};
 
 		MPlayPage._ryan = new MPLAY.Character(MPlayPage._anims["ryan neutral"], "Ryan");
 		// MPlayPage._ryan.setExpression("happy", this.createImage("/static/gnovel/res/textures/char/ryan-happy.png", new THREE.Vector3(0, -200, this._characterLayer), 600, 923), "Ryan");
-		MPlayPage._ryan.setExpression("very happy", MPlayPage._anims["ryan happy"], "Ryan");
-		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy 2"], "Ryan");
+		MPlayPage._ryan.setExpression("happy", MPlayPage._anims["ryan happy"], "Ryan");
+		MPlayPage._ryan.setExpression("very happy", MPlayPage._anims["ryan happy 2"], "Ryan");
 		// MPlayPage._ryan.setExpression("sad", this.createImage("/static/gnovel/res/textures/char/sad ryan.png", new THREE.Vector3(0, -210, this._characterLayer), 467, 923), "Ryan");
 		MPlayPage._ryan.setExpression("sad", MPlayPage._anims["ryan sad"], "Ryan");
 		// MPlayPage._ryan.setExpression("thoughtful", this.createImage("/static/gnovel/res/textures/char/thoughtful ryan png.png", new THREE.Vector3(0, -200, this._characterLayer), 404, 923), "Ryan");
