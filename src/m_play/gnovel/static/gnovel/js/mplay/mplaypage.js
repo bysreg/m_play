@@ -755,7 +755,7 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+		//params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
 		params.bgOffsetY = 30;
 		params.bgOffsetX = 0;
 		y = -80;
@@ -779,8 +779,8 @@ var MPLAY = MPLAY || {};
 			chara = MPlayPage._professor;
 		}
 
-		var left = -400;
-		var right = 200;
+		var right = -400;
+		var left = 200;
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
 				// console.log("left");
@@ -789,14 +789,16 @@ var MPLAY = MPLAY || {};
 				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
-				x = Math.random() <= 0.5 ? left : right;
-				if(x == left){
+				x = Math.random() < 0.5 ? left : right;
+				//x = right;
+				if(x == right){
 					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
 					//params.msgOffsetX = -100;
-					params.bgOffsetX = 20;
+
 				}
-				else if(x == right){
+				else{
 					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+					params.bgOffsetX = 15;
 				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");

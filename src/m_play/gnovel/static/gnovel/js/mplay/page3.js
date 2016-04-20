@@ -24,7 +24,7 @@ var MPLAY = MPLAY || {};
 
 		// this._ambientInstance = this._owner.getSoundManager().play("Library-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1});
 
-		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and priya.png";
+		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan and priya.png";
 		//specify which foreground with the characters
 		this.setupLibraryBackground(foregroundImg);
 
