@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 			{type: "nothing", label: "choices1"},
-			{type: "choices", choices : [{text: "I’m sorry to hear about your roommate.", go: "#failed"}, {text : "Don’t worry about that.  What ended up happening?", go : "#failed"}]},
+			{type: "choices", choices : [{text: "I’m sorry to hear about your roommate.", go: "#failed"}, {text : "What ended up happening?", go : "#failed"}]},
 			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false, label: "failed"},
 			{type: "dialog", speaker: "Priya", text: "She failed her course, and almost got dropped from her program.  She was an idiot, did something stupid."},
 			{type: "dialog", speaker: "Priya", text: "You know, it’s tough if you’re an international student. If we get dropped, we have problems with our visa."},			
@@ -86,7 +86,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#choices2", goFalse: "#choices2"},
 
 			{type: "nothing", label: "choices2"},
-			{type: "choices", choices : [{text: "Oh yeah, no worries.", go: "#failed2"}, {text : "You were right, it’s not worth the risk.  What happened to your roommate? ", go : "#failed2"}]},
+			{type: "choices", choices : [{text: "Oh yeah, no worries.", go: "#failed2"}, {text : "What happened to your roommate? ", go : "#failed2"}]},
 			
 			{type: "nothing", label: "failed2"},
 			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false},
