@@ -120,7 +120,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", position: "left", text: "Cat, is your last name Davis? " + player + " and I found a wallet at Scottie’s yesterday. We turned it into campus police."},
 				{type: "show", img: cat, position: "right", expression: "happy", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Oh my God, you both are lifesavers!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver"}, {text : "Happy to help!", go : "#lifesaver"}]},
+				
 				{type: "nothing", label:"lifesaver"},
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
