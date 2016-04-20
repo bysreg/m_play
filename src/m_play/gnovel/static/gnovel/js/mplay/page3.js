@@ -163,9 +163,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-				{type: "show_context", text: "A few weeks pass, and work starts piling up."},
-				{type: "show_context", text: "You head to the library to study,"},
-				{type: "show_context", text: "and you run into Ryan and Priya together."},
+				{type: "show_context", text: "A few weeks pass, and work starts piling up. You head to the library to study, and you run into Ryan and Priya together."},
 				{type: "show_phone_notif"},
 
 				// phone email exchange begins

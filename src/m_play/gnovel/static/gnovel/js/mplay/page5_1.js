@@ -217,9 +217,7 @@ var MPLAY = MPLAY || {};
 						{text: "Let’s text her to fix it. We can all pitch in to help.",
 							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
-			{type: "show_context", text: "Priya struggles to work through an answer with original code."},
-			{type: "show_context", text: "Luckily, She ends up finishing it in time,"},
-			{type: "show_context", text: "but the work isn't her best, and everyone's frustrated."},
+			{type: "show_context", text: "Priya struggles to work through an answer with original code. Luckily, She ends up finishing it in time, but the work isn't her best, and everyone's frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 
@@ -230,9 +228,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Cat", text: "Ugh, it’s going to be a stressful night."},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "hide", img: cat},
-			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},
-			{type: "show_context", text: "You barely finish the assignment in time to submit it"},
-			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
+			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work. You barely finish the assignment in time to submit it, and everyone ends the night feeling frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 
@@ -251,9 +247,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "That might not be enough.  Tweaking it won't make it original.  We need to redo it."},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "hide", img: cat},
-			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work."},
-			{type: "show_context", text: "You barely finish the assignment in time to submit it,"},
-			{type: "show_context", text: "and everyone ends the night feeling frustrated."},
+			{type: "show_context", text: "You, Ryan and Cat end up redoing Priya’s work. You barely finish the assignment in time to submit it, and everyone ends the night feeling frustrated."},
 
 			{type: "nothing", label: "gonextscene"},
 			{type: "open_phone", layout:"text", people: [this._ryan]},

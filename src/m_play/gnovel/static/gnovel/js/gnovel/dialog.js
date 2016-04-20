@@ -89,13 +89,19 @@ var GNOVEL = GNOVEL || {};
 			this._closeDialog();
 		}
 
+		var characterLine = this._charLine;
+		if (this._type == "context") {
+			if (this._message.length >= 90) {
+				characterLine = 45;
+			}
+		}
 		this._messageText = this._page.createTextBox(this._message, {
-			align: this._messageAlign,
-			charLine: this._charLine,
-			font: this._font,
-			center: this._center,
-			fillstyle: this._fillstyle,
-		});
+				align: this._messageAlign,
+				charLine: characterLine,
+				font: this._font,
+				center: this._center,
+				fillstyle: this._fillstyle,
+			});
 
 		this._nameText = this._page.createTextBox(this._params.speaker, {
 			align: "left",
@@ -148,6 +154,22 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			if (this._type == "context") {
+				var textHeight = this._messageText.canvas.textHeight;
+				if (textHeight >= 69) {
+					var textWidth = this._messageText.canvas.textWidth;
+					var scale_h = textHeight * 1.7 / 240;
+					var scale_w = textWidth * 1.5 / 1080;
+					var scale = scale_h;
+					Dialog._textBg.position.y -= textHeight / 4;
+					if (characterLine == 45) {
+						scale = scale_w;
+						Dialog._textBg.position.x += textWidth / 8;
+					};
+					this._messageText.position.y -= textHeight / 4;
+				}else {
+					var scale = 0.375;
+				}				
+				Dialog._textBg.scale.set(scale, scale, 1);
 				var targetPos = {};
 				targetPos.x = Dialog._textBg.position.x;
 				Dialog._textBg.position.x = (Dialog._textBg.position.x - 400);

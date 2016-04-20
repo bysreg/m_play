@@ -1225,15 +1225,15 @@ var MPLAY = MPLAY || {};
 		params.type = "context";
 
 		message = obj.text;
-		var x = -500;
+		var x = -520;
 		var y = 230;
 
 		var toX;
 		var toY;
 
-		params.bgPath = "/static/gnovel/res/textures/ui/context_box.png";
-		params.bgWidth = params.flowElement.bgWidth || 520;
-		params.bgHeight = params.flowElement.bgHeight || 90;
+		params.bgPath = "/static/gnovel/res/textures/ui/context_box_big.png";
+		params.bgWidth = params.flowElement.bgWidth || 1080;
+		params.bgHeight = params.flowElement.bgHeight || 240;
 		params.bgOffsetY = 40;
 		params.bgOffsetX = 100;
 		params.waitUntilShown = hasParam(obj, "waitUntilShown", true);
