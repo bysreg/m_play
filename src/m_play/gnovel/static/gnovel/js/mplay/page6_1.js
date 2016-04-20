@@ -91,7 +91,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "choices1"},
 			{type: "choices",
 				choices :
-					[{text: "Yeah. I'm with you. Feeling bad about our grade on that project."},
+					[{text: "Yeah this sucks."},
 					{text : "Are you ok?"}]},
 
 			{type: "show", img: ryan, position: "center", expression: "angry", waitUntilShown: false},

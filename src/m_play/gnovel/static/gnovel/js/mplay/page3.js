@@ -276,7 +276,6 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
-			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext1"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext1"}]},
 			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
 			{type: "hide", img: priya, waitUntilHidden: false},
@@ -290,11 +289,8 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
+			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
-			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext2"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext2"}]},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext2"},
-			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
@@ -304,11 +300,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
-			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext3"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext3"}]},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext3"},
-			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
+			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false, flip: true},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
@@ -320,7 +312,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "greater", rightop: 0, goTrue: "#pos2", goFalse: "#compare5"},
 
 			{type: "nothing", label: "pos2"},
-			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
+			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
@@ -332,14 +324,14 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "equal", rightop: 0, goTrue: "#zero2", goFalse: "#neg2" },
 
 			{type: "nothing", label: "zero2"},
-			{type: "show", img: ryan, position: "left", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seriously?  I mean, I'll do it.  But still..."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg2"},
-			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan, waitUntilHidden: false},
@@ -580,7 +572,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "choices",
 					choices :
-						[{text: "I need to study, but wanted to say hi first.",
+						[{text: "Came over to say hi.",
 							go: "#study-p"},
 						{text: "I'm here to study.",
 							go: "#sayhi-p"}], label: "choices1"},
@@ -598,12 +590,12 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya"},
 				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Your friend here keeps distracting me."},
+				{type: "dialog", speaker: "Priya", text: "Well I'm trying to study. Your friend here keeps distracting me."},
 				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
 
 				{type: "nothing", label: "neg-priya"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Ryan keeps distracting me."},
+				{type: "dialog", speaker: "Priya", text: "Well I'm trying to study. Ryan keeps distracting me."},
 				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
 
 				{type: "nothing", label: "compareryan"},
@@ -661,7 +653,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study.  Ryan is avoiding his Computational Systems work."},
+				{type: "dialog", speaker: "Priya", text: "Yeah, me too. Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
 
 				{type: "nothing", label: "neg-priya2"},

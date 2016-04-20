@@ -203,19 +203,13 @@ var MPLAY = MPLAY || {};
 				text: "Yes – I used c-h to work thru the problem."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
-				text: "It’s common for programmers… Thought that was allowed?"},
+				text: "It’s common for programmers... Thought that was allowed?"},
 			{type: "close_phone"},
 
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "We’re wasting time texting her.  She needs to redo it."},
+			{type: "dialog", speaker: "Cat", text: "We’re wasting time texting her. Tell her she has to redo it."},
 			{type:"hide", img: cat, waitUntilHiden: false},
 			{type:"hide", img: ryan},
-			{type: "choices",
-					choices :
-						[{text: "I agree, she needs to redo it.",
-							go: "#finish_project_Priya"},
-						{text: "Let’s text her to fix it. We can all pitch in to help.",
-							go: "#finish_project_Priya"}]},
 			{type: "nothing", label: "finish_project_Priya"},
 			{type: "show_context", text: "Priya struggles to work through an answer with original code. Luckily, She ends up finishing it in time, but the work isn't her best, and everyone's frustrated."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
@@ -321,7 +315,7 @@ var MPLAY = MPLAY || {};
 				{type: "open_phone", layout:"text", people: ["Mom"]},
 				{type: "add_phone_textbox",
 					speaker: "Mom",
-					text: "Hey hon!  study hard, make good choices!! XOX"},
+					text: "Hey hon!  Study hard, go to the gym, keep good habits, do your best!!!!!!! MOM"},
 				{type: "close_phone"},
 				// phone text exchange ends
 

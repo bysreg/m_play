@@ -60,14 +60,14 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "choices1"},
 			{type: "choices", choices :
-								[{text: "Not much.  What’s up with you?",
+								[{text: "How are you?",
 									go: "#wtsup"},
 								 {text: "Nothing much.",
 								 	go: "#nothingmuch"}]},
 
 			{type: "nothing", label: "wtsup"},
 			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my GPA."},
+			{type: "dialog", speaker: "Cat", text: "I’m trying to wind down a little. The job hunt is stressful, and I’m worried about my QPA."},
 
 			{type: "choices", choices : [{text: "You’ll be fine.", go: "#beok"}, {text : "I understand how you’re feeling.", go : "#beok"}]},
 
@@ -87,7 +87,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "Just this thing with Ryan.  It's ok.", go: "#itsok"}, {text : "Thanks, but it’s fine.", go : "#itsok"}]},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},
-			{type: "dialog", speaker: "Cat", text: "So, Priya told me a little bit about what happened."},
+			{type: "dialog", speaker: "Cat", text: "You know, Priya told me about what happened with you guys the other day."},
 			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
 			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},

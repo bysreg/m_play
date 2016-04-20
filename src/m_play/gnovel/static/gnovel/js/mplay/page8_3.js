@@ -40,20 +40,20 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the exam.  You see, last year there was an error on one of the prompts."},
 
-			{type: "choices", choices : [
-				{text: "I can explain-"},
-				{text: "But Professor-"},
-				],
-			seconds: 5},
+			// {type: "choices", choices : [
+			// 	{text: "I can explain-"},
+			// 	{text: "But Professor-"},
+			// 	],
+			// seconds: 5},
 
 
 			{type: "dialog", speaker: this._professor, text: "Now, I know that wasn't the case on this year's exam.  Can you both explain how you made last year's mistake on this year's exam?", label: "first"},
 
-			{type: "choices", choices : [
-				{text: "You see-"},
-				{text: "We just-"},
-				],
-			seconds: 5},
+			// {type: "choices", choices : [
+			// 	{text: "You see-"},
+			// 	{text: "We just-"},
+			// 	],
+			// seconds: 5},
 
 
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs."},
