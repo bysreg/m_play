@@ -200,6 +200,25 @@ var MPLAY = MPLAY || {};
 				var compass = pageObj.createImage("/static/gnovel/res/textures/ui/compass_sm.png", new THREE.Vector3(-400, -250, pageObj._uiLayer - 40), 100, 100);
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
 				compass.material.opacity = 0;
+
+				//ANIMATE compass
+				/*
+				*		var duration = 100;
+						var rotDest = .3;
+						this._notifIo._img.rotation.z = -.05;
+						this._notifIo._img.rotation.y = -.05;
+						var rotTween = new TWEEN.Tween(this._notifIo._img.rotation)
+							.to({
+								y: .05,
+								z: .05
+							}, duration)
+							.easing(TWEEN.Easing.Linear.None)
+							.yoyo(true)
+							.repeat(Infinity)
+							.onComplete(function() {});
+
+						rotTween.start();
+				*/
 				pageObj._addToScene(compass);
 				var delayFX = 1000;
 

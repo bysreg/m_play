@@ -31,7 +31,7 @@ var GNOVEL = GNOVEL || {};
 
 		// console.log(mouseY + " " + camera.position.y);
 		//camera.lookAt(new THREE.Vector3(0, 0, 400));
-		
+
 		mouse.x = event.clientX;
 		mouse.y = event.clientY;
 		gnovelObj.calcMousePositionRelativeToCanvas(mouse);
@@ -43,10 +43,10 @@ var GNOVEL = GNOVEL || {};
 
 		//gnovelObj._scene.position.x = mouse.x * 10;
 		//gnovelObj._scene.position.y = mouse.y * 10;
-		gnovelObj.getCurrentPage()._getRootObject().position.x = mouse.x * 10;
+		gnovelObj.getCurrentPage()._getRootObject().position.x = -mouse.x * 10;
 		gnovelObj.getCurrentPage()._getRootObject().position.y = -mouse.y * 10;
-		gnovelObj.getCurrentPage()._getPageSceneBg().position.x = mouse.x * 10;
-		gnovelObj.getCurrentPage()._getPageSceneBg().position.y = -mouse.y * 10;
+		gnovelObj.getCurrentPage()._getPageSceneBg().position.x = -mouse.x * 10;
+		gnovelObj.getCurrentPage()._getPageSceneBg().position.y = -mouse.y;
 	};
 
 	GNOVEL.MouseMovedCamera = MouseMovedCamera;
