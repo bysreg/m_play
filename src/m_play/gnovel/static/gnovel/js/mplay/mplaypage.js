@@ -800,7 +800,7 @@ var MPLAY = MPLAY || {};
 				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");
-				x = 100;
+				x = 40;
 				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
 				//params.msgOffsetX = -120;
 				params.bgOffsetX = 30;
