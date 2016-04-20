@@ -676,7 +676,7 @@ var MPLAY = MPLAY || {};
 		var textId = 0;
 
 
-		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 		params.bgOffsetY = 10;
 		params.bgOffsetX = 0;
 		y = -100;
@@ -706,23 +706,23 @@ var MPLAY = MPLAY || {};
 			if (chara.getCharPosition() === "left") {
 				// console.log("left");
 				x = -100;
-				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
 				x = Math.random() <= 0.5 ? left : right;
 				if(x == left){
-					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 					//params.msgOffsetX = -100;
 					params.bgOffsetX = 20;
 				}
 				else if(x == right){
-					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");
 				x = 100;
-				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 				//params.msgOffsetX = -120;
 				params.bgOffsetX = 30;
 			}
@@ -755,7 +755,7 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		//params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+		//params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 		params.bgOffsetY = 30;
 		params.bgOffsetX = 0;
 		y = -80;
@@ -780,31 +780,31 @@ var MPLAY = MPLAY || {};
 		}
 
 		var right = -400;
-		var left = 200;
+		var left = 140;
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
 				// console.log("left");
 				x = -100;
-				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
 				x = Math.random() <= 0.5 ? left : right;
 				if(x === left){
-					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 					//params.msgOffsetX = -100;
-
 					params.bubble = "left";
+					params.bgOffsetX = 15;
 				}
 				else{
-					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 					params.bubble = "right";
-					params.bgOffsetX = 15;
+					params.bgOffsetX = 10;
 				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");
 				x = 40;
-				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 				//params.msgOffsetX = -120;
 				params.bgOffsetX = 30;
 			}
@@ -1239,7 +1239,7 @@ var MPLAY = MPLAY || {};
 		//	params.createNewBg = true;
 		//params.speaker = "Context";
 		params.width = 100;
-		params.font = "20px Bevan";
+		params.font = "20px sfToontime";
 		// params.center = true;
 		params.type = "context";
 
