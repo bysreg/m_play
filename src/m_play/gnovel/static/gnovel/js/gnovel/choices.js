@@ -126,7 +126,7 @@ var GNOVEL = GNOVEL || {};
 				easing: TWEEN.Easing.Back.Out
 			});
 
-				//fade in choice box
+			//fade in choice box
 			this._page.tweenMat(textbox, {
 				duration: 500,
 				opacity: 1,
@@ -136,15 +136,6 @@ var GNOVEL = GNOVEL || {};
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
-
-		//if location type, show
-		if (this._params.type == "location") {
-			//show UI images to click on
-			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png", new THREE.Vector3(100, -100, 200), 100, 100);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);
-			this._page._addToScene(loc1);
-			this._page._addToScene(loc2);
-		}
 	};
 
 	/**
