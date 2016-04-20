@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 		background_ryan.material.opacity = 0;
 		pageObj._addToSceneBg(background_ryan);
 
-		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-55, -45, this._background3Layer-100), 1920, 1080);
+		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
 		this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_empty);
@@ -181,7 +181,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "asst_given"},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your old problem sets"},
-			{type: "dialog", seconds: "Ryan", text: "Why don’t you text her, "+ player +"."},
+			{type: "dialog", speaker: "Ryan", text: "Why don’t you text her, "+ player +"."},
 			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "hide", img: ryan, waitUntilHiden: false},
 			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
