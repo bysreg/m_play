@@ -17,7 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._height = 1080;
 		this._scene = scene;
 
-		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/transitionPanel_plain.jpg");
+		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/comic book with panels.jpg");
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xffffff,
 			transparent: true,
