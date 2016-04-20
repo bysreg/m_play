@@ -84,7 +84,7 @@ var MPLAY = MPLAY || {};
 			// }else if(choiceText.length>=30 && choiceText.length<60){
 			params.posArr[i].y = twoLineY;
 
-			textBg = page.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(params.x + (params.gapX * i) - 10, params.posArr[i].y - 30, uiLayer - 40), 324, 127.2);
+			textBg = page.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(params.x + (params.gapX * i) - 10, params.posArr[i].y - 30, uiLayer - 40), 324, 167.2);
 			// }else if(choiceText.length>=60) {
 			// params.posArr[i].y = threeLineY;
 
