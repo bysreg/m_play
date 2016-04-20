@@ -164,7 +164,7 @@ var MPLAY = MPLAY || {};
 					speaker: this._ryan,
 					text: "Can’t – wish I could join for coffee, need to study.  My comp systems class is kicking my ass!"},
 
-				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home and study.", go: "#gohome"}]},
+				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home for the day", go: "#gohome"}]},
 				{type: "close_phone", label: "gocafe"},
 				{type: "goto", page: "scene 3.a"},
 				{type: "close_phone", label: "gogym"},
