@@ -47,10 +47,10 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: player + " did you hear from Ryan?  He got caught for using that exam."},
 
-			{type: "choices", choices : [
-				{text: "What happened?"},
-				{text: "Oh no..."},
-				]},
+			// {type: "choices", choices : [
+			// 	{text: "What happened?"},
+			// 	{text: "Oh no..."},
+			// 	]},
 
 			{type: "show", img: cat, expression: "thoughtful", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "There was a typo on last year's take home, and Ryan repeated it.  So they knew he had access to it."},
@@ -67,10 +67,10 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "sad", position: "right", flip: true},
 			{type: "dialog", speaker: this._priya, text: "Did you hear from Ryan?  He got caught for using that exam."},
 
-			{type: "choices", choices : [
-				{text: "What happened?"},
-				{text: "Oh no..."},
-				]},
+			// {type: "choices", choices : [
+			// 	{text: "What happened?"},
+			// 	{text: "Oh no..."},
+			// 	]},
 
 			{type: "show", img: cat, expression: "thoughtful", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "There was a typo on last year's take home, and Ryan repeated it.  They knew he had access to it."},
@@ -85,10 +85,10 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "I want you to know that Ryan got in trouble for using that exam."},
 
-			{type: "choices", choices : [
-				{text: "What happened?"},
-				{text: "Oh no..."},
-				]},
+			// {type: "choices", choices : [
+			// 	{text: "What happened?"},
+			// 	{text: "Oh no..."},
+			// 	]},
 
 			{type: "show", img: cat, expression: "thoughtful", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "There was a typo on last year's take home, and Ryan repeated it.  So they knew he had access to it."},
@@ -100,7 +100,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
 			{type: "show", img: priya, expression: "sad", position: "right"},
-			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote from Andrew Carnegie as his status."},
+			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote about integrity as his status."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
 			{type: "show", img: priya, expression: "thoughtful", position: "right"},
@@ -109,7 +109,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "goend"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
-			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote from Andrew Carnegie as his status."},
+			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote about integrity as his status."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
 			{type: "show", img: priya, expression: "thoughtful", position: "right"},
