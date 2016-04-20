@@ -25,6 +25,11 @@ var MPLAY = MPLAY || {};
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/uc foreground with characters.png";
 		this.setupUcBackground(foregroundImg);
 
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer ), 1920, 1080);
+		//this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		this._addToSceneBg(this._background_empty);
+
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -40,6 +45,7 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
 		var transitionBg = "%" + this._transitionBg;
+		var background = this._background_empty;
 
 		var o = null;
 
@@ -53,6 +59,11 @@ var MPLAY = MPLAY || {};
 				//FIXME transition of this flow doesn't work
 				//FIXME Adjust positions for characters too!
 				{type: "show_context", text: "Right after class, you meet up with your study group in the CUC.", waitUntilShown: true},
+				//switch foreground with empty foreground
+					{type: "custom", func: function(page){
+						background.material.opacity = 1;
+						page._removeFromSceneBg(page._background3);
+					}},
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 				/*{type: "custom", func: function(page) {
 					page.getOwner().getSoundManager().play("Hey-Ryan-e");

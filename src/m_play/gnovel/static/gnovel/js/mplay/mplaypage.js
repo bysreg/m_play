@@ -608,7 +608,7 @@ var MPLAY = MPLAY || {};
 						params.onClick(io);
 					}
 				}
-			};			
+			};
 		}
 
 		var onEnableChange = function(io) {
@@ -676,7 +676,7 @@ var MPLAY = MPLAY || {};
 		var textId = 0;
 
 
-		params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
 		params.bgOffsetY = 10;
 		params.bgOffsetX = 0;
 		y = -100;
@@ -700,19 +700,31 @@ var MPLAY = MPLAY || {};
 			chara = MPlayPage._professor;
 		}
 
+		var left = -400;
+		var right = 200;
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
-				console.log("left");
-				x = -60;
-				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+				// console.log("left");
+				x = -100;
+				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
-				console.log("center");
-				x = 0;
-				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
+				// make center box show left or right
+				x = Math.random() <= 0.5 ? left : right;
+				if(x == left){
+					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+					//params.msgOffsetX = -100;
+					params.bgOffsetX = 20;
+				}
+				else if(x == right){
+					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				}
 			} else if (chara.getCharPosition() === "right") {
-				console.log("right");
-				x = 60;
-				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
+				// console.log("right");
+				x = 100;
+				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+				//params.msgOffsetX = -120;
+				params.bgOffsetX = 30;
 			}
 		}
 		var dialog = GNOVEL.Page.prototype._showTempDialog.call(this, message, x, y, params);
@@ -743,14 +755,14 @@ var MPLAY = MPLAY || {};
 			}
 		}
 
-		params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
-		params.bgOffsetY = 10;
+		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+		params.bgOffsetY = 30;
 		params.bgOffsetX = 0;
-		y = -100;
+		y = -80;
 		params.speakerOffsetX = -30;
 		params.speakerOffsetY = 10;
-		params.bgWidth = 325;
-		params.bgHeight = 221;
+		params.bgWidth = 360;
+		params.bgHeight = 265;
 		params.showSpeaker = false;
 		params.charLine = 30;
 		//params.font = "25px NoteworthyLight";
@@ -767,19 +779,31 @@ var MPLAY = MPLAY || {};
 			chara = MPlayPage._professor;
 		}
 
+		var left = -400;
+		var right = 200;
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
 				// console.log("left");
-				x = -60;
-				params.bgPath = "/static/gnovel/res/textures/ui/Left Bubble.png";
+				x = -100;
+				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				params.bgOffsetX = -10;
 			} else if (chara.getCharPosition() === "center") {
-				// console.log("center");
-				x = 0;
-				params.bgPath = "/static/gnovel/res/textures/ui/Middle Bubble.png";
+				// make center box show left or right
+				x = Math.random() <= 0.5 ? left : right;
+				if(x == left){
+					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+					//params.msgOffsetX = -100;
+					params.bgOffsetX = 20;
+				}
+				else if(x == right){
+					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV2.png";
+				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");
-				x = 60;
-				params.bgPath = "/static/gnovel/res/textures/ui/Right Bubble.png";
+				x = 100;
+				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV2.png";
+				//params.msgOffsetX = -120;
+				params.bgOffsetX = 30;
 			}
 		}
 
@@ -939,30 +963,29 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.setupClassBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/classroom background with sweeney.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground with characters.png", new THREE.Vector3(0, 0, this._background3Layer + 60), 1920, 1080);
+		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground with characters.png", new THREE.Vector3(0, 0, this._background3Layer + 60), 1920, 1080);
 
 		this._addToSceneBg(this._bg);
-		this._addToSceneBg(background2);
+		this._addToSceneBg(this._background2);
 	};
 
 	MPlayPage.prototype.setupUcBackground = function(foreground) {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		var background3;
+		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		//if special foreground for scene, add that instead
 		if (foreground != null) {
-			background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		} else {
-			background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 		}
 
 		// testing
 		this._bg.name = "UCUCUCUCUC";
 
 		this._addToSceneBg(this._bg);
-		this._addToSceneBg(background2);
-		this._addToSceneBg(background3);
+		this._addToSceneBg(this._background2);
+		this._addToSceneBg(this._background3);
 	};
 
 	MPlayPage.prototype.setupLibraryBackground = function(foreground) {
@@ -972,19 +995,19 @@ var MPLAY = MPLAY || {};
 		//this._bg.scale.set(.85,.85,1);
 
 		//var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, 0, this._background2Layer-170), 1920, 1080);
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer - 50), 1920, 1080);
-		background2.scale.set(1, 1, 1);
+		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/library middleground.png", new THREE.Vector3(0, -20, this._background2Layer - 50), 1920, 1080);
+		this._background2.scale.set(1, 1, 1);
 		//if special foreground for scene, add that instead
 		//var background3;
 		if (foreground != null) {
 			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
 			this._background3.scale.set(.90, .85, 1);
 		} else {
-			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer), 1920, 1080);
+			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer-100), 1920, 1080);
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
-		this._addToSceneBg(background2);
+		this._addToSceneBg(this._background2);
 		this._addToSceneBg(this._background3);
 	};
 
@@ -1013,12 +1036,12 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.setupOfficeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/professor office background.png");
 
-		var background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
-		var background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
+		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
 
 		this._addToSceneBg(this._bg);
-		this._addToSceneBg(background2);
-		this._addToSceneBg(background3);
+		this._addToSceneBg(this._background2);
+		this._addToSceneBg(this._background3);
 	};
 
 	MPlayPage.prototype.getIntegrityManager = function() {

@@ -30,13 +30,23 @@ var MPLAY = MPLAY || {};
 		var z = this.getBackgroundLayer() + 50;
 		var pageObj = this;
 
+		var background_ryan = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png", new THREE.Vector3(-0, 10, pageObj._background3Layer - 105), 1920, 1080);
+		background_ryan.scale.set(.90,.85,1);
+		background_ryan.material.opacity = 0;
+		pageObj._addToSceneBg(background_ryan);
+
+		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-55, -45, this._background3Layer-100), 1920, 1080);
+		this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		pageObj._addToSceneBg(this._background_empty);
+
 		//@FIXME not needed anymore since the scene already has ryan in it
 		//this._sitryan = this.createImage("/static/gnovel/res/textures/ryan-clickable-lib.png", new THREE.Vector3(-215, -185, z), 250, 431);
 		//this._addToScene(this._sitryan);
 
 		//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
 		this._io1 = this.createInteractableObject(
-			"/static/gnovel/res/textures/panel.png",
+			"/static/gnovel/res/textures/char/scene char/cat-lib.png",
 			{type: "character", x: 45, y: -60, z: z, width : 300, height : 656, opacity: 0, onClick: function(io) {
 				pageObj._talked = 1;
 				pageObj._runFlow();
@@ -49,6 +59,19 @@ var MPLAY = MPLAY || {};
 					duration: 800,
 					onComplete: function() {
 						pageObj._io1.remove();
+					},
+				});
+
+				//remove previous background with character and change
+				background_ryan.material.opacity = 1;
+				pageObj.tweenMat(pageObj._background3, {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 100,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background3);
+						//background_priya.material.opacity = 1;
+						pageObj._background3 = background_ryan;
 					},
 				});
 
@@ -82,6 +105,7 @@ var MPLAY = MPLAY || {};
 		var yourphone = "%" + this._yourphone;
 		var closephone = "%" + this._closephone;
 		var player = this._player;
+		var background = this._background_empty;
 
 		var cgAssignmentStatus = this._owner.getSavedData("cgAssignmentStatus");
 
@@ -104,7 +128,11 @@ var MPLAY = MPLAY || {};
 				}}
 			];
 		var common = [
-
+			//switch out background with no scene characters
+			{type: "custom", func: function(pageObj){
+				background.material.opacity = 1;
+				pageObj._removeFromSceneBg(pageObj._background3);
+			}},
 			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
@@ -132,8 +160,8 @@ var MPLAY = MPLAY || {};
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							go: "#submit" }],
-					seconds: 10,
-					responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
+					//seconds: 10,
+					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
 
 			{type: "nothing", label: "ask"},

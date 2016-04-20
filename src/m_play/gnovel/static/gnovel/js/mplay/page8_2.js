@@ -85,14 +85,14 @@ var MPLAY = MPLAY || {};
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Woo!!  I got a C, like you. Happy it turned out ok for us, Sweeney definitely cut us a break on that final."},
-			{type: "add_phone_textbox", 
-				speaker: this._ryan, 
-				text: "He could have failed us. Sorry I dragged you into this. Sucks about that violation though."},	
-			{type: "close_phone"},			
+			{type: "add_phone_textbox",
+				speaker: this._ryan,
+				text: "He could have failed us. Sorry I dragged you into this. Sucks about that violation though."},
+			{type: "close_phone"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			// phone exchange begins
@@ -100,7 +100,7 @@ var MPLAY = MPLAY || {};
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Did you pass?  I got a C, like you.  Sweeney cut us a break… I found out that we could have failed for that.  Sucks about the violation."},
-			{type: "close_phone"},	
+			{type: "close_phone"},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-ryan1"},
@@ -127,7 +127,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_2.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Office-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};

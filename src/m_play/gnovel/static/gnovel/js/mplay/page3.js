@@ -49,6 +49,20 @@ var MPLAY = MPLAY || {};
 
 		var z = this._background3Layer + 50;
 		var pageObj = this;
+		var background_ryan = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png", new THREE.Vector3(-0, 10, pageObj._background3Layer - 105), 1920, 1080);
+		background_ryan.scale.set(.90,.85,1);
+		background_ryan.material.opacity = 0;
+		pageObj._addToSceneBg(background_ryan);
+
+		var background_priya = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with priya solo.png", new THREE.Vector3(-0, 10, pageObj._background3Layer - 105), 1920, 1080);
+		background_priya.scale.set(.90,.85,1);
+		background_priya.material.opacity = 0;
+		pageObj._addToSceneBg(background_priya);
+
+		this._background_empty = pageObj.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-55, -45, this._background3Layer-100), 1920, 1080);
+		this._background_empty.scale.set(.90,.85,1);
+		this._background_empty.material.opacity = 0;
+		pageObj._addToSceneBg(this._background_empty);
 
 		var onInteractableObjectClicked = function(io) {
 			// disable interactable object
@@ -74,6 +88,18 @@ var MPLAY = MPLAY || {};
 						pageObj._io1.remove();
 					},
 				});
+				//remove previous background with character and change
+				background_priya.material.opacity = 1;
+				pageObj.tweenMat(pageObj._background3, {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 100,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background3);
+						//background_priya.material.opacity = 1;
+						pageObj._background3 = background_priya;
+					},
+				});
 			}});
 			//this._io1.getImage().opacity = 0;
 			//create fake non-visible object areas that are clickable.  These represents the character position that are in the scene
@@ -92,8 +118,31 @@ var MPLAY = MPLAY || {};
 					onComplete: function() {
 						// remove this io
 						pageObj._io2.remove();
+
 					},
 				});
+				//remove previous background with character and change
+				background_ryan.material.opacity = 1;
+				pageObj.tweenMat(pageObj._background3, {
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 100,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background3);
+						//background_ryan.material.opacity = 1;
+						pageObj._background3 = background_ryan;
+					},
+				});
+
+				/*pageObj.move(background, {
+					z:pageObj._background3Layer - 100,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+					onComplete: function() {
+						pageObj._background3 = background;
+					},
+				});*/
+
 			}});
 
 			//deactivate interactable objects at first
@@ -110,6 +159,7 @@ var MPLAY = MPLAY || {};
 		var yourphone = "%" + this._yourphone;
 		var player = this._player;
 		var transitionBg = "%" + this._transitionBg;
+		var background = this._background_empty;
 		var o = null;
 
 		o = [
@@ -157,8 +207,8 @@ var MPLAY = MPLAY || {};
 						go: "#dontknow", integrityScore: 0, relationship: {name: this._ryan, score: -1}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
 						go: "#notes", integrityScore: 1, relationship: {name: this._priya, score: 2}}],
-				seconds: 10,
-				responses: [{text: "hey!"}, {text:"did you hear me"}],
+				//seconds: 10,
+				//responses: [{text: "hey!"}, {text:"did you hear me"}],
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},
@@ -179,14 +229,6 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Oh.  OK. See you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. I should talk to her later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
@@ -202,14 +244,6 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Priya", text: "Listen, I’m late for a meeting.  See you later."},
 			{type: "dialog", speaker: "Ryan", text: "Oh.  See you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
@@ -220,14 +254,6 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Priya", text: "If you both won't listen that's fine.  See you in class."},
 			{type: "dialog", speaker: "Ryan", text: "Oh.  Uh, ok, well, see you."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "priyaleave"},
 			{type: "show", img: ryan, position: "left", expression:"thoughtful", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I guess she’s upset with me. Maybe I should talk to her later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
@@ -247,13 +273,6 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Sorry, didn’t mean for it to come out that. I actually have to get going..."},
 			{type: "dialog", speaker: "Ryan", text: "I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with priya solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "ryanleave"},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext1"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext1"}]},
@@ -270,13 +289,6 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I get it, it’s fine."},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with priya solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "ryanleave"},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext2"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext2"}]},
@@ -291,13 +303,6 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			{type: "custom", func: function(page) {
-				//specify which foreground with the characters
-				page._removeFromSceneBg(page._background3);
-				page._background3 = page.createImage("/static/gnovel/res/textures/backgrounds/lib foreground with priya solo.png", new THREE.Vector3(-0, 10, page._background3Layer - 100), 1920, 1080);
-				page._background3.scale.set(.90, .85, 1);
-				page._addToSceneBg(page._background3);
-			}, label: "ryanleave"},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "choices", choices : [{text: "I’m sure he just needs to cool off.", go: "#priyanext3"}, {text : "He’s just pissed at me, don’t worry about it.", go : "#priyanext3"}]},
@@ -319,7 +324,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan, waitUntilHidden: false},
-			
+
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare5"},
@@ -461,8 +466,12 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore2"},
+				//remove ryan bg and replace
+				{type: "custom", func: function(pageObj){
+					background.material.opacity = 1;
+					pageObj._removeFromSceneBg(pageObj._background3);
+				}},
 				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
-
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya."},
@@ -606,6 +615,10 @@ var MPLAY = MPLAY || {};
 
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore2"},
+				{type: "custom", func: function(pageObj){
+					background.material.opacity = 1;
+					pageObj._removeFromSceneBg(pageObj._background3);
+				}},
 				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
 
 				{type: "nothing", label: "pos-ryan"},
@@ -654,6 +667,10 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore3"},
+				{type: "custom", func: function(pageObj){
+					background.material.opacity = 1;
+					pageObj._removeFromSceneBg(pageObj._background3);
+				}},
 				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
 
 				{type: "nothing", label: "pos-ryan2"},

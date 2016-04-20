@@ -32,7 +32,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"Go grab a coffee with Priya."},
+			{type:"show_context", text:"You join Priya at the cafe."},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore1"},
@@ -91,7 +91,7 @@ var MPLAY = MPLAY || {};
 	 */
 	Page2_0.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -99,7 +99,7 @@ var MPLAY = MPLAY || {};
 
 	Page2_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Cafe-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 
 		this._tweenVolumeIn();
