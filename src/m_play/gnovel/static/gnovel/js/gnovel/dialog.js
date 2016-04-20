@@ -178,6 +178,7 @@ var GNOVEL = GNOVEL || {};
 			}
 
 			if (this._type == "context") {
+				this._messageText.position.x -= 10;
 				var textHeight = this._messageText.canvas.textHeight;
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
@@ -191,7 +192,7 @@ var GNOVEL = GNOVEL || {};
 					};
 					this._messageText.position.y -= textHeight / 4;
 				}else {
-					var scale = 0.375;
+					var scale = 0.5;
 				}
 				Dialog._textBg.scale.set(scale, scale, 1);
 				var targetPos = {};
