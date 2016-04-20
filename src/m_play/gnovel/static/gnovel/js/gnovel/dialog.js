@@ -48,11 +48,21 @@ var GNOVEL = GNOVEL || {};
 		this._isDialog = params.isDialog || false;
 		this._mouseDownListenerAdded = false;
 
+		this._bubble = params.bubble;
+
+
+
 		var curspk = params.speaker;
 		var prespk = Dialog._prevSpeaker;
 		if (curspk == prespk) {
 			this._hasTransition = false;
 		}
+
+		var curbub = params.bubble;
+		var prebub = Dialog._prevBubble;
+		if (curbub != prebub) {
+			this._hasTransition = true;
+		};
 
 		if (params.hasOwnProperty('createNewBg')) {
 			this._hasTransition = params.createNewBg;
@@ -72,6 +82,7 @@ var GNOVEL = GNOVEL || {};
 	// static class variable
 	Dialog._textBg = null;
 	Dialog._prevSpeaker = null;
+	Dialog._prevBubble = null;
 
 	Dialog.prototype._init = function() {
 		var x = this._x;
@@ -284,6 +295,7 @@ var GNOVEL = GNOVEL || {};
 
 	Dialog.prototype._onComplete = function() {
 		Dialog._prevSpeaker = this._params.speaker;
+		Dialog._prevBubble = this._params.bubble;
 
 		//remove mousedown listener
 		this._page.getOwner().removeMouseDownListener(this._mouseDownListener);
@@ -399,6 +411,7 @@ var GNOVEL = GNOVEL || {};
 
 		Dialog._textBg = null;
 		Dialog._prevSpeaker = null;
+		Dialog._prevBubble = null;
 		this._textBg = null;
 	};
 
