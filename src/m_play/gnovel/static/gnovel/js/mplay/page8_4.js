@@ -36,8 +36,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", text: "A few days after the test..."},
-			{type: "show_context", text:"you run into Priya and Cat at the Café"},
+			{type: "show_context", text: "A few days after the test, you run into Priya and Cat at the Café"},
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
