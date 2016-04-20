@@ -55,7 +55,7 @@ var GNOVEL= GNOVEL || {};
 				/// function called when download progresses
 				function(xhr) {
 					console.log(t.path + " : " + (xhr.loaded / xhr.total * 100) + '% loaded' );
-				},
+				}
 			);
 		}
 	};

@@ -120,7 +120,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", position: "left", text: "Cat, is your last name Davis? " + player + " and I found a wallet at Scottie’s yesterday. We turned it into campus police."},
 				{type: "show", img: cat, position: "right", expression: "happy", waitUntilShown: false, flip: true},
 				{type: "dialog", speaker: "Cat", text: "Oh my God, you both are lifesavers!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver"}, {text : "Happy to help!", go : "#lifesaver"}]},
+				
 				{type: "nothing", label:"lifesaver"},
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
@@ -164,7 +164,7 @@ var MPLAY = MPLAY || {};
 					speaker: this._ryan,
 					text: "Can’t – wish I could join for coffee, need to study.  My comp systems class is kicking my ass!"},
 
-				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home and study.", go: "#gohome"}]},
+				{type: "choices", choices : [{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Workout at the gym with Cat.", go : "#gogym", relationship: {name:this._cat, score:1}}, {text: "Head home for the day", go: "#gohome"}]},
 				{type: "close_phone", label: "gocafe"},
 				{type: "goto", page: "scene 3.a"},
 				{type: "close_phone", label: "gogym"},
