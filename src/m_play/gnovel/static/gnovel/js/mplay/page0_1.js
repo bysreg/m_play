@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
-		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -135, this.getBackgroundLayer()+10), 100, 25);
+		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -60, this.getBackgroundLayer()+10), 100, 25);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -76,7 +76,31 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 
 			{type: "show", img: catsphone, waitUntilShown:false},
-			
+			/*{type: "show", img: yourphone},
+			{type: "custom", func: function(page) {
+				page.getOwner().getSoundManager().play("Message");
+			}},
+			{type: "choices",
+				choices :
+					[{text: "Look at your Phone ",
+						go: "#lookatphone",
+					relationship: {name: this._ryan, score: -1}},
+					{text: "Talk to Ryan First",
+						go: "#talktoryan",
+					relationship: {name: this._ryan, score: 1}}],
+					seconds: 10},
+			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
+
+			// phone email exchange begins
+			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
+			{type: "show", img: closephone},
+			{type: "phone_textbox",
+				label: "email",
+				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
+				bgHeight: 200},
+			{type: "hide_phone_textbox", dialog: "$email"},
+			{type: "hide", img: closephone},
+			// phone email exchange ends*/
 
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
@@ -124,13 +148,13 @@ var MPLAY = MPLAY || {};
 			{type: "show_context", text: "Later on at Scottie’s…"},
 			{type: "hide", img: transitionBg},
 			{type: "show", img: catsphone, waitUntilShown: false},
-			{type: "show", img: ryan, expression: "very happy", position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "I'm so happy we'll be working together after graduation!  You're going to love being at techFast."},
 			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class - Programming and Society should be good though."},
 			{type: "dialog", speaker: this._ryan, text: "My brother took it last year.  He said it was tough, but he learned a ton."},
 			{type: "choices",
 				choices :
-					[{text: "Tough, huh?",
+					[{text: "Should be good.",
 						go: "#RelationshipScore"},
 					{text : "Glad we’re in it together.",
 						relationship: {name: this._ryan, score: 1},
@@ -193,9 +217,6 @@ var MPLAY = MPLAY || {};
 						}}]},*/
 
 			{type:"nothing", label: "pickup"},
-			{type: "custom", func: function(page) {
-				page._catsPhoneStatus = 1;
-			}},
 			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student –"},
 			{type: "dialog", speaker: this._ryan, text: "Cat Davis.  Her CMU ID card is in here."},
 			{type: "dialog", speaker: this._ryan, text: "Let’s turn it into campus police."},
