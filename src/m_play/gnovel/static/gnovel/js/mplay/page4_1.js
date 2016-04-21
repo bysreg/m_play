@@ -22,7 +22,7 @@ var MPLAY = MPLAY || {};
 	Page4_1.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
-		var background = "/static/gnovel/res/textures/backgrounds/restaurant scene with cat.png"
+		var background = "/static/gnovel/res/textures/backgrounds/restaurant.png"
 		this.setupBarBackground(background);
 
 	};
