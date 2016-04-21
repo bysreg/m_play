@@ -225,7 +225,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "pos"},
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Thanks, "+ player +"! This is such a huge help."},
-			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false},
+			{type: "show", img: priya, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "I just think you guys should be more careful.  I'll see you both in class later."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Oh.  OK. See you."},
@@ -278,7 +278,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
 			{type: "show", img: priya, expression: "thoughtful", position: "right", waitUntilShown: false, label: "priyanext1"},
 			{type: "dialog", speaker: "Priya", text: "I’ll try to talk to him later."},
-			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: priya},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare4"},
@@ -291,7 +291,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "I hope he’s not too upset."},
-			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: priya},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg1"},
@@ -301,7 +301,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I actually have to get going, I'll see you both later."},
 			{type: "hide", img: ryan, waitUntilHidden: false},
 			{type: "show", img: priya, position: "right", expression:"sad", waitUntilShown: false, flip: true},
-			{type: "hide", img: priya, waitUntilHidden: false},
+			{type: "hide", img: priya},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
@@ -316,7 +316,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "hide", img: ryan},
 
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
@@ -327,14 +327,14 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seriously?  I mean, I'll do it.  But still..."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "neg2"},
 			{type: "show", img: ryan, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "hide", img: priya, waitUntilHidden: false},
-			{type: "hide", img: ryan, waitUntilHidden: false},
+			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
