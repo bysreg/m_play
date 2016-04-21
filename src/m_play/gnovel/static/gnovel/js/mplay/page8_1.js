@@ -93,7 +93,6 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 			{type: "dialog", speaker: this._cat, text: "I’m surprised he used it, I thought he was smarter than that.  It was smart of you not to look at it."},
 			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},
-			{type: "dialog", speaker: this._cat, text: "It was smart of you not to look at it.  Even seeing something like that can get you in trouble."},
 			{type: "show", img: cat, position: "center"},						
 			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
 			{type: "dialog", speaker: this._cat, text: "‘As I get older, I don’t pay attention to what people say.  Only what they do.’"},

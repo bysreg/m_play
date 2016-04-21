@@ -122,9 +122,9 @@ var GNOVEL = GNOVEL || {};
 		});
 
 		var textHeight = this._messageText.canvas.textHeight;
-		var textWidth = this._messageText.canvas.textWidth;
+		// var textWidth = this._messageText.canvas.textWidth;
 		var y_text;
-		var x_text;
+		// var x_text;
 		if (this._isDialog) {
 			var tailOffsetY;
 			var tailOffsetX;
@@ -142,12 +142,12 @@ var GNOVEL = GNOVEL || {};
 			var y_far = y + textHeight / 2 - tailOffsetY + this._msgOffsetY;
 			y_text = camera.position.y - (camera.position.y - y_far) * scale;
 
-			var x_far = x + textWidth / 2 - tailOffsetX + this._msgOffsetX;
-			x_text = camera.position.x - (camera.position.x  - x_far) * scale;
+			// var x_far = x + textWidth / 2 - tailOffsetX + this._msgOffsetX;
+			// x_text = camera.position.x - (camera.position.x  - x_far) * scale;
 		}
 		else {
 			y_text = y + textHeight / 2 + this._msgOffsetY;
-			x_text = x;
+			// x_text = x;
 		}
 
 		// if (textHeight > 23) {
@@ -184,10 +184,11 @@ var GNOVEL = GNOVEL || {};
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
 					var scale_h = textHeight * 1.7 / 240;
-					var scale_w = textWidth * 1.5 / 1080;
+					var scale_w = textWidth * 1.7 / 1080;
 					var scale = scale_h;
 					Dialog._textBg.position.y -= textHeight / 4;
 					if (characterLine == 45) {
+						Dialog._textBg.position.y -= 10;
 						scale = scale_w;
 						Dialog._textBg.position.x += textWidth / 8;
 					};
