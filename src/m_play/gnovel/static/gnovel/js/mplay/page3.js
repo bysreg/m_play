@@ -418,7 +418,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "choices",
 					choices :
-						[{text: "I need to study, but wanted to say hi first.",
+						[{text: "Came over to say hi.",
 							go: "#study-r"},
 						{text: "I'm here to study.",
 							go: "#sayhi-r"}], label: "choices1"},
@@ -452,12 +452,12 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya"},
 				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "We're studying too! Well I'm trying to study.  Your friend here keeps distracting me."},
+				{type: "dialog", speaker: "Priya", text: "Well I'm trying to study. Your friend here keeps distracting me."},
 				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
 
 				{type: "nothing", label: "neg-priya"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah.  I'm trying to study.  Ryan is avoiding his Computational Systems work."},
+				{type: "dialog", speaker: "Priya", text: "Well I'm trying to study. Ryan keeps distracting me."},
 				{type: "jump", condition: true, goTrue: "#compareryan", goFalse: "#compareryan"},
 
 				{type: "nothing", label: "compareryan"},
