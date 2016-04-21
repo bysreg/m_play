@@ -45,9 +45,12 @@ var CanvasText = (function () {
       {
         // calculate text width for multiline textbox 
         var regex = new RegExp(".{1," + this.ctx.charLine + "}", "g");        
-        var hlpArr = text.match(regex);        
-        this.textWidth = Math.ceil(this.ctx.measureText(hlpArr[0]).width);
-
+        var hlpArr = text.match(regex);
+        var txt_w = this.ctx.measureText(hlpArr[0]).width;
+        this.textWidth = Math.ceil(txt_w);
+        if (this.textWidth - txt_w <= 1) {
+          this.textWidth *= 2;
+        };
         
         var wordsArr = text.split(" ");
         var line = 0, curlength = 0;
@@ -70,7 +73,11 @@ var CanvasText = (function () {
       }
       else
       {
-        this.textWidth = Math.ceil(this.ctx.measureText(text).width);
+        var txt_w = this.ctx.measureText(textArr[0]).width;
+        this.textWidth = Math.ceil(txt_w);
+        if (this.textWidth - txt_w <= 1) {
+          this.textWidth *= 2;
+        };
         this.textHeight = this.fontHeight;
       }
       
