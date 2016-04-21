@@ -984,13 +984,17 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.setupUcBackground = function(foreground) {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
+		this._bg.scale.set(.95, .90, 1);
 
-		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		//no longer using middle ground for this scene
+		//this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		//if special foreground for scene, add that instead
 		if (foreground != null) {
 			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3.scale.set(.85, .80, 1);
 		} else {
 			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3.scale.set(.85, .80, 1);
 		}
 
 		// testing

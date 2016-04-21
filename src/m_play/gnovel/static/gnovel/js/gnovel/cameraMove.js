@@ -33,7 +33,7 @@ var GNOVEL = GNOVEL || {};
         } else if (position === "center") {
           newPos.x = 0;
         } else if (position === "right") {
-          newPos.x = destPos.x - 350;
+          newPos.x = destPos.x - 400;
         }
 
 				if(!this._page._useEffect){
