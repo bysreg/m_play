@@ -75,7 +75,7 @@ var CanvasText = (function () {
       {
         var txt_w = this.ctx.measureText(textArr[0]).width;
         this.textWidth = Math.ceil(txt_w);
-        if (this.textWidth - txt_w <= 1) {
+        if (this.textWidth - txt_w <= 1 && this.ctx.font === "20px Noteworthy") {
           this.textWidth *= 2;
         };
         this.textHeight = this.fontHeight;
