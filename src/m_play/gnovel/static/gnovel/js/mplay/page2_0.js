@@ -53,7 +53,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
-			{type: "choices", choices : [{text: "Yeah! Ryan referred me.", go: "#sweet"}, {text : "Thanks!  Ryan interned there this summer and referred me.", go : "#sweet"}], label: "choices1"},
+			{type: "choices", choices : [{text: "Yeah! Ryan referred me.", go: "#sweet"}, {text : "Thanks!", go : "#sweet"}], label: "choices1"},
 
 			{type: "nothing", label: "sweet"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},

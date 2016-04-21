@@ -52,7 +52,12 @@ var MPLAY = MPLAY || {};
 		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
 
 		// variables from scene 1
-		var isWalletWithWaiter = (catsPhoneStatus == 0);
+		var isWalletWithWaiter;
+		if(catsPhoneStatus == 0) {
+			isWalletWithWaiter = 1;
+		}else{
+			isWalletWithWaiter = 0;
+		}
 		var player = this._player;
 
 			o = [
@@ -147,7 +152,7 @@ var MPLAY = MPLAY || {};
 				{type: "nothing", label: "aside1"},
 				{type: "hide", img: ryan},
 				{type: "hide", img: cat},
-				//{type: "hide", img: priya},
+				{type: "hide", img: priya},
 				{type: "show_context", text: "The group leaves...some time passes"},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
