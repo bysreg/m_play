@@ -224,7 +224,7 @@ var MPLAY = MPLAY || {};
 		var messageText = page.createTextBox(text, {
 			align: "left",
 			charLine: 32,
-			font: "12px Arial",
+			font: "15px Arial",
 			fillstyle: "#ECECEC"
 		});
 		// var textHeight = messageText.canvas.textHeight;		

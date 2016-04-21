@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 
 		params.x = -350;
 		params.y = -100;
-		params.gapX = 350;
+		params.gapX = 340;
 		params.gapY = 0;
 		params.charLine = 30;
 		params.posArr = {};

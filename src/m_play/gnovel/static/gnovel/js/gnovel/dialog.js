@@ -60,7 +60,7 @@ var GNOVEL = GNOVEL || {};
 
 		var curbub = params.bubble;
 		var prebub = Dialog._prevBubble;
-		if (curbub != prebub) {
+		if (curbub != prebub && !this._hasTransition) {
 			this._hasTransition = true;
 		};
 
@@ -159,7 +159,7 @@ var GNOVEL = GNOVEL || {};
 		// 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 25 + this._speakerOffsetY, z + 20);
 		// 	}
 		// }else {
-		this._messageText.position.set(x_text, y_text, z + 20 + this._msgOffsetZ);
+		this._messageText.position.set(x, y_text, z + 20 + this._msgOffsetZ);
 		this._nameText.position.set(this._messageText.position.x + this._speakerOffsetX, this._messageText.position.y + 30 + this._speakerOffsetY, z + 20);
 		// }
 
@@ -179,6 +179,7 @@ var GNOVEL = GNOVEL || {};
 
 			if (this._type == "context") {
 				this._messageText.position.x -= 10;
+				// Dialog._textBg.position.y -= 10;
 				var textHeight = this._messageText.canvas.textHeight;
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
