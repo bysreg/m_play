@@ -34,7 +34,7 @@ var MPLAY = MPLAY || {};
 
 		params.x = -350;
 		params.y = -100;
-		params.gapX = 350;
+		params.gapX = 340;
 		params.gapY = 0;
 		params.charLine = 30;
 		params.posArr = {};
@@ -152,6 +152,8 @@ var MPLAY = MPLAY || {};
 			});
 
 
+
+
 			page._addToScene(textBg);
 			choicesTextBg.push(textBg);
 
@@ -163,6 +165,24 @@ var MPLAY = MPLAY || {};
 		}
 
 		GNOVEL.Choices.call(this, page, choicesArr, timedResponses, result, params);
+
+		// tween from bottom of the screen to up
+		for(var i=0;i<this._choicesTextBg.length;i++) {
+			var textBg = this._choicesTextBg[i];
+			var text = this._choicesBox[i];
+
+			textBg.position.y -= 200;
+			text.position.y -= 200;	
+
+			page.move(textBg, {
+				y: textBg.position.y + 200, 
+				easing: TWEEN.Easing.Back.Out, 
+				duration: 1000});
+			page.move(text, {
+				y:text.position.y + 200, 
+				easing: TWEEN.Easing.Back.Out, 
+				duration: 1000});
+		}
 	};
 
 	MPlayChoices.prototype = Object.create(GNOVEL.Choices.prototype);

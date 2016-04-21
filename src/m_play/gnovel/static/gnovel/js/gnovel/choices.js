@@ -27,6 +27,8 @@ var GNOVEL = GNOVEL || {};
 		this._choicesBox = [];
 		this._responseBox =[];
 		this._choosed = false;
+		this._bubbleoffset = 10;
+		this._tailoffset = 22;
 
 		this._init();
 
@@ -84,7 +86,7 @@ var GNOVEL = GNOVEL || {};
 		var starty = hasParam(this._params, 'y', -190);
 		var startz = hasParam(this._params, 'z', this._page.getChoicesLayer() + 10);
 		var gapY = hasParam(this._params, 'gapY', -40);
-		var gapX = hasParam(this._params, 'gapX', 0);
+		var gapX = hasParam(this._params, 'gapX', 0) - 15;
 		var posArr = hasParam(this._params, 'posArr', null);
 		var charLine = this._params.charLine;
 
@@ -102,12 +104,16 @@ var GNOVEL = GNOVEL || {};
 
 			if (textbox.canvas.textHeight > 23) {
 				if (textbox.canvas.textHeight > 46) {
-					textbox.position.set(x + (i * gapX), y + (i * gapY) + 20, startz);
+					if (textbox.canvas.textHeight > 69) {
+						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 23 + this._tailoffset, startz);
+					}else {
+						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 12 + this._tailoffset, startz);
+					}
 				}else {
-					textbox.position.set(x + (i * gapX), y + (i * gapY) + 5, startz);
+					textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 5 + this._tailoffset, startz);
 				}
 			}else {
-				textbox.position.set(x + (i * gapX), y + (i * gapY), startz);
+				textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + this._tailoffset, startz);
 			}
 
 			textbox.name = "choices";
@@ -126,7 +132,7 @@ var GNOVEL = GNOVEL || {};
 				easing: TWEEN.Easing.Back.Out
 			});
 
-				//fade in choice box
+			//fade in choice box
 			this._page.tweenMat(textbox, {
 				duration: 500,
 				opacity: 1,
@@ -136,15 +142,6 @@ var GNOVEL = GNOVEL || {};
 			this._choicesBox.push(textbox);
 			this._page._addToScene(this._choicesBox[i]);
 		};
-
-		//if location type, show
-		if (this._params.type == "location") {
-			//show UI images to click on
-			var loc1 = this._page.createImage("/static/gnovel/res/textures/house_sprite.png", new THREE.Vector3(100, -100, 200), 100, 100);
-			var loc2 = this._page.createImage("/static/gnovel/res/textures/open-book.jpeg", new THREE.Vector3(-100, -100, 200), 100, 100);
-			this._page._addToScene(loc1);
-			this._page._addToScene(loc2);
-		}
 	};
 
 	/**
