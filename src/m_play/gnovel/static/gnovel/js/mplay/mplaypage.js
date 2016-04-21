@@ -891,7 +891,7 @@ var MPLAY = MPLAY || {};
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
-				duration: 200,
+				duration: params.duration,
 				exception: img._expression
 			};
 
