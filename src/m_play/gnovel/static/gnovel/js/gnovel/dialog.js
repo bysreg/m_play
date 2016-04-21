@@ -284,12 +284,6 @@ var GNOVEL = GNOVEL || {};
 			}
 		}
 
-		var testimg = this._page.createImage(
-				"/static/gnovel/res/textures/blue_box.png",
-				new THREE.Vector3(this._messageText.position.x, this._messageText.position.y, this._messageText.position.z),
-				this._messageText.canvas.width, this._bgHeight);
-		testimg.material.opacity = 0.2;
-		// this._page._addToScene(testimg);
 		this._page._addToScene(this._messageText);
 
 		// if (this._showSpeaker)
