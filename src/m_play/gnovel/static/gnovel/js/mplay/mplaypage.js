@@ -291,7 +291,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._setBlurBgEffect = function(params) {
 		params = params || {};
 
-		if(!this._useEffect)
+		if (!this._useEffect)
 			return;
 
 		var width = this._owner._getWidth();
@@ -472,7 +472,7 @@ var MPLAY = MPLAY || {};
 		this._hardBlurV = 2 / this._owner._getHeight();
 		this._softVignetteOffset = 0.45;
 		this._softVignetteDarkness = 0.8;
-		this._hardVignetteOffset =  0.95;
+		this._hardVignetteOffset = 0.95;
 		this._hardVignetteDarkness = 1.6;
 		this._useEffect = true;
 
@@ -491,12 +491,14 @@ var MPLAY = MPLAY || {};
 	 */
 	MPlayPage.prototype._onUnload = function() {
 		//reset camera look at direction
-		var cameraMove = new GNOVEL.CameraMove(this.getOwner(),this);
+		var cameraMove = new GNOVEL.CameraMove(this.getOwner(), this);
 		cameraMove.resetCamDirection();
 		this._sceneBg.remove(this._pageSceneBg);
 
 		// deblur
-		this._setBlurBgEffect({clear: true});
+		this._setBlurBgEffect({
+			clear: true
+		});
 
 		GNOVEL.Page.prototype._onUnload.call(this);
 	};
@@ -615,14 +617,14 @@ var MPLAY = MPLAY || {};
 			if (!io.isEnabled()) {
 				pageObj._removeFromScene(tripledot);
 
-				if(mouseDownListener) {
+				if (mouseDownListener) {
 					pageObj.getOwner().removeMouseDownListener(mouseDownListener);
 				}
 			}
 			if (io.isEnabled()) {
 				pageObj._addToScene(tripledot);
 
-				if(mouseDownListener) {
+				if (mouseDownListener) {
 					pageObj.getOwner().addMouseDownListener(mouseDownListener);
 				}
 			}
@@ -652,7 +654,8 @@ var MPLAY = MPLAY || {};
 		});
 		var pageObj = this;
 
-		params.onChoiceComplete = function() {
+		var oriOnChoiceComplete = params.onChoiceComplete;
+		var onChoiceComplete = function(resultId) {
 			pageObj._setBlurBgEffect({
 				//clear: true
 				blurH: this._softBlurH,
@@ -661,6 +664,15 @@ var MPLAY = MPLAY || {};
 				vignetteOffset: this._softVignetteOffset,
 			});
 		};
+
+		if (params.onChoiceComplete) {
+			params.onChoiceComplete = function(resultId) {
+				oriOnChoiceComplete(resultId);
+				onChoiceComplete(resultId);
+			};
+		}else{
+			params.onChoiceComplete = onChoiceComplete;
+		}
 
 		var choices = new MPLAY.MPlayChoices(this, choicesArr, responsesArr, this._result, params);
 	};
@@ -711,12 +723,11 @@ var MPLAY = MPLAY || {};
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
 				x = Math.random() <= 0.5 ? left : right;
-				if(x == left){
+				if (x == left) {
 					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 					//params.msgOffsetX = -100;
 					params.bgOffsetX = 20;
-				}
-				else if(x == right){
+				} else if (x == right) {
 					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 				}
 			} else if (chara.getCharPosition() === "right") {
@@ -790,13 +801,12 @@ var MPLAY = MPLAY || {};
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
 				x = Math.random() <= 0.5 ? left : right;
-				if(x === left){
+				if (x === left) {
 					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 					//params.msgOffsetX = -100;
 					params.bubble = "left";
 					params.bgOffsetX = 15;
-				}
-				else{
+				} else {
 					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 					params.bubble = "right";
 					params.bgOffsetX = 0;
@@ -900,7 +910,7 @@ var MPLAY = MPLAY || {};
 			}
 
 			// characterTweenParam.onComplete = function() {
-				//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
+			//	GNOVEL.Page.prototype._show.call(pageObj, img, params);
 			// };
 
 			obj.fadeVisibleImages(this, characterTweenParam);
@@ -1006,7 +1016,7 @@ var MPLAY = MPLAY || {};
 			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 10, this._background3Layer - 100), 1920, 1080);
 			this._background3.scale.set(.90, .85, 1);
 		} else {
-			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer-100), 1920, 1080);
+			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer - 100), 1920, 1080);
 		}
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
