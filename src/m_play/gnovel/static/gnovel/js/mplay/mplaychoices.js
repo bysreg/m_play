@@ -231,12 +231,12 @@ var MPLAY = MPLAY || {};
 				//fade compass in
 				pageObj.tweenMat(compassFront, {
 					easing: TWEEN.Easing.Cubic.Out,
-					duration:1500,
+					duration:1000,
 					opacity: 1,
 				});
 				pageObj.tweenMat(compassBack, {
 					easing: TWEEN.Easing.Cubic.Out,
-					duration:1500,
+					duration:1000,
 					opacity: 1,
 					onComplete: function() {
 
