@@ -7,4 +7,5 @@ urlpatterns = [
 	url(r'^exp2/$', views.exp2, name='exp2'),
 	url(r'^log/$', views.log, name="log"), 
 	url(r'^intro/$', views.intro, name='intro'),
+	url(r'^result/$', views.result, name='result'),
 ]

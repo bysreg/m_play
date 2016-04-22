@@ -50,3 +50,7 @@ def log(request):
 def intro(request):
 	context = {}
 	return render(request, 'gnovel/intro.html', context)
+
+def result(request):
+	context = {}
+	return render(request, 'gnovel/result.html', context)
