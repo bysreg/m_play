@@ -172,15 +172,15 @@ var MPLAY = MPLAY || {};
 			var text = this._choicesBox[i];
 
 			textBg.position.y -= 200;
-			text.position.y -= 200;	
+			text.position.y -= 200;
 
 			page.move(textBg, {
-				y: textBg.position.y + 200, 
-				easing: TWEEN.Easing.Back.Out, 
+				y: textBg.position.y + 200,
+				easing: TWEEN.Easing.Back.Out,
 				duration: 1000});
 			page.move(text, {
-				y:text.position.y + 200, 
-				easing: TWEEN.Easing.Back.Out, 
+				y:text.position.y + 200,
+				easing: TWEEN.Easing.Back.Out,
 				duration: 1000});
 		}
 	};
@@ -217,54 +217,77 @@ var MPLAY = MPLAY || {};
 
 				//display visual notification of integrity choice
 				console.log("They will remember this");
-				var compass = pageObj.createImage("/static/gnovel/res/textures/ui/compass_sm.png", new THREE.Vector3(-400, -250, pageObj._uiLayer - 40), 100, 100);
+				var compassBack = pageObj.createImage("/static/gnovel/res/textures/ui/compass background.png", new THREE.Vector3(-400, -250, pageObj._uiLayer - 40), 150, 150);
+				var compassFront = pageObj.createImage("/static/gnovel/res/textures/ui/compass main.png", new THREE.Vector3(-400, -250, pageObj._uiLayer - 40), 150, 150);
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(0, 0, pageObj._uiLayer - 40), 324, 127.2);
-				compass.material.opacity = 0;
+				compassBack.material.opacity = 0;
+				compassFront.material.opacity = 0;
 
-				//ANIMATE compass
-				/*
-				*		var duration = 100;
-						var rotDest = .3;
-						this._notifIo._img.rotation.z = -.05;
-						this._notifIo._img.rotation.y = -.05;
-						var rotTween = new TWEEN.Tween(this._notifIo._img.rotation)
-							.to({
-								y: .05,
-								z: .05
-							}, duration)
-							.easing(TWEEN.Easing.Linear.None)
-							.yoyo(true)
-							.repeat(Infinity)
-							.onComplete(function() {});
+				pageObj._addToScene(compassBack);
+				pageObj._addToScene(compassFront);
+				var delayFX = 500;
 
-						rotTween.start();
-				*/
-				pageObj._addToScene(compass);
-				var delayFX = 1000;
-
-				pageObj.tweenMat(compass, {
+				//full COMPASS ANIMATION
+				//fade compass in
+				pageObj.tweenMat(compassFront, {
 					easing: TWEEN.Easing.Cubic.Out,
-					duration:500,
+					duration:1000,
+					opacity: 1,
+				});
+				pageObj.tweenMat(compassBack, {
+					easing: TWEEN.Easing.Cubic.Out,
+					duration:1000,
 					opacity: 1,
 					onComplete: function() {
 
-					pageObj.tweenMat(compass, {
-						easing: TWEEN.Easing.Cubic.Out,
-						duration: 800,
-						opacity: 0,
-						opacity2: 0,
-						//chain: true,
-						delay: delayFX,
-						onComplete: function() {
-							pageObj._removeFromScene(compass);
-						},
-					});
-					pageObj.tweenPulse(compass, {
-						x:5, y:5,
-						duration: 1000,
-						delay: delayFX,
-						repeat: false,
-					});
+					//ANIMATE spin compass
+							var duration = 200;
+							var rotDest = .3;
+							var rotTween = new TWEEN.Tween(compassFront.rotation)
+								.to({
+									z: 90*Math.PI/180, //rotates 90 degrees
+								}, duration)
+								.easing(TWEEN.Easing.Linear.None)
+								.repeat(10)
+								.onComplete(function() {
+
+									//fade compass out
+									pageObj.tweenMat(compassFront, {
+										easing: TWEEN.Easing.Cubic.Out,
+										duration: 800,
+										opacity: 0,
+										opacity2: 0,
+										delay: delayFX,
+									});
+									pageObj.tweenMat(compassBack, {
+										easing: TWEEN.Easing.Cubic.Out,
+										duration: 800,
+										opacity: 0,
+										opacity2: 0,
+										delay: delayFX,
+										onComplete: function() {
+											pageObj._removeFromScene(compassBack);
+											pageObj._removeFromScene(compassFront);
+										},
+									});
+									//delay and increase size while fading out
+									pageObj.tweenPulse(compassBack, {
+										x:5, y:5,
+										duration: 1000,
+										delay: delayFX,
+										repeat: false,
+									});
+
+									pageObj.tweenPulse(compassFront, {
+										x:5, y:5,
+										duration: 1000,
+										delay: delayFX,
+										repeat: false,
+									});
+
+								});
+
+							rotTween.start();
 				},
 			});
 			}

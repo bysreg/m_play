@@ -156,13 +156,20 @@ var GNOVEL = GNOVEL || {};
 		var choices = this;
 		//position of dialog based upon speaker
 		var dialogX = this._params.dialogX;
-		var dialogY = this._params.dialogY+200;
+		var dialogY = this._params.dialogY+250;
+
 		var duration = this._params.seconds * 1000 || 1000;
 		var timer = this.timer;
 		var timer2 = this.timer2;
-		var count = 0;
+		//which number response to show
+		var responseCount = 0;
+		//increment for local array
+		var incrementNum = 0;
 		var responseShowing = false;
 
+		/**
+		*Non-visual timer where characters say something
+		*/
 		var mainTimer = new TWEEN.Tween(timer.scale)
 			.to({
 				x: 0,
@@ -176,7 +183,6 @@ var GNOVEL = GNOVEL || {};
 					//move to next text in responses array
 					if(count <= choices._timedResponses.length-1){
 						 if(!responseShowing){
-
 							choices._params.speaker = speaker;
 							choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
 
@@ -209,30 +215,9 @@ var GNOVEL = GNOVEL || {};
 			/*if(timer.scale.x < .3){
 					timer.material.opacity = 1;
 				}*/
-				/*if((timer.scale.x < .5) && responseShowing){
-					if(count>0){
-						// pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
-						// 	opacity: 0,
-						// 	easing: TWEEN.Easing.Cubic.Out,
-						// 	duration: 200,
-						// });
-						// pageObj.tweenMat(choices._responseBox[count-1]._textBg,{
-						// 	opacity: 0,
-						// 	easing: TWEEN.Easing.Cubic.Out,
-						// 	duration: 200,
-						// });
-						//
-						choices._responseBox[count-1]._messageText.material.opacity = 0;
-						choices._responseBox[count-1]._textBg.material.opacity = 0;
-						responseShowing = false;
-
-					}
-				}*/
-
 				if (choices._choosed) {
 					// stop all timers
 					//choices._onChoiceComplete(choices._result.choiceId);
-					shortTimer.stop();
 					mainTimer.stop();
 				}
 			});
@@ -242,93 +227,31 @@ var GNOVEL = GNOVEL || {};
 					x: 0,
 					y: 1,
 					z: 1,
-				}, 2000)
+				}, 3000)
 				.easing(TWEEN.Easing.Linear.None)
 				.onComplete(function() {
-					//if(count>0){
-						choices._responseBox[count]._messageText.material.opacity = 0;
-						choices._responseBox[count]._textBg.material.opacity = 0;
-						responseShowing = false;
-					//}
+					//tween out dialogue box
+					pageObj.tweenPulse(timer,{x:0,y:0,z:0,
+						duration: 200,
+						onComplete: function(){
+							choices._responseBox[count]._messageText.material.opacity = 0;
+							choices._responseBox[count]._textBg.material.opacity = 0;
+							responseShowing = false;
 
-					//increment counter for responses
-					count++;
-					timer.scale.x = 1;
-					//do timer again
-					mainTimer.start();
+						//reset count if at end of timedRsponses array
+						count++;
+						if(count <= choices._timedResponses.length-1){
+						}
+						else {
+							count = 0;
+							choices._responseBox = [];
+						}
+						timer.scale.x = 1;
+						//do timer again
+						mainTimer.start();
+						//increment counter for responses
+					}});
 				});
-
-		/**
-		*Non-visual timer where characters say something
-		*/
-		var shortTimer = new TWEEN.Tween(timer2.scale)
-			.to({
-				x: 0,
-				y: 1,
-				z: 1,
-			}, duration)
-			.easing(TWEEN.Easing.Linear.None)
-			.onUpdate(function() {
-				//timer2.material.opacity = 0;
-				if (choices._choosed) {
-					// do nothing
-					//choices._onChoiceComplete(choices._result.choiceId);
-					//shortTimer.stop();
-				}
-				//if timer almost over, remove previous text box
-				if((timer2.scale.x < .5) && responseShowing){
-					if(count>0){
-						// pageObj.tweenMat(choices._responseBox[count-1]._messageText,{
-						// 	opacity: 0,
-						// 	easing: TWEEN.Easing.Cubic.Out,
-						// 	duration: 200,
-						// });
-						// pageObj.tweenMat(choices._responseBox[count-1]._textBg,{
-						// 	opacity: 0,
-						// 	easing: TWEEN.Easing.Cubic.Out,
-						// 	duration: 200,
-						// });
-						//
-						choices._responseBox[count-1]._messageText.material.opacity = 0;
-						choices._responseBox[count-1]._textBg.material.opacity = 0;
-						responseShowing = false;
-					}
-				}
-			})
-			.onComplete(function() {
-			if (choices._choosed) {
-				// do nothing
-			} else {
-				//move to next text in responses array
-				if(count <= choices._timedResponses.length-1){
-					//
-					choices._params.speaker = speaker;
-					choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
-					//tween in opacity just to make sure message is showing
-					/*pageObj.tweenMat(choices._responseBox[count]._messageText,{
-					 	opacity: 1,
-					 	easing: TWEEN.Easing.Cubic.Out,
-					 	duration: 400,
-					});*/
-
-					responseShowing = true;
-
-					//after the first response displays, then make invisible & move to next response
-					if (count > 0){
-						choices._responseBox[count-1]._messageText.material.opacity = 0;
-						choices._responseBox[count-1]._textBg.material.opacity = 0;
-						//choices._responseBox[count-1]._onComplete();
-						//pageObj._removeFromScene(choices._responseBox[count-1]);
-					}
-					count++;
-					//pageObj._addToScene(timer2);
-					timer2.scale.x = 1;
-					//timer2.material.opacity = 0;
-					//do timer again
-					shortTimer.start();
-				}
-			}
-		});
 
 		mainTimer.onStart(function() {
 			//@FIXME need new sound for timer?

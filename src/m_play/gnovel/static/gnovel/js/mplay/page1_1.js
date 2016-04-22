@@ -28,6 +28,7 @@ var MPLAY = MPLAY || {};
 		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer ), 1920, 1080);
 		//this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
+		this._background_empty.scale.set(.85, .80, 1);
 		this._addToSceneBg(this._background_empty);
 
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
@@ -52,12 +53,7 @@ var MPLAY = MPLAY || {};
 		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
 
 		// variables from scene 1
-		var isWalletWithWaiter;
-		if(catsPhoneStatus == 0) {
-			isWalletWithWaiter = 1;
-		}else{
-			isWalletWithWaiter = 0;
-		}
+		var isWalletWithWaiter = (catsPhoneStatus == 0);
 		var player = this._player;
 
 			o = [
@@ -152,7 +148,7 @@ var MPLAY = MPLAY || {};
 				{type: "nothing", label: "aside1"},
 				{type: "hide", img: ryan},
 				{type: "hide", img: cat},
-				{type: "hide", img: priya},
+				//{type: "hide", img: priya},
 				{type: "show_context", text: "The group leaves...some time passes"},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},

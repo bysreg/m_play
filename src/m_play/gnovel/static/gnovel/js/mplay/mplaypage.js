@@ -691,7 +691,7 @@ var MPLAY = MPLAY || {};
 		params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
 		params.bgOffsetY = 10;
 		params.bgOffsetX = 0;
-		y = -100;
+		y = y || -100;
 		params.speakerOffsetX = -30;
 		params.speakerOffsetY = 10;
 		params.bgWidth = 325;
@@ -712,30 +712,33 @@ var MPLAY = MPLAY || {};
 			chara = MPlayPage._professor;
 		}
 
-		var left = -400;
-		var right = 200;
+		var right = -280;
+		var left = 280;
 		if (chara != null) {
 			if (chara.getCharPosition() === "left") {
 				// console.log("left");
-				x = -100;
+				x = -20;
 				params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
-				params.bgOffsetX = -10;
+				params.bgOffsetX = 10;
 			} else if (chara.getCharPosition() === "center") {
 				// make center box show left or right
 				x = Math.random() <= 0.5 ? left : right;
-				if (x == left) {
-					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
-					//params.msgOffsetX = -100;
-					params.bgOffsetX = 20;
-				} else if (x == right) {
+				if (x === left) {
 					params.bgPath = "/static/gnovel/res/textures/ui/Left BubbleV3.png";
+					//params.msgOffsetX = -100;
+					params.bubble = "left";
+					params.bgOffsetX = 15;
+				} else {
+					params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
+					params.bubble = "right";
+					params.bgOffsetX = 0;
 				}
 			} else if (chara.getCharPosition() === "right") {
 				// console.log("right");
 				x = 100;
 				params.bgPath = "/static/gnovel/res/textures/ui/Right BubbleV3.png";
 				//params.msgOffsetX = -120;
-				params.bgOffsetX = 30;
+				params.bgOffsetX = 15;
 			}
 		}
 		var dialog = GNOVEL.Page.prototype._showTempDialog.call(this, message, x, y, params);
@@ -984,13 +987,17 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype.setupUcBackground = function(foreground) {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/uce background png.png");
+		this._bg.scale.set(.95, .90, 1);
 
-		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		//no longer using middle ground for this scene
+		//this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/uce middleground png.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		//if special foreground for scene, add that instead
 		if (foreground != null) {
 			this._background3 = this.createImage(foreground, new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3.scale.set(.85, .80, 1);
 		} else {
 			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
+			this._background3.scale.set(.85, .80, 1);
 		}
 
 		// testing

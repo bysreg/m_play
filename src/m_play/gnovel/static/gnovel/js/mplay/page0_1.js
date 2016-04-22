@@ -102,6 +102,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends*/
 
+/*
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
@@ -173,7 +174,7 @@ var MPLAY = MPLAY || {};
 			// relationship score <= 0
 			{type: "dialog", speaker: this._ryan, text: "Computer Science... Good stuff.  My friend Priya is in the class too.", label: "not_intro_priya"},
 			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
-
+			*/
 			// see a phone on the table.
 			/**
 			* FIXME angle camera towards phone
