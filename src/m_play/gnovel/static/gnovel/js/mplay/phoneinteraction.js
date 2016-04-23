@@ -11,11 +11,13 @@ var MPLAY = MPLAY || {};
 		// never save the page as this._page, because phone interaction will be usec across pages
 
 		this._z = 160;
-		this._emailbg = page.createImage("/static/gnovel/res/textures/ui/phone_inbox.png", new THREE.Vector3(-1, 11, 1), 375, 600);
-		this._textbg = page.createImage("/static/gnovel/res/textures/ui/texts.jpg", new THREE.Vector3(-1, 11, 1), 375, 600);
+		this._emailbg = page.createImage("/static/gnovel/res/textures/ui/phone_inbox.png", new THREE.Vector3(-1, 8, 1), 375, 600);
+		this._textbg = page.createImage("/static/gnovel/res/textures/ui/phone_text.png", new THREE.Vector3(-2, 8, 1), 377, 602);
 		this._phonecase = page.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, this._z), 419, 770);
-		this._syllabus = page.createImage("/static/gnovel/res/textures/inGame_Syllabus.png", new THREE.Vector3(0, 0, this._z + 20), 519, 600);
+		this._syllabus = page.createImage("/static/gnovel/res/textures/inGame_Syllabus.png", new THREE.Vector3(0, -20, this._z + 20), 540, 610);
 		this._syllabus.material.opacity = 0;
+		this._bgCover = page.createImage("/static/gnovel/res/textures/ui/BG_filter_syllabus.png", new THREE.Vector3(0, -20, this._z + 16), 1220, 740);
+		this._bgCover.material.opacity = 0;
 		this._phoneButton = null;
 		this._page = page;
 
@@ -87,19 +89,25 @@ var MPLAY = MPLAY || {};
 		if(from == "Prof. Sweeney")
 		{
 			var syllabus = this._syllabus;
+			var bgCover = this._bgCover;
 			this._phoneButton = page.createInteractableObject("/static/gnovel/res/textures/ui/phone_button.png",
 			{type: "", x: -1, y:-225, z: 12, width : 325, height : 80, opacity: 1, onClick: function(io) {
 
 				//onInteractableObjectClicked(io);
 				//show sylabus
 				page._addToScene(syllabus);
+				page._addToScene(bgCover);
 				page.tweenMat(syllabus, {
 					opacity: 1,
 					easing: TWEEN.Easing.Cubic.Out,
 					duration: 500,
-					onComplete: function() {
-					},
-			});
+				});
+
+				page.tweenMat(bgCover, {
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 500,
+				});
 
 			}});
 			this._container.add(this._phoneButton._img);
@@ -146,9 +154,9 @@ var MPLAY = MPLAY || {};
 
 		var peopleText = page.createTextBox(peopleStr, {
 			align: "center",
-			font: "20px Arial"
+			font: "30px Arial"
 		});
-		peopleText.position.set(0, 270, 10);
+		peopleText.position.set(0, 230, 10);
 		this._container.add(peopleText);
 
 		this._phonecase.position.setY(-900);
@@ -195,6 +203,16 @@ var MPLAY = MPLAY || {};
 				onComplete: function() {
 					// remove this io
 					page._removeFromScene(this._syllabus);
+				}
+			});
+
+			page.tweenMat(this._bgCover, {
+				opacity: 0,
+				easing: TWEEN.Easing.Cubic.Out,
+				duration: 500,
+				onComplete: function() {
+					// remove this io
+					page._removeFromScene(this._bgCover);
 				}
 			});
 	}
@@ -246,13 +264,22 @@ var MPLAY = MPLAY || {};
 		this._mouse.y = event.clientY;
 		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
-		//update picking ray with camera and mouse pos
-		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
-
-		var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
-		//if not pressing the button, then make phone go away
-		if(intersects.length <= 0)
+		if(this._phoneButton!=null)
 		{
+			//update picking ray with camera and mouse pos
+			this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+			var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
+			//if not pressing the button, then make phone go away
+			if(intersects.length <= 0)
+			{
+				if (this._onCompleteF !== null) {
+					this._onCompleteF();
+					this._onCompleteF = null;
+				}
+			}
+		}
+		else{
 			if (this._onCompleteF !== null) {
 				this._onCompleteF();
 				this._onCompleteF = null;
@@ -268,20 +295,39 @@ var MPLAY = MPLAY || {};
 
 		//update picking ray with camera and mouse pos
 		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
-
-		var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
-		//only check intersections if buttons exist on phone
-				if (intersects.length > 0) {
-						//this._hoveredObj = intersects[0].object;
-						this._phoneButton.currentHex = this._phoneButton._img.material.color.getHex();
-						this._phoneButton._img.material.color.setHex(0x5DC8FC);
+		//only check intersection for phone button right now
+		if(this._phoneButton!=null)
+		{
+			var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
+			//only check intersections if buttons exist on phone
+					if (intersects.length > 0) {
+							//this._hoveredObj = intersects[0].object;
+							this._phoneButton.currentHex = this._phoneButton._img.material.color.getHex();
+							this._phoneButton._img.material.color.setHex(0xD9DADD);
+							this._tweenHover = this._page.tweenPulse(this._phoneButton._img, {
+								x: 1.01,
+								y: 1.01,
+								z: 1,
+								duration: 100,
+								repeat: false
+							});
+						}
+					else {
+						//reset hover effect, and set back to normal
+						if (this._phoneButton.currentHex!=null) {
+							 this._phoneButton._img.material.color.setHex(this._phoneButton.baseHex);
+							 this._tweenHover.stop();
+							 //TWEEN.Tween.removeTweens(this._hoveredChoice);
+							 this._page.tweenPulse(this._phoneButton._img, {
+								 x: 1,
+								 y: 1,
+								 z: 1,
+								 duration: 100,
+								 repeat: false
+							 })
+						 }
 					}
-				else {
-					//reset hover effect, and set back to normal
-					if (this._phoneButton.currentHex!=null) {
-						 this._phoneButton._img.material.color.setHex(this._phoneButton.baseHex);
-					 }
-				}
+			}
 	}
 
 	PhoneInteraction.prototype._getPicPath = function(name) {
