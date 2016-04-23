@@ -11,15 +11,22 @@ var MPLAY = MPLAY || {};
 		// never save the page as this._page, because phone interaction will be usec across pages
 
 		this._z = 160;
-		this._emailbg = page.createImage("/static/gnovel/res/textures/ui/email-bg.jpg", new THREE.Vector3(-1, 11, 1), 375, 600);
+		this._emailbg = page.createImage("/static/gnovel/res/textures/ui/phone_inbox.png", new THREE.Vector3(-1, 11, 1), 375, 600);
 		this._textbg = page.createImage("/static/gnovel/res/textures/ui/texts.jpg", new THREE.Vector3(-1, 11, 1), 375, 600);
 		this._phonecase = page.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, this._z), 419, 770);
+		this._syllabus = page.createImage("/static/gnovel/res/textures/inGame_Syllabus.png", new THREE.Vector3(0, 0, this._z + 20), 519, 600);
+		this._syllabus.material.opacity = 0;
+		this._phoneButton = null;
+		this._page = page;
 
 		this._container = new THREE.Object3D();
 		this._container.name = "container";
 		this._mouseDownListener = null;
+		this._mouseMoveListener = null;
+		this._mouse = new THREE.Vector2();
 		this._onCompleteF = null;
 		this._layout = null;
+		this._attachEmail = false;
 
 		this._texts = [];
 
@@ -28,6 +35,10 @@ var MPLAY = MPLAY || {};
 		var self = this;
 		this._mouseDownListener = function(event) {
 			self._onMouseDown(event);
+		};
+
+		this._mouseMoveListener = function(event) {
+			self._onMouseMove(event);
 		};
 	};
 
@@ -41,7 +52,8 @@ var MPLAY = MPLAY || {};
 		}
 
 		page.getOwner().addMouseDownListener(this._mouseDownListener);
-	};
+		page.getOwner().addMouseMoveListener(this._mouseMoveListener);
+		};
 
 	PhoneInteraction.prototype._showEmail = function(page, subject, from, email, text, onCompleteF) {
 		this._onCompleteF = onCompleteF;
@@ -57,22 +69,46 @@ var MPLAY = MPLAY || {};
 			align: "left",
 			font: "bold 20px Arial",
 		});
-		fromText.position.set(-40, 180, 10);
+		fromText.position.set(-40, 160, 10);
 
 		var emailText = page.createTextBox(email, {
 			align: "left",
 			font: "15px Arial",
 		});
-		emailText.position.set(-40, 160, 10);
+		emailText.position.set(-40, 140, 10);
 
 		var subjectText = page.createTextBox(subject, {
 			align: "left",
 			font: "bold 20px Arial",
 		});
-		subjectText.position.set(-180, 260, 10);
+		subjectText.position.set(-180, 230, 10);
+
+		//if email from sweeney, add attachment
+		if(from == "Prof. Sweeney")
+		{
+			var syllabus = this._syllabus;
+			this._phoneButton = page.createInteractableObject("/static/gnovel/res/textures/ui/phone_button.png",
+			{type: "", x: -1, y:-225, z: 12, width : 325, height : 80, opacity: 1, onClick: function(io) {
+
+				//onInteractableObjectClicked(io);
+				//show sylabus
+				page._addToScene(syllabus);
+				page.tweenMat(syllabus, {
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 500,
+					onComplete: function() {
+					},
+			});
+
+			}});
+			this._container.add(this._phoneButton._img);
+			this._phoneButton.baseHex = this._phoneButton._img.material.color.getHex();
+	};
+
 
 		// change this to the sender's picture
-		var speakerPic = page.createImage(this._getPicPath(from), new THREE.Vector3(-110, 160, 7), 100, 100);
+		var speakerPic = page.createImage(this._getPicPath(from), new THREE.Vector3(-110, 145, 7), 100, 100);
 
 		this._container.add(this._emailbg);
 		this._container.add(messageText);
@@ -80,6 +116,7 @@ var MPLAY = MPLAY || {};
 		this._container.add(subjectText);
 		this._container.add(fromText);
 		this._container.add(speakerPic);
+
 
 		this._phonecase.position.setY(-900);
 		page._addToScene(this._phonecase);
@@ -140,14 +177,27 @@ var MPLAY = MPLAY || {};
 		if (this._layout == "email") {
 			this._hideEmail(page, params.onComplete);
 		} else if (this._layout == "text") {
-			// this._hideText(page, params.onComplete);	
+			// this._hideText(page, params.onComplete);
 			this._hideEmail(page, params.onComplete);
 		}
 	};
 
 	PhoneInteraction.prototype._hideEmail = function(page, onCompleteF) {
 		var self = this;
+		//if phonebutton is showing
+		if(this._phoneButton){
 
+			//fade out syllabus and remove
+			page.tweenMat(this._syllabus, {
+				opacity: 0,
+				easing: TWEEN.Easing.Cubic.Out,
+				duration: 500,
+				onComplete: function() {
+					// remove this io
+					page._removeFromScene(this._syllabus);
+				}
+			});
+	}
 		page.move(this._phonecase, {
 			y: -900,
 			easing: TWEEN.Easing.Back.In,
@@ -192,12 +242,47 @@ var MPLAY = MPLAY || {};
 
 	PhoneInteraction.prototype._onMouseDown = function(event) {
 		event.preventDefault();
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
 
-		if (this._onCompleteF !== null) {
-			this._onCompleteF();
-			this._onCompleteF = null;
+		//update picking ray with camera and mouse pos
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+		var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
+		//if not pressing the button, then make phone go away
+		if(intersects.length <= 0)
+		{
+			if (this._onCompleteF !== null) {
+				this._onCompleteF();
+				this._onCompleteF = null;
+			}
 		}
 	};
+
+	PhoneInteraction.prototype._onMouseMove = function(event) {
+		event.preventDefault();
+		this._mouse.x = event.clientX;
+		this._mouse.y = event.clientY;
+		this._page._owner.calcMousePositionRelativeToCanvas(this._mouse);
+
+		//update picking ray with camera and mouse pos
+		this._page._owner._raycaster.setFromCamera(this._mouse, this._page._owner.getCamera());
+
+		var intersects = this._page._owner._raycaster.intersectObjects([this._phoneButton._img], true);
+		//only check intersections if buttons exist on phone
+				if (intersects.length > 0) {
+						//this._hoveredObj = intersects[0].object;
+						this._phoneButton.currentHex = this._phoneButton._img.material.color.getHex();
+						this._phoneButton._img.material.color.setHex(0x5DC8FC);
+					}
+				else {
+					//reset hover effect, and set back to normal
+					if (this._phoneButton.currentHex!=null) {
+						 this._phoneButton._img.material.color.setHex(this._phoneButton.baseHex);
+					 }
+				}
+	}
 
 	PhoneInteraction.prototype._getPicPath = function(name) {
 		if (name === "Ryan") {
@@ -227,7 +312,7 @@ var MPLAY = MPLAY || {};
 			font: "15px Arial",
 			fillstyle: "#ECECEC"
 		});
-		// var textHeight = messageText.canvas.textHeight;		
+		// var textHeight = messageText.canvas.textHeight;
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
 
@@ -257,7 +342,7 @@ var MPLAY = MPLAY || {};
 			}
 		});
 
-		// if there is already texts, move all texts up 		
+		// if there is already texts, move all texts up
 		for (var i = 0; i < this._texts.length; i++) {
 			var cury = this._texts[i].position.y;
 			var desty = cury + messageBgHeight + 20;
