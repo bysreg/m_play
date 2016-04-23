@@ -15,6 +15,7 @@
 		<script src="{% static 'gnovel/res/result/js/modernizr.custom.js' %}"></script>
 	</head>
 	<body>
+
 		<div class="container">
 			<header class="clearfix">
 				<span>Your Results</span>
@@ -31,148 +32,120 @@
 						<div class="frame_backimage">
 								<div class="cbp_tmlabel">
 									<!-- <h2>Lorem Ipsum</h2> -->
-									<div class="choiceText">Ryan ask for your home work.</div>
-									<div class="responseText">You chose to give your homework to Ryan.</div>
+									<div class="choiceText">{{phone_title}}</div>
+									<div class="responseText">{{phone_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
 										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
 											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
-											<img src="{% static 'gnovel/res/result/R-5-01.png' %}" height="100px" width = "100px">
+											<img src="{{phone_rel_ryan_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 25px">You relationship with Ryan increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 25px">{{phone_rel_ryan}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
-											<img src="{% static 'gnovel/res/result/P-3-01.png' %}" height="100px" width = "100px">
+											<img src="{{phone_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">You relationship with Priya increased.</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{phone_rel_priya}}</div>										
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
-											<img src="{% static 'gnovel/res/result/C-1-01.png' %}" height="100px" width = "100px">
+											<img src="{{phone_rel_cat_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 160px">You relationship with Cat increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{phone_rel_cat}}</div>
 									</div>
 									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">Turns out this was against the academic code for the class.</div>
-									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">Was there a way to help Ryan without violating the code?</div>
+									<div class="resultText" style="position: relative; top: 350px">{{phone_resolution}}</div>
+									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{phone_question}}</div>
 								</div>
 								<div class="frameTop"></div>
 						</div>
 						<div class="frame_backimage">
 								<div class="cbp_tmlabel">
 									<!-- <h2>Lorem Ipsum</h2> -->
-									<div class="choiceText">Ryan ask for your home work.</div>
-									<div class="responseText">You chose to give your homework to Ryan.</div>
+									<div class="choiceText">{{unauthorized_assistance_title}}</div>
+									<div class="responseText">{{unauthorized_assistance_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
 										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
 											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
-											<img src="{% static 'gnovel/res/result/R-5-01.png' %}" height="100px" width = "100px">
+											<img src="{{unauthorized_assistance_rel_ryan_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 25px">You relationship with Ryan increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 25px">{{unauthorized_assistance_rel_ryan}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
-											<img src="{% static 'gnovel/res/result/P-3-01.png' %}" height="100px" width = "100px">
+											<img src="{{unauthorized_assistance_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">You relationship with Priya increased.</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{unauthorized_assistance_rel_priya}}</div>										
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
-											<img src="{% static 'gnovel/res/result/C-1-01.png' %}" height="100px" width = "100px">
+											<img src="{{unauthorized_assistance_rel_cat_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 160px">You relationship with Cat increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{unauthorized_assistance_rel_cat}}</div>
 									</div>
 									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">Turns out this was against the academic code for the class.</div>
-									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">Was there a way to help Ryan without violating the code?</div>
+									<div class="resultText" style="position: relative; top: 350px">{{unauthorized_assistance_resolution}}</div>
+									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{unauthorized_assistance_question}}</div>
 								</div>
 							    <div class="frameTop"></div>
 						</div>
 						<div class="frame_backimage">
 								<div class="cbp_tmlabel">
 									<!-- <h2>Lorem Ipsum</h2> -->
-									<div class="choiceText">Ryan ask for your home work.</div>
-									<div class="responseText">You chose to give your homework to Ryan.</div>
+									<div class="choiceText">{{plagiarism_title}}</div>
+									<div class="responseText">{{plagiarism_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
 										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
 											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
-											<img src="{% static 'gnovel/res/result/R-5-01.png' %}" height="100px" width = "100px">
+											<img src="{{plagiarism_rel_ryan_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 25px">You relationship with Ryan increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 25px">{{plagiarism_rel_ryan}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
-											<img src="{% static 'gnovel/res/result/P-3-01.png' %}" height="100px" width = "100px">
+											<img src="{{plagiarism_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">You relationship with Priya increased.</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{plagiarism_rel_priya}}</div>										
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
-											<img src="{% static 'gnovel/res/result/C-1-01.png' %}" height="100px" width = "100px">
+											<img src="{{plagiarism_rel_cat_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 160px">You relationship with Cat increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{plagiarism_rel_cat}}</div>
 									</div>
 									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">Turns out this was against the academic code for the class.</div>
-									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">Was there a way to help Ryan without violating the code?</div>
+									<div class="resultText" style="position: relative; top: 350px">{{plagiarism_resolution}}</div>
+									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{plagiarism_question}}</div>
 								</div>
 								<div class="frameTop"></div>
 						</div>
 						<div class="frame_backimage">
 								<div class="cbp_tmlabel">
 									<!-- <h2>Lorem Ipsum</h2> -->
-									<div class="choiceText">Ryan ask for your home work.</div>
-									<div class="responseText">You chose to give your homework to Ryan.</div>
+									<div class="choiceText">{{using_test_title}}</div>
+									<div class="responseText">{{using_test_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
 										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
 											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
-											<img src="{% static 'gnovel/res/result/R-5-01.png' %}" height="100px" width = "100px">
+											<img src="{{using_test_rel_ryan_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 25px">You relationship with Ryan increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 25px">{{using_test_rel_ryan}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
-											<img src="{% static 'gnovel/res/result/P-3-01.png' %}" height="100px" width = "100px">
+											<img src="{{using_test_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">You relationship with Priya increased.</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{using_test_rel_priya}}</div>										
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
-											<img src="{% static 'gnovel/res/result/C-1-01.png' %}" height="100px" width = "100px">
+											<img src="{{using_test_rel_cat_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 160px">You relationship with Cat increased.</div>
+										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{using_test_rel_cat}}</div>
 									</div>
 									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">Turns out this was against the academic code for the class.</div>
-									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">Was there a way to help Ryan without violating the code?</div>
+									<div class="resultText" style="position: relative; top: 350px">{{using_test_resolution}}</div>
+									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{using_test_question}}</div>
 								</div>
 								<div class="frameTop"></div>
 						</div>
-						<div class="frame_backimage">
-								<div class="cbp_tmlabel">
-									<!-- <h2>Lorem Ipsum</h2> -->
-									<div class="choiceText">Ryan ask for your home work.</div>
-									<div class="responseText">You chose to give your homework to Ryan.</div>
-									<div class="scene1">
-										<div class="bgImage"></div>
-										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
-											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
-										</div>
-										<div style="height:100px; width:100px; position:absolute;left:500px">
-											<img src="{% static 'gnovel/res/result/R-5-01.png' %}" height="100px" width = "100px">
-										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 25px">You relationship with Ryan increased.</div>
-										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
-											<img src="{% static 'gnovel/res/result/P-3-01.png' %}" height="100px" width = "100px">
-										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">You relationship with Priya increased.</div>										
-										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
-											<img src="{% static 'gnovel/res/result/C-1-01.png' %}" height="100px" width = "100px">
-										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 160px">You relationship with Cat increased.</div>
-									</div>
-									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">Turns out this was against the academic code for the class.</div>
-									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">Was there a way to help Ryan without violating the code?</div>
-								</div>
-								<div class="frameTop"></div>
-						</div>
+						
 					</li>
 				</ul>
 				

@@ -1004,7 +1004,7 @@ var MPLAY = MPLAY || {};
 		this._bg.name = "UCUCUCUCUC";
 
 		this._addToSceneBg(this._bg);
-		this._addToSceneBg(this._background2);
+		//this._addToSceneBg(this._background2);
 		this._addToSceneBg(this._background3);
 	};
 
