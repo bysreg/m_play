@@ -21,8 +21,14 @@ var MPLAY = MPLAY || {};
 	 */
 	Page8_2.prototype._onLoad = function() {
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
+		var pageObj = this;
 
 		this.setupOfficeBackground();
+		//new middle ground
+		this._middleground_empty = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._middleground_empty.material.opacity = 0;
+		this._addToSceneBg(this._middleground_empty);
+
 	};
 
 	Page8_2.prototype._createFlowElements = function() {
@@ -32,85 +38,111 @@ var MPLAY = MPLAY || {};
 		var professor = "%" + this._professor;
 		var player = this._player;
 		var closephone = "%" + this._closephone;
+		var middleground = this._middleground_empty;
 
 		var o = null;
 
 		o = [
 			{type: "show_context", text: "A few days after the test, Professor Sweeny calls you and Ryan to his office"},
+			{type: "custom", func: function(pageObj){
+				pageObj.tweenMat(middleground,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				pageObj.tweenMat(pageObj._background2,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background2);
+					},
+				});
+			}},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "I noticed a very strange mistake that only you two made on the take home exam.  You see, last year there was an error on one of the prompts."},
 
-			// {type: "choices", choices : [
-			// 	{text: "I can explain-"},
-			// 	{text: "But Professor-"},
-			// 	],
-			// seconds: 5},
-
+			{type: "choices",
+			choices : [
+				{text: "What are you implying professor?"},
+				{text: "Yeah, so?"}],
+			},
 
 			{type: "dialog", speaker: this._professor, text: "Now, I know that wasn't the case on this year's exam.  Can you both explain how you made last year's mistake on this year's exam?"},
 
-			// {type: "choices", choices : [
-			// 	{text: "You see-"},
-			// 	{text: "We just-"},
-			// 	],
-			// seconds: 5},
+			{type: "choices", choices : [
+				{text: "Are you accusing us of cheating?", go:"#cheating?"},
+				{text: "I'm not sure professor.", go:"#policy"},
+				{text: "Ryan received study material from last semester.", go:"#material"}],
+				seconds: 5,
+				responses: [{text:this._player + "?"}, {text:""}],
+				speaker: this._professor},
 
+			{type: "dialog", speaker: this._professor, label:"cheating?", text:"I'm not accusing you two of anything.  I just want your thoughts but you should know..."},
+			{type: "jump", condition: true, goTrue: "#policy", goFalse: "#policy"},
 
+			{type: "dialog", speaker: this._professor, label:"material", text:"From last semester you say.  That is concerning."},
+			{type: "jump", condition: true, goTrue: "#policy", goFalse: "#policy"},
+
+			{type: "nothing", label:"policy"},
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
+			{type: "show", img: professor, position: "center"},
 			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},
 			{type: "dialog", speaker: this._professor, text: "'As I grow older, I pay less attention to what men say.  I just watch what they do.'"},
 			{type: "dialog", speaker: this._professor, text: "Ryan, " + this._player + ", please explain what happened."},
+
+			{type: "choices", choices : [
+				{text: "Ryan suggested we use last year's test to study.", go:"#lastyear"},
+				{text: "We used some materials from last semester to study.", go:"#lastyear"},
+				{text: "Nothing happened.  We studied the same way as everyone else.", go:"#lie"}],
+			},
+
+			{type: "dialog", label:"lie"},
+			{type: "show", img: professor, expression: "sad", position: "center"},
+			{type: "dialog", speaker: this._professor, text: "Okay.  Are you sure there is nothing you want to tell me?"},
+			{type: "choices", choices : [
+				{text: "No, there's nothing.", go:"#lie2"},
+				{text: "Well, we did use some materials from last semester to study.", go:"#lastyear"}],
+			},
+
+			{type: "nothing", label:"lastyear"},
+			{type: "show", img: professor, expression: "sad", position: "center"},
+			{type: "dialog", speaker: this._professor, text: "Are you aware that it's against my policy to use previous semester work?"},
+			{type: "dialog", speaker: this._professor, text: "I explicitly wrote it in the course syllabus"},
+
+			{type: "choices", choices : [
+				{text: "I wasn't aware it was against course policy.", go:"#unaware"},
+				{text: "We were feeling pressure from our low project grade.", go:"#pressure"},
+				{text: "It was Ryan's suggestion, I just looked briefly.", go:"#unaware"}],
+			},
+
+			{type: "nothing", label:"unaware"},
+			{type: "show", img: professor, expression: "sad", position: "center"},
+			{type: "dialog", speaker: this._professor, text: "If you were unsure about what was allowed or not, you should have asked."},
+			{type: "dialog", speaker: this._professor, text: "But it's too late for that now.  I'll have to take action about this violation."},
+			{type: "jump", condition: true, goTrue: "#leave", goFalse: "#leave"},
+
+			{type: "nothing", label:"pressure"},
+			{type: "show", img: professor, position: "center"},
+			{type: "dialog", speaker: this._professor, text: "Being that you two are seniors, I understand the importance of doign well this semester."},
+			{type: "show", img: professor, expression: "sad", position: "center"},
+			{type: "dialog", speaker: this._professor, text: "Nevertheless, doing something against policy will hurt you more than a bad grade."},
+			{type: "jump", condition: true, goTrue: "#leave", goFalse: "#leave"},
+
+			{type:"nothing", label:"lie2"},
+			{type: "dialog", speaker: this._professor, text: "Okay, well thank you."},
+			{type: "jump", condition: true, goTrue: "#leave", goFalse: "#leave"},
+
+			{type:"nothing", label:"leave"},
+			{type: "dialog", speaker: this._professor, text: "I've heard all that I've needed from you two."},
+			{type: "dialog", speaker: this._professor, text: this._player + ", Ryan, I will be notifying you on what will happen next."},
+
 			{type: "hide", img: this._professor},
 
 			{type: "nothing", label: "email"},
-			{type: "show_phone_notif"},
+			{type: "goto", page: "scene 9.c.a"},
 
-			// phone email exchange begins
-			{type: "open_phone", layout:"email", subject: "Academic Violation", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "After much deliberation, I have decided to address your violation of the University’s Policy on Academic Integrity with the following action: As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the take home exam, which will be different from the exam previously provided this semester. As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  I will be formally advancing this violation to the Division of Student Affairs for additional follow up.  Know that if I am made aware of an additional violation in this course, I will be reporting that as well.  There is no statute of limitations in reporting a violation.  Please take this as a learning experience to reflect on your actions.  -Prof. Sweeney"},
-			{type: "close_phone"},
-
-			{type: "show_context", text: "You receive a text from Ryan"},
-
-
-			{type: "custom", func: function(page){
-				return page.getRelationshipManager().getRelationship("Ryan");
-			}, label: "ryanRelationshipScore1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
-
-			{type: "nothing", label: "pos-ryan1"},
-			// phone exchange begins
-			{type: "open_phone", layout:"text", people: [this._ryan]},
-			{type: "add_phone_textbox",
-				speaker: this._ryan,
-				text: "Woo!!  I got a C, like you. Happy it turned out ok for us, Sweeney definitely cut us a break on that final."},
-			{type: "add_phone_textbox",
-				speaker: this._ryan,
-				text: "He could have failed us. Sorry I dragged you into this. Sucks about that violation though."},
-			{type: "close_phone"},
-			{type: "goto", page: "scene 10.a"},
-
-			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
-
-			{type: "nothing", label: "zero-ryan1"},
-			// phone exchange begins
-			{type: "open_phone", layout:"text", people: [this._ryan]},
-			{type: "add_phone_textbox",
-				speaker: this._ryan,
-				text: "Did you pass?  I got a C, like you.  Sweeney cut us a break… I found out that we could have failed for that.  Sucks about the violation."},
-			{type: "close_phone"},
-			{type: "goto", page: "scene 10.a"},
-
-			{type: "nothing", label: "neg-ryan1"},
-			// phone exchange begins
-			{type: "open_phone", layout:"text", people: [this._ryan]},
-			{type: "add_phone_textbox",
-				speaker: this._ryan,
-				text: "Same as you – got a C.  Sucks about that violation."},
-			{type: "close_phone"},
-			{type: "goto", page: "scene 10.a"},
 
 			];
 

@@ -64,6 +64,11 @@ var MPLAY = MPLAY || {};
 		this._background_empty.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_empty);
 
+		this._background_noBooks = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground_empty.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
+		this._background_noBooks.scale.set(.90,.85,1);
+		this._background_noBooks.material.opacity = 0;
+		pageObj._addToSceneBg(this._background_noBooks);
+
 		var onInteractableObjectClicked = function(io) {
 			// disable interactable object
 			pageObj._io1.setEnable(false);
@@ -93,7 +98,7 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._background3, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._background3);
 						//background_priya.material.opacity = 1;
@@ -126,7 +131,7 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._background3, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._background3);
 						//background_ryan.material.opacity = 1;
@@ -160,6 +165,7 @@ var MPLAY = MPLAY || {};
 		var player = this._player;
 		var transitionBg = "%" + this._transitionBg;
 		var background = this._background_empty;
+		var backgroundNoBooks = this._background_noBooks;
 		var o = null;
 
 		o = [
@@ -332,6 +338,21 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
+			{type: "custom", func: function(page){
+				page.tweenMat(backgroundNoBooks,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._background3);
+					},
+				});
+			}},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
@@ -441,9 +462,20 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore2"},
 				//remove priya bg and replace
-				{type: "custom", func: function(pageObj){
-					background.material.opacity = 1;
-					pageObj._removeFromSceneBg(pageObj._background3);
+				{type: "custom", func: function(page){
+					page.tweenMat(background,{
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 200,
+					});
+					page.tweenMat(page._background3,{
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							page._removeFromSceneBg(page._background3);
+						},
+					});
 				}},
 				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
 
@@ -497,9 +529,20 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore3"},
 				//remove ryan bg and replace
-				{type: "custom", func: function(pageObj){
-					background.material.opacity = 1;
-					pageObj._removeFromSceneBg(pageObj._background3);
+				{type: "custom", func: function(page){
+					page.tweenMat(background,{
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 200,
+					});
+					page.tweenMat(page._background3,{
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							page._removeFromSceneBg(page._background3);
+						},
+					});
 				}},
 				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
 

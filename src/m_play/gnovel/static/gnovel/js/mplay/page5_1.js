@@ -130,8 +130,19 @@ var MPLAY = MPLAY || {};
 		var common = [
 			//switch out background with no scene characters
 			{type: "custom", func: function(pageObj){
-				background.material.opacity = 1;
-				pageObj._removeFromSceneBg(pageObj._background3);
+				pageObj.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				pageObj.tweenMat(pageObj._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background3);
+					},
+				});
 			}},
 			/*{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},

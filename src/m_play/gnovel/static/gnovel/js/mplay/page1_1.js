@@ -25,7 +25,7 @@ var MPLAY = MPLAY || {};
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/uc foreground with characters.png";
 		this.setupUcBackground(foregroundImg);
 
-		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer ), 1920, 1080);
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer-1), 1920, 1080);
 		//this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		this._background_empty.scale.set(.85, .80, 1);
@@ -62,8 +62,19 @@ var MPLAY = MPLAY || {};
 				{type: "show_context", text: "Right after class, you meet up with your study group in the CUC.", waitUntilShown: true},
 				//switch foreground with empty foreground
 					{type: "custom", func: function(page){
-						background.material.opacity = 1;
-						page._removeFromSceneBg(page._background3);
+						page.tweenMat(background,{
+							opacity: 1,
+							easing: TWEEN.Easing.Cubic.Out,
+							duration: 200,
+						});
+						page.tweenMat(page._background3,{
+							opacity: 0,
+							easing: TWEEN.Easing.Cubic.Out,
+							duration: 800,
+							onComplete: function() {
+								page._removeFromSceneBg(page._background3);
+							},
+						});
 					}},
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
 				/*{type: "custom", func: function(page) {

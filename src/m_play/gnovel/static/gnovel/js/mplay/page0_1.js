@@ -28,7 +28,7 @@ var MPLAY = MPLAY || {};
 		var background_ryan = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
 		this.setupBarBackground(background_ryan);
 
-		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._background3Layer - 105), 1920, 1080);
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._backgroundLayer-1), 1920, 1080);
 		//this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		this._addToSceneBg(this._background_empty);
@@ -36,6 +36,7 @@ var MPLAY = MPLAY || {};
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -60, this.getBackgroundLayer()+10), 100, 25);
+		this._addToScene(this._catsphoneImg);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -75,7 +76,7 @@ var MPLAY = MPLAY || {};
 			// need a flow here to show a buzzing phone before choices
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 
-			{type: "show", img: catsphone, waitUntilShown:false},
+			//{type: "show", img: catsphone, waitUntilShown:false},
 			/*{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Message");
@@ -108,8 +109,20 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
 			{type: "custom", func: function(page){
-				background.material.opacity = 1;
-				page._removeFromSceneBg(page._background3);
+				//background.material.opacity = 1;
+				page.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._bg,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._bg);
+					},
+				});
 			}},
 			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},

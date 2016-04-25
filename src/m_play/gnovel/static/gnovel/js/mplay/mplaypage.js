@@ -893,7 +893,7 @@ var MPLAY = MPLAY || {};
 		// console.log("show something");
 
 		//duration for fade in of next character
-		params.duration = 200;
+		params.duration = 300;
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {
