@@ -159,6 +159,9 @@ var GNOVEL = GNOVEL || {};
 					{id: "Uc-steps", src: "bgnoises-uc-steps.ogg"},
 					{id: "Uc-womantalking", src: "bgnoises-uc-womantalking.ogg"},
 
+					// ed
+					{id: "Ed-music-happy", src: "ed-music-happy.ogg"},
+					{id: "Ed-music-bad", src: "ed-music-bad.ogg"},
 
 		];
 		this._soundManager = createjs.Sound;
