@@ -111,7 +111,7 @@ var MPLAY = MPLAY || {};
 				background.material.opacity = 1;
 				page._removeFromSceneBg(page._background3);
 			}},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",
 				choices :
@@ -131,7 +131,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :

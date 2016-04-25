@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Might help, what do you think?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
@@ -72,7 +72,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
@@ -82,7 +82,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "So my brother took this course last year, and gave me his stuff from the class.  "},
 			{type: "dialog", speaker: this._ryan, text: "Anyway, here's last year's exam.  It's not graded, but it's a blank copy of the actual exam.  I think we should study with it."},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},

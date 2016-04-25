@@ -41,7 +41,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Priya");
 			// }},
-			{type: "play", audio: "Heyfriend-Priya"},
+			// {type: "play", audio: "Heyfriend-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great.  Congrats!"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -49,7 +49,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Priya");
 			// }},
-			{type: "play", audio: "Hey-Priya"},
+			// {type: "play", audio: "Hey-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

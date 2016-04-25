@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Ryan");
 			// }},
-			{type: "play", audio: "Heyfriend-Ryan"},
+			// {type: "play", audio: "Heyfriend-Ryan"},
 			{type: "dialog", speaker: this._ryan, text: "Hi "+ player +".  I'm on my way to meet with Sweeney.  Apparently they do cycle some of the questions."},
 			{type: "dialog", speaker: this._ryan, text: "I think it will end up ok though.  I just have to face the music.  Thanks for trying to convince me not to use it though."},
 			{type: "dialog", speaker: this._ryan, text: "I feel like an idiot.  It was not worth using it."},
@@ -61,7 +61,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
 			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},	
 			{type: "dialog", speaker: this._ryan, text: "I feel stupid for using it.  It was not worth it."},
@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
-			{type: "play", audio: "Heyfriend-Cat"},
+			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened."},
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 			{type: "dialog", speaker: this._cat, text: "I’m surprised he used it, I thought he was smarter than that.  It was smart of you not to look at it."},
@@ -107,7 +107,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
-			{type: "play", audio: "Hey-Cat"},
+			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Oh boy, was that Ryan?  I heard what happened.  It’s going to be an awkward conversation with his job"},
 			{type: "dialog", speaker: this._cat, text: "if he fails the class.  I hope it works out.  I’m surprised he used it, I thought he was smarter than that."},
 			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},
@@ -122,7 +122,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
-			{type: "play", audio: "Hey-Cat"},
+			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened.  If you had looked at the exam,"},
 			{type: "dialog", speaker: this._cat, text: "you’d have been in trouble too.  Lucky break."},
 			{type: "show", img: cat, expression: "angry", position: "center"},						

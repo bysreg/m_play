@@ -45,7 +45,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
-			{type: "play", audio: "Heyfriend-Cat"},
+			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: "Cat", text: player+"!  How are you doing?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -54,7 +54,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Wtsnew-Cat");
 			// }},
-			{type: "play", audio: "Wtsnew-Cat"},
+			// {type: "play", audio: "Wtsnew-Cat"},
 			{type: "dialog", speaker: "Cat", text: "What's new with you?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

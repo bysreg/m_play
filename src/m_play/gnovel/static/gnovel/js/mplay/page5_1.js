@@ -275,7 +275,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Sup-Cat");
 				// }},
-				{type: "play", audio: "Sup-Cat"},
+				// {type: "play", audio: "Sup-Cat"},
 				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 
@@ -287,7 +287,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Cat");
 				// }},
-				{type: "play", audio: "Hey-Cat"},
+				// {type: "play", audio: "Hey-Cat"},
 				{type: "dialog", speaker: "Cat", text: "I’m compiling our project now. Should only take a sec."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 

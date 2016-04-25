@@ -51,7 +51,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Priya");
 			// }},
-			{type: "play", audio: "Hey-Priya"},
+			// {type: "play", audio: "Hey-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Hey, "+ player +".  About the other day with Ryan.  My roommate got in big trouble for sharing old assignments in a class."},
 			{type: "dialog", speaker: "Priya", text: "That’s why I got upset."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
