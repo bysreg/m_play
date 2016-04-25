@@ -156,7 +156,9 @@ var GNOVEL = GNOVEL || {};
 		var choices = this;
 		//position of dialog based upon speaker
 		var dialogX = this._params.dialogX;
-		var dialogY = this._params.dialogY+250;
+		var dialogY = this._params.dialogY+300;
+		this._params.bWidth = 225;
+		this._params.bHeight = 150;
 
 		var duration = this._params.seconds * 1000 || 1000;
 		var timer = this.timer;
@@ -181,18 +183,18 @@ var GNOVEL = GNOVEL || {};
 					// do nothing
 				} else {
 					//move to next text in responses array
-					if(count <= choices._timedResponses.length-1){
+					if(responseCount <= choices._timedResponses.length-1){
 						 if(!responseShowing){
 							choices._params.speaker = speaker;
-							choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[count],dialogX,dialogY, choices._params));
+							choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[responseCount],dialogX,dialogY, choices._params));
 
 							responseShowing = true;
 						}
 						else{
 						//after the first response displays, then make invisible & move to next response
-						if (count > 0){
-							choices._responseBox[count-1]._messageText.material.opacity = 0;
-							choices._responseBox[count-1]._textBg.material.opacity = 0;
+						if (responseCount > 0){
+							choices._responseBox[incrementNum]._messageText.material.opacity = 0;
+							choices._responseBox[incrementNum]._textBg.material.opacity = 0;
 							responseShowing = false;
 						}
 					}
@@ -204,7 +206,7 @@ var GNOVEL = GNOVEL || {};
 						waitTimer.start();
 				}
 				else {
-					count = 0;
+					responseCount = 0;
 					mainTimer.start();
 				}
 			}
@@ -234,17 +236,18 @@ var GNOVEL = GNOVEL || {};
 					pageObj.tweenPulse(timer,{x:0,y:0,z:0,
 						duration: 200,
 						onComplete: function(){
-							choices._responseBox[count]._messageText.material.opacity = 0;
-							choices._responseBox[count]._textBg.material.opacity = 0;
+							choices._responseBox[incrementNum]._messageText.material.opacity = 0;
+							choices._responseBox[incrementNum]._textBg.material.opacity = 0;
 							responseShowing = false;
 
 						//reset count if at end of timedRsponses array
-						count++;
-						if(count <= choices._timedResponses.length-1){
+						incrementNum++;
+						responseCount++;
+						if(responseCount <= choices._timedResponses.length-1){
 						}
 						else {
-							count = 0;
-							choices._responseBox = [];
+							responseCount = 0;
+							//choices._responseBox = [];
 						}
 						timer.scale.x = 1;
 						//do timer again
@@ -276,7 +279,7 @@ var GNOVEL = GNOVEL || {};
 		}
 
 		//removed boxes for timed response
-		for (var i = 0; i < this._timedResponses.length; i++) {
+		for (var i = 0; i < this._responseBox.length; i++) {
 			if(this._responseBox[i]!=null){
 				//this._page._removeFromScene(this._responseBox[i]);
 				//this._page._removeFromScene(this._responseBox[i]._textBg);

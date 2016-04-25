@@ -85,8 +85,8 @@ var MPLAY = MPLAY || {};
 		});
 		subjectText.position.set(-180, 230, 10);
 
-		//if email from sweeney, add attachment
-		if(from == "Prof. Sweeney")
+		//if email from sweeney, and this particular subject add attachment
+		if(subject == "Programmers and Society")
 		{
 			var syllabus = this._syllabus;
 			var bgCover = this._bgCover;
