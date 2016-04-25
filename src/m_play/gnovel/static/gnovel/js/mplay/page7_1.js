@@ -49,8 +49,19 @@ var MPLAY = MPLAY || {};
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
 			{type: "custom", func: function(page){
-				background.material.opacity = 1;
-				page._removeFromSceneBg(page._background3);
+				page.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._background3);
+					},
+				});
 			}},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
