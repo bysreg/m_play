@@ -139,7 +139,7 @@ var MPLAY = MPLAY || {};
 		var playlist = null;
 		playlist = [
 					{audio:"Uc-girllaughing", playrate: 0.02},
-					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-mantalking", playrate: 0.02},
 					{audio:"Uc-womantalking", playrate: 0.03},
 					{audio:"Uc-steps", playrate: 0.1}
 					];
