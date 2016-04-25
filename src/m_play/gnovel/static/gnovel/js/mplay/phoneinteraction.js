@@ -83,7 +83,7 @@ var MPLAY = MPLAY || {};
 			align: "left",
 			font: "bold 20px Arial",
 		});
-		subjectText.position.set(-180, 230, 10);
+		subjectText.position.set(-180, 225, 10);
 
 		//if email from sweeney, and this particular subject add attachment
 		if(subject == "Programmers and Society")
@@ -116,7 +116,7 @@ var MPLAY = MPLAY || {};
 
 
 		// change this to the sender's picture
-		var speakerPic = page.createImage(this._getPicPath(from), new THREE.Vector3(-110, 145, 7), 100, 100);
+		var speakerPic = page.createImage(this._getPicPath(from), new THREE.Vector3(-110, 142, 7), 100, 100);
 
 		this._container.add(this._emailbg);
 		this._container.add(messageText);

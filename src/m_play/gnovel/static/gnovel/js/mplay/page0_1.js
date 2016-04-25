@@ -118,7 +118,7 @@ var MPLAY = MPLAY || {};
 					[{text: "Yeah!  Thanks again for forwarding my resume.",
 						go: "#cheers"},
 					{text : "Psyched to be working with you, Ryan!",
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#cheers"}]},
 
 			{type: "show", img: ryan, expression: "very happy", position: "center", label: "cheers"},
@@ -158,7 +158,7 @@ var MPLAY = MPLAY || {};
 					[{text: "Should be good.",
 						go: "#RelationshipScore"},
 					{text : "Glad we’re in it together.",
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#RelationshipScore"}]},
 
 			{type: "custom", func: function(page) {
@@ -192,11 +192,11 @@ var MPLAY = MPLAY || {};
 							page._catsPhoneStatus = 1;
 						},
 						integrityScore:1,
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#pickup"},
 					{text: "Does it have any cash in there?",
 						integrityScore:-1,
-						relationship: {name: this._ryan, score: -1},
+						relationship: [{name: this._ryan, score: -1}],
 						go: "#cash"}]},
 
 			{type: "dialog", speaker: this._ryan, text: "Good idea.  Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades.", label: "waiter"},

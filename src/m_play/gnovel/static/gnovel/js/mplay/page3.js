@@ -199,24 +199,21 @@ var MPLAY = MPLAY || {};
 				choices :
 					[{text: "No problem, Ryan.  You’d do the same for me.",
 						go: "#materials", integrityScore: -1,
+						relationship:[{name: this._priya, score: -1}, {name: this._ryan, score: 2}],
 						onChoose: function(page){
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 						}},
 					{text: "Ry, I don’t know…",
-						go: "#dontknow", integrityScore: 0, relationship: {name: this._ryan, score: -1}},
+						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}]},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
-						go: "#notes", integrityScore: 1, relationship: {name: this._priya, score: 2}}],
+						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}]}
+					],
 				//seconds: 10,
 				//responses: [{text: "hey!"}, {text:"did you hear me"}],
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},
-			{type: "custom", func: function(page) {
-					page._cgAssignmentStatus = 1;
-					page.getRelationshipManager().addRelationship("Priya", -1);
-					page.getRelationshipManager().addRelationship("Ryan", 2);
-				}},
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore4"},
@@ -353,7 +350,10 @@ var MPLAY = MPLAY || {};
 				text: "Studying T^T"},
 
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: {name:this._cat, score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
+			{type: "choices", choices :
+			[{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: [{name:this._priya, score:1}]},
+			{text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: [{name:this._cat, score:1}]},
+			{text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
 			{type: "close_phone"},
@@ -371,11 +371,11 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "gohome"},
 			{type: "close_phone"},
-				{type: "custom", func: function(page) {
+				/*{type: "custom", func: function(page) {
 						page.getRelationshipManager().addRelationship("Priya", -1);
 						page.getRelationshipManager().addRelationship("Cat", -1);
-					}},
-				{type: "show", img: transitionBg, waitUntilShown:false},
+					}},*/
+				//{type: "show", img: transitionBg, waitUntilShown:false},
 				{type: "goto", page: "scene 6.a"},
 
 		];
@@ -419,15 +419,12 @@ var MPLAY = MPLAY || {};
 				{type: "choices",
 					choices :
 						[{text: "Came over to say hi.",
+						relationship:[{name: this._priya, score: 1},{name: this._ryan, score: 1}],
 							go: "#study-r"},
 						{text: "I'm here to study.",
 							go: "#sayhi-r"}], label: "choices1"},
 
 				{type: "nothing", label: "study-r"},
-				{type: "custom", func: function(page) {
-					page.getRelationshipManager().addRelationship("Priya", 1);
-					page.getRelationshipManager().addRelationship("Ryan", 1);
-				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -479,10 +476,11 @@ var MPLAY = MPLAY || {};
 
 
 				{type: "nothing", label: "sayhi-r"},
-				{type: "custom", func: function(page) {
+				//relationship should stay neutral
+				/*{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", -1);
 					page.getRelationshipManager().addRelationship("Ryan", -1);
-				}},
+				}},*/
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -578,10 +576,12 @@ var MPLAY = MPLAY || {};
 							go: "#sayhi-p"}], label: "choices1"},
 
 				{type: "nothing", label: "study-p"},
+				//relationship should stay neutral
+				/*
 				{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", 1);
 					page.getRelationshipManager().addRelationship("Ryan", 1);
-				}},
+				}},*/
 
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
@@ -631,10 +631,11 @@ var MPLAY = MPLAY || {};
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "sayhi-p"},
+				/*
 				{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", -1);
 					page.getRelationshipManager().addRelationship("Ryan", -1);
-				}},
+				}},*/
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,

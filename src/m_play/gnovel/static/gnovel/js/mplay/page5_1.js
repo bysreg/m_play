@@ -133,7 +133,7 @@ var MPLAY = MPLAY || {};
 				background.material.opacity = 1;
 				pageObj._removeFromSceneBg(pageObj._background3);
 			}},
-			{type: "show", img: ryan, position: "right"},
+			/*{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
@@ -145,30 +145,28 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. It's common practice to use codeHub.  Did she cite it?"},
 			{type: "dialog", speaker: "Cat", text: "No, and even if she did cite it, we can't use it."},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},
+			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},*/
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "What should we do, we have to submit the project in 2 hours!"},
 			{type: "choices",
 					choices :
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
+							relationship: [{name: this._ryan, score: -1}, {name: this._cat, score:1}],
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
-							relationship: {name: this._priya, score: 1},
+							relationship: [{name: this._priya, score: 1, text:"Priya will feel good about that"}],
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
+							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
 							go: "#submit" }],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
 
 			{type: "nothing", label: "ask"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Cat", 1);
-				page.getRelationshipManager().addRelationship("Ryan", -1);
-			}},
 			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},
 
 			{type: "nothing", label: "asst_not_given"},
@@ -227,10 +225,6 @@ var MPLAY = MPLAY || {};
 
 
 			{type: "nothing", label: "submit"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Cat", -1);
-				page.getRelationshipManager().addRelationship("Ryan", 1);
-			}},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},

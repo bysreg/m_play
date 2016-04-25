@@ -124,13 +124,14 @@ var MPLAY = MPLAY || {};
 				{text: "Hey, maybe we should both hold off on using this test.",
 					go: "#holdoff",
 					integrityScore: 1,
-					relationship: {name: this._priya, score: 2}},
+					relationship: [{name: this._priya, score: 2}]},
 				{text : "I think it's OK to use, Priya.  It's not even graded.",
 					integrityScore: -1,
+					relationship:[{name: this._ryan, score: 2}, {name: this._priya, score: -1}],
 					go : "#dontsay"},
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
-					relationship: {name: this._ryan, score: 1},
+					relationship: [{name: this._ryan, score: 1}],
 					go: "#decline"} ],
 				//seconds: 10,
 				//responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
@@ -157,10 +158,6 @@ var MPLAY = MPLAY || {};
 
 			// dontsay
 			{type: "nothing", label: "dontsay"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Priya", -1);
-				page.getRelationshipManager().addRelationship("Ryan", 2);
-			}},
 			{type: "show", img: priya, position: "left", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "I can't keep arguing with you both. Do what you want."},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
