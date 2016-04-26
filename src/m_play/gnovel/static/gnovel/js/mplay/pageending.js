@@ -98,7 +98,7 @@ var MPLAY = MPLAY || {};
 				question: "What would have happened if they didn’t get it back to her?",
 			},
 			{
-				choice: "You chose to it in to campus police",	
+				choice: "You chose to give it to campus police",	
 				resolution: "They found the owner- it was Cat’s!",
 				question: "What would have happened if you didn’t take initiative and just left it?",
 			},

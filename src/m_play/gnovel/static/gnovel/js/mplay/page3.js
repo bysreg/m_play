@@ -220,24 +220,25 @@ var MPLAY = MPLAY || {};
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 							page._unauthorizedAsstChoice = 2;
-
-							page._saveRelationshipData(page._unauthorizedAsstData);
+							
+							page._unauthorizedAsstData.relationship.priya = -1;
+							page._unauthorizedAsstData.relationship.ryan = 2;
 						}},
 					{text: "Ry, I don’t know…",
 						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}], 
-						onChoose: function(){
+						onChoose: function(page){
 							console.log("You didn’t give Ryan your assignments, but you didn’t help him");
 							page._unauthorizedAsstChoice = 1;
 
-							page._saveRelationshipData(page._unauthorizedAsstData);
+							page._unauthorizedAsstData.relationship.ryan = -1;							
 						}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
 						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}], 
-						onChoose: function() {
+						onChoose: function(page) {
 							console.log("You didn’t give Ryan your assignments, but you offered to help");
 							page._unauthorizedAsstChoice = 0;
 
-							page._saveRelationshipData(page._unauthorizedAsstData);
+							page._unauthorizedAsstData.relationship.priya = 2;							
 						}},
 					],
 				//seconds: 10,

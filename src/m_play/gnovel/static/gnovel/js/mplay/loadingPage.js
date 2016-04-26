@@ -15,9 +15,11 @@ var PageLoading = function(){
   this._tweenComplete = true;
 	this._curText = null;
 	this._curTextBar = null;
+	this._loadingComplete = false;
+	this._loadTween = null;
 
   var page = this;
-  var tutCounter = 0;
+  var tutCounter = 1;
   //var mouseDownListener = null;
     this.mouseDownListener = function(event) {
     event.preventDefault();
@@ -55,23 +57,47 @@ PageLoading.prototype.constructor = PageLoading;
    this.setBackground("/static/gnovel/res/loadingPage/loading screen_noBox.png");
 
 	 var loadSymbol = this.createImage("/static/gnovel/res/loadingPage/loading_symbol.png",new THREE.Vector3(550,320,0),300,150);
+	 loadSymbol.name = "loadSymbol";
 	 loadSymbol.material.opacity = 0;
 	 this._addToScene(loadSymbol);
 
-	 this.tweenFlash(loadSymbol,{
+	 this._loadTween = this.tweenFlash(loadSymbol,{
 		 opacity2: 0,
 		 easing:TWEEN.Easing.Cubic.Out,
 	 	duration:1500,});
 	 this.getOwner().addMouseDownListener(this.mouseDownListener);
+
+	 this._TutorialNext(0);
+
+	 var message = "(Click or press [Space] to advance messages and dialogue.)"
+	 var notifText = this.createTextBox(message,{
+		 charLine: 60,
+		 font: "28px Noteworthy",
+		 center: true,
+		 fillstyle: '#ffffff',});
+
+	//set text on bottom right
+	notifText.position.set(0,-100,this.getBackgroundLayer()+5);
+	notifText.material.opacity = 0;
+	this._addToScene(notifText);
+	//fade in text after X delay
+	this.tweenMat(notifText,{
+		opacity: 1,
+		delay:2000,
+		duration:400,
+		easing: TWEEN.Easing.Cubic.Out,
+	});
 
  };
 
  PageLoading.prototype._TutorialNext = function(count){
 	 var page = this;
 
+	 //show compass animation for 3rd tutorial text
    if(count == 2)
    {
      this._compassAnim();
+		 this.LoadingComplete();
    };
 	 //display textbox on top of background
 
@@ -85,6 +111,8 @@ PageLoading.prototype.constructor = PageLoading;
 			 font: "35px Noteworthy",
 			 center: true,
 			 fillstyle: '#ffffff',});
+
+ 		 tutText.position.set(20,40,textbar.position.z+5);
 
 		 //remove previous text and fade out
 		 if(this._curText)
@@ -119,10 +147,7 @@ PageLoading.prototype.constructor = PageLoading;
 		 });
 
 
-
-
-	     tutText.position.set(20,30,textbar.position.z+5);
-
+		 //fade in text
 	     this._addToScene(tutText);
 			 tutText.material.opacity = 0;
 			 this.tweenMat(tutText,{
@@ -130,11 +155,14 @@ PageLoading.prototype.constructor = PageLoading;
 				 easing:TWEEN.Easing.Cubic.Out,
 				 opacity: 1,
 			 });
+
+			 //set global variable to current text and image
 			 this._curText = tutText;
 			 this._curTextBar = textbar;
 			 //increment count for which text should display
 			 count++;
-			 //after tweening in text
+
+			 //after tweening in text, set tweenComplete
 			 this._tweenComplete = true;
 		 }
 		 else {
@@ -226,14 +254,31 @@ PageLoading.prototype.constructor = PageLoading;
  	});
  };
 
+/**
+*@function call when loading of assets is complete
+*/
+ PageLoading.prototype.LoadingComplete = function(){
+
+	 this._loadingComplete = true;
+	 //stop loading symbol flashing
+	 this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
+
+	 //show continue button
+	 var continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png",new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
+	 continueBut.material.opacity = 0;
+	 this.tweenMat(continueBut,{
+		 opacity:1,
+		 duration:1000,
+		 easing:TWEEN.Easing.Cubic.Out,
+	 });
+	 this._addToScene(continueBut);
+ };
+
  PageLoading.prototype._onUnload = function(){
 
  };
 
 
- $(document).ready(function () {
-
-    });
 
     window.addEventListener('resize', function(event) {
        var container = document.getElementById("container");
