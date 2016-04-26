@@ -29,6 +29,21 @@ var MPLAY = MPLAY || {};
 		this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		this._addToSceneBg(this._background_empty);
+
+		// 0 means You told Ryan not to use the test and Ryan didn’t use it either.
+		// 1 means You told Ryan not to use the test and Ryan used it anyway.
+		// 2 means You did use the test and you got caught. Professor Sweeny did not pursue academic integrity violations  (integrity > 0)
+		// 3 means You did use the test and You got caught. you both receive a 0 on the final and fail the class.
+		// 4 means You didn’t use the test and Ryan used the test even though you didn’t. He got caught and failed the final and the class.
+		// 5 means You didn’t use the test and Ryan used the test even though you didn’t. 
+		// 		When Ryan was questioned, he revealed that you had had access to the test too and didn’t report it.
+		this._usingTestStatus = 0;
+
+		this._usingTestData = {};
+		this._usingTestData.relationship = {};
+		this._usingTestData.relationship.ryan = 0;
+		this._usingTestData.relationship.priya = 0;
+		this._usingTestData.relationship.cat = 0;
 	};
 
 	Page7_1.prototype._createFlowElements = function() {
@@ -154,6 +169,11 @@ var MPLAY = MPLAY || {};
 
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 0;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
 			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
 			{type: "show", img: priya, position: "left", expression: "thoughtful", waitUntilShown: false},
@@ -162,6 +182,11 @@ var MPLAY = MPLAY || {};
 
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 1;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I think it's a little hypocritical of both of you to get on my back about this."},
@@ -175,21 +200,49 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "She'll get over it. This whole thing has been blown so out of proportion."},
 			{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#go9c", goFalse: "#go9d"},
 
-			{type: "goto", page: "scene 9.c", label: "go9c"},
-			{type: "goto", page: "scene 9.d", label: "go9d"},
+			// dontsay and good integrity
+			{type: "nothing", label: "go9c"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 2;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
+			{type: "goto", page: "scene 9.c"},
+
+			// dont say and bad integrity
+			{type: "nothing", label: "go9d"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 3;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
+			{type: "goto", page: "scene 9.d"},
 
 			// decline
 			{type: "nothing", label: "decline"},
-
 			{type: "show", img: priya, position: "left", expression: "sad", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Please try to talk him out of it."},
-
 			{type: "show", img: ryan, expression: "angry", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Priya, lay off."},
-
 			{type: "compare", leftop: "$integrityScore", operator: "greater equal", rightop: integrityThreshold, goTrue: "#go9e", goFalse: "#go9f"},
-			{type: "goto", page: "scene 9.e", label: "go9e"},
-			{type: "goto", page: "scene 9.f", label: "go9f"},
+
+			// decline and good integrity
+			{type: "nothing", label: "go9e"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 4;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
+			{type: "goto", page: "scene 9.e"},
+
+			// decline and bad integrity
+			{type: "nothing", label: "go9f"},
+			{type: "custom", func: function(page) {
+				this._usingTestStatus = 5;
+
+				page._saveRelationshipData(page._usingTestData);
+			}},
+			{type: "goto", page: "scene 9.f"},
 		];
 
 		return o;
@@ -211,6 +264,8 @@ var MPLAY = MPLAY || {};
 
 	Page7_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
+		this._owner.saveData("usingTestStatus", this._usingTestStatus);
+		this._owner.saveData("usingTestData", this._usingTestData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

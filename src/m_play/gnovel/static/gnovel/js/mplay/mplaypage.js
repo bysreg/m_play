@@ -45,14 +45,6 @@ var MPLAY = MPLAY || {};
 		this._choiceNumber = 0;
 		this._ioNumber = 0; // io stands for interactable object
 
-		//filter for conversations
-		this._convoFilter = this.createImage("/static/gnovel/res/textures/convo_filter_2.png", new THREE.Vector3(0, 0, this._characterLayer - 30), 1820, 1080);
-		this._convoFilter.name = "convoFilter";
-		// // instantiate characters, if it is not instantiated yet
-		// if (!MPlayPage._isCharInit) {
-		// 	this._initChars();
-		// }
-
 		// for background postprocessing
 		this._sceneBg = null;
 		this._pageSceneBg = new THREE.Object3D();
@@ -350,11 +342,6 @@ var MPLAY = MPLAY || {};
 
 	MPlayPage.prototype._initPhoneNotification = function() {
 		this._phoneNotifImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 0), 90, 135);
-
-		this._closephoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 0, 160), 419, 770);
-		this._closephoneImg.material.opacity = 0;
-		this._closephone = "closephone";
-		this._setObjectTag(this._closephone, this._closephoneImg);
 	};
 
 	MPlayPage.prototype._initPhoneInteraction = function() {
@@ -648,13 +635,17 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 
 		var oriOnChoiceComplete = params.onChoiceComplete;
+		var softBlurH = this._softBlurH;
+		var softBlurV = this._softBlurV;
+		var softVignetteDarkness = this._softVignetteDarkness;
+		var softVignetteOffset = this._softVignetteOffset;
 		var onChoiceComplete = function(resultId) {
 			pageObj._setBlurBgEffect({
 				//clear: true
-				blurH: this._softBlurH,
-				blurV: this._softBlurV,
-				vignetteDarkness: this._softVignetteDarkness,
-				vignetteOffset: this._softVignetteOffset,
+				blurH: softBlurH,
+				blurV: softBlurV,
+				vignetteDarkness: softVignetteDarkness,
+				vignetteOffset: softVignetteOffset,
 			});
 		};
 
@@ -830,7 +821,6 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 		var isChar = false;
 		var cameraMove = new GNOVEL.CameraMove(this.getOwner(), this);
-		params.convoFilter = this._convoFilter;
 
 		// position is specific to MPLAY, it is not part of GNOVEL
 		var position = params.flowElement.position;
@@ -928,7 +918,6 @@ var MPLAY = MPLAY || {};
 		params = params || {};
 
 		var img = obj;
-		params.convoFilter = this._convoFilter;
 		params.removeFilter = false;
 
 		// check if the object is character
@@ -1299,29 +1288,15 @@ var MPLAY = MPLAY || {};
 		var dialog = GNOVEL.Page.prototype._showDialog.call(flow._getPage(), message, x, y, params);
 	};
 
-	MPlayPage.prototype.showBgFilter = function() {
-		//can also use this._background3Layer for the z-position
-		this._filter = this.createImage("/static/gnovel/res/textures/ui/bg_filter_4.png", new THREE.Vector3(0, 0, this._choicesLayer - 20), 1430, 830);
-		this._filter.material.opacity = 0;
-		this._addToScene(this._filter);
-
-		//play animation effect for filter
-		this.tweenFlash(this._filter, {
-			opacityTo: 0.5,
-			opacityFrom: 0.2,
-			duration: 2000,
-			easing: TWEEN.Easing.Linear.Out,
-			easingFrom: TWEEN.Easing.Linear.In
-		});
-	};
-
-	MPlayPage.prototype.hideBgFilter = function() {
-		this._removeFromScene(this._filter);
-	};
-
 	MPlayPage.prototype._setMultiTracksPlayer = function() {
 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
 	};
+
+	MPlayPage.prototype._saveRelationshipData = function(obj) {
+		obj.relationship.ryan = this.getRelationshipManager().getRelationship(this._ryan);
+		obj.relationship.priya = this.getRelationshipManager().getRelationship(this._priya);
+		obj.relationship.cat = this.getRelationshipManager().getRelationship(this._cat);
+	};	
 
 	MPLAY.MPlayPage = MPlayPage;
 

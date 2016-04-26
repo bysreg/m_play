@@ -53,7 +53,7 @@ var MPLAY = MPLAY || {};
 		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
 
 		// variables from scene 1
-		var isWalletWithWaiter = (catsPhoneStatus == 0);
+		var isWalletWithWaiter = (catsPhoneStatus == 0 || catsPhoneStatus == 2);
 		var player = this._player;
 
 			o = [

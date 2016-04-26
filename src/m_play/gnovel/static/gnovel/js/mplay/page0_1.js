@@ -99,14 +99,20 @@ var MPLAY = MPLAY || {};
 
 		// 0 means player gives the wallet to the waiter
 		// 1 means player picks up wallet and gives it to campus police
+		// 2 means player ask for is there a cash in there, but ryan give it to the waiter
 		this._catsPhoneStatus = 0;
+
+		this._phoneData = {};
+		this._phoneData.relationship = {};
+		this._phoneData.relationship.ryan = 0;
+		this._phoneData.relationship.priya = 0;
+		this._phoneData.relationship.cat = 0;
 	};
 
 	Page0_1.prototype._createFlowElements = function() {
 
 		var ryan = "%" + this._ryan;
 		var catsphone = "%" + this._catsphone;
-		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;
 		var transitionBg = "%" + this._transitionBg;
 		var player = this._player;
@@ -122,34 +128,6 @@ var MPLAY = MPLAY || {};
 				{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
 					text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
 				{type: "close_phone"},
-
-				//{type: "show", img: catsphone, waitUntilShown:false},
-				/*{type: "show", img: yourphone},
-				{type: "custom", func: function(page) {
-					page.getOwner().getSoundManager().play("Message");
-				}},
-				{type: "choices",
-					choices :
-						[{text: "Look at your Phone ",
-							go: "#lookatphone",
-						relationship: {name: this._ryan, score: -1}},
-						{text: "Talk to Ryan First",
-							go: "#talktoryan",
-						relationship: {name: this._ryan, score: 1}}],
-						seconds: 10},
-				// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
-
-				// phone email exchange begins
-				{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
-				{type: "show", img: closephone},
-				{type: "phone_textbox",
-					label: "email",
-					text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
-					bgHeight: 200},
-				{type: "hide_phone_textbox", dialog: "$email"},
-				{type: "hide", img: closephone},
-				// phone email exchange ends*/
-				{type: "show_phone_notif"},
 
 				// phone email exchange begins
 				{type: "open_phone", layout:"text", people: [this._ryan]},
@@ -338,6 +316,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
+		this._owner.saveData("phoneData", this._phoneData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

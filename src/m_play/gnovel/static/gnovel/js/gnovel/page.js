@@ -268,8 +268,9 @@ var GNOVEL = GNOVEL || {};
 
 		var tweenFlashBack = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: 0.3,
+				opacity: 0,
 			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None);
 
 		//chaining used to call tween functions back and forth infinitely
 		tweenFlashForward.chain(tweenFlashBack);
@@ -479,22 +480,6 @@ var GNOVEL = GNOVEL || {};
 			this._addToScene(obj);
 		}
 
-		//checks if conversation filter already showing on page
-		if(this._showingFilter == false)
-		{
-			params.convoFilter.material.opacity = 0;
-			this._addToScene(params.convoFilter);
-			pageObj.tweenMat(params.convoFilter, {
-				opacity: 1,
-				easing: TWEEN.Easing.Cubic.Out
-			});
-			this._showingFilter = true;
-		}
-		/*if(this._findInScene("convoFilter") != true)
-		{
-			this._addToScene(params.convoFilter);
-		}*/
-
 		//fade in object
 		this.tweenMat(obj, {
 			opacity: 1,
@@ -540,15 +525,7 @@ var GNOVEL = GNOVEL || {};
 					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
-					pageObj._removeFromScene(obj);
-					if(pageObj._showingFilter == false){
-						pageObj.tweenMat(params.convoFilter, {
-							opacity: 0,
-							easing: TWEEN.Easing.Cubic.Out
-						});
-						pageObj._removeFromScene(params.convoFilter);
-					}
-				//	pageObj._showingFilter = false;
+					pageObj._removeFromScene(obj);					
 				}
 			},
 			duration: params.duration || 800,

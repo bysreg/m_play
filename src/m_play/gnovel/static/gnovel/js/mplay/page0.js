@@ -26,7 +26,7 @@ var MPLAY = MPLAY || {};
 
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
-		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
+		// this._catsphoneImg = this.createImage("/static/gnovel/res/textures/phone for bar.png", new THREE.Vector3(480, -130, this.getBackgroundLayer()+10), 120, 35);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -44,10 +44,6 @@ var MPLAY = MPLAY || {};
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
-
-		// 0 means player gives the wallet to the waiter
-		// 1 means player picks up wallet and gives it to campus police
-		this._catsPhoneStatus = 0;
 	};
 
 	Page0.prototype._createFlowElements = function() {

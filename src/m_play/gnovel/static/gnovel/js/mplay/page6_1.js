@@ -37,21 +37,12 @@ var MPLAY = MPLAY || {};
 
 		var ryan = "%" + this._ryan;
 		var player = this._player;
-		var closephone = "%" + this._closephone;
 		var background = this._background_empty;
 
 		var o = null;
 
 
 			o = [
-				// phone email exchange begins
-				// {type: "show", img: closephone, waitUntilShown: false},
-				// {type: "phone_textbox",
-				// 	label: "email",
-				// 	text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
-				// {type: "hide_phone_textbox", dialog: "$email"},
-				// {type: "hide", img: closephone},
-
 				{type:"show_context", text:"at Scottie's..."},
 				{type: "show_phone_notif"},
 

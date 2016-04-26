@@ -33,9 +33,6 @@ var MPLAY = MPLAY || {};
 		var professor = "%" + this._professor;
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
-		var catsphone = "%" + this._catsphone;
-		var closephone = "%" + this._closephone;
-		var yourphone = "%" + this._yourphone;
 		var player = this._player;
 		var priya = "%" + this._priya;
 
