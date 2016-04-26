@@ -190,7 +190,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "email"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
-			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like your old problem sets?"},
+			{type: "dialog", speaker: "Ryan", text: "Ryan, are you sure you can look at "+ player +"’s old problem sets? My friend got in trouble for doing that, before."},
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year."},
 			{type: "dialog", speaker: "Priya", text: "My friend got in trouble for doing that, it’s not worth it."},
@@ -316,7 +316,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
+			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I guess I can do that."},
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
@@ -548,7 +548,7 @@ var MPLAY = MPLAY || {};
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study.  Ryan is avoiding his Computational Systems work."},
+				{type: "dialog", speaker: "Priya", text: "Yeah, me too.  Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
 
 				{type: "nothing", label: "neg-priya2"},
