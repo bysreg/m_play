@@ -277,6 +277,7 @@ var GNOVEL = GNOVEL || {};
 		tweenFlashBack.chain(tweenFlashForward);
 
 		tweenFlashForward.start();
+		return tweenFlashForward;
 	};
 
 	Page.prototype.tweenPos = function(obj, params){

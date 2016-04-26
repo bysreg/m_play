@@ -129,7 +129,7 @@ var MPLAY = MPLAY || {};
 					text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
 				{type: "close_phone"},
 
-				// phone email exchange begins
+				{type: "show_phone_notif"},
 				{type: "open_phone", layout:"text", people: [this._ryan]},
 				{type: "add_phone_textbox",
 						speaker: this._ryan,
