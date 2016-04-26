@@ -44,10 +44,6 @@ var MPLAY = MPLAY || {};
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._catsphone, this._catsphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
-
-		// 0 means player gives the wallet to the waiter
-		// 1 means player picks up wallet and gives it to campus police
-		this._catsPhoneStatus = 0;
 	};
 
 	Page0.prototype._createFlowElements = function() {

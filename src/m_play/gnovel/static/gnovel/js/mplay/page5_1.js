@@ -96,6 +96,11 @@ var MPLAY = MPLAY || {};
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 
+
+		// 0 means you tell priya to redo her work
+		// 1 means you redid priya's work
+		// 2 means you wanted to just turn it in, but your team redid it instead
+		this._priyaWorkChoice = 0;
 	};
 
 	Page5_1.prototype._createFlowElements = function() {
@@ -164,15 +169,24 @@ var MPLAY = MPLAY || {};
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
 							relationship: [{name: this._ryan, score: -1}, {name: this._cat, score:1}],
-							go: "#ask"},
+							go: "#ask", 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 0;
+							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
 							relationship: [{name: this._priya, score: 1, text:"Priya will feel good about that"}],
-							go: "#redo"},
+							go: "#redo", 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 1;
+							}},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
-							go: "#submit" }],
+							go: "#submit" }, 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 2;
+							}],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
@@ -359,6 +373,8 @@ var MPLAY = MPLAY || {};
 
 	Page5_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
+
+		this._owner.saveData("priyaWorkChoice", this._priyaWorkChoice);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

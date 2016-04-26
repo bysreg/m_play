@@ -154,6 +154,11 @@ var MPLAY = MPLAY || {};
 		pageObj._io1.setEnable(false);
 		pageObj._io2.setEnable(false);
 		this._cgAssignmentStatus = 0;
+
+		// 0 means you didnt give your assignment, but you offered help
+		// 1 means you didnt give your assignment, but you didn't help him
+		// 2 means you gave ryan your old assignment
+		this._unauthorizedAsstChoice = 0; 
 	};
 
 	Page3.prototype._createFlowElements = function() {
@@ -209,11 +214,20 @@ var MPLAY = MPLAY || {};
 						onChoose: function(page){
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
+							page._unauthorizedAsstChoice = 2;
 						}},
 					{text: "Ry, I don’t know…",
-						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}]},
+						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}], 
+						onChoose: function(){
+							console.log("You didn’t give Ryan your assignments, but you didn’t help him");
+							page._unauthorizedAsstChoice = 1;
+						}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
-						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}]}
+						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}], 
+						onChoose: function() {
+							console.log("You didn’t give Ryan your assignments, but you offered to help");
+							page._unauthorizedAsstChoice = 0;
+						}},
 					],
 				//seconds: 10,
 				//responses: [{text: "hey!"}, {text:"did you hear me"}],
@@ -751,6 +765,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
+		this._owner.saveData("unauthorizedAsstChoice", this._unauthorizedAsstChoice);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}

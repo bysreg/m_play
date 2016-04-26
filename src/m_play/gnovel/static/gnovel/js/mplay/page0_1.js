@@ -57,6 +57,7 @@ var MPLAY = MPLAY || {};
 
 		// 0 means player gives the wallet to the waiter
 		// 1 means player picks up wallet and gives it to campus police
+		// 2 means player ask for is there a cash in there, but ryan give it to the waiter
 		this._catsPhoneStatus = 0;
 	};
 
@@ -198,6 +199,9 @@ var MPLAY = MPLAY || {};
 			{type: "choices",
 				choices :
 					[{text: "Let’s give it to the waiter.",
+						onChoose: function(page) {
+							page._catsPhoneStatus = 0;
+						},
 						integrityScore:0,
 						go: "#waiter"},
 					{text: "Let’s take a look.  Maybe we can contact the owner.",
@@ -208,27 +212,15 @@ var MPLAY = MPLAY || {};
 						relationship: [{name: this._ryan, score: 1}],
 						go: "#pickup"},
 					{text: "Does it have any cash in there?",
+						onChoose: function(page) {
+							page._catsPhoneStatus = 2;
+						},
 						integrityScore:-1,
 						relationship: [{name: this._ryan, score: -1}],
 						go: "#cash"}]},
 
 			{type: "dialog", speaker: this._ryan, text: "Good idea.  Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades.", label: "waiter"},
 			{type: "jump", condition: true, goTrue: "#nextscene", goFalse: 1000},
-
-			// if phone is picked up
-			//{type: "dialog", speaker: this._ryan, text: "That should score you some Karma points!  Anyway, congrats again on the job.", label: "pickupphone"},
-			/*{type: "choices",
-				choices :
-					[{text: "Let’s give it to the bartender to hold on to.",
-						onChoose: function(page) {
-							console.log("bartender");
-							page._catsPhoneStatus = 1;
-						}},
-					{text : "I’ll bring it home to charge.  Maybe the owner will contact it.",
-						onChoose: function(page) {
-							console.log("you have the phone");
-							page._catsPhoneStatus = 2;
-						}}]},*/
 
 			{type:"nothing", label: "pickup"},
 			{type: "dialog", speaker: this._ryan, text: "No number, but it looks like it belongs to a student –"},

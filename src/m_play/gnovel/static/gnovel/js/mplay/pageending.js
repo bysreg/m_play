@@ -70,6 +70,11 @@ var MPLAY = MPLAY || {};
 
 		];
 
+		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
+		var unauthorizedAsstChoice = this._owner.getSavedData("unauthorizedAsstChoice");
+		var priyaWorkChoice = this._owner.getSavedData("priyaWorkChoice");
+		var usingTestStatus = this._owner.getSavedData("usingTestStatus");
+
 		this._post("/gnovel/result/", 
 			{
 				'phone_title': 'Ryan found a lost wallet',
