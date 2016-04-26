@@ -229,6 +229,9 @@ var GNOVEL = GNOVEL || {};
 
 		this._onWindowResize();
 		var gnovel = this;
+		document.addEventListener('keyup',function(event) {
+			gnovel._onMouseDown(event);
+		}, false);
 		document.addEventListener('mousedown', function(event) {
 			gnovel._onMouseDown(event);
 		}, false);
