@@ -648,13 +648,17 @@ var MPLAY = MPLAY || {};
 		var pageObj = this;
 
 		var oriOnChoiceComplete = params.onChoiceComplete;
+		var softBlurH = this._softBlurH;
+		var softBlurV = this._softBlurV;
+		var softVignetteDarkness = this._softVignetteDarkness;
+		var softVignetteOffset = this._softVignetteOffset;
 		var onChoiceComplete = function(resultId) {
 			pageObj._setBlurBgEffect({
 				//clear: true
-				blurH: this._softBlurH,
-				blurV: this._softBlurV,
-				vignetteDarkness: this._softVignetteDarkness,
-				vignetteOffset: this._softVignetteOffset,
+				blurH: softBlurH,
+				blurV: softBlurV,
+				vignetteDarkness: softVignetteDarkness,
+				vignetteOffset: softVignetteOffset,
 			});
 		};
 
