@@ -1028,7 +1028,7 @@ var MPLAY = MPLAY || {};
 		if (background != null) {
 			this.setBackground(background);
 		} else {
-			this.setBackground("/static/gnovel/res/textures/backgrounds/bar.png");
+			this.setBackground("/static/gnovel/res/textures/backgrounds/restaurant.png");
 		}
 
 		this._addToSceneBg(this._bg);
