@@ -14,6 +14,7 @@ var PageLoading = function(){
 
   this._tweenComplete = true;
 	this._curText = null;
+	this._curTextBar = null;
 
   var page = this;
   var tutCounter = 0;
@@ -53,50 +54,120 @@ PageLoading.prototype.constructor = PageLoading;
    //background.position.z = this.getBackgroundLayer();
    this.setBackground("/static/gnovel/res/loadingPage/loading screen_noBox.png");
 
-   this.getOwner().addMouseDownListener(this.mouseDownListener);
+	 var loadSymbol = this.createImage("/static/gnovel/res/loadingPage/loading_symbol.png",new THREE.Vector3(550,320,0),300,150);
+	 loadSymbol.material.opacity = 0;
+	 this._addToScene(loadSymbol);
+
+	 this.tweenFlash(loadSymbol,{
+		 opacity2: 0,
+		 easing:TWEEN.Easing.Cubic.Out,
+	 	duration:1500,});
+	 this.getOwner().addMouseDownListener(this.mouseDownListener);
 
  };
 
  PageLoading.prototype._TutorialNext = function(count){
+	 var page = this;
+
    if(count == 2)
    {
      this._compassAnim();
    };
-	 //remove previous text
-	 if(this._curText)
-	 {
-		 this._removeFromScene(this._curText);
-	 }
 	 //display textbox on top of background
-	 var material = new THREE.MeshBasicMaterial({color: 0xffffff,transparent: true,});
-	 var plane = new THREE.PlaneBufferGeometry(100,100);
-	 var textbar = this.createImage("/static/gnovel/res/loadingPage/loading_textBox.png", new THREE.Vector3(0,0,this.getBackgroundLayer() + 10),1000,150);
 
-	 this._addToScene(textbar);
+	 if(this._tutorialText[count]!=null)
+	 {
+		 var textbar = this.createImage("/static/gnovel/res/loadingPage/loading_textBox.png", new THREE.Vector3(0,0,this.getBackgroundLayer() + 10),1000,150);
 
-   var message = this._tutorialText[count];
+		 var message = this._tutorialText[count];
+		 var tutText = this.createTextBox(message,{
+			 charLine: 55,
+			 font: "35px Noteworthy",
+			 center: true,
+			 fillstyle: '#ffffff',});
 
-   var tutText = this.createTextBox(message,{
-     charLine: 55,
-     font: "35px Noteworthy",
-     center: true,
-     fillstyle: '#ffffff',});
+		 //remove previous text and fade out
+		 if(this._curText)
+		 {
+			 this.tweenMat(this._curTextBar,{
+				 duration:400,
+				 easing:TWEEN.Easing.Cubic.Out,
+				 opacity: 0,
+				 onComplete: function(){
+					 page._removeFromScene(this._curTextBar);
+				 }
+			 });
 
-     tutText.position.set(20,30,textbar.position.z+5);
-		 count++;
-     this._addToScene(tutText);
-		 this._curText = tutText;
-		 //after tweening in text
-		 this._tweenComplete = true;
+			 this.tweenMat(this._curText,{
+				 duration:400,
+				 easing:TWEEN.Easing.Cubic.Out,
+				 opacity: 0,
+				 onComplete: function(){
+					 page._removeFromScene(this._curText);
+				 }
+			 });
 
+		 }
+
+		 //fade in textbar
+		 this._addToScene(textbar);
+		 textbar.material.opacity = 0;
+		 this.tweenMat(textbar,{
+			 duration:600,
+			 easing:TWEEN.Easing.Cubic.Out,
+			 opacity: 1,
+		 });
+
+
+
+
+	     tutText.position.set(20,30,textbar.position.z+5);
+
+	     this._addToScene(tutText);
+			 tutText.material.opacity = 0;
+			 this.tweenMat(tutText,{
+				 duration:600,
+				 easing:TWEEN.Easing.Cubic.Out,
+				 opacity: 1,
+			 });
+			 this._curText = tutText;
+			 this._curTextBar = textbar;
+			 //increment count for which text should display
+			 count++;
+			 //after tweening in text
+			 this._tweenComplete = true;
+		 }
+		 else {
+		 		if(this._curText)
+				{
+					//fade out and remoev
+					this.tweenMat(this._curTextBar,{
+	 				 duration:400,
+	 				 easing:TWEEN.Easing.Cubic.Out,
+	 				 opacity: 0,
+	 				 onComplete: function(){
+	 					 page._removeFromScene(this._curTextBar);
+	 				 }
+	 			 });
+
+	 			 this.tweenMat(this._curText,{
+	 				 duration:400,
+	 				 easing:TWEEN.Easing.Cubic.Out,
+	 				 opacity: 0,
+	 				 onComplete: function(){
+	 					 page._removeFromScene(this._curText);
+	 				 }
+	 			 });
+				}
+		 }
 		 return count;
  };
 
  PageLoading.prototype._compassAnim = function(){
 
 	 var page = this;
-   var compassBack = this.createImage("/static/gnovel/res/textures/ui/compass background.png", new THREE.Vector3(-300, 0, this._uiLayer - 40), 125, 125);
-   var compassFront = this.createImage("/static/gnovel/res/textures/ui/compass main.png", new THREE.Vector3(-300, 0, this._uiLayer - 40), 125, 125);
+   var compassBack = this.createImage("/static/gnovel/res/textures/ui/compass background.png", new THREE.Vector3(-400, 0, this._backgroundLayer + 35), 150, 150);
+   var compassFront = this.createImage("/static/gnovel/res/textures/ui/compass main.png", new THREE.Vector3(-400, 0, this._backgroundLayer + 35), 150, 150);
    compassBack.material.opacity = 0;
    compassFront.material.opacity = 0;
 
@@ -127,7 +198,7 @@ PageLoading.prototype.constructor = PageLoading;
            .easing(TWEEN.Easing.Linear.None)
            .repeat(10)
            .onComplete(function() {
-/*
+
              //fade compass out
              page.tweenMat(compassFront, {
                easing: TWEEN.Easing.Cubic.Out,
@@ -147,20 +218,6 @@ PageLoading.prototype.constructor = PageLoading;
                  page._removeFromScene(compassFront);
                },
              });
-             //delay and increase size while fading out
-             page.tweenPulse(compassBack, {
-               x:5, y:5,
-               duration: 1000,
-               delay: delayFX,
-               repeat: false,
-             });
-
-             page.tweenPulse(compassFront, {
-               x:5, y:5,
-               duration: 1000,
-               delay: delayFX,
-               repeat: false,
-             });*/
 
            });
 
