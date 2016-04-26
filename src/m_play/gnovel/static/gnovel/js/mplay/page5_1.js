@@ -101,6 +101,12 @@ var MPLAY = MPLAY || {};
 		// 1 means you redid priya's work
 		// 2 means you wanted to just turn it in, but your team redid it instead
 		this._priyaWorkChoice = 0;
+
+		this._plagiarismData = {};
+		this._plagiarismData.relationship = {};
+		this._plagiarismData.relationship.ryan = 0;
+		this._plagiarismData.relationship.priya = 0;
+		this._plagiarismData.relationship.cat = 0;
 	};
 
 	Page5_1.prototype._createFlowElements = function() {
@@ -172,6 +178,8 @@ var MPLAY = MPLAY || {};
 							go: "#ask", 
 							onChoose: function(page) {
 								page._priyaWorkChoice = 0;
+
+								page._saveRelationshipData(page._plagiarismData);
 							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
@@ -179,14 +187,18 @@ var MPLAY = MPLAY || {};
 							go: "#redo", 
 							onChoose: function(page) {
 								page._priyaWorkChoice = 1;
+
+								page._saveRelationshipData(page._plagiarismData);
 							}},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
-							go: "#submit" }, 
+							go: "#submit", 
 							onChoose: function(page) {
 								page._priyaWorkChoice = 2;
-							}],
+
+								page._saveRelationshipData(page._plagiarismData);
+							}}],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
@@ -375,6 +387,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		this._owner.saveData("priyaWorkChoice", this._priyaWorkChoice);
+		this._owner.saveData("plagiarismData", this._plagiarismData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

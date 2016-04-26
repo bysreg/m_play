@@ -1323,6 +1323,12 @@ var MPLAY = MPLAY || {};
 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
 	};
 
+	MPlayPage.prototype._saveRelationshipData = function(obj) {
+		obj.relationship.ryan = this.getRelationshipManager().get(this._ryan);
+		obj.relationship.priya = this.getRelationshipManager().get(this._priya);
+		obj.relationship.cat = this.getRelationshipManager().get(this._cat);
+	};	
+
 	MPLAY.MPlayPage = MPlayPage;
 
 }());

@@ -38,6 +38,12 @@ var MPLAY = MPLAY || {};
 		// 5 means You didn’t use the test and Ryan used the test even though you didn’t. 
 		// 		When Ryan was questioned, he revealed that you had had access to the test too and didn’t report it.
 		this._usingTestStatus = 0;
+
+		this._usingTestData = {};
+		this._usingTestData.relationship = {};
+		this._usingTestData.relationship.ryan = 0;
+		this._usingTestData.relationship.priya = 0;
+		this._usingTestData.relationship.cat = 0;
 	};
 
 	Page7_1.prototype._createFlowElements = function() {
@@ -165,6 +171,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "good_integrity"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 0;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
@@ -176,6 +184,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "poor_integrity"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 1;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
@@ -194,6 +204,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "go9c"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 2;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "goto", page: "scene 9.c"},
 
@@ -201,6 +213,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "go9d"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 3;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "goto", page: "scene 9.d"},
 
@@ -216,6 +230,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "go9e"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 4;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "goto", page: "scene 9.e"},
 
@@ -223,6 +239,8 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "go9f"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 5;
+
+				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "goto", page: "scene 9.f"},
 		];
@@ -247,6 +265,7 @@ var MPLAY = MPLAY || {};
 	Page7_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 		this._owner.saveData("usingTestStatus", this._usingTestStatus);
+		this._owner.saveData("usingTestData", this._usingTestData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

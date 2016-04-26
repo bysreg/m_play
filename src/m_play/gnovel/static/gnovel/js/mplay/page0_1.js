@@ -59,6 +59,12 @@ var MPLAY = MPLAY || {};
 		// 1 means player picks up wallet and gives it to campus police
 		// 2 means player ask for is there a cash in there, but ryan give it to the waiter
 		this._catsPhoneStatus = 0;
+
+		this._phoneData = {};
+		this._phoneData.relationship = {};
+		this._phoneData.relationship.ryan = 0;
+		this._phoneData.relationship.priya = 0;
+		this._phoneData.relationship.cat = 0;
 	};
 
 	Page0_1.prototype._createFlowElements = function() {
@@ -237,7 +243,11 @@ var MPLAY = MPLAY || {};
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
 			{type: "nothing", label:"nextscene"},
-			{type: "hide", img: this._ryan},
+
+			{type: "custom", func:function(page) {
+				page._saveRelationshipData(page._phoneData);
+			}},
+
 			{type: "goto", page: "scene 2.a"},
 		];
 
@@ -267,6 +277,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
 
 		this._owner.saveData("catsPhoneStatus", this._catsPhoneStatus);
+		this._owner.saveData("phoneData", this._phoneData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();

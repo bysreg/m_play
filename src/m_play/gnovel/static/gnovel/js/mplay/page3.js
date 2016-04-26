@@ -159,6 +159,12 @@ var MPLAY = MPLAY || {};
 		// 1 means you didnt give your assignment, but you didn't help him
 		// 2 means you gave ryan your old assignment
 		this._unauthorizedAsstChoice = 0; 
+
+		this._unauthorizedAsstData = {};
+		this._unauthorizedAsstData.relationship = {};
+		this._unauthorizedAsstData.relationship.ryan = 0;
+		this._unauthorizedAsstData.relationship.priya = 0;
+		this._unauthorizedAsstData.relationship.cat = 0;
 	};
 
 	Page3.prototype._createFlowElements = function() {
@@ -215,18 +221,24 @@ var MPLAY = MPLAY || {};
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 							page._unauthorizedAsstChoice = 2;
+
+							page._saveRelationshipData(page._unauthorizedAsstData);
 						}},
 					{text: "Ry, I don’t know…",
 						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}], 
 						onChoose: function(){
 							console.log("You didn’t give Ryan your assignments, but you didn’t help him");
 							page._unauthorizedAsstChoice = 1;
+
+							page._saveRelationshipData(page._unauthorizedAsstData);
 						}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
 						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}], 
 						onChoose: function() {
 							console.log("You didn’t give Ryan your assignments, but you offered to help");
 							page._unauthorizedAsstChoice = 0;
+
+							page._saveRelationshipData(page._unauthorizedAsstData);
 						}},
 					],
 				//seconds: 10,
@@ -766,6 +778,7 @@ var MPLAY = MPLAY || {};
 
 		this._owner.saveData("cgAssignmentStatus", this._cgAssignmentStatus);
 		this._owner.saveData("unauthorizedAsstChoice", this._unauthorizedAsstChoice);
+		this._owner.saveData("unauthorizedAsstData", this._unauthorizedAsstData);
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
