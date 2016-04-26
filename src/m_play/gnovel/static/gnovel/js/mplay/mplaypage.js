@@ -1328,9 +1328,9 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPlayPage.prototype._saveRelationshipData = function(obj) {
-		obj.relationship.ryan = this.getRelationshipManager().get(this._ryan);
-		obj.relationship.priya = this.getRelationshipManager().get(this._priya);
-		obj.relationship.cat = this.getRelationshipManager().get(this._cat);
+		obj.relationship.ryan = this.getRelationshipManager().getRelationship(this._ryan);
+		obj.relationship.priya = this.getRelationshipManager().getRelationship(this._priya);
+		obj.relationship.cat = this.getRelationshipManager().getRelationship(this._cat);
 	};	
 
 	MPLAY.MPlayPage = MPlayPage;
