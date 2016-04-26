@@ -71,7 +71,6 @@ var MPLAY = MPLAY || {};
 
 		var ryan = "%" + this._ryan;
 		var catsphone = "%" + this._catsphone;
-		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;
 		var transitionBg = "%" + this._transitionBg;
 		var player = this._player;
@@ -98,18 +97,6 @@ var MPLAY = MPLAY || {};
 					relationship: {name: this._ryan, score: 1}}],
 					seconds: 10},
 			// need a flow here to show the phone screen before next flow, and this flow should be labeled "lookatphone"
-
-			// phone email exchange begins
-			{type: "hide", img: yourphone, waitUntilHiden: false, label: "lookatphone"},
-			{type: "show", img: closephone},
-			{type: "phone_textbox",
-				label: "email",
-				text: "Dear " + player + ", Glad you'll be joining us at the company.  Ryan was right - you'll make a great addition to the team.  We'll be in touch. -J. WANG",
-				bgHeight: 200},
-			{type: "hide_phone_textbox", dialog: "$email"},
-			{type: "hide", img: closephone},
-			// phone email exchange ends*/
-
 
 			{type: "show", img: ryan, expression: "very happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {

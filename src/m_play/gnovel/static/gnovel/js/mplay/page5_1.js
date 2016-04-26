@@ -114,7 +114,6 @@ var MPLAY = MPLAY || {};
 		var cat = "%" + this._cat;
 		var priya = "%" + this._priya;
 		var yourphone = "%" + this._yourphone;
-		var closephone = "%" + this._closephone;
 		var player = this._player;
 		var background = this._background_empty;
 

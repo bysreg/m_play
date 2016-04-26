@@ -171,7 +171,6 @@ var MPLAY = MPLAY || {};
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var cat = "%" + this._cat;
-		var closephone = "%" + this._closephone;
 		var yourphone = "%" + this._yourphone;
 		var player = this._player;
 		var transitionBg = "%" + this._transitionBg;

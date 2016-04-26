@@ -31,7 +31,6 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var professor = "%" + this._professor;
 		var player = this._player;
-		var closephone = "%" + this._closephone;
 
 		var o = null;
 
