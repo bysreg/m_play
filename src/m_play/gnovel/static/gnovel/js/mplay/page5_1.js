@@ -96,6 +96,17 @@ var MPLAY = MPLAY || {};
 		// for images
 		this._setObjectTag(this._yourphone, this._yourphoneImg);
 
+
+		// 0 means you tell priya to redo her work
+		// 1 means you redid priya's work
+		// 2 means you wanted to just turn it in, but your team redid it instead
+		this._priyaWorkChoice = 0;
+
+		this._plagiarismData = {};
+		this._plagiarismData.relationship = {};
+		this._plagiarismData.relationship.ryan = 0;
+		this._plagiarismData.relationship.priya = 0;
+		this._plagiarismData.relationship.cat = 0;
 	};
 
 	Page5_1.prototype._createFlowElements = function() {
@@ -103,7 +114,6 @@ var MPLAY = MPLAY || {};
 		var cat = "%" + this._cat;
 		var priya = "%" + this._priya;
 		var yourphone = "%" + this._yourphone;
-		var closephone = "%" + this._closephone;
 		var player = this._player;
 		var background = this._background_empty;
 
@@ -164,15 +174,31 @@ var MPLAY = MPLAY || {};
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
 							relationship: [{name: this._ryan, score: -1}, {name: this._cat, score:1}],
-							go: "#ask"},
+							go: "#ask", 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 0;
+
+								page._plagiarismData.relationship.cat = 1;								
+							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
 							relationship: [{name: this._priya, score: 1, text:"Priya will feel good about that"}],
-							go: "#redo"},
+							go: "#redo", 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 1;
+
+								page._plagiarismData.relationship.priya = 1;	
+							}},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
-							go: "#submit" }],
+							go: "#submit", 
+							onChoose: function(page) {
+								page._priyaWorkChoice = 2;
+
+								page._plagiarismData.relationship.ryan = 1;	
+								page._plagiarismData.relationship.cat = -1;	
+							}}],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
@@ -359,6 +385,9 @@ var MPLAY = MPLAY || {};
 
 	Page5_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
+
+		this._owner.saveData("priyaWorkChoice", this._priyaWorkChoice);
+		this._owner.saveData("plagiarismData", this._plagiarismData);
 
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
