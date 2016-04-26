@@ -80,7 +80,7 @@ var MPLAY = MPLAY || {};
 				/*{type: "custom", func: function(page) {
 					page.getOwner().getSoundManager().play("Hey-Ryan-e");
 				}},*/
-				{type: "play", audio: "Hey-Ryan-e"},
+				// {type: "play", audio: "Hey-Ryan-e"},
 				{type: "dialog", speaker: "Ryan", position: "left", text: "Awesome!  Both you and Priya are in my group.  This is Priya.  I told you about her earlier."},
 				// transition of this flow doesn't work
 				{type: "hide", img: ryan, waitUntilHidden: false},
@@ -89,14 +89,14 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hello-Priya");
 				// }},
-				{type: "play", audio: "Hello-Priya"},
+				// {type: "play", audio: "Hello-Priya"},
 				{type: "dialog", speaker: "Priya", text: "Ryan here helped me so much last semester.  Always goes out of his way.  Nice to meet you."},
 				// transition of this flow doesn't work
 				{type: "hide", img: priya, waitUntilHidden: false},
 				// transition of this flow doesn't work
 
 				{type: "show", img: cat, expression: "sad", position: "right", waitUntilShown: false, flip: true},
-				{type: "play", audio: "Ohhi-Cat"},
+				// {type: "play", audio: "Ohhi-Cat"},
 				{type: "dialog", speaker: "Cat", position: "right", text: "Hey, my name is Cat. Uhh… sorry I’m a little distracted. I lost my wallet yesterday."},
 				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 
@@ -104,7 +104,7 @@ var MPLAY = MPLAY || {};
 				{type: "compare", leftop: isWalletWithWaiter, operator: "equal", rightop: 1, goTrue: "#wallet_withwaiter", goFalse: "#wallet_atpolice"},
 				{type: "dialog", speaker: "Ryan", text: "Were you at Scottie's yesterday?  We found a wallet there. Might be yours.", label: "wallet_withwaiter"},
 				{type: "show", img: cat, expression: "happy", position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Cat", text: "Oh my God, do you guys have it with you?"},
+				{type: "dialog", speaker: "Cat", text: "That’s great! Do you guys have it with you?"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "We left it with the waiter."},
 				{type: "hide", img: ryan},
@@ -131,9 +131,8 @@ var MPLAY = MPLAY || {};
 				}},
 				{type: "dialog", speaker: "Ryan", position: "left", text: "Cat, is your last name Davis? " + player + " and I found a wallet at Scottie’s yesterday. We turned it into campus police."},
 				{type: "show", img: cat, position: "right", expression: "happy", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Cat", text: "Oh my God, you both are lifesavers!"},
-				{type: "choices", choices : [{text: "No Problem.", go: "#lifesaver"}, {text : "Happy to help!", go : "#lifesaver"}]},
-				{type: "nothing", label:"lifesaver"},
+				{type: "dialog", speaker: "Cat", text: "That's great, you're both lifesavers!"},
+				// {type: "choices", choices : [{text: "No Problem.", go: "#lifesaver"}, {text : "Happy to help!", go : "#lifesaver"}]},
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore"},
@@ -177,7 +176,7 @@ var MPLAY = MPLAY || {};
 				choices :
 					[{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: [{name:this._priya, score:1}]},
 					{text : "Workout at the gym with Cat.", go : "#gogym", relationship: [{name:this._cat, score:1}]},
-					{text: "Head home and study.", go: "#gohome"}]
+					{text: "Head home for the day.", go: "#gohome"}]
 				},
 				{type: "close_phone", label: "gocafe"},
 				{type: "goto", page: "scene 3.a"},
@@ -199,7 +198,7 @@ var MPLAY = MPLAY || {};
 		var playlist = null;
 		playlist = [
 					{audio:"Uc-girllaughing", playrate: 0.02},
-					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-mantalking", playrate: 0.02},
 					{audio:"Uc-womantalking", playrate: 0.03},
 					{audio:"Uc-steps", playrate: 0.1}
 					];

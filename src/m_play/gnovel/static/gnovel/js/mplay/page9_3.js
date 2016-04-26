@@ -42,12 +42,12 @@ var MPLAY = MPLAY || {};
 			
 			{type: "nothing", label: "I+"},
 			{type: "show", img: professor, position: "center", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming & Society. You kept in touch with him, and he often sends you articles on the state of affairs for technology in the modern world. You usually read them."},		
+			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming &amp; Society. He likes to email his former students articles on the state of affairs for technology in the modern world. You usually read them."},		
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "I-"},
 			{type: "show", img: professor, position: "center", waitUntilShown: false},
-			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming & Society. He has since changed his exams to avoid situations like the one you and Ryan caused."},
+			{type: "show_ed_context", text: "Professor Sweeney still teaches Programming &amp; Society. He has since rewritten his syllabus to avoid situations like the one Ryan caused."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "gotoed"},
@@ -55,21 +55,6 @@ var MPLAY = MPLAY || {};
 		];
 
 		return o;
-	};
-
-	Page9_3.prototype._onUnload = function() {
-		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
-		if (this._owner._ambient != null) {
-			this._tweenVolumeOut();
-		}
-	};
-
-	Page9_3.prototype._onStart = function() {
-		MPLAY.MPlayPage.prototype._onStart.call(this);
-
-		this._owner._ambient = this._owner.getSoundManager().play("Class-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		this._tweenVolumeIn();
 	};
 
 	MPLAY.Page9_3 = Page9_3;

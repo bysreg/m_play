@@ -67,64 +67,64 @@ var GNOVEL = GNOVEL || {};
 
 			// SFX Greeting dialog
 			// Ryan
-			{
-				id: "Heyfriend-Ryan",
-				src: "sfx-greeting-heyfriend-ryan-p.ogg"
-			}, {
-				id: "Hey-Ryan-n",
-				src: "sfx-greeting-hey-ryan-n.ogg"
-			}, {
-				id: "Hey-Ryan-p",
-				src: "sfx-greeting-hey-ryan-p.ogg"
-			}, {
-				id: "Hey-Ryan-e",
-				src: "sfx-greeting-hey-ryan-e.ogg"
-			}, {
-				id: "Ohhi-Ryan",
-				src: "sfx-greeting-ohhi-ryan-n.ogg"
-			}, {
-				id: "Sup-Ryan",
-				src: "sfx-greeting-sup-ryan-n.ogg"
-			}, {
-				id: "Yo-Ryan",
-				src: "sfx-greeting-yo-ryan-p.ogg"
-			},
+			// {
+			// 	id: "Heyfriend-Ryan",
+			// 	src: "sfx-greeting-heyfriend-ryan-p.ogg"
+			// }, {
+			// 	id: "Hey-Ryan-n",
+			// 	src: "sfx-greeting-hey-ryan-n.ogg"
+			// }, {
+			// 	id: "Hey-Ryan-p",
+			// 	src: "sfx-greeting-hey-ryan-p.ogg"
+			// }, {
+			// 	id: "Hey-Ryan-e",
+			// 	src: "sfx-greeting-hey-ryan-e.ogg"
+			// }, {
+			// 	id: "Ohhi-Ryan",
+			// 	src: "sfx-greeting-ohhi-ryan-n.ogg"
+			// }, {
+			// 	id: "Sup-Ryan",
+			// 	src: "sfx-greeting-sup-ryan-n.ogg"
+			// }, {
+			// 	id: "Yo-Ryan",
+			// 	src: "sfx-greeting-yo-ryan-p.ogg"
+			// },
 
-			// Cat
-			{
-				id: "Hey-Cat",
-				src: "sfx-greeting-hey-cat-n.ogg"
-			}, {
-				id: "Heyfriend-Cat",
-				src: "sfx-greeting-heyfriend-cat-p.ogg"
-			}, {
-				id: "Ohhi-Cat",
-				src: "sfx-greeting-ohhi-cat-n.ogg"
-			}, {
-				id: "Wtsnew-Cat",
-				src: "sfx-greeting-whatsnew-cat-n.ogg"
-			}, {
-				id: "Sup-Cat",
-				src: "sfx-greeting-sup-cat-p.ogg"
-			},
+			// // Cat
+			// {
+			// 	id: "Hey-Cat",
+			// 	src: "sfx-greeting-hey-cat-n.ogg"
+			// }, {
+			// 	id: "Heyfriend-Cat",
+			// 	src: "sfx-greeting-heyfriend-cat-p.ogg"
+			// }, {
+			// 	id: "Ohhi-Cat",
+			// 	src: "sfx-greeting-ohhi-cat-n.ogg"
+			// }, {
+			// 	id: "Wtsnew-Cat",
+			// 	src: "sfx-greeting-whatsnew-cat-n.ogg"
+			// }, {
+			// 	id: "Sup-Cat",
+			// 	src: "sfx-greeting-sup-cat-p.ogg"
+			// },
 
-			// Priya
-			{
-				id: "Hello-Priya",
-				src: "sfx-greeting-hello-priya-p.ogg"
-			}, {
-				id: "Heyfriend-Priya",
-				src: "sfx-greeting-heyfriend-priya-p.ogg"
-			}, {
-				id: "Hey-Priya",
-				src: "sfx-greeting-hey-priya-n.ogg"
-			}, {
-				id: "Ohhi-Priya",
-				src: "sfx-greeting-ohhi-priya-p.ogg"
-			}, {
-				id: "Wtsnew-Priya",
-				src: "sfx-greeting-whatsnew-priya-n.ogg"
-			},
+			// // Priya
+			// {
+			// 	id: "Hello-Priya",
+			// 	src: "sfx-greeting-hello-priya-p.ogg"
+			// }, {
+			// 	id: "Heyfriend-Priya",
+			// 	src: "sfx-greeting-heyfriend-priya-p.ogg"
+			// }, {
+			// 	id: "Hey-Priya",
+			// 	src: "sfx-greeting-hey-priya-n.ogg"
+			// }, {
+			// 	id: "Ohhi-Priya",
+			// 	src: "sfx-greeting-ohhi-priya-p.ogg"
+			// }, {
+			// 	id: "Wtsnew-Priya",
+			// 	src: "sfx-greeting-whatsnew-priya-n.ogg"
+			// },
 
 
 
@@ -159,6 +159,9 @@ var GNOVEL = GNOVEL || {};
 					{id: "Uc-steps", src: "bgnoises-uc-steps.ogg"},
 					{id: "Uc-womantalking", src: "bgnoises-uc-womantalking.ogg"},
 
+					// ed
+					{id: "Ed-music-happy", src: "ed-music-happy.ogg"},
+					{id: "Ed-music-bad", src: "ed-music-bad.ogg"},
 
 		];
 		this._soundManager = createjs.Sound;
