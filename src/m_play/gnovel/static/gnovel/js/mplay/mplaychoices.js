@@ -295,42 +295,50 @@ var MPLAY = MPLAY || {};
 			if (typeof flowElement.choices[resultId].relationship !== 'undefined' &&
 				flowElement.choices[resultId].relationship != null) {
 
-				var name = flowElement.choices[resultId].relationship.name;
-				var score = flowElement.choices[resultId].relationship.score;
-				relationshipManager.addRelationship(name, score);
+				var relationshipArr = flowElement.choices[resultId].relationship;
+				for(var i=0;i<relationshipArr.length;i++)
+				{
+					var name = relationshipArr[i].name;
+					var score = relationshipArr[i].score;
+					relationshipManager.addRelationship(name, score);
 
-				//display visual notification of relationship choice
-				console.log("a character will remember this");
-				//set what text should display based upon relationship score
+					//display visual notification of relationship choice
+					console.log("a character will remember this");
+					//set what text should display based upon relationship score
 
-				//FIXME - STILL NEEDS MORE TESTING
+					//FIXME - STILL NEEDS MORE TESTING
+					if(relationshipArr[i].text != null){
+						var charText = relationshipArr[i].text;
+					}
+					//if there is no text specified to show, then show default
+					else{
+						if(score > 0)
+							var charText = name + " feels good about that";
+						else if (score < 0)
+							var charText = name + " feels negatively about that";
+					}
+					var relationText = pageObj.createTextBox(charText,{
+						align: 'left',
+						charLine: pageObj._charLine,
+						font: "25px Noteworthy",
+						fillstyle: '#ffffff',
+					});
+					relationText.position.set(-500, 260-(i*40), pageObj._uiLayer - 40);
+					relationText.material.opacity = 0;
+					pageObj._addToScene(relationText);
 
-				if(score > 0)
-					var charText = name + " feels good about that"
-				else if (score < 0)
-					var charText = name + " feels negatively about that"
-
-				var relationText = pageObj.createTextBox(charText,{
-					align: 'left',
-					charLine: pageObj._charLine,
-					font: "25px Noteworthy",
-					fillstyle: '#ffffff',
-				});
-				relationText.position.set(-500, 260, pageObj._uiLayer - 40);
-				relationText.material.opacity = 0;
-				pageObj._addToScene(relationText);
-
-				pageObj.tweenMat(relationText, {
-					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800,
-					opacity: 1,
-					opacity2: 0,
-					chain: true,
-					delay: 800,
-					onComplete: function() {
-						pageObj._removeFromScene(relationText);
-					},
-				});
+					pageObj.tweenMat(relationText, {
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						opacity: 1,
+						opacity2: 0,
+						chain: true,
+						delay: 1000,
+						onComplete: function() {
+							pageObj._removeFromScene(relationText);
+						},
+					});
+				}
 
 				//display compass in upper left
 				var notifyBg = pageObj.createImage("/static/gnovel/res/textures/ui/Selection Box.png", new THREE.Vector3(-400, 200, pageObj._uiLayer - 40), 200, 100);

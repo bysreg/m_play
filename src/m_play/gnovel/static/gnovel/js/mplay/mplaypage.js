@@ -374,20 +374,13 @@ var MPLAY = MPLAY || {};
 			pageObj._addToScene(this._ryan);
 		}*/
 		//temp implementation
+		var name = char;
 		var score = relationshipManager.getRelationship("Ryan");
 		if (score >= 0)
 			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_happy_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
 		else if (score < 0)
 			this._ryan = this.createImage("/static/gnovel/res/textures/char/ryan_angry_box.png", new THREE.Vector3(-300, 260, this._dialogLayer), 100, 100);
 
-		score = relationshipManager.getRelationship("Priya");
-		if (score >= 0)
-			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_happy_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
-		else if (score < 0)
-			this._priya = this.createImage("/static/gnovel/res/textures/char/priya_sad_box.png", new THREE.Vector3(-150, 260, this._dialogLayer), 100, 100);
-
-		pageObj._addToScene(this._priya);
-		pageObj._addToScene(this._ryan);
 	};
 
 	MPlayPage.prototype._showPhoneNotification = function(params) {
@@ -694,8 +687,8 @@ var MPLAY = MPLAY || {};
 		y = y || -100;
 		params.speakerOffsetX = -30;
 		params.speakerOffsetY = 10;
-		params.bgWidth = 325;
-		params.bgHeight = 221;
+		params.bgWidth = params.bWidth || 325;
+		params.bgHeight = params.bHeight || 221;
 		params.showSpeaker = false;
 		params.charLine = 30;
 		params.unclickable = true;
@@ -900,7 +893,7 @@ var MPLAY = MPLAY || {};
 		// console.log("show something");
 
 		//duration for fade in of next character
-		params.duration = 200;
+		params.duration = 300;
 		// check if the object is character
 		if (isChar && obj.getVisibleImage() !== null) {
 			var characterTweenParam = {

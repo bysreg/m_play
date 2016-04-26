@@ -44,7 +44,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
-			{type: "play", audio: "Heyfriend-Cat"},
+			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: "Cat", text: "Hey "+ player +"!  I’m here trying to train for a 10K."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: 1000},
 
@@ -52,7 +52,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Ohhi-Cat");
 			// }},
-			{type: "play", audio: "Ohhi-Cat"},
+			// {type: "play", audio: "Ohhi-Cat"},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Oh hey.  I just finished up my workout.  Training for a 10K."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: 1000},
@@ -60,7 +60,11 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "That's cool... Yeah, I'll hit some of the cardio machines too.", go: "#catnext"}, {text : "Wow!  10K… seems intense", go : "#catnext"}], label: "choices1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Yeah, the training is hard to keep up on. Thanks for finding my wallet you helped me avoid a major headache.", label: "catnext"},
-			{type: "choices", choices : [{text: "No problem!  How are you otherwise?", relationship: {name: this._cat, score: 1}, go: "#howru"}, {text : "No problem!  I won’t keep you, good luck with your training.", go : "#cu"}]},
+			{type: "choices",
+			choices :
+				[{text: "No problem!  How are you otherwise?", relationship: [{name: this._cat, score: 1}], go: "#howru"},
+				{text : "No problem!  I won’t keep you, good luck with your training.", go : "#cu"}]
+			},
 
 			{type: "nothing", label: "howru"},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},

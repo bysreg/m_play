@@ -64,6 +64,11 @@ var MPLAY = MPLAY || {};
 		this._background_empty.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_empty);
 
+		this._background_noBooks = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground_empty.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
+		this._background_noBooks.scale.set(.90,.85,1);
+		this._background_noBooks.material.opacity = 0;
+		pageObj._addToSceneBg(this._background_noBooks);
+
 		var onInteractableObjectClicked = function(io) {
 			// disable interactable object
 			pageObj._io1.setEnable(false);
@@ -93,7 +98,7 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._background3, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._background3);
 						//background_priya.material.opacity = 1;
@@ -126,7 +131,7 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._background3, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._background3);
 						//background_ryan.material.opacity = 1;
@@ -160,6 +165,7 @@ var MPLAY = MPLAY || {};
 		var player = this._player;
 		var transitionBg = "%" + this._transitionBg;
 		var background = this._background_empty;
+		var backgroundNoBooks = this._background_noBooks;
 		var o = null;
 
 		o = [
@@ -184,7 +190,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "email"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
-			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class?  Like your old problem sets?"},
+			{type: "dialog", speaker: "Ryan", text: "Ryan, are you sure you can look at "+ player +"’s old problem sets? My friend got in trouble for doing that, before."},
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year."},
 			{type: "dialog", speaker: "Priya", text: "My friend got in trouble for doing that, it’s not worth it."},
@@ -199,24 +205,21 @@ var MPLAY = MPLAY || {};
 				choices :
 					[{text: "No problem, Ryan.  You’d do the same for me.",
 						go: "#materials", integrityScore: -1,
+						relationship:[{name: this._priya, score: -1}, {name: this._ryan, score: 2}],
 						onChoose: function(page){
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 						}},
 					{text: "Ry, I don’t know…",
-						go: "#dontknow", integrityScore: 0, relationship: {name: this._ryan, score: -1}},
+						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}]},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
-						go: "#notes", integrityScore: 1, relationship: {name: this._priya, score: 2}}],
+						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}]}
+					],
 				//seconds: 10,
 				//responses: [{text: "hey!"}, {text:"did you hear me"}],
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},
-			{type: "custom", func: function(page) {
-					page._cgAssignmentStatus = 1;
-					page.getRelationshipManager().addRelationship("Priya", -1);
-					page.getRelationshipManager().addRelationship("Ryan", 2);
-				}},
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore4"},
@@ -313,7 +316,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I can do that."},
+			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I guess I can do that."},
 			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
@@ -335,6 +338,21 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
+			{type: "custom", func: function(page){
+				page.tweenMat(backgroundNoBooks,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._background3);
+					},
+				});
+			}},
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 
@@ -353,7 +371,10 @@ var MPLAY = MPLAY || {};
 				text: "Studying T^T"},
 
 
-			{type: "choices", choices : [{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: {name:this._priya, score:1}}, {text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: {name:this._cat, score:1}}, {text: "Go home and take a nap.", go: "#gohome"}]},
+			{type: "choices", choices :
+			[{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: [{name:this._priya, score:1}]},
+			{text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: [{name:this._cat, score:1}]},
+			{text: "Go home and take a nap.", go: "#gohome"}]},
 
 			{type: "nothing", label: "gocafe"},
 			{type: "close_phone"},
@@ -371,11 +392,11 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "gohome"},
 			{type: "close_phone"},
-				{type: "custom", func: function(page) {
+				/*{type: "custom", func: function(page) {
 						page.getRelationshipManager().addRelationship("Priya", -1);
 						page.getRelationshipManager().addRelationship("Cat", -1);
-					}},
-				{type: "show", img: transitionBg, waitUntilShown:false},
+					}},*/
+				//{type: "show", img: transitionBg, waitUntilShown:false},
 				{type: "goto", page: "scene 6.a"},
 
 		];
@@ -392,7 +413,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Ryan-e");
 				// }},
-				{type: "play", audio: "Hey-Ryan-e"},
+				// {type: "play", audio: "Hey-Ryan-e"},
 				{type: "dialog", speaker: "Ryan", text: "Hey " + player + ", nice to see you. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -403,7 +424,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 				// }},
-				{type: "play", audio: "Hey-Ryan-p"},
+				// {type: "play", audio: "Hey-Ryan-p"},
 				{type: "dialog", speaker: "Ryan", text: "Oh hey. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -411,7 +432,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 				// }},
-				{type: "play", audio: "Hey-Ryan-n"},
+				// {type: "play", audio: "Hey-Ryan-n"},
 				{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Hey.  What’s up?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
@@ -419,15 +440,12 @@ var MPLAY = MPLAY || {};
 				{type: "choices",
 					choices :
 						[{text: "Came over to say hi.",
+						relationship:[{name: this._priya, score: 1},{name: this._ryan, score: 1}],
 							go: "#study-r"},
 						{text: "I'm here to study.",
 							go: "#sayhi-r"}], label: "choices1"},
 
 				{type: "nothing", label: "study-r"},
-				{type: "custom", func: function(page) {
-					page.getRelationshipManager().addRelationship("Priya", 1);
-					page.getRelationshipManager().addRelationship("Ryan", 1);
-				}},
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -444,9 +462,20 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore2"},
 				//remove priya bg and replace
-				{type: "custom", func: function(pageObj){
-					background.material.opacity = 1;
-					pageObj._removeFromSceneBg(pageObj._background3);
+				{type: "custom", func: function(page){
+					page.tweenMat(background,{
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 200,
+					});
+					page.tweenMat(page._background3,{
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							page._removeFromSceneBg(page._background3);
+						},
+					});
 				}},
 				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
 
@@ -479,10 +508,11 @@ var MPLAY = MPLAY || {};
 
 
 				{type: "nothing", label: "sayhi-r"},
-				{type: "custom", func: function(page) {
+				//relationship should stay neutral
+				/*{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", -1);
 					page.getRelationshipManager().addRelationship("Ryan", -1);
-				}},
+				}},*/
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,
@@ -499,15 +529,26 @@ var MPLAY = MPLAY || {};
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore3"},
 				//remove ryan bg and replace
-				{type: "custom", func: function(pageObj){
-					background.material.opacity = 1;
-					pageObj._removeFromSceneBg(pageObj._background3);
+				{type: "custom", func: function(page){
+					page.tweenMat(background,{
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 200,
+					});
+					page.tweenMat(page._background3,{
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
+							page._removeFromSceneBg(page._background3);
+						},
+					});
 				}},
 				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
-				{type: "dialog", speaker: "Priya", text: "Yeah.  I’m trying to study.  Ryan is avoiding his Computational Systems work."},
+				{type: "dialog", speaker: "Priya", text: "Yeah, me too.  Ryan is avoiding his Computational Systems work."},
 				{type: "jump", condition: true, goTrue: "#compareryan2", goFalse: "#compareryan2"},
 
 				{type: "nothing", label: "neg-priya2"},
@@ -545,7 +586,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Ohhi-Priya");
 				// }},
-				{type: "play", audio: "Ohhi-Priya"},
+				// {type: "play", audio: "Ohhi-Priya"},
 				{type: "dialog", speaker: "Priya", text: "Hi "+ player +"!  Join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -557,7 +598,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Priya");
 				// }},
-				{type: "play", audio: "Hey-Priya"},
+				// {type: "play", audio: "Hey-Priya"},
 				{type: "dialog", speaker: "Priya", text: "Hi " + player +"! Join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -565,7 +606,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Wtsnew-Priya");
 				// }},
-				{type: "play", audio: "Wtsnew-Priya"},
+				// {type: "play", audio: "Wtsnew-Priya"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false},
 				{type: "dialog", speaker: "Priya", text: "Hi.  What are you doing?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
@@ -578,10 +619,12 @@ var MPLAY = MPLAY || {};
 							go: "#sayhi-p"}], label: "choices1"},
 
 				{type: "nothing", label: "study-p"},
+				//relationship should stay neutral
+				/*
 				{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", 1);
 					page.getRelationshipManager().addRelationship("Ryan", 1);
-				}},
+				}},*/
 
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
@@ -631,10 +674,11 @@ var MPLAY = MPLAY || {};
 				{type: "jump", condition: true, goTrue: "#email", goFalse: 1000},
 
 				{type: "nothing", label: "sayhi-p"},
+				/*
 				{type: "custom", func: function(page) {
 					page.getRelationshipManager().addRelationship("Priya", -1);
 					page.getRelationshipManager().addRelationship("Ryan", -1);
-				}},
+				}},*/
 				{type: "custom", func: function(pageObj) {
 					pageObj.tweenMat(pageObj._io2.getImage(), {
 						opacity: 0,

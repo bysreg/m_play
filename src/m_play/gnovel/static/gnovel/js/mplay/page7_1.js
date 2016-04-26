@@ -49,8 +49,19 @@ var MPLAY = MPLAY || {};
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
 			{type: "custom", func: function(page){
-				background.material.opacity = 1;
-				page._removeFromSceneBg(page._background3);
+				page.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._background3);
+					},
+				});
 			}},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
@@ -59,7 +70,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Might help, what do you think?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
@@ -72,7 +83,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
@@ -82,7 +93,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "So my brother took this course last year, and gave me his stuff from the class.  "},
 			{type: "dialog", speaker: this._ryan, text: "Anyway, here's last year's exam.  It's not graded, but it's a blank copy of the actual exam.  I think we should study with it."},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
@@ -124,13 +135,14 @@ var MPLAY = MPLAY || {};
 				{text: "Hey, maybe we should both hold off on using this test.",
 					go: "#holdoff",
 					integrityScore: 1,
-					relationship: {name: this._priya, score: 2}},
+					relationship: [{name: this._priya, score: 2}]},
 				{text : "I think it's OK to use, Priya.  It's not even graded.",
 					integrityScore: -1,
+					relationship:[{name: this._ryan, score: 2}, {name: this._priya, score: -1}],
 					go : "#dontsay"},
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
-					relationship: {name: this._ryan, score: 1},
+					relationship: [{name: this._ryan, score: 1}],
 					go: "#decline"} ],
 				//seconds: 10,
 				//responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
@@ -157,10 +169,6 @@ var MPLAY = MPLAY || {};
 
 			// dontsay
 			{type: "nothing", label: "dontsay"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Priya", -1);
-				page.getRelationshipManager().addRelationship("Ryan", 2);
-			}},
 			{type: "show", img: priya, position: "left", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "I can't keep arguing with you both. Do what you want."},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},

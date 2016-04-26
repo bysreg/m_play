@@ -268,8 +268,9 @@ var GNOVEL = GNOVEL || {};
 
 		var tweenFlashBack = new TWEEN.Tween(obj.material)
 			.to({
-				opacity: 0.3,
+				opacity: 0,
 			}, duration)
+			.easing(params.easing || TWEEN.Easing.Linear.None);
 
 		//chaining used to call tween functions back and forth infinitely
 		tweenFlashForward.chain(tweenFlashBack);

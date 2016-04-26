@@ -130,10 +130,21 @@ var MPLAY = MPLAY || {};
 		var common = [
 			//switch out background with no scene characters
 			{type: "custom", func: function(pageObj){
-				background.material.opacity = 1;
-				pageObj._removeFromSceneBg(pageObj._background3);
+				pageObj.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				pageObj.tweenMat(pageObj._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						pageObj._removeFromSceneBg(pageObj._background3);
+					},
+				});
 			}},
-			{type: "show", img: ryan, position: "right"},
+			/*{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
@@ -145,30 +156,28 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. It's common practice to use codeHub.  Did she cite it?"},
 			{type: "dialog", speaker: "Cat", text: "No, and even if she did cite it, we can't use it."},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},
+			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},*/
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "What should we do, we have to submit the project in 2 hours!"},
 			{type: "choices",
 					choices :
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
+							relationship: [{name: this._ryan, score: -1}, {name: this._cat, score:1}],
 							go: "#ask"},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
-							relationship: {name: this._priya, score: 1},
+							relationship: [{name: this._priya, score: 1, text:"Priya will feel good about that"}],
 							go: "#redo"},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
+							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
 							go: "#submit" }],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
 					speaker: this._ryan},
 
 			{type: "nothing", label: "ask"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Cat", 1);
-				page.getRelationshipManager().addRelationship("Ryan", -1);
-			}},
 			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},
 
 			{type: "nothing", label: "asst_not_given"},
@@ -191,10 +200,10 @@ var MPLAY = MPLAY || {};
 			{type: "open_phone", layout:"text", people: [this._ryan, this._priya]},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
-				text: "P – there’s a violation with your part of the project."},
+				text: "P – there’s a problem with your part of the project."},
 			{type: "add_phone_textbox",
 				speaker: this._priya,
-				text: "What?"},
+				text: "What? A problem?"},
 			{type: "add_phone_textbox",
 				speaker: this._ryan,
 				text: "Did u use codeHub for ur code?"},
@@ -227,10 +236,6 @@ var MPLAY = MPLAY || {};
 
 
 			{type: "nothing", label: "submit"},
-			{type: "custom", func: function(page) {
-				page.getRelationshipManager().addRelationship("Cat", -1);
-				page.getRelationshipManager().addRelationship("Ryan", 1);
-			}},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I’m not comfortable doing that."},
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
@@ -281,7 +286,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Sup-Cat");
 				// }},
-				{type: "play", audio: "Sup-Cat"},
+				// {type: "play", audio: "Sup-Cat"},
 				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 
@@ -293,7 +298,7 @@ var MPLAY = MPLAY || {};
 				// {type: "custom", func: function(page) {
 				// 	page.getOwner().getSoundManager().play("Hey-Cat");
 				// }},
-				{type: "play", audio: "Hey-Cat"},
+				// {type: "play", audio: "Hey-Cat"},
 				{type: "dialog", speaker: "Cat", text: "I’m compiling our project now. Should only take a sec."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 

@@ -65,8 +65,19 @@ var MPLAY = MPLAY || {};
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
 			{type: "custom", func: function(page){
-				background.material.opacity = 1;
-				page._removeFromSceneBg(page._background3);
+				page.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._background3,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._background3);
+					},
+				});
 			}},
 			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
 
@@ -75,7 +86,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey "+ player +".  You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -84,7 +95,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Ohhi-Ryan");
 			// }},
-			{type: "play", audio: "Ohhi-Ryan"},
+			// {type: "play", audio: "Ohhi-Ryan"},
 			{type: "dialog", speaker: this._ryan, text: "Oh hey. You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

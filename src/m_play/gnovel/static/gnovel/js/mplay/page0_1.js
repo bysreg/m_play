@@ -28,7 +28,7 @@ var MPLAY = MPLAY || {};
 		var background_ryan = "/static/gnovel/res/textures/backgrounds/restaurant scene with ryan.png"
 		this.setupBarBackground(background_ryan);
 
-		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._background3Layer - 105), 1920, 1080);
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._backgroundLayer-1), 1920, 1080);
 		//this._background_empty.scale.set(.90,.85,1);
 		this._background_empty.material.opacity = 0;
 		this._addToSceneBg(this._background_empty);
@@ -36,6 +36,7 @@ var MPLAY = MPLAY || {};
 		//create images
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -60, this.getBackgroundLayer()+10), 100, 25);
+		this._addToScene(this._catsphoneImg);
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
@@ -75,7 +76,7 @@ var MPLAY = MPLAY || {};
 			// need a flow here to show a buzzing phone before choices
 			{type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
 
-			{type: "show", img: catsphone, waitUntilShown:false},
+			//{type: "show", img: catsphone, waitUntilShown:false},
 			/*{type: "show", img: yourphone},
 			{type: "custom", func: function(page) {
 				page.getOwner().getSoundManager().play("Message");
@@ -102,23 +103,35 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: closephone},
 			// phone email exchange ends*/
 
-/*
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
+
+			{type: "show", img: ryan, expression: "very happy", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
 			{type: "custom", func: function(page){
-				background.material.opacity = 1;
-				page._removeFromSceneBg(page._background3);
+				//background.material.opacity = 1;
+				page.tweenMat(background,{
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
+				page.tweenMat(page._bg,{
+					opacity: 0,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 800,
+					onComplete: function() {
+						page._removeFromSceneBg(page._bg);
+					},
+				});
 			}},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Congratulations! Referring you was a good call.  We’ll be working together after graduation."},
 			{type: "choices",
 				choices :
 					[{text: "Yeah!  Thanks again for forwarding my resume.",
 						go: "#cheers"},
 					{text : "Psyched to be working with you, Ryan!",
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#cheers"}]},
 
 			{type: "show", img: ryan, expression: "very happy", position: "center", label: "cheers"},
@@ -131,7 +144,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Check your phone, check your phone!"},
 			{type: "choices",
 				choices :
@@ -155,10 +168,10 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "My brother took it last year.  He said it was tough, but he learned a ton."},
 			{type: "choices",
 				choices :
-					[{text: "Should be good.",
+					[{text: "Tough, huh?",
 						go: "#RelationshipScore"},
 					{text : "Glad we’re in it together.",
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#RelationshipScore"}]},
 
 			{type: "custom", func: function(page) {
@@ -174,7 +187,7 @@ var MPLAY = MPLAY || {};
 			// relationship score <= 0
 			{type: "dialog", speaker: this._ryan, text: "Computer Science... Good stuff.  My friend Priya is in the class too.", label: "not_intro_priya"},
 			{type: "jump", condition: true, goTrue: "#seeaphone", goFalse: 1000},
-			*/
+
 			// see a phone on the table.
 			/**
 			* FIXME angle camera towards phone
@@ -192,11 +205,11 @@ var MPLAY = MPLAY || {};
 							page._catsPhoneStatus = 1;
 						},
 						integrityScore:1,
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#pickup"},
 					{text: "Does it have any cash in there?",
 						integrityScore:-1,
-						relationship: {name: this._ryan, score: -1},
+						relationship: [{name: this._ryan, score: -1}],
 						go: "#cash"}]},
 
 			{type: "dialog", speaker: this._ryan, text: "Good idea.  Anyways, enough celebrating.  We have to keep up that QPA for techFast.  Our boss is a stickler for good grades.", label: "waiter"},

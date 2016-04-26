@@ -26,7 +26,7 @@ var MPLAY = MPLAY || {};
 
 		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 140), 250, 458);
 		this._yourphone = "yourphone";
-		this._setObjectTag(this._yourphone, this._yourphoneImg);		
+		this._setObjectTag(this._yourphone, this._yourphoneImg);
 	};
 
 	PageTest.prototype._createFlowElements = function() {
@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 		var cat = "%" + this._cat;
 		var catsphone = "%" + this._catsphone;
 		var closephone = "%" + this._closephone;
-		var yourphone = "%" + this._yourphone;		
+		var yourphone = "%" + this._yourphone;
 		var player = this._player;
 		var priya = "%" + this._priya;
 
@@ -49,7 +49,7 @@ var MPLAY = MPLAY || {};
 			// {type: "show",  position:"center", img: ryan, expression: "sad", waitUntilShown: false},
 			// {type: "show",  position:"center", img: ryan, expression: "thoughtful", waitUntilShown: false},
 			// {type: "show",  position:"center", img: ryan, expression: "angry", waitUntilShown: false},
-			
+
 			// ryan - left
 			// {type: "show",  position:"left", img: ryan, waitUntilShown: false},
 			// {type: "show",  position:"left", img: ryan, expression: "happy", waitUntilShown: false},
@@ -70,7 +70,7 @@ var MPLAY = MPLAY || {};
 			// {type: "show",  position:"right", img: cat, expression: "angry", waitUntilShown: false},
 			// {type: "show",  position:"right", img: cat, expression: "happy", waitUntilShown: false, flip: true},
 			//{type: "show",  position:"right", img: cat, expression: "thoughtful", waitUntilShown: false, flip: true},
-			
+
 
 			// priya - left
 			{type: "show",  position:"right", img: priya, waitUntilShown: false},
@@ -96,7 +96,7 @@ var MPLAY = MPLAY || {};
 					[{text: "Yeah!  Thanks again for forwarding my resume.",
 						go: "#cheers"},
 					{text : "Psyched to be working with you, Ryan!",
-						relationship: {name: this._ryan, score: 1},
+						relationship: [{name: this._ryan, score: 1}],
 						go: "#cheers"}]},
 		];
 

@@ -61,7 +61,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
-			{type: "play", audio: "Hey-Ryan-n"},
+			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: "Hey "+ player +".  You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -70,7 +70,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Ohhi-Ryan");
 			// }},
-			{type: "play", audio: "Ohhi-Ryan"},
+			// {type: "play", audio: "Ohhi-Ryan"},
 			{type: "dialog", speaker: this._ryan, text: "Oh hey. You got the email right? About our grade?"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 

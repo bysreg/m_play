@@ -57,7 +57,7 @@ var MPLAY = MPLAY || {};
 			//positive relationship
 			{type: "nothing", label: "I+R+"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming & Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
+			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you helping him through Programming &amp; Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//neutral relationship
@@ -106,39 +106,19 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
-	Page9_0.prototype._createRandomPlaylist = function() {
-		var playlist = null;
-		playlist = [
-					{audio:"Uc-girllaughing", playrate: 0.02},
-					{audio:"Uc-mantalking", playrate: 0.05},
-					{audio:"Uc-womantalking", playrate: 0.03},
-					{audio:"Uc-steps", playrate: 0.1}
-					];
-		return playlist;
-	};
-
-	Page9_0.prototype._onUnload = function() {
-		MPLAY.MPlayPage.prototype._onUnload.call(this);
-
-		if (this._owner._ambient != null) {
-			this._tweenVolumeOut();
-		}
-	};
-
 	Page9_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
 
-		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 0.0});
-		this._tweenVolumeIn();
-	};
+		var integrityScore = this.getIntegrityManager().getIntegrity();
+		var relationshipScore = this.getRelationshipManager().getRelationship("Ryan");
 
-	/**
-	 * @override
-	 */
-	Page9_0.prototype._update = function() {
-		MPLAY.MPlayPage.prototype._update.call(this);
+		var ed = "Ed-music-bad";
+		if (integrityScore > 0 && relationshipScore > 0) {
+			ed = "Ed-music-happy";
+		};
 
-		this._multiTracksPlayer.shuffle();
+		this._owner._ambient = this._owner.getSoundManager().play(ed, {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, offset: 1000, volume: 1.0});
+		// this._tweenVolumeIn();
 	};
 
 	MPLAY.Page9_0 = Page9_0;

@@ -41,7 +41,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Priya");
 			// }},
-			{type: "play", audio: "Heyfriend-Priya"},
+			// {type: "play", audio: "Heyfriend-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Oh, "+ player +"! Good to see you. Ryan told me you got a job lined up. That’s so great.  Congrats!"},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -49,7 +49,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Priya");
 			// }},
-			{type: "play", audio: "Hey-Priya"},
+			// {type: "play", audio: "Hey-Priya"},
 			{type: "dialog", speaker: "Priya", text: "Hey. Ryan told me you got a job lined up."},
 			{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
@@ -59,7 +59,11 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "He’s sweet.  Last semester, Ryan was my date to the Indian Association’s banquet."},
 			{type: "dialog", speaker: "Priya", text: "Really goes out of his way for his friends."},
-			{type: "choices", choices : [{text: "That was nice of him.", go: "#nice"}, {text : "You guys seem close.", relationship: {name: this._priya, score: "1"}, go : "#close"}]},
+			{type: "choices",
+			choices :
+				[{text: "That was nice of him.", go: "#nice"},
+				{text : "You guys seem close.", relationship: [{name: this._priya, score: "1"}], go : "#close"}]
+			},
 
 			{type: "nothing", label: "nice"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},

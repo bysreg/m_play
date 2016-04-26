@@ -55,7 +55,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Yo-Ryan");
 			// }},
-			{type: "play", audio: "Yo-Ryan"},
+			// {type: "play", audio: "Yo-Ryan"},
 			{type: "dialog", speaker: this._ryan, text: player + "! Glad I caught you.   I ended up doing OK on that test."},
 			{type: "dialog", speaker: this._ryan, text: "Probably not my best work, but what can you do.  I’m glad we held off on using it."},
 			{type: "dialog", speaker: this._ryan, text: "Better safe than sorry.  At least Priya won't be mad anymore."},
@@ -71,7 +71,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-e");
 			// }},
-			{type: "play", audio: "Hey-Ryan-e"},
+			// {type: "play", audio: "Hey-Ryan-e"},
 			{type: "dialog", speaker: this._ryan, text: "Hey!  You know, I ended up doing OK on that test.  Probably not my best work though."},
 			{type: "dialog", speaker: this._ryan, text: "I guess it's better to be safe than sorry.  At least Priya won't be mad anymore."},
 			{type: "show", img: ryan, expression: "sad", position: "left"},
@@ -83,7 +83,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
-			{type: "play", audio: "Hey-Ryan-p"},
+			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "I wanted to let you know that I ended up doing OK on that test."},
 			{type: "dialog", speaker: this._ryan, text: "Probably not my best work, but what can you do.  I’ll see you around."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
@@ -103,7 +103,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Heyfriend-Cat");
 			// }},
-			{type: "play", audio: "Heyfriend-Cat"},
+			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: player + "!  Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
 			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},
 			{type: "show", img: cat, expression: "happy", position: "center"},			
@@ -120,7 +120,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
-			{type: "play", audio: "Hey-Cat"},
+			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
 			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},
 			{type: "show", img: cat, expression: "happy", position: "center"},			
@@ -134,7 +134,7 @@ var MPLAY = MPLAY || {};
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
-			{type: "play", audio: "Hey-Cat"},
+			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
 			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},
 			{type: "show", img: cat, expression: "happy", position: "center"},						
@@ -151,7 +151,7 @@ var MPLAY = MPLAY || {};
 		var playlist = null;
 		playlist = [
 					{audio:"Uc-girllaughing", playrate: 0.02},
-					{audio:"Uc-mantalking", playrate: 0.05},
+					{audio:"Uc-mantalking", playrate: 0.02},
 					{audio:"Uc-womantalking", playrate: 0.03},
 					{audio:"Uc-steps", playrate: 0.1}
 					];
