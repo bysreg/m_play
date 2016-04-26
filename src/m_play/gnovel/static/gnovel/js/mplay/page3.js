@@ -225,7 +225,7 @@ var MPLAY = MPLAY || {};
 						}},
 					{text: "Ry, I don’t know…",
 						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}], 
-						onChoose: function(){
+						onChoose: function(page){
 							console.log("You didn’t give Ryan your assignments, but you didn’t help him");
 							page._unauthorizedAsstChoice = 1;
 
@@ -233,7 +233,7 @@ var MPLAY = MPLAY || {};
 						}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
 						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}], 
-						onChoose: function() {
+						onChoose: function(page) {
 							console.log("You didn’t give Ryan your assignments, but you offered to help");
 							page._unauthorizedAsstChoice = 0;
 
