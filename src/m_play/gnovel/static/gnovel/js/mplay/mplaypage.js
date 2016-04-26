@@ -982,9 +982,6 @@ var MPLAY = MPLAY || {};
 			this._background3.scale.set(.85, .80, 1);
 		}
 
-		// testing
-		this._bg.name = "UCUCUCUCUC";
-
 		this._addToSceneBg(this._bg);
 		//this._addToSceneBg(this._background2);
 		this._addToSceneBg(this._background3);
@@ -1291,12 +1288,6 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype._setMultiTracksPlayer = function() {
 		GNOVEL.Page.prototype._setMultiTracksPlayer.call(this);
 	};
-
-	MPlayPage.prototype._saveRelationshipData = function(obj) {
-		obj.relationship.ryan = this.getRelationshipManager().getRelationship(this._ryan);
-		obj.relationship.priya = this.getRelationshipManager().getRelationship(this._priya);
-		obj.relationship.cat = this.getRelationshipManager().getRelationship(this._cat);
-	};	
 
 	MPLAY.MPlayPage = MPlayPage;
 

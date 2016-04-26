@@ -178,7 +178,7 @@ var MPLAY = MPLAY || {};
 							onChoose: function(page) {
 								page._priyaWorkChoice = 0;
 
-								page._saveRelationshipData(page._plagiarismData);
+								page._plagiarismData.relationship.cat = 1;								
 							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
@@ -187,7 +187,7 @@ var MPLAY = MPLAY || {};
 							onChoose: function(page) {
 								page._priyaWorkChoice = 1;
 
-								page._saveRelationshipData(page._plagiarismData);
+								page._plagiarismData.relationship.priya = 1;	
 							}},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
@@ -196,7 +196,8 @@ var MPLAY = MPLAY || {};
 							onChoose: function(page) {
 								page._priyaWorkChoice = 2;
 
-								page._saveRelationshipData(page._plagiarismData);
+								page._plagiarismData.relationship.ryan = 1;	
+								page._plagiarismData.relationship.cat = -1;	
 							}}],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],

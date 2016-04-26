@@ -193,13 +193,15 @@ var MPLAY = MPLAY || {};
 				choices :
 					[{text: "Let’s give it to the waiter.",
 						onChoose: function(page) {
-							page._catsPhoneStatus = 0;
+							page._catsPhoneStatus = 0;							
 						},
 						integrityScore:0,
 						go: "#waiter"},
 					{text: "Let’s take a look.  Maybe we can contact the owner.",
 						onChoose: function(page) {
 							page._catsPhoneStatus = 1;
+
+							page._phoneData.relationship.ryan = 1;
 						},
 						integrityScore:1,
 						relationship: [{name: this._ryan, score: 1}],
@@ -207,6 +209,8 @@ var MPLAY = MPLAY || {};
 					{text: "Does it have any cash in there?",
 						onChoose: function(page) {
 							page._catsPhoneStatus = 2;
+
+							page._phoneData.relationship.ryan = -1;
 						},
 						integrityScore:-1,
 						relationship: [{name: this._ryan, score: -1}],
@@ -230,10 +234,6 @@ var MPLAY = MPLAY || {};
 			// ending
 			//{type: "hide", img: catsphone, label: "hidephone"},
 			{type: "nothing", label:"nextscene"},
-
-			{type: "custom", func:function(page) {
-				page._saveRelationshipData(page._phoneData);
-			}},
 
 			{type: "goto", page: "scene 2.a"},
 		];

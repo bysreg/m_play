@@ -112,7 +112,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote about integrity as his status."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
-			{type: "show", img: priya, expression: "thoughtful", position: "right"},
+			{type: "show", img: priya, expression: "thoughtful", position: "right", flip: true},
 			{type: "dialog", speaker: this._priya, text: "‘As I grow older, I pay less attention to what men say. I just watch what they do.’"},			
 
 			{type: "goto", page: "scene 10.a"},

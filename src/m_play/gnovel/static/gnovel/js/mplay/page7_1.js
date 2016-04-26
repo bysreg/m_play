@@ -150,13 +150,23 @@ var MPLAY = MPLAY || {};
 				{text: "Hey, maybe we should both hold off on using this test.",
 					go: "#holdoff",
 					integrityScore: 1,
+					onChoose: function(page) {
+						page._usingTestData.relationship.priya = 2;
+					},
 					relationship: [{name: this._priya, score: 2}]},
 				{text : "I think it's OK to use, Priya.  It's not even graded.",
 					integrityScore: -1,
+					onChoose: function(page) {
+						page._usingTestData.relationship.priya = -1;
+						page._usingTestData.relationship.ryan = 2;
+					},
 					relationship:[{name: this._ryan, score: 2}, {name: this._priya, score: -1}],
 					go : "#dontsay"},
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
+					onChoose: function(page) {
+						page._usingTestData.relationship.ryan = 1;
+					},
 					relationship: [{name: this._ryan, score: 1}],
 					go: "#decline"} ],
 				//seconds: 10,
@@ -170,9 +180,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 0;
-
-				page._saveRelationshipData(page._usingTestData);
+				this._usingTestStatus = 0;				
 			}},
 			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
@@ -183,9 +191,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 1;
-
-				page._saveRelationshipData(page._usingTestData);
+				this._usingTestStatus = 1;				
 			}},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
@@ -203,18 +209,14 @@ var MPLAY = MPLAY || {};
 			// dontsay and good integrity
 			{type: "nothing", label: "go9c"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 2;
-
-				page._saveRelationshipData(page._usingTestData);
+				this._usingTestStatus = 2;				
 			}},
 			{type: "goto", page: "scene 9.c"},
 
 			// dont say and bad integrity
 			{type: "nothing", label: "go9d"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 3;
-
-				page._saveRelationshipData(page._usingTestData);
+				this._usingTestStatus = 3;				
 			}},
 			{type: "goto", page: "scene 9.d"},
 
@@ -229,9 +231,7 @@ var MPLAY = MPLAY || {};
 			// decline and good integrity
 			{type: "nothing", label: "go9e"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 4;
-
-				page._saveRelationshipData(page._usingTestData);
+				this._usingTestStatus = 4;				
 			}},
 			{type: "goto", page: "scene 9.e"},
 
@@ -239,8 +239,6 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "go9f"},
 			{type: "custom", func: function(page) {
 				this._usingTestStatus = 5;
-
-				page._saveRelationshipData(page._usingTestData);
 			}},
 			{type: "goto", page: "scene 9.f"},
 		];
