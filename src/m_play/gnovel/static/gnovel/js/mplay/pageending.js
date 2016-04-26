@@ -111,19 +111,20 @@ var MPLAY = MPLAY || {};
 
 		var unauthorizedAsstArray = [
 			{
-				choice: "You gave Ryan your old assignments",	
-				resolution: "Turns out that’s against the academic code...",
-				question: "Was there a way to help Ryan without violating the code?",
+				choice: "You didn’t give Ryan your assignments, but you offered to help",	
+				resolution: "You went into office hours and the professor helped Ryan through a lot of his confusion",
+				question: "What would have happened if you didn’t help Ryan?",
 			},
 			{
 				choice: "You didn’t give Ryan your assignments, but you didn’t help him",	
 				resolution: "Ryan struggled pretty hard with his work, he didn’t end up doing so well in that class...",
 				question: "Was there a way to help Ryan without violating the code?",
 			},
+
 			{
-				choice: "You didn’t give Ryan your assignments, but you offered to help",	
-				resolution: "You went into office hours and the professor helped Ryan through a lot of his confusion",
-				question: "What would have happened if you didn’t help Ryan?",
+				choice: "You gave Ryan your old assignments",	
+				resolution: "Turns out that’s against the academic code...",
+				question: "Was there a way to help Ryan without violating the code?",
 			},
 		];
 
