@@ -29,6 +29,8 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 body {
     font-family: 'Noteworthy', 'NoteworthyLight', 'Lato', Calibri, Arial, sans-serif;
     color: #000000;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 a {
