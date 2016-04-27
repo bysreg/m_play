@@ -89,7 +89,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 2, goTrue: "#I-R0", goFalse: "#I-R-"},
 			{type: "nothing", label: "I-R0"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming & Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
+			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming & Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//negative relationship
