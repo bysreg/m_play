@@ -65,7 +65,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 2, goTrue: "#I+R0", goFalse: "#I+R-"},
 			{type: "nothing", label: "I+R0"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you for saving his butt in Programming & Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
+			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming & Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//negative relationship
@@ -89,7 +89,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 2, goTrue: "#I-R0", goFalse: "#I-R-"},
 			{type: "nothing", label: "I-R0"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "Ryan and you were nervous about starting work after that whole mess with Programming & Society. Your boss was not pleased after he heard about what happened with the exam, but did not rescind your job offers. You and Ryan remain good friends. Ryan swears he will never listen to his brother’s advice again."},
+			{type: "show_ed_context", text: "You and Ryan end up working together, but are no longer as close as you used to be. Things get awkward at work when your boss finds out about what happened in your last semester in school. Ryan ends up leaving TechFast to work at a startup somewhere in Pittsburgh. He seems to be doing well, as far as you can tell from your newsfeed."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//negative relationship
