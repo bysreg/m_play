@@ -34,6 +34,21 @@ var CanvasText = (function () {
       this.ctx.charLine = ctxOptions.charLine || 72;
       this.fontHeight = getFontHeight(this.ctx.font);
       this.ctxCenter = ctxOptions.ctxCenter;
+      var heightOffset = 0;
+
+      if (this.ctx.font === "20px Noteworthy" && this.fontHeight !== 23) {
+        this.fontHeight = 23;
+        heightOffset = 5;
+      };
+      if (this.ctx.font === "20px sfToontime" && this.fontHeight !== 23) {
+        this.fontHeight = 23;
+        heightOffset = 5;
+      };
+      if (this.ctx.font === "15px Arial" && this.fontHeight !== 17) {
+        this.fontHeight = 17;
+        // heightOffset = 5;
+      };
+      
 
       this.widthOffset = 15;
 
@@ -80,6 +95,7 @@ var CanvasText = (function () {
         };
         this.textHeight = this.fontHeight;
       }
+      this.textHeight += 10;
       
 
       this.canvas.width = THREE.Math.nextPowerOfTwo(this.textWidth) + 10;
@@ -124,7 +140,7 @@ var CanvasText = (function () {
       }*/
 
       // fill text with different y coordinates for each line.
-      var x = 0, y = 0;
+      var x = 0, y = 3 + heightOffset;
       if (this.ctxCenter) {
         x = this.textWidth / 2 + this.widthOffset;
       }
