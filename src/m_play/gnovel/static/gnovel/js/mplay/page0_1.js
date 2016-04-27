@@ -33,7 +33,7 @@ var MPLAY = MPLAY || {};
 		//this._background_empty.scale.set(.90,.85,1);
 		this._background_ryan.material.opacity = 0;
 		this._addToSceneBg(this._background_ryan);
-		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._backgroundLayer-2), 1920, 1080); 
+		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/restaurant.png", new THREE.Vector3(0, 0, this._backgroundLayer-2), 1920, 1080);
 		this._background_empty.material.opacity = 0;
 		this._addToSceneBg(this._background_empty);
 
@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 		this._io1 = this.createInteractableObject(
 			"/static/gnovel/res/textures/char/sad ryan.png",
 			{type: "character", x: 180, y: -60, z: z, width : 360, height : 713, opacity: 0, onClick: function(io) {
-				
+
 				pageObj._talked = 1;
 				pageObj._runFlow();
 
@@ -136,7 +136,7 @@ var MPLAY = MPLAY || {};
 						text: "Sorry "+ player +", running a little late. Be there in 5 minutes"},
 				{type: "close_phone"},
 
-				{type: "show_context", text:"Ryan arrives in 5 minutes", waitUntilShown:false},
+				{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
 			{type: "custom", func: function(page){
 					var pageObj = page;
 					page.tweenMat(page._background_ryan,{
