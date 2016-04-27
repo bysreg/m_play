@@ -183,12 +183,13 @@ var GNOVEL = GNOVEL || {};
 				var textHeight = this._messageText.canvas.textHeight;
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
-					var scale_h = textHeight * 1.7 / 240;
-					var scale_w = textWidth * 1.7 / 1080;
+					var scale_h = textHeight * 1.7 / 240;					
 					var scale = scale_h;
 					Dialog._textBg.position.y -= textHeight / 4;
 					if (characterLine == 45) {
-						Dialog._textBg.position.y -= 10;
+						var scale_w = textWidth * 1.5 / 1080;
+						Dialog._textBg.position.y -= 5;
+						Dialog._textBg.position.x += 15;
 						scale = scale_w;
 						Dialog._textBg.position.x += textWidth / 8;
 					};
