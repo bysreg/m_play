@@ -311,12 +311,15 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {
+		if (event.type === "keyup" && event.keyCode !== 32) {
+			return;
+		}
 
 		this._soundManager.play("Clicking");
 
 		if (!this._onStart) return;
 
-		// if we are still processing a onMouseDown event, then don't process
+		// if we are  still processing a onMouseDown event, then don't process
 		if (this._onMouseDownProcessing) {
 			return;
 		}
