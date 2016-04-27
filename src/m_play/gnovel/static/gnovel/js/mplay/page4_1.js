@@ -88,8 +88,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},
 			{type: "dialog", speaker: "Cat", text: "You know, Priya told me about what happened with you guys the other day."},
 			{type: "show", img: cat, expression: "sad", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "I think it's tough if you're international."},
-			{type: "dialog", speaker: "Cat", text: "If they get dropped because of a violation or bad grade, they have visa problems."},
+			{type: "dialog", speaker: "Cat", text: "She told me about her roommate. That was a tough situation, because she was an international student. If they get dropped, they have problems with their visas."},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Yeah, so anyway. What are you going to order?"},
 
