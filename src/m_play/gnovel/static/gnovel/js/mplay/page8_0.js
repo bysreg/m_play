@@ -108,7 +108,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},
 			{type: "show", img: cat, expression: "happy", position: "center"},			
 			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'I don’t pay attention to what people say.  Only what they do.'"},
+			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say.  Only what they do.'"},
 			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch!"},
 			{type: "goto", page: "scene 10.a"},
 

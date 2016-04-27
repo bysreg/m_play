@@ -204,22 +204,22 @@ var MPLAY = MPLAY || {};
 					speaker: this._ryan},
 
 			{type: "nothing", label: "ask"},
-			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},
+			// {type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},
 
-			{type: "nothing", label: "asst_not_given"},
+			// {type: "nothing", label: "asst_not_given"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Let’s text her."},
 			{type: "hide", img: cat, waitUntilHiden: false},
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
 			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
 
-			{type: "nothing", label: "asst_given"},
-			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your old problem sets"},
-			{type: "dialog", speaker: "Ryan", text: "Why don’t you text her, "+ player +"."},
-			{type: "hide", img: cat, waitUntilHiden: false},
-			{type: "hide", img: ryan, waitUntilHiden: false},
-			{type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
+			// {type: "nothing", label: "asst_given"},
+			// {type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
+			// {type: "dialog", speaker: "Ryan", text: "She might still be mad at me about me using your old problem sets"},
+			// {type: "dialog", speaker: "Ryan", text: "Why don’t you text her, "+ player +"."},
+			// {type: "hide", img: cat, waitUntilHiden: false},
+			// {type: "hide", img: ryan, waitUntilHiden: false},
+			// {type: "jump", condition: true, goTrue: "#txtxchange", goFalse: "#txtxchange"},
 
 			{type: "nothing", label: "txtxchange"},
 			// phone exchange begins
