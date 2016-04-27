@@ -116,10 +116,10 @@ var MPLAY = MPLAY || {};
 					{audio:"Bar-glasses2", playrate: 0.1},
 					{audio:"Bar-glasses3", playrate: 0.1},
 					{audio:"Bar-distantglasses", playrate: 0.4},
-					{audio:"Bar-girltalking", playrate: 0.05},
+					{audio:"Bar-girltalking", playrate: 0.05, noreplay: true},
 					{audio:"Bar-liquid", playrate: 0.05},
-					{audio:"Bar-mantalking", playrate: 0.05},
-					{audio:"Bar-pia", playrate: 0.05}
+					{audio:"Bar-mantalking", playrate: 0.05, noreplay: true},
+					{audio:"Bar-pia", playrate: 0.05, noreplay: true},
 					];
 		return playlist;
 	};
