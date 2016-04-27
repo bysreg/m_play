@@ -11,6 +11,9 @@
 @font-face{
 	font-family: 'Noteworthy';
 	src: url('../../font/noteworthyFontFace.ttf') format('truetype');
+
+	font-family: 'NoteworthyLight';
+	src: url('../../font/Noteworthy Light.ttf') format('truetype');
 }
 
 
@@ -19,7 +22,7 @@
 	padding: 0;
 	list-style: none;
 	position: relative;
-} 
+}
 
 /* The line */
 .cbp_tmtimeline:before {
@@ -127,6 +130,7 @@
 .resultTitleText {
 	display: block;
     font-family: 'Noteworthy';
+		top:420px;
     font-size: 0.8em;
     color: #f9f7ad;
     font-weight: bold;
@@ -138,7 +142,9 @@
 
 .resultText {
 	display: block;
-    font-family: 'Noteworthy';
+    font-family: 'NoteworthyLight';
+		width:18em;
+		top: 345px;
     font-size: 0.6em;
     color: #ffffff;
     font-weight: bold;
@@ -189,7 +195,7 @@
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {
 }
 
-.cbp_tmtimeline > li .cbp_tmlabel  { 
+.cbp_tmtimeline > li .cbp_tmlabel  {
 	margin-top: 15px;
 	padding: 0 5 10px 0;
 	border-bottom: 1px solid rgba(255,255,255,0.4);
@@ -301,6 +307,5 @@
 		float: right;
 		left: auto;
 		margin: -55px 5px 0 0px;
-	}	
+	}
 }
-

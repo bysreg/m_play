@@ -17,6 +17,7 @@ var PageLoading = function(){
 	this._curTextBar = null;
 	this._loadingComplete = false;
 	this._loadTween = null;
+	this._notifText = null;
 
   var page = this;
   var tutCounter = 1;
@@ -68,20 +69,19 @@ PageLoading.prototype.constructor = PageLoading;
 	 this.getOwner().addMouseDownListener(this.mouseDownListener);
 
 	 this._TutorialNext(0);
-
-	 var message = "(Click or press [Space] to advance messages and dialogue.)"
+	 this._notifText = this.createImage("/static/gnovel/res/loadingPage/loading_tut_text.png",new THREE.Vector3(0,-100,5),560,50);
+	 /*var message = "(Click or press [Space] to advance messages and dialogue.)"
 	 var notifText = this.createTextBox(message,{
 		 charLine: 60,
 		 font: "28px Noteworthy",
 		 center: true,
-		 fillstyle: '#ffffff',});
+		 fillstyle: '#ffffff',});*/
 
 	//set text on bottom right
-	notifText.position.set(0,-100,this.getBackgroundLayer()+5);
-	notifText.material.opacity = 0;
-	this._addToScene(notifText);
+	this._notifText.material.opacity = 0;
+	this._addToScene(this._notifText);
 	//fade in text after X delay
-	this.tweenMat(notifText,{
+	this.tweenMat(this._notifText,{
 		opacity: 1,
 		delay:2000,
 		duration:400,
@@ -98,6 +98,14 @@ PageLoading.prototype.constructor = PageLoading;
    {
      this._compassAnim();
 		 this.LoadingComplete();
+		 this.tweenMat(this._notifText,{
+			 opacity:0,
+			 duration:400,
+			 easing:TWEEN.Easing.Cubic.Out,
+			 onComplete: function(){
+				 page._removeFromScene(page._notifText);
+			 }
+		 })
    };
 	 //display textbox on top of background
 

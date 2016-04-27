@@ -40,7 +40,7 @@
 }
 @font-face{
 	font-family: 'NoteworthyLight';
-	src: url('../font/Noteworthy Light.ttf') format('truetype');
+	src: url('../font/Noteworthy Light.otf') format('truetype');
 }
 @font-face{
 	font-family: 'wg_legacy_edition';
