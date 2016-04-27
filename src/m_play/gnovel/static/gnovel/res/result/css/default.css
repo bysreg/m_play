@@ -14,6 +14,10 @@
 	font-family: 'Noteworthy';
 	src: url('../../font/noteworthyFontFace.ttf') format('truetype');
 }
+@font-face{
+	font-family: 'NoteworthyLight';
+	src: url('../../font/Noteworthy Light.ttf') format('truetype');
+}
 
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 body, html { font-size: 100%; padding: 0; margin: 0;}
@@ -23,7 +27,7 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 .clearfix:after { clear: both; }
 
 body {
-    font-family: 'Noteworthy', 'Lato', Calibri, Arial, sans-serif;
+    font-family: 'Noteworthy', 'NoteworthyLight', 'Lato', Calibri, Arial, sans-serif;
     color: #000000;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -104,7 +108,7 @@ a:hover {
 	background: #47a3da;
 }
 
-.icon-drop:before, 
+.icon-drop:before,
 .icon-arrow-left:before {
 	font-family: 'fontawesome';
 	position: absolute;

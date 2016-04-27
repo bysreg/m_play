@@ -158,7 +158,7 @@ var MPLAY = MPLAY || {};
 		// 0 means you didnt give your assignment, but you offered help
 		// 1 means you didnt give your assignment, but you didn't help him
 		// 2 means you gave ryan your old assignment
-		this._unauthorizedAsstChoice = 0; 
+		this._unauthorizedAsstChoice = 0;
 
 		this._unauthorizedAsstData = {};
 		this._unauthorizedAsstData.relationship = {};
@@ -200,11 +200,9 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "email"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: player + ", you took Comp Systems last semester."},
-			{type: "dialog", speaker: "Ryan", text: "Ryan, are you sure you can look at "+ player +"’s old problem sets? My friend got in trouble for doing that, before."},
+			{type: "dialog", speaker: "Ryan", text: "Could you send me some of your stuff from the class? Like your old problem sets?"},
 			{type: "show", img: priya, expression:"thoughtful", position: "right", waitUntilShown: false, flip: true},
-			{type: "dialog", speaker: "Priya", text: "Ryan, you can’t look at "+ player +"’s graded assignments from last year."},
-			{type: "dialog", speaker: "Priya", text: "My friend got in trouble for doing that, it’s not worth it."},
-			{type: "dialog", speaker: "Priya", text: "Can't you work through it yourself?"},
+			{type: "dialog", speaker: "Priya", text: "Ryan, are you sure you can look at "+ player +"’s old problem sets? My friend got in trouble for doing that, before."},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "I’m just stuck on some problems.  I’m only going to use it to check my work."},
 			{type: "dialog", speaker: "Priya", text: "If you do, you probably won’t get caught, but why risk it?"},
@@ -220,25 +218,25 @@ var MPLAY = MPLAY || {};
 							console.log("you give ryan cg assignments");
 							page._cgAssignmentStatus = 1;
 							page._unauthorizedAsstChoice = 2;
-							
+
 							page._unauthorizedAsstData.relationship.priya = -1;
 							page._unauthorizedAsstData.relationship.ryan = 2;
 						}},
 					{text: "Ry, I don’t know…",
-						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}], 
+						go: "#dontknow", integrityScore: 0, relationship: [{name: this._ryan, score: -1}],
 						onChoose: function(page){
 							console.log("You didn’t give Ryan your assignments, but you didn’t help him");
 							page._unauthorizedAsstChoice = 1;
 
-							page._unauthorizedAsstData.relationship.ryan = -1;							
+							page._unauthorizedAsstData.relationship.ryan = -1;
 						}},
 					{text: "I’m happy to give you a hand where you’re stuck, but can you check with the TA to make sure it’s ok?",
-						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}], 
+						go: "#notes", integrityScore: 1, relationship: [{name: this._priya, score: 2}],
 						onChoose: function(page) {
 							console.log("You didn’t give Ryan your assignments, but you offered to help");
 							page._unauthorizedAsstChoice = 0;
 
-							page._unauthorizedAsstData.relationship.priya = 2;							
+							page._unauthorizedAsstData.relationship.priya = 2;
 						}},
 					],
 				//seconds: 10,

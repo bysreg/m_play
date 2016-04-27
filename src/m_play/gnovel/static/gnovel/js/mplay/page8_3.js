@@ -23,7 +23,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupOfficeBackground();
-		this._middleground_empty = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._middleground_empty = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground no prof.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		this._middleground_empty.material.opacity = 0;
 		this._addToSceneBg(this._middleground_empty);
 	};
@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "choices",
 			choices : [
-				{text: "What are you implying professor?"},
+				{text: "I'm not sure what this is about."},
 				{text: "Yeah, so?"}],
 		},
 
@@ -79,7 +79,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#policy", goFalse: "#policy"},
 
 			{type: "nothing", label:"policy"},
-			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs."},
+			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
 			{type: "show", img: professor, position: "center"},
 			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},
@@ -92,7 +92,7 @@ var MPLAY = MPLAY || {};
 				{text: "Nothing happened.  We studied the same way as everyone else.", go:"#lie"}],
 			},
 
-			{type: "dialog", label:"lie"},
+			{type: "nothing", label:"lie"},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Okay.  Are you sure there is nothing you want to tell me?"},
 			{type: "choices", choices : [
