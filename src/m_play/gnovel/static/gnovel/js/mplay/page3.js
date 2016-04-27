@@ -64,7 +64,7 @@ var MPLAY = MPLAY || {};
 		this._background_empty.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_empty);
 
-		this._background_noBooks = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground_empty.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
+		this._background_noBooks = pageObj.createImage("/static/gnovel/res/textures/backgrounds/lib foreground_empty.png", new THREE.Vector3(-55, -45, this._background3Layer-105), 1920, 1080);
 		this._background_noBooks.scale.set(.90,.85,1);
 		this._background_noBooks.material.opacity = 0;
 		pageObj._addToSceneBg(this._background_noBooks);
@@ -362,6 +362,11 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "Forget it, I’ll just work it through myself."},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
+			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
+
+
+
+			{type: "nothing", label: "aside2"},
 			{type: "custom", func: function(page){
 				page.tweenMat(backgroundNoBooks,{
 					opacity: 1,
@@ -374,14 +379,10 @@ var MPLAY = MPLAY || {};
 					duration: 800,
 					onComplete: function() {
 						page._removeFromSceneBg(page._background3);
+						page._background3 = backgroundNoBooks;
 					},
 				});
 			}},
-			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
-
-
-
-			{type: "nothing", label: "aside2"},
 			{type: "show_context", text: "Ryan and Priya leave... and some time passes"},
 			{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 			{type: "add_phone_textbox",
@@ -498,6 +499,7 @@ var MPLAY = MPLAY || {};
 						duration: 800,
 						onComplete: function() {
 							page._removeFromSceneBg(page._background3);
+							page._background3 = background;
 						},
 					});
 				}},
@@ -565,6 +567,7 @@ var MPLAY = MPLAY || {};
 						duration: 800,
 						onComplete: function() {
 							page._removeFromSceneBg(page._background3);
+							page._background3 = background;
 						},
 					});
 				}},
@@ -763,7 +766,7 @@ var MPLAY = MPLAY || {};
 					{audio:"Lib-chairs3", playrate: 0.1},
 					{audio:"Lib-chairs1", playrate: 0.1},
 					{audio:"Lib-distantchairs", playrate: 0.3},
-					{audio:"Lib-pia", playrate: 0.05, noreplay: true}
+					{audio:"Lib-pia", playrate: 0.05}
 					];
 		return playlist;
 	};
