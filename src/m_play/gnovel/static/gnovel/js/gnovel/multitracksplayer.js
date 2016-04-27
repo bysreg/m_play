@@ -47,8 +47,8 @@ var GNOVEL = GNOVEL || {};
 					if (this._playLevels[j] >= this._shuffleRates && this._noreplay[j] === false) {
 						if (!hit) {
 							this._play(this._playlist[j].audio);
-							console.log("playing " + this._playlist[j].audio);
-							console.log("Rate: " + this._shuffleRates);
+							// console.log("playing " + this._playlist[j].audio);
+							// console.log("Rate: " + this._shuffleRates);
 							hit = true;
 							break;
 						};							
