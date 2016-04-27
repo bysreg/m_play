@@ -61,12 +61,12 @@ var MPLAY = MPLAY || {};
 					easing: TWEEN.Easing.Cubic.Out,
 					duration: 200,
 				});
-				page.tweenMat(page._background3,{
+				page.tweenMat(page._bg,{
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
 					duration: 800,
 					onComplete: function() {
-						page._removeFromSceneBg(page._background3);
+						page._removeFromSceneBg(page._bg);
 					},
 				});
 			}},
