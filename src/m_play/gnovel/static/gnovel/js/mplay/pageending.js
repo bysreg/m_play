@@ -159,12 +159,12 @@ var MPLAY = MPLAY || {};
 			},
 			{
 				choice: "You did use the test.",
-				resolution: "You got caught. Professor Sweeny did not pursue academic integrity violations proceedings. He gave you the chance to retake the exam with a maximum grade of 80%. You pass the final and the class, but just barely.",
+				resolution: "You got caught by Professor Sweeney for using the old take home test.",
 				question: "Why did you choose to use the test? Was there another way?",
 			},
 			{
 				choice: "You did use the test.",
-				resolution: "You got caught. Professor Sweeny did not pursue academic integrity violations proceedings. He gave you the chance to retake the exam with a maximum grade of 80%. You pass the final and the class, but just barely.",
+				resolution: "You got caught. you both receive a 0 on the final and fail the class.",
 				question: "Why did you choose to use the test? Was there another way?",
 			},
 			{
@@ -174,7 +174,7 @@ var MPLAY = MPLAY || {};
 			},
 			{
 				choice: "You didn’t use the test",
-				resolution: "Ryan used the test even though you didn’t. When Ryan was questioned, he revealed that you had had access to the test too and didn’t report it. Professor Sweeny could pursue academic action for you as well, but he chooses not to.",
+				resolution: "Ryan used the test, got caught and told the professor you saw it too, which is also a violation.",
 				question: "Was there a way to stop Ryan from using the test? Should you have reported the violation?",
 			},
 		];
