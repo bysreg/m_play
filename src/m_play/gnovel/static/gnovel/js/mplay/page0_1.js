@@ -87,7 +87,7 @@ var MPLAY = MPLAY || {};
 				pageObj.tweenMat(pageObj._bg, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._bg);
 						//background_priya.material.opacity = 1;
