@@ -73,8 +73,8 @@ var MPLAY = MPLAY || {};
 				{text: "Are you accusing us of cheating?", go:"#cheating?"},
 				{text: "I'm not sure professor.", go:"#policy"},
 				{text: "Ryan received study material from last semester.", go:"#material"}],
-				/*seconds: 5,
-				responses: [{text:this._player + "?"}, {text:""}],*/
+				// seconds: 5,
+				// responses: [{text:this._player + "?"}, {text:"Please explain " + this._player + "."}],
 				speaker: this._professor},
 
 			{type: "dialog", speaker: this._professor, label:"cheating?", text:"I'm not accusing you two of anything.  I just want your thoughts but you should know..."},

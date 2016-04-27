@@ -254,6 +254,13 @@ var GNOVEL = GNOVEL || {};
 						mainTimer.start();
 						//increment counter for responses
 					}});
+				})
+				.onUpdate(function() {
+					if (choices._choosed) {
+						// stop all timers
+						//choices._onChoiceComplete(choices._result.choiceId);
+						waitTimer.stop();
+					};
 				});
 
 		mainTimer.onStart(function() {
@@ -293,7 +300,7 @@ var GNOVEL = GNOVEL || {};
 	Choices.prototype._onChoiceComplete = function() {
 
 		this._cleanUp();
-
+		choices._choosed = true;
 		var pageObj = this._page;
 		var choices = this;
 		var delayDuration = 1000;
