@@ -56,7 +56,7 @@ var MPLAY = MPLAY || {};
 			{type: "compare", leftop: "$catRelationshipScore", operator: "greater equal", rightop: 0, goTrue: "#R0", goFalse: "#R-"},
 			{type: "nothing", label: "R0"},
 			{type: "show", img: cat, position: "left", waitUntilShown: false},
-			{type: "show_ed_context", text: "Cat ended up getting a finance job in New York after graduation. You still keep in touch with her, and have made plans to visit her later this month. She’s extended an open invitation for you to visit her, and her new apartment in Brooklyn."},
+			{type: "show_ed_context", text: "Cat moved up to New York after graduating to work in finance. Sometimes you picture her toiling away in her cubicle, but otherwise she doesn’t cross your mind much."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//bad relationship ending
