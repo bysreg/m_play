@@ -238,6 +238,9 @@ var GNOVEL = GNOVEL || {};
 		document.addEventListener('mousemove', function(event) {
 			gnovel._onMouseMove(event);
 		}, false);
+		document.addEventListener('touchend', function(event) {
+			gnovel._onMouseDown(event);
+		}, false);
 		window.addEventListener('resize', function(event) {
 			gnovel._onWindowResize(event);
 		}, false);

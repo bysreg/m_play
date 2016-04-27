@@ -162,6 +162,10 @@
 }
 
 .questionText {
+	position: absolute;
+	top:440px;
+	left: 520px;
+	width: 300px;
 	display: block;
     font-family: 'Noteworthy';
     font-size: 0.65em;
