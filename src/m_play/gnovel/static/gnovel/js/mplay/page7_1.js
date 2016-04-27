@@ -35,7 +35,7 @@ var MPLAY = MPLAY || {};
 		// 2 means You did use the test and you got caught. Professor Sweeny did not pursue academic integrity violations  (integrity > 0)
 		// 3 means You did use the test and You got caught. you both receive a 0 on the final and fail the class.
 		// 4 means You didn’t use the test and Ryan used the test even though you didn’t. He got caught and failed the final and the class.
-		// 5 means You didn’t use the test and Ryan used the test even though you didn’t. 
+		// 5 means You didn’t use the test and Ryan used the test even though you didn’t.
 		// 		When Ryan was questioned, he revealed that you had had access to the test too and didn’t report it.
 		this._usingTestStatus = 0;
 
@@ -99,7 +99,7 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-n");
 			// }},
 			// {type: "play", audio: "Hey-Ryan-n"},
-			{type: "dialog", speaker: this._ryan, text: "By the way, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
+			{type: "dialog", speaker: this._ryan, text: "Hey, my brother took this class last semester, and he gave me some of his stuff from the class, nothing graded."},
 			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Want to take a look?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
@@ -121,7 +121,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "Hey you two. Studying for our favorite class? What are you looking at there?"},
 
 			{type: "show", img: ryan, position: "right", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "Oh it's a practice test for the final."},
+			{type: "dialog", speaker: this._ryan, text: "Oh, it's a practice test for the final."},
 
 			{type: "show", img: priya, expression: "thoughtful", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Really? I don't remember Sweeney sending one out. I just went to his office hours too."},
@@ -180,7 +180,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 0;				
+				this._usingTestStatus = 0;
 			}},
 			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
@@ -191,7 +191,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 1;				
+				this._usingTestStatus = 1;
 			}},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
@@ -209,14 +209,14 @@ var MPLAY = MPLAY || {};
 			// dontsay and good integrity
 			{type: "nothing", label: "go9c"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 2;				
+				this._usingTestStatus = 2;
 			}},
 			{type: "goto", page: "scene 9.c"},
 
 			// dont say and bad integrity
 			{type: "nothing", label: "go9d"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 3;				
+				this._usingTestStatus = 3;
 			}},
 			{type: "goto", page: "scene 9.d"},
 
@@ -231,7 +231,7 @@ var MPLAY = MPLAY || {};
 			// decline and good integrity
 			{type: "nothing", label: "go9e"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 4;				
+				this._usingTestStatus = 4;
 			}},
 			{type: "goto", page: "scene 9.e"},
 

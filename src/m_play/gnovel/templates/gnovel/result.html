@@ -4,8 +4,8 @@
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Results Timeline</title>
 		<meta name="description" content="Blueprint: Vertical Timeline" />
 		<meta name="keywords" content="timeline, vertical, layout, style, component, web development, template, responsive" />
@@ -18,12 +18,12 @@
 
 		<div class="container">
 			<header class="clearfix">
-				<span>Your Results</span>
+				<div class="titleText">Your Main Choices</div>
 				<!--<h1>Vertical Timeline</h1>-->
 				<nav>
-					
+
 				</nav>
-			</header>	
+			</header>
 			<div class="main">
 				<ul class="cbp_tmtimeline">
 					<li>
@@ -36,8 +36,8 @@
 									<div class="responseText">{{phone_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
-										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
-											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
+										<div style="width: 506px; height: 288px; position: absolute; top: 10px">
+											<img src="{% static 'gnovel/res/result/bar_scene1_result.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
 											<img src="{{phone_rel_ryan_image}}" height="100px" width = "100px">
@@ -46,14 +46,14 @@
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
 											<img src="{{phone_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{phone_rel_priya}}</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{phone_rel_priya}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
 											<img src="{{phone_rel_cat_image}}" height="100px" width = "100px">
 										</div>
 										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{phone_rel_cat}}</div>
 									</div>
-									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">{{phone_resolution}}</div>
+									<div class="resultTitleText" style="position: absolute;">What happened?</div>
+									<div class="resultText" style="position: relative;">{{phone_resolution}}</div>
 									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{phone_question}}</div>
 								</div>
 								<div class="frameTop"></div>
@@ -65,8 +65,8 @@
 									<div class="responseText">{{unauthorized_assistance_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
-										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
-											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
+										<div style="width: 506px; height: 288px; position: absolute; top: 10px">
+											<img src="{% static 'gnovel/res/result/library_scene2_result.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
 											<img src="{{unauthorized_assistance_rel_ryan_image}}" height="100px" width = "100px">
@@ -75,14 +75,14 @@
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
 											<img src="{{unauthorized_assistance_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{unauthorized_assistance_rel_priya}}</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{unauthorized_assistance_rel_priya}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
 											<img src="{{unauthorized_assistance_rel_cat_image}}" height="100px" width = "100px">
 										</div>
 										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{unauthorized_assistance_rel_cat}}</div>
 									</div>
-									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">{{unauthorized_assistance_resolution}}</div>
+									<div class="resultTitleText" style="position: absolute;">What happened?</div>
+									<div class="resultText" style="position: relative;">{{unauthorized_assistance_resolution}}</div>
 									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{unauthorized_assistance_question}}</div>
 								</div>
 							    <div class="frameTop"></div>
@@ -94,8 +94,8 @@
 									<div class="responseText">{{plagiarism_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
-										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
-											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
+										<div style="width: 506px; height: 288px; position: absolute; top: 10px">
+											<img src="{% static 'gnovel/res/result/library_scene6_result.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
 											<img src="{{plagiarism_rel_ryan_image}}" height="100px" width = "100px">
@@ -104,14 +104,14 @@
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
 											<img src="{{plagiarism_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{plagiarism_rel_priya}}</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{plagiarism_rel_priya}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
 											<img src="{{plagiarism_rel_cat_image}}" height="100px" width = "100px">
 										</div>
 										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{plagiarism_rel_cat}}</div>
 									</div>
-									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">{{plagiarism_resolution}}</div>
+									<div class="resultTitleText" style="position: absolute; ">What happened?</div>
+									<div class="resultText" style="position: relative; ">{{plagiarism_resolution}}</div>
 									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{plagiarism_question}}</div>
 								</div>
 								<div class="frameTop"></div>
@@ -123,8 +123,8 @@
 									<div class="responseText">{{using_test_choice}}</div>
 									<div class="scene1">
 										<div class="bgImage"></div>
-										<div style="width: 506px; height: 288px; position: absolute; top: 10px">										
-											<img src="{% static 'gnovel/res/result/frameimgdemo.png' %}" height="287px" width="506px">
+										<div style="width: 506px; height: 288px; position: absolute; top: 10px">
+											<img src="{% static 'gnovel/res/result/library_scene8_result.png' %}" height="287px" width="506px">
 										</div>
 										<div style="height:100px; width:100px; position:absolute;left:500px">
 											<img src="{{using_test_rel_ryan_image}}" height="100px" width = "100px">
@@ -133,22 +133,22 @@
 										<div style="height:100px; width:100px; position:absolute;left:508px; top: 100px">
 											<img src="{{using_test_rel_priya_image}}" height="100px" width = "100px">
 										</div>
-										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{using_test_rel_priya}}</div>										
+										<div class="relationshipText" style="position:relative;left:600px; top: 90px">{{using_test_rel_priya}}</div>
 										<div style="height:100px; width:100px; position:absolute;left:505px; top: 200px">
 											<img src="{{using_test_rel_cat_image}}" height="100px" width = "100px">
 										</div>
 										<div class="relationshipText" style="position:relative;left:600px; top: 160px">{{using_test_rel_cat}}</div>
 									</div>
-									<div class="resultTitleText" style="position: absolute; top: 430px">What happened?</div>
-									<div class="resultText" style="position: relative; top: 350px">{{using_test_resolution}}</div>
+									<div class="resultTitleText" style="position: absolute; ">What happened?</div>
+									<div class="resultText" style="position: relative; ">{{using_test_resolution}}</div>
 									<div class="questionText" style="position: relative; top: 285px; left: 500px; width: 300px">{{using_test_question}}</div>
 								</div>
 								<div class="frameTop"></div>
 						</div>
-						
+
 					</li>
 				</ul>
-				
+
 			</div>
 		</div>
 	</body>

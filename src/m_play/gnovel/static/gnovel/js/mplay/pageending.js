@@ -93,17 +93,17 @@ var MPLAY = MPLAY || {};
 
 		var phoneChoiceArray = [
 			{
-				choice: "You chose to give it to the waiter",	
+				choice: "You chose to give it to the waiter",
 				resolution: "They found the owner- it was Cat’s!",
 				question: "What would have happened if they didn’t get it back to her?",
 			},
 			{
-				choice: "You chose to give it to campus police",	
+				choice: "You chose to give it to campus police",
 				resolution: "They found the owner- it was Cat’s!",
 				question: "What would have happened if you didn’t take initiative and just left it?",
 			},
 			{
-				choice: "You wanted to checked for cash",	
+				choice: "You wanted to checked for cash",
 				resolution: "Ryan gave it to the waiter instead- turns out it was Cat’s! ",
 				question: "What would have happened if you really had taken the cash?",
 			},
@@ -111,18 +111,18 @@ var MPLAY = MPLAY || {};
 
 		var unauthorizedAsstArray = [
 			{
-				choice: "You didn’t give Ryan your assignments, but you offered to help",	
-				resolution: "You went into office hours and the professor helped Ryan through a lot of his confusion",
+				choice: "You didn’t give Ryan your assignments, but you offered to help.",
+				resolution: "You went into office hours and the professor helped Ryan through a lot of his confusion.",
 				question: "What would have happened if you didn’t help Ryan?",
 			},
 			{
-				choice: "You didn’t give Ryan your assignments, but you didn’t help him",	
+				choice: "You didn’t give Ryan your assignments, but you didn’t help him.",
 				resolution: "Ryan struggled pretty hard with his work, he didn’t end up doing so well in that class...",
 				question: "Was there a way to help Ryan without violating the code?",
 			},
 
 			{
-				choice: "You gave Ryan your old assignments",	
+				choice: "You gave Ryan your old assignments",
 				resolution: "Turns out that’s against the academic code...",
 				question: "Was there a way to help Ryan without violating the code?",
 			},
@@ -130,17 +130,17 @@ var MPLAY = MPLAY || {};
 
 		var plagiarismArray = [
 			{
-				choice: "You got Priya to redo her work",	
+				choice: "You got Priya to redo her work",
 				resolution: "It was Ok; B-",
 				question: "Was there a way to help Priya?",
 			},
 			{
-				choice: "You redid Priya’s work",	
+				choice: "You redid Priya’s work",
 				resolution: "You did Ok; B-",
 				question: "Was there a way to solve the problem without doing Priya’s work for her?",
 			},
 			{
-				choice: "You wanted to just turn it in, but your team redid it instead",	
+				choice: "You wanted to just turn it in, but your team redid it instead",
 				resolution: "Not so good; B-",
 				question: "Was there a way to solve the problem without redoing Priya’s work?",
 			},
@@ -148,32 +148,32 @@ var MPLAY = MPLAY || {};
 
 		var usingTestArray = [
 			{
-				choice: "You told Ryan not to use the test",	
+				choice: "You told Ryan not to use the test",
 				resolution: "Ryan didn’t use it either. He’s glad he didn’t use it, and he’s patching things up with Priya.",
 				question: "What would have happened if you did take the test?",
 			},
 			{
-				choice: "You told Ryan not to use the test",	
+				choice: "You told Ryan not to use the test",
 				resolution: "Ryan used it anyway. He got caught and failed the final and the class.",
 				question: "Could you have convinced Ryan not to use the test?",
 			},
 			{
-				choice: "You did use the test.",	
-				resolution: "You got caught. Professor Sweeny did not pursue academic integrity violations proceedings. He gave you the chance to retake the exam with a maximum grade of 80%. You pass the final and the class, but just barely.", 
-				question: "Why did you choose to use the test? Was there another way?",
-			},
-			{
-				choice: "You did use the test.",	
+				choice: "You did use the test.",
 				resolution: "You got caught. Professor Sweeny did not pursue academic integrity violations proceedings. He gave you the chance to retake the exam with a maximum grade of 80%. You pass the final and the class, but just barely.",
 				question: "Why did you choose to use the test? Was there another way?",
 			},
 			{
-				choice: "You didn’t use the test",	
+				choice: "You did use the test.",
+				resolution: "You got caught. Professor Sweeny did not pursue academic integrity violations proceedings. He gave you the chance to retake the exam with a maximum grade of 80%. You pass the final and the class, but just barely.",
+				question: "Why did you choose to use the test? Was there another way?",
+			},
+			{
+				choice: "You didn’t use the test",
 				resolution: "Ryan used the test even though you didn’t. He got caught and failed the final and the class.",
 				question: "What would have happened if Ryan revealed that you had access to the test too?",
 			},
 			{
-				choice: "You didn’t use the test",	
+				choice: "You didn’t use the test",
 				resolution: "Ryan used the test even though you didn’t. When Ryan was questioned, he revealed that you had had access to the test too and didn’t report it. Professor Sweeny could pursue academic action for you as well, but he chooses not to.",
 				question: "Was there a way to stop Ryan from using the test? Should you have reported the violation?",
 			},
@@ -205,7 +205,7 @@ var MPLAY = MPLAY || {};
 
 			postData[situation + "_choice"] = choiceInfo.choice;
 			postData[situation + "_resolution"] = choiceInfo.resolution;
-			postData[situation + "_question"] = choiceInfo.question;		
+			postData[situation + "_question"] = choiceInfo.question;
 			postData[situation + "_rel_ryan_val"] = data.relationship.ryan;
 			postData[situation + "_rel_ryan"] = this._getRelationshipText("Ryan", data.relationship.ryan);
 			postData[situation + "_rel_priya_val"] = data.relationship.priya;
@@ -214,7 +214,7 @@ var MPLAY = MPLAY || {};
 			postData[situation + "_rel_cat"] = this._getRelationshipText("Cat", data.relationship.cat);
 		}
 
-		// this._post("/gnovel/result/", 
+		// this._post("/gnovel/result/",
 		// 	{
 		// 		'phone_title': 'Ryan found a lost wallet',
 		// 		'phone_choice': 'You chose to give it to the waiter',
@@ -234,7 +234,7 @@ var MPLAY = MPLAY || {};
 		// 		'unauthorized_assistance_rel_ryan_val' : 1,
 		// 		'unauthorized_assistance_rel_ryan': 'Your relationship with Ryan increased',
 		// 		'unauthorized_assistance_rel_priya_val' : 1,
-		// 		'unauthorized_assistance_rel_priya': 'Your relationship with Priya increased',			
+		// 		'unauthorized_assistance_rel_priya': 'Your relationship with Priya increased',
 		// 		'unauthorized_assistance_rel_cat_val' : 1,
 		// 		'unauthorized_assistance_rel_cat': 'Your relationship with Cat increased',
 
@@ -243,9 +243,9 @@ var MPLAY = MPLAY || {};
 		// 		'plagiarism_resolution': 'It was Ok; B-',
 		// 		'plagiarism_question': 'Was there a way to help Priya?',
 		// 		'plagiarism_rel_ryan_val' : 1,
-		// 		'plagiarism_rel_ryan': 'Your relationship with Ryan increased',			
+		// 		'plagiarism_rel_ryan': 'Your relationship with Ryan increased',
 		// 		'plagiarism_rel_priya_val' : 1,
-		// 		'plagiarism_rel_priya': 'Your relationship with Priya increased',				
+		// 		'plagiarism_rel_priya': 'Your relationship with Priya increased',
 		// 		'plagiarism_rel_cat_val' : 1,
 		// 		'plagiarism_rel_cat': 'Your relationship with Cat increased',
 
@@ -254,7 +254,7 @@ var MPLAY = MPLAY || {};
 		// 		'using_test_resolution': 'Ryan didn’t use it either. He’s glad he didn’t use it, and he’s patching things up with Priya. ',
 		// 		'using_test_question': 'What would have happened if you did take the test? ',
 		// 		'using_test_rel_ryan_val' : 1,
-		// 		'using_test_rel_ryan': 'Your relationship with Ryan increased',								
+		// 		'using_test_rel_ryan': 'Your relationship with Ryan increased',
 		// 		'using_test_rel_priya_val' : 1,
 		// 		'using_test_rel_priya': 'Your relationship with Priya increased',
 		// 		'using_test_rel_cat_val' : 1,

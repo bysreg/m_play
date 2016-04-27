@@ -25,7 +25,7 @@ var MPLAY = MPLAY || {};
 
 		this.setupOfficeBackground();
 		//new middle ground
-		this._middleground_empty = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
+		this._middleground_empty = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground no prof.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		this._middleground_empty.material.opacity = 0;
 		this._addToSceneBg(this._middleground_empty);
 
@@ -63,7 +63,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "choices",
 			choices : [
-				{text: "What are you implying professor?"},
+				{text: "I'm not sure what this is about."},
 				{text: "Yeah, so?"}],
 			},
 
@@ -73,8 +73,8 @@ var MPLAY = MPLAY || {};
 				{text: "Are you accusing us of cheating?", go:"#cheating?"},
 				{text: "I'm not sure professor.", go:"#policy"},
 				{text: "Ryan received study material from last semester.", go:"#material"}],
-				seconds: 5,
-				responses: [{text:this._player + "?"}, {text:""}],
+				/*seconds: 5,
+				responses: [{text:this._player + "?"}, {text:""}],*/
 				speaker: this._professor},
 
 			{type: "dialog", speaker: this._professor, label:"cheating?", text:"I'm not accusing you two of anything.  I just want your thoughts but you should know..."},
@@ -97,7 +97,7 @@ var MPLAY = MPLAY || {};
 				{text: "Nothing happened.  We studied the same way as everyone else.", go:"#lie"}],
 			},
 
-			{type: "dialog", label:"lie"},
+			{type: "nothing", label:"lie"},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Okay.  Are you sure there is nothing you want to tell me?"},
 			{type: "choices", choices : [
