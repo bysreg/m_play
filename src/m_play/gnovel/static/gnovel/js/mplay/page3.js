@@ -763,7 +763,7 @@ var MPLAY = MPLAY || {};
 					{audio:"Lib-chairs3", playrate: 0.1},
 					{audio:"Lib-chairs1", playrate: 0.1},
 					{audio:"Lib-distantchairs", playrate: 0.3},
-					{audio:"Lib-pia", playrate: 0.05}
+					{audio:"Lib-pia", playrate: 0.05, noreplay: true}
 					];
 		return playlist;
 	};

@@ -238,6 +238,9 @@ var GNOVEL = GNOVEL || {};
 		document.addEventListener('mousemove', function(event) {
 			gnovel._onMouseMove(event);
 		}, false);
+		document.addEventListener('touchend', function(event) {
+			gnovel._onMouseDown(event);
+		}, false);
 		window.addEventListener('resize', function(event) {
 			gnovel._onWindowResize(event);
 		}, false);
@@ -311,12 +314,15 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onMouseDown = function(event) {
+		if (event.type === "keyup" && event.keyCode !== 32) {
+			return;
+		}
 
 		this._soundManager.play("Clicking");
 
 		if (!this._onStart) return;
 
-		// if we are still processing a onMouseDown event, then don't process
+		// if we are  still processing a onMouseDown event, then don't process
 		if (this._onMouseDownProcessing) {
 			return;
 		}

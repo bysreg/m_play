@@ -24,10 +24,13 @@ var GNOVEL = GNOVEL || {};
 			this._playlist = playlist;
 			this._shufflePeriod = 10 * Math.random();
 			this._shuffleRates = Math.random();
+			this._noreplay = new Array();
 			this._playLevels = new Array();
 			this._playLevels[0] = playlist[0].playrate;
+			this._noreplay[0] = playlist[0].noreplay || false;
 			for (var i = 1; i < this._playlist.length; i++) {
 				this._playLevels[i] = this._playLevels[i-1] + this._playlist[i].playrate;
+				this._noreplay[i] = this._playlist[i].noreplay || false;
 			}
 		};
 		
@@ -41,7 +44,7 @@ var GNOVEL = GNOVEL || {};
 			    var hit = false;
 				
 				for (var j = 0; j <= this._playLevels.length; j++) {
-					if (this._playLevels[j] >= this._shuffleRates) {
+					if (this._playLevels[j] >= this._shuffleRates && this._noreplay[j] === false) {
 						if (!hit) {
 							this._play(this._playlist[j].audio);
 							console.log("playing " + this._playlist[j].audio);

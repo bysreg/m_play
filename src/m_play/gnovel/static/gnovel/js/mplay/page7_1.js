@@ -180,7 +180,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & good integrity
 			{type: "nothing", label: "good_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 0;
+				page._usingTestStatus = 0;
 			}},
 			{type: "dialog", speaker: this._ryan, text: "I mean, if you're going to get panicky over this, I guess we don't really need to use it."},
 			{type: "dialog", speaker: this._ryan, text: "I really don't see how it's a big deal though."},
@@ -191,7 +191,7 @@ var MPLAY = MPLAY || {};
 			// holdoff & bad integrity
 			{type: "nothing", label: "poor_integrity"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 1;
+				page._usingTestStatus = 1;
 			}},
 			{type: "show", img: ryan, position: "right", expression: "angry", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "Don't be stupid, it's not a thing! Whatever, I'm going to use it."},
@@ -209,14 +209,14 @@ var MPLAY = MPLAY || {};
 			// dontsay and good integrity
 			{type: "nothing", label: "go9c"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 2;
+				page._usingTestStatus = 2;
 			}},
 			{type: "goto", page: "scene 9.c"},
 
 			// dont say and bad integrity
 			{type: "nothing", label: "go9d"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 3;
+				page._usingTestStatus = 3;
 			}},
 			{type: "goto", page: "scene 9.d"},
 
@@ -231,14 +231,14 @@ var MPLAY = MPLAY || {};
 			// decline and good integrity
 			{type: "nothing", label: "go9e"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 4;
+				page._usingTestStatus = 4;
 			}},
 			{type: "goto", page: "scene 9.e"},
 
 			// decline and bad integrity
 			{type: "nothing", label: "go9f"},
 			{type: "custom", func: function(page) {
-				this._usingTestStatus = 5;
+				page._usingTestStatus = 5;
 			}},
 			{type: "goto", page: "scene 9.f"},
 		];
@@ -255,7 +255,7 @@ var MPLAY = MPLAY || {};
 					{audio:"Lib-chairs3", playrate: 0.1},
 					{audio:"Lib-chairs1", playrate: 0.1},
 					{audio:"Lib-distantchairs", playrate: 0.3},
-					{audio:"Lib-pia", playrate: 0.05}
+					{audio:"Lib-pia", playrate: 0.05, noreplay: true}
 					];
 		return playlist;
 	};
