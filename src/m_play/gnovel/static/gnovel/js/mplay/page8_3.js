@@ -79,7 +79,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#policy", goFalse: "#policy"},
 
 			{type: "nothing", label:"policy"},
-			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your graduate programs."},
+			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
 			{type: "show", img: professor, position: "center"},
 			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},

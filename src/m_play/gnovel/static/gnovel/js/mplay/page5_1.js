@@ -154,7 +154,7 @@ var MPLAY = MPLAY || {};
 					},
 				});
 			}},
-			/*{type: "show", img: ryan, position: "right"},
+			{type: "show", img: ryan, position: "right"},
 			{type: "dialog", speaker: "Ryan", text: "We all set, Cat?"},
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "Uh oh… I think we have a problem."},
@@ -166,7 +166,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: "Ryan", text: "I’m sure Priya didn’t realize. It's common practice to use codeHub.  Did she cite it?"},
 			{type: "dialog", speaker: "Cat", text: "No, and even if she did cite it, we can't use it."},
 			{type: "show", img: cat, expression: "angry", position: "left", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},*/
+			{type: "dialog", speaker: "Cat", text: "No outside sources on this assignment, remember?"},
 			{type: "show", img: cat, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "What should we do, we have to submit the project in 2 hours!"},
 			{type: "choices",
@@ -174,30 +174,30 @@ var MPLAY = MPLAY || {};
 						[{text: "Well, let's just ask her about it.",
 							integrityScore: 1,
 							relationship: [{name: this._ryan, score: -1}, {name: this._cat, score:1}],
-							go: "#ask", 
+							go: "#ask",
 							onChoose: function(page) {
 								page._priyaWorkChoice = 0;
 
-								page._plagiarismData.relationship.cat = 1;								
+								page._plagiarismData.relationship.cat = 1;
 							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
 							integrityScore: 0,
 							relationship: [{name: this._priya, score: 1, text:"Priya will feel good about that"}],
-							go: "#redo", 
+							go: "#redo",
 							onChoose: function(page) {
 								page._priyaWorkChoice = 1;
 
-								page._plagiarismData.relationship.priya = 1;	
+								page._plagiarismData.relationship.priya = 1;
 							}},
 						{text: "Let’s just submit it, I’m sure it’s fine.",
 							integrityScore: -1,
 							relationship: [{name:this._cat, score:-1},{name:this._ryan, score: 1}],
-							go: "#submit", 
+							go: "#submit",
 							onChoose: function(page) {
 								page._priyaWorkChoice = 2;
 
-								page._plagiarismData.relationship.ryan = 1;	
-								page._plagiarismData.relationship.cat = -1;	
+								page._plagiarismData.relationship.ryan = 1;
+								page._plagiarismData.relationship.cat = -1;
 							}}],
 					//seconds: 10,
 					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
