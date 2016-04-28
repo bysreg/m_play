@@ -15,7 +15,8 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 */
 	var Gnovel = function() {
-
+		THREE.Cache.enabled = true;
+		
 		this._scene = new THREE.Scene();
 		this._pages = [];
 		this._pageDict = {};
