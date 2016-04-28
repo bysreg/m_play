@@ -22,6 +22,8 @@ var GNOVEL= GNOVEL || {};
 		// this will be used to load textures for three.js
 		this._textureLoader = new THREE.TextureLoader();
 		this._textureLoadList = null;
+		this._textureLoadIdx = 0;
+		this._onTextureLoadComplete = null;
 	};
 
 	AssetLoader.prototype._handleComplete = function() {
@@ -32,35 +34,56 @@ var GNOVEL= GNOVEL || {};
 		var item = event;
 		var type = item.type;
 
-		//if(type == )
+		
 	};
 
 	AssetLoader.prototype._setTextureLoadList = function(list) {
 		this._textureLoadList = list;
 	};
 
-	AssetLoader.prototype._startLoadingTextures = function() {
+	AssetLoader.prototype._startLoadingTextures = function(onComplete) {
 		var al = this;
 		var onLoad = function(texture) {
 			al._onTextureLoaded(texture);
 		};
 
-		for(var i=0; i<this._textureLoadList.length;i++) {
-			var t = this._textureLoadList[i];
-			this._textureLoader.load(
-				// resource URL
-				t.path,
-				// function when texture is loaded
-				onLoad, 
-				/// function called when download progresses
-				function(xhr) {
-					console.log(t.path + " : " + (xhr.loaded / xhr.total * 100) + '% loaded' );
-				}
-			);
-		}
+		this._textureLoadIdx = 0;
+		this._onTextureLoadComplete = onComplete;
+
+		this._loadTexture();
+	};
+
+	AssetLoader.prototype._loadTexture = function() {
+		if(this._textureLoadIdx >= this._textureLoadList.length) {
+			console.log("finished loading all textures");
+
+			if(this._onTextureLoadComplete)
+				this._onTextureLoadComplete();
+			return;
+		}			
+
+		var al = this;
+		var url = this._textureLoadList[this._textureLoadIdx];
+
+		var onLoad = function(texture) {
+			al._onTextureLoaded(texture);
+			// go to the next texture load
+			al._textureLoadIdx++;
+			al._loadTexture();
+		};
+
+		this._textureLoader.load(url, 
+			onLoad, 
+			function(xhr) {
+				console.log(t + " : " + (xhr.loaded / xhr.total * 100) + '% loaded');
+			}
+		);
+
+
 	};
 
 	AssetLoader.prototype._onTextureLoaded = function(texture) {
+		console.log("texture loaded : " + this._textureLoadIdx + " | "+ this._textureLoadList[this._textureLoadIdx]);
 	};
 
 	GNOVEL.AssetLoader = AssetLoader;

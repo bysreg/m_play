@@ -14760,6 +14760,8 @@ THREE.ImageLoader.prototype = {
 
 		if ( cached !== undefined ) {
 
+			console.log("texture already in cache for : " + url);
+
 			scope.manager.itemStart( url );
 
 			if ( onLoad ) {
@@ -14782,6 +14784,7 @@ THREE.ImageLoader.prototype = {
 
 		}
 
+		console.log("texture download : " + url);
 		var image = document.createElement( 'img' );
 
 		image.addEventListener( 'load', function ( event ) {
