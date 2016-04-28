@@ -51,19 +51,10 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Page.prototype.setBackground = function(path) {
-		var texture = THREE.ImageUtils.loadTexture(path);
-		texture.minFilter = THREE.LinearFilter;
-		texture.magFilter = THREE.NearestFilter;
 
-		var material = new THREE.MeshBasicMaterial({
-			color: 0xffffff,
-			transparent: true,
-			map: texture
-		});
-		var plane = new THREE.PlaneBufferGeometry(1920, 1080);
-		var quad = new THREE.Mesh(plane, material);
+		var quad = this.createImage(path, null, 1920, 1080);
 		quad.name = "Background";
-		quad.position.z = this.getBackgroundLayer();
+		quad.position.setZ(this.getBackgroundLayer());
 
 		// add this to the scene
 		this._addToScene(quad);
