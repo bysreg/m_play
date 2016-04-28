@@ -37,26 +37,20 @@ var MPLAY = MPLAY || {};
 		this._background_empty.material.opacity = 0;
 		this._addToSceneBg(this._background_empty);
 
-		//create images
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 20), 250, 458);
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -60, this.getBackgroundLayer()+10), 100, 25);
 		this._addToScene(this._catsphoneImg);
+		this._catsphoneImg.material.opacity = 0;
+
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);
 		this._transitionBgImg.position.z = 0;
-
-		this._yourphoneImg.material.opacity = 0;
-		this._catsphoneImg.material.opacity = 1;
+				
 		this._transitionBgImg.material.opacity = 0;
-
-		this._yourphone = "yourphone";
+		
 		this._catsphone = "catsphone";
 		this._transitionBg = "transitionbg";
-
-		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);
-		this._setObjectTag(this._catsphone, this._catsphoneImg);
+	
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 		var pageObj = this;
 
@@ -112,8 +106,7 @@ var MPLAY = MPLAY || {};
 	Page0_1.prototype._createFlowElements = function() {
 
 		var ryan = "%" + this._ryan;
-		var catsphone = "%" + this._catsphone;
-		var yourphone = "%" + this._yourphone;
+		var catsphone = "%" + this._catsphone;		
 		var transitionBg = "%" + this._transitionBg;
 		var player = this._player;
 
@@ -179,8 +172,7 @@ var MPLAY = MPLAY || {};
 			{type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
-			{type: "hide", img: yourphone, waitUntilHiden: false, label: "talktoryan"},
-			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false},
+			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "talktoryan"},
 			// {type: "custom", func: function(page) {
 			// 	page.getOwner().getSoundManager().play("Hey-Ryan-p");
 			// }},
@@ -339,6 +331,10 @@ var MPLAY = MPLAY || {};
 
 		this._owner._ambient = this._owner.getSoundManager().play("Bar-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
+
+		this._catsphoneImg.material.opacity = 1;
+		
+		this._setObjectTag(this._catsphone, this._catsphoneImg);
 	};
 
 	/**

@@ -231,7 +231,7 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(renderBgPass);
 		sceneBgComposer.addPass(effectHBlur);
 		sceneBgComposer.addPass(effectVBlur);
-		sceneBgComposer.addPass(effectVignette);
+		sceneBgComposer.addPass(effectVignette);		
 
 		// override gnovel's render function
 		this._owner._render = function() {
