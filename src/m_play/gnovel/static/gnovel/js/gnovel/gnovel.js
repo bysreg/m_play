@@ -15,7 +15,8 @@ var GNOVEL = GNOVEL || {};
 	 *
 	 */
 	var Gnovel = function() {
-
+		THREE.Cache.enabled = true;
+		
 		this._scene = new THREE.Scene();
 		this._pages = [];
 		this._pageDict = {};
@@ -405,7 +406,7 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	function _onStart(pageObj) {
-		console.log("call onStart on page " + pageObj.getPageId());
+		console.log("call onStart on page " + pageObj.getPageId() + " " + pageObj.getPageLabel());
 
 		pageObj._onStart();
 		pageObj._runFlow();

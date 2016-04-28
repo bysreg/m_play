@@ -28,7 +28,7 @@ var GNOVEL = GNOVEL || {};
 		this._responseBox =[];
 		this._choosed = false;
 		this._bubbleoffset = 10;
-		this._tailoffset = 22;
+		this._tailoffset = 13;
 
 		this._init();
 
@@ -105,9 +105,9 @@ var GNOVEL = GNOVEL || {};
 			if (textbox.canvas.textHeight > 23) {
 				if (textbox.canvas.textHeight > 46) {
 					if (textbox.canvas.textHeight > 69) {
-						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 23 + this._tailoffset, startz);
+						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 30 + this._tailoffset, startz);
 					}else {
-						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 12 + this._tailoffset, startz);
+						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 15 + this._tailoffset, startz);
 					}
 				}else {
 					textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 5 + this._tailoffset, startz);
