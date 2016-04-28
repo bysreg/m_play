@@ -83,7 +83,7 @@ var GNOVEL = GNOVEL || {};
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial({
 			color: 0x000000,
-			transparent: true
+			transparent: true,
 		});
 		var transitionBgImg = new THREE.Mesh(geometry, material);
 		transitionBgImg.material.opacity = 0;
@@ -135,6 +135,13 @@ var GNOVEL = GNOVEL || {};
 		// transitionPanel.position.set(0, 0, initialZ);
 		// transitionPanel.scale.set(initialScale, initialScale, 1);
 		// this._scene.add(transitionPanel);
+
+		var nextPageTexture = THREE.ImageUtils.loadTexture(nextPage.nextPageMaterialPath);
+		var nextPageMaterial = new THREE.MeshBasicMaterial({
+			transparent: true,
+			map: nextPageTexture,
+		});
+		transitionPanel.children[1].material = nextPageMaterial;
 
 		container.position.set(initialX, 0, initialZ);
 		container.scale.set(initialScale, initialScale, 1);
