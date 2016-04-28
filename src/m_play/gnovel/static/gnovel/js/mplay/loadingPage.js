@@ -27,11 +27,23 @@ var PageLoading = function(){
     var mouse = {};
     mouse.x = event.clientX;
     mouse.y = event.clientY;
+		page._owner.calcMousePositionRelativeToCanvas(mouse);
+
+		//update picking ray with camera and mouse pos
+		page._owner._raycaster.setFromCamera(mouse, page._owner.getCamera());
+		var intersectBut = page._owner._raycaster.intersectObjects([page._continueBut], true);
+
     if(page._tweenComplete)
     {
 			page._tweenComplete = false;
     	tutCounter = page._TutorialNext(tutCounter);
     }
+
+		if(page._loadingComplete && intersectBut.length>0)
+		{
+			var nextPage = 1;
+		 	page.goToPage(nextPage, GNOVEL.TransitionType.FADE);
+		}
   };
 
   this._tutorialText = ["Click on characters or other objects like your phone to interact with them.",
@@ -88,7 +100,15 @@ PageLoading.prototype.constructor = PageLoading;
 		easing: TWEEN.Easing.Cubic.Out,
 	});
 
+	//continue button after loading
+	this._continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png",new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
+	this._continueBut.material.opacity = 0;
+	this._addToScene(this._continueBut);
  };
+
+ PageLoading.prototype._onStart = function() {
+ 	MPLAY.MPlayPage.prototype._onStart.call(this);
+};
 
  PageLoading.prototype._TutorialNext = function(count){
 	 var page = this;
@@ -272,18 +292,17 @@ PageLoading.prototype.constructor = PageLoading;
 	 this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
 
 	 //show continue button
-	 var continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png",new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
-	 continueBut.material.opacity = 0;
+	 var continueBut = this._continueBut;
 	 this.tweenMat(continueBut,{
 		 opacity:1,
 		 duration:1000,
 		 easing:TWEEN.Easing.Cubic.Out,
 	 });
-	 this._addToScene(continueBut);
  };
 
- PageLoading.prototype._onUnload = function(){
 
+ PageLoading.prototype._onUnload = function(){
+	 MPLAY.MPlayPage.prototype._onUnload.call(this);
  };
 
 
