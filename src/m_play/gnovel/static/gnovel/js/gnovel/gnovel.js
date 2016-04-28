@@ -16,7 +16,7 @@ var GNOVEL = GNOVEL || {};
 	 */
 	var Gnovel = function() {
 		THREE.Cache.enabled = true;
-		
+
 		this._scene = new THREE.Scene();
 		this._pages = [];
 		this._pageDict = {};
@@ -42,6 +42,8 @@ var GNOVEL = GNOVEL || {};
 		this._renderer = null;		
 
 		this._clock = new THREE.Clock();
+
+		this._assetLoader = new GNOVEL.AssetLoader();
 
 		this._audioPath = "/static/gnovel/res/sounds/";
 		this._sounds = [
@@ -561,6 +563,10 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype._getHeight = function() {
 		return this._height;
 	};
+
+	Gnovel.prototype._getAssetLoader = function() {
+		return this._assetLoader;
+	};	
 
 	GNOVEL.Gnovel = Gnovel;
 }());
