@@ -1,3 +1,5 @@
+
+
 /*@font-face {
 	font-family: 'ecoico';
 	src:url('../fonts/timelineicons/ecoico.eot');
@@ -63,20 +65,6 @@
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child {
 	color: #6cbfee;
 }
-
- /* Result Box Background */
-.frame_backimage {
-	width: 900px;
-	height: 562px;
-	margin: 0 0 50px 15%;
-	font-size: .5em;
-	font-weight: 100;
-	line-height: 1.4;
-	position: relative;
-	background-image:url('../BG_frame.png');
-}
-
-
 
  .cbp_tmtimeline > li .scene1 {
 	width: 1000px;

@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "choices", choices : [{text: "That's cool... Yeah, I'll hit some of the cardio machines too.", go: "#catnext"}, {text : "Wow!  10K… seems intense", go : "#catnext"}], label: "choices1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Yeah, the training is hard to keep up on. Thanks for finding my wallet you helped me avoid a major headache.", label: "catnext"},
+			{type: "dialog", speaker: "Cat", text: "Yeah, the training is hard to keep up on. Thanks for finding my wallet. You helped me avoid a major headache.", label: "catnext"},
 			{type: "choices",
 			choices :
 				[{text: "No problem!  How are you otherwise?", relationship: [{name: this._cat, score: 1}], go: "#howru"},

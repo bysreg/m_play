@@ -158,7 +158,7 @@ var MPLAY = MPLAY || {};
 		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
 		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer)); // angry
 		this._createAnim("cat happy", "/static/gnovel/res/animation/", 1, new THREE.Vector3(0, -20, this._characterLayer));
-		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.57, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -150, this._characterLayer));
 		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -75, this._characterLayer));
 
 		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
@@ -231,7 +231,7 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(renderBgPass);
 		sceneBgComposer.addPass(effectHBlur);
 		sceneBgComposer.addPass(effectVBlur);
-		sceneBgComposer.addPass(effectVignette);
+		sceneBgComposer.addPass(effectVignette);		
 
 		// override gnovel's render function
 		this._owner._render = function() {

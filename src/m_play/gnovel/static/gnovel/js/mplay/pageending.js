@@ -72,14 +72,6 @@ var MPLAY = MPLAY || {};
 	PageEnding.prototype._createFlowElements = function() {
 		var o = null;
 
-		o = [{
-				type: "dialog",
-				speaker: "",
-				text: "This is our current prototype's ending. Thank you for playing!"
-			},
-
-		];
-
 		var catsPhoneStatus = this._owner.getSavedData("catsPhoneStatus");
 		var phoneData = this._owner.getSavedData("phoneData");
 		var unauthorizedAsstChoice = this._owner.getSavedData("unauthorizedAsstChoice");

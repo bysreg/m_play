@@ -126,6 +126,7 @@ var GNOVEL = GNOVEL || {};
 		var farZ = -300;
 		var leftX = -633;
 		var initialScale = 1.65;
+		var initialX = 18;
 		var toScale = 1.2;
 		var initialZ = 270;
 
@@ -135,7 +136,7 @@ var GNOVEL = GNOVEL || {};
 		// transitionPanel.scale.set(initialScale, initialScale, 1);
 		// this._scene.add(transitionPanel);
 
-		container.position.set(0, 0, initialZ);
+		container.position.set(initialX, 0, initialZ);
 		container.scale.set(initialScale, initialScale, 1);
 		container.add(transitionPanel);
 		this._scene.add(container);
