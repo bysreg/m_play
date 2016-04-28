@@ -91,6 +91,21 @@ var MPLAY = MPLAY || {};
 
 	};
 
+	PageLoading.prototype._onStart = function() {
+		var textureList = MPLAY._getTextureList();
+
+		var assetLoader = this.getOwner()._getAssetLoader();	
+		var self = this;
+
+		assetLoader._setTextureLoadList(textureList);
+		console.log("start loading texture");
+		assetLoader._startLoadingTextures(
+			// oncomplete
+			function() {
+				self.LoadingComplete();
+			});
+	};
+
 	PageLoading.prototype._TutorialNext = function(count) {
 		var page = this;
 
@@ -280,7 +295,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	PageLoading.prototype._onUnload = function() {
-
+		this.getOwner().removeMouseDownListener(this.mouseDownListener);
 	};
 
 	window.addEventListener('resize', function(event) {
