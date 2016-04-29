@@ -61,7 +61,7 @@
 		                <p class="form-title">    </p>
 		                <form class="login" action="/gnovel/" method="post">
 											{% csrf_token %}
-		                <input type="text" id="username" name="username" placeholder="Name" required="true"/>
+		                <input type="text" id="username" name="username" placeholder="Name" required="true" maxlength="10"/>
 		                <!--<input type="phone" placeholder="Cell" />-->
 		                <input type="submit" value="" />
 		                <div class="remember-forgot">
