@@ -963,6 +963,8 @@ var MPLAY = MPLAY || {};
 
 		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/classroom foreground with characters.png", new THREE.Vector3(0, 0, this._background3Layer + 60), 1920, 1080);
 
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/classroom.png";
+
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(this._background2);
 	};
@@ -981,6 +983,8 @@ var MPLAY = MPLAY || {};
 			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/uc foreground png.png", new THREE.Vector3(0, 0, this._background3Layer), 1920, 1080);
 			this._background3.scale.set(.85, .80, 1);
 		}
+
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc final layers png.png";
 
 		this._addToSceneBg(this._bg);
 		//this._addToSceneBg(this._background2);
@@ -1004,6 +1008,9 @@ var MPLAY = MPLAY || {};
 		} else {
 			this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(-20, -40, this._background3Layer - 100), 1920, 1080);
 		}
+
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux.png";
+
 		//background3.scale.set(.8,.8,1);
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(this._background2);
@@ -1017,17 +1024,23 @@ var MPLAY = MPLAY || {};
 			this.setBackground("/static/gnovel/res/textures/backgrounds/restaurant.png");
 		}
 
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/restaurant.png";
+
 		this._addToSceneBg(this._bg);
 	};
 
 	MPlayPage.prototype.setupCafeBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/caf full png.png");
 
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/caf full png.png";
+
 		this._addToSceneBg(this._bg);
 	};
 
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
+
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/gym background.png";		
 
 		this._addToSceneBg(this._bg);
 	};
@@ -1037,6 +1050,8 @@ var MPLAY = MPLAY || {};
 
 		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
+
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/complete office.png";				
 
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(this._background2);
