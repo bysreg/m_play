@@ -45,6 +45,7 @@
 		<script src="{% static 'gnovel/js/mplay/mplaychoices.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/spineanimation.js' %}"></script>
 		<script src="{% static 'gnovel/js/mplay/phoneinteraction.js' %}"></script>
+		<script src="{% static 'gnovel/js/mplay/assetlist.js' %}"></script>
 
 		<!-- MPLAY dependency files -->
 		<script src="{% static 'gnovel/third_party/spine.js' %}"></script>
@@ -147,7 +148,7 @@
 				});
 
 				// add pages
-				//gnovel.addPage("scene loading", MPLAY.PageLoading);
+				gnovel.addPage("scene loading", MPLAY.PageLoading);
 				gnovel.addPage("scene 1.b", MPLAY.Page0_1);
 				gnovel.addPage("scene 2.a", MPLAY.Page1_0);
 				gnovel.addPage("scene 2.b", MPLAY.Page1_1);

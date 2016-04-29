@@ -27,10 +27,23 @@ var MPLAY = MPLAY || {};
 			var mouse = {};
 			mouse.x = event.clientX;
 			mouse.y = event.clientY;
-			if (page._tweenComplete) {
+		page._owner.calcMousePositionRelativeToCanvas(mouse);
+
+		//update picking ray with camera and mouse pos
+		page._owner._raycaster.setFromCamera(mouse, page._owner.getCamera());
+		var intersectBut = page._owner._raycaster.intersectObjects([page._continueBut], true);
+
+    if(page._tweenComplete)
+    {
 				page._tweenComplete = false;
 				tutCounter = page._TutorialNext(tutCounter);
 			}
+
+		if(page._loadingComplete && intersectBut.length>0)
+		{
+			var nextPage = 1;
+		 	page.goToPage(nextPage, GNOVEL.TransitionType.FADE);
+		}
 		};
 
 		this._tutorialText = ["Click on characters or other objects like your phone to interact with them.",
@@ -89,6 +102,26 @@ var MPLAY = MPLAY || {};
 			easing: TWEEN.Easing.Cubic.Out,
 		});
 
+	//continue button after loading
+	this._continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png",new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
+	this._continueBut.material.opacity = 0;
+	this._addToScene(this._continueBut);
+	};
+
+	PageLoading.prototype._onStart = function() {
+ 	MPLAY.MPlayPage.prototype._onStart.call(this);
+		var textureList = MPLAY._getTextureList();
+
+		var assetLoader = this.getOwner()._getAssetLoader();	
+		var self = this;
+
+		assetLoader._setTextureLoadList(textureList);
+		console.log("start loading texture");
+		assetLoader._startLoadingTextures(
+			// oncomplete
+			function() {
+				self.LoadingComplete();
+			});
 	};
 
 	PageLoading.prototype._TutorialNext = function(count) {
@@ -269,18 +302,18 @@ var MPLAY = MPLAY || {};
 		this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
 
 		//show continue button
-		var continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png", new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
-		continueBut.material.opacity = 0;
+	 var continueBut = this._continueBut;
 		this.tweenMat(continueBut, {
 			opacity: 1,
 			duration: 1000,
 			easing: TWEEN.Easing.Cubic.Out,
 		});
-		this._addToScene(continueBut);
 	};
 
-	PageLoading.prototype._onUnload = function() {
 
+	PageLoading.prototype._onUnload = function() {
+	 MPLAY.MPlayPage.prototype._onUnload.call(this);
+		this.getOwner().removeMouseDownListener(this.mouseDownListener);
 	};
 
 	window.addEventListener('resize', function(event) {

@@ -82,9 +82,10 @@ var GNOVEL = GNOVEL || {};
 		var texture = THREE.ImageUtils.loadTexture(path, null, function(t) {
 			console.log("createImage onLoad : " + path);
 			texture.path = path;
+			texture.needsUpdate = true;
 		});
 
-		console.log("call : " + path);
+		//console.log("call : " + path);
 
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xffffff,
