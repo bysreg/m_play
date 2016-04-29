@@ -918,7 +918,6 @@ var MPLAY = MPLAY || {};
 		params = params || {};
 
 		var img = obj;
-		params.removeFilter = false;
 
 		// check if the object is character
 		if (obj instanceof MPLAY.Character) {
