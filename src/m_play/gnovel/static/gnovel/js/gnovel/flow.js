@@ -280,12 +280,15 @@ var GNOVEL = GNOVEL || {};
 		var pageIndex = obj.page;
 		var curPage = this._page;
 		var transitionType = obj.transition;
+		//reset camera
+		var cameraMove = new GNOVEL.CameraMove(this._page._owner, this._page);
+		cameraMove.resetCamDirection();
 
 		switch(transitionType) {
 			case "fade" :
 				transitionType = GNOVEL.TransitionType.FADE;
 				break;
-			default:				
+			default:
 				transitionType = GNOVEL.TransitionType.COMIC_SLIDE;
 				break;
 		};

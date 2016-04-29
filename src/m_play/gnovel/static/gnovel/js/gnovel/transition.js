@@ -17,7 +17,7 @@ var GNOVEL = GNOVEL || {};
 		this._height = 1080;
 		this._scene = scene;
 
-		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/comic book with panels.jpg");
+		var texture = THREE.ImageUtils.loadTexture("/static/gnovel/res/textures/ui/comic book with panels.png");
 		var material = new THREE.MeshBasicMaterial({
 			color: 0xffffff,
 			transparent: true,
@@ -104,10 +104,10 @@ var GNOVEL = GNOVEL || {};
 				transition._runOnHierarchy(transitionBgImg, {
 					opacity: 0,
 				}, {
-					duration: duration / 2, 
+					duration: duration / 2,
 					onComplete: function() {
 						gnovelObj._scene.remove(transitionBgImg);
-					}					
+					}
 				});
 			}
 		});
@@ -178,7 +178,7 @@ var GNOVEL = GNOVEL || {};
 									easing: TWEEN.Easing.Cubic.Out,
 									onComplete: function() {
 
-										// zoom in transition panel 
+										// zoom in transition panel
 										transition._scale(container, {
 											duration: duration,
 											// z: initialZ,
