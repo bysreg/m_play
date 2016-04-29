@@ -148,6 +148,7 @@ var CanvasText = (function () {
         this.ctx.fillText(textArr[i], x, y);
         y += this.singlelineHeight;
       };
+      this.lines = textArr.length;
       
       return this.canvas;
     }

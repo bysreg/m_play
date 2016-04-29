@@ -102,9 +102,10 @@ var GNOVEL = GNOVEL || {};
 				y = this._params.posArr[i].y;
 			}
 
-			if (textbox.canvas.textHeight > 33) {
-				if (textbox.canvas.textHeight > 56) {
-					if (textbox.canvas.textHeight > 79) {
+			var lines = textbox.canvas.lines;
+			if (lines > 1) {
+				if (lines > 2) {
+					if (lines > 3) {
 						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 35 + this._tailoffset, startz);
 					}else {
 						textbox.position.set(x + (i * gapX) - this._bubbleoffset, y + (i * gapY) + 20 + this._tailoffset, startz);
