@@ -130,6 +130,7 @@ var MPLAY = MPLAY || {};
 		//show compass animation for 3rd tutorial text
 		if (count == 2) {
 			this._compassAnim();
+			this.LoadingComplete();
 			this.tweenMat(this._notifText, {
 				opacity: 0,
 				duration: 400,
