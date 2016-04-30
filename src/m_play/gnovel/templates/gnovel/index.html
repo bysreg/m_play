@@ -10,6 +10,42 @@
  		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/>
 		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/style.css' %}"/>
 
+		<style>
+		/*http://stackoverflow.com/questions/2756575/drawing-text-to-canvas-with-font-face-does-not-work-at-the-first-time*/
+		#sftoontime
+		{
+			font-family: 'sfToontime';
+			opacity:0;
+			height:0;
+			width:0;
+			display:inline-block;
+		}
+		#noteworthy
+		{
+			font-family: 'Noteworthy';
+			opacity:0;
+			height:0;
+			width:0;
+			display:inline-block;
+		}
+		#noteworthylight
+		{
+			font-family: 'NoteworthyLight';
+			opacity:0;
+			height:0;
+			width:0;
+			display:inline-block;
+		}
+		#noteworthybold
+		{
+			font-family: 'NoteworthyBold';
+			opacity:0;
+			height:0;
+			width:0;
+			display:inline-block;
+		}
+		</style>
+
 		<!-- Third Party library files -->
 		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
 		<script src="{% static 'gnovel/third_party/Tween.js' %}"></script>
@@ -196,5 +232,11 @@
 		<form id="post_result_form">
 			{% csrf_token %}
 		</form>
+
+		<div id='sftoontime'>.</div>
+		<div id='noteworthy'>.</div>
+		<div id='noteworthylight'>.</div>
+		<div id='noteworthybold'>.</div>
+
 	</body>
 </html>

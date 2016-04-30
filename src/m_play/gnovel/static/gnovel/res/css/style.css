@@ -4,35 +4,11 @@
 		margin: auto;
 	}
 }
-@font-face{
-	font-family: 'Arvo', serif;
-	font-family: 'Droid Sans', sans-serif;
-}
-@font-face{
-	font-family: 'NoteworthyBold';
-	src: url('../font/noteworthyFontFace.ttf') format('truetype');
-}
-@font-face{	
-	font-family: 'Bevan';
-	src: url('../font/Bevan.ttf') format('truetype');
-}
-@font-face{
-	font-family: 'Toontime';
-	src: url('../font/SFToontime.ttf') format('truetype');
-}
-@font-face{	
-	font-family: 'AleoBold';
-	src: url('../font/Aleo-Bold.otf') format('truetype');
-}
+
 @font-face{
 	font-family: 'sfToontime';
 	src:url('../font/SF_Toontime_Bold_Italic-webfont.woff') format('truetype');
 	src: url('../font/SF_Toontime_Bold_Italic-webfont.woff');
-}
-@font-face{
-	font-family: 'Badaboom';
-	src: url('../font/BADABB.eot');
-	src: local('BADABB'), url('../font/BADABB.woff') format('woff'), url('../font/BADABB.ttf') format('truetype');
 }
 @font-face{
 	font-family: 'Noteworthy';
@@ -43,6 +19,6 @@
 	src: url('../font/Noteworthy Light.otf') format('truetype');
 }
 @font-face{
-	font-family: 'wg_legacy_edition';
-	src: url('../font/wg_legacy_edition.ttf') format('truetype');
+	font-family: 'NoteworthyBold';
+	src: url('../font/noteworthyFontFace.ttf') format('truetype');
 }
