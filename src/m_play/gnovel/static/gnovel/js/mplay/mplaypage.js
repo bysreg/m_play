@@ -231,7 +231,7 @@ var MPLAY = MPLAY || {};
 		sceneBgComposer.addPass(renderBgPass);
 		sceneBgComposer.addPass(effectHBlur);
 		sceneBgComposer.addPass(effectVBlur);
-		sceneBgComposer.addPass(effectVignette);		
+		sceneBgComposer.addPass(effectVignette);
 
 		// override gnovel's render function
 		this._owner._render = function() {
@@ -983,7 +983,7 @@ var MPLAY = MPLAY || {};
 			this._background3.scale.set(.85, .80, 1);
 		}
 
-		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc final layers png.png";
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc final layers_wChar.png";
 
 		this._addToSceneBg(this._bg);
 		//this._addToSceneBg(this._background2);
@@ -1039,7 +1039,7 @@ var MPLAY = MPLAY || {};
 	MPlayPage.prototype.setupGymBackground = function() {
 		this.setBackground("/static/gnovel/res/textures/backgrounds/gym background.png");
 
-		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/gym background.png";		
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/gym background.png";
 
 		this._addToSceneBg(this._bg);
 	};
@@ -1050,7 +1050,7 @@ var MPLAY = MPLAY || {};
 		this._background2 = this.createImage("/static/gnovel/res/textures/backgrounds/office middle ground.png", new THREE.Vector3(0, -30, this._background2Layer), 1920, 1080);
 		this._background3 = this.createImage("/static/gnovel/res/textures/backgrounds/ryan office-foreground.png", new THREE.Vector3(200, 0, this._background3Layer), 1920, 1080);
 
-		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/complete office.png";				
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/complete office.png";
 
 		this._addToSceneBg(this._bg);
 		this._addToSceneBg(this._background2);
