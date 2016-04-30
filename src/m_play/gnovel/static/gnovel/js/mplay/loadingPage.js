@@ -18,6 +18,7 @@ var MPLAY = MPLAY || {};
 		this._loadingComplete = false;
 		this._loadTween = null;
 		this._notifText = null;
+		this._animPlaying = false;
 
 		var page = this;
 		var tutCounter = 1;
@@ -37,6 +38,8 @@ var MPLAY = MPLAY || {};
     {
 				page._tweenComplete = false;
 				tutCounter = page._TutorialNext(tutCounter);
+				//stop animation playing
+				page._animPlaying = false;
 			}
 
 		if(page._loadingComplete && intersectBut.length>0)
@@ -114,7 +117,7 @@ var MPLAY = MPLAY || {};
 		var textureList = MPLAY._getTextureList();
 		var resList = MPLAY._getResourceList();
 
-		var assetLoader = this.getOwner()._getAssetLoader();	
+		var assetLoader = this.getOwner()._getAssetLoader();
 		var self = this;
 
 		// textures
@@ -147,6 +150,11 @@ var MPLAY = MPLAY || {};
 				}
 			})
 		};
+		if(count==3)
+		{
+			//fade compass
+			this._fadeCompass(this._owner._scene.getObjectByName("compassFront"), this._owner._scene.getObjectByName("compassBack"),0);
+		}
 		//display textbox on top of background
 
 		if (this._tutorialText[count] != null) {
@@ -239,8 +247,12 @@ var MPLAY = MPLAY || {};
 	PageLoading.prototype._compassAnim = function() {
 
 		var page = this;
+		page._animPlaying = true;
+
 		var compassBack = this.createImage("/static/gnovel/res/textures/ui/compass background.png", new THREE.Vector3(-400, 0, this._backgroundLayer + 35), 150, 150);
+		compassBack.name = "compassBack";
 		var compassFront = this.createImage("/static/gnovel/res/textures/ui/compass main.png", new THREE.Vector3(-400, 0, this._backgroundLayer + 35), 150, 150);
+		compassFront.name = "compassFront";
 		compassBack.material.opacity = 0;
 		compassFront.material.opacity = 0;
 
@@ -271,33 +283,38 @@ var MPLAY = MPLAY || {};
 					.easing(TWEEN.Easing.Linear.None)
 					.repeat(10)
 					.onComplete(function() {
-
-						//fade compass out
-						page.tweenMat(compassFront, {
-							easing: TWEEN.Easing.Cubic.Out,
-							duration: 800,
-							opacity: 0,
-							opacity2: 0,
-							delay: delayFX,
-						});
-						page.tweenMat(compassBack, {
-							easing: TWEEN.Easing.Cubic.Out,
-							duration: 800,
-							opacity: 0,
-							opacity2: 0,
-							delay: delayFX,
-							onComplete: function() {
-								page._removeFromScene(compassBack);
-								page._removeFromScene(compassFront);
-							},
-						});
-
-					});
+						//only call if animation is still playing
+						if(page._animPlaying == true)
+							page._fadeCompass(compassFront, compassBack,delayFX);
+						})
 
 				rotTween.start();
 			},
 		});
 	};
+
+PageLoading.prototype._fadeCompass = function(compassFront, compassBack, delayFX){
+	var page = this;
+	//fade compass out
+	page.tweenMat(compassFront, {
+		easing: TWEEN.Easing.Cubic.Out,
+		duration: 400,
+		opacity: 0,
+		opacity2: 0,
+		delay: delayFX,
+	});
+	page.tweenMat(compassBack, {
+		easing: TWEEN.Easing.Cubic.Out,
+		duration: 400,
+		opacity: 0,
+		opacity2: 0,
+		delay: delayFX,
+		onComplete: function() {
+			page._removeFromScene(compassBack);
+			page._removeFromScene(compassFront);
+		}
+	});
+};
 
 	/**
 	 *@function call when loading of assets is complete
