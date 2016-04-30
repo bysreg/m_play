@@ -92,11 +92,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened."},
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 			{type: "dialog", speaker: this._cat, text: "I’m surprised he used it, I thought he was smarter than that.  It was smart of you not to look at it."},
-			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},
-			{type: "show", img: cat, position: "center"},						
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "‘As I get older, I don’t pay attention to what people say.  Only what they do.’"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch?"},
+			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},			
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
@@ -110,11 +106,7 @@ var MPLAY = MPLAY || {};
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Oh boy, was that Ryan?  I heard what happened.  It’s going to be an awkward conversation with his job"},
 			{type: "dialog", speaker: this._cat, text: "if he fails the class.  I hope it works out.  I’m surprised he used it, I thought he was smarter than that."},
-			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},
-			{type: "show", img: cat, position: "center"},						
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say.  Only what they do.'"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch?"},
+			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},			
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
@@ -125,10 +117,6 @@ var MPLAY = MPLAY || {};
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened.  If you had looked at the exam,"},
 			{type: "dialog", speaker: this._cat, text: "you’d have been in trouble too.  Lucky break."},
-			{type: "show", img: cat, expression: "angry", position: "center"},						
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say.  Only what they do.'"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that."},
 			{type: "goto", page: "scene 10.a"},
 		];
 
