@@ -137,11 +137,7 @@ var GNOVEL = GNOVEL || {};
 		// this._scene.add(transitionPanel);
 
 		var nextPageTexture = THREE.ImageUtils.loadTexture(nextPage.nextPageMaterialPath);
-		var nextPageMaterial = new THREE.MeshBasicMaterial({
-			transparent: true,
-			map: nextPageTexture,
-		});
-		transitionPanel.children[1].material = nextPageMaterial;
+		this._nextPageBg.material.map = nextPageTexture;
 
 		container.position.set(initialX, 0, initialZ);
 		container.scale.set(initialScale, initialScale, 1);
