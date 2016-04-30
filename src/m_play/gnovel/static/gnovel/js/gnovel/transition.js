@@ -43,7 +43,7 @@ var GNOVEL = GNOVEL || {};
 		var plane2 = new THREE.PlaneBufferGeometry(this._width, this._height);
 
 		var curPageBg = new THREE.Mesh(plane1, redMaterial);
-		curPageBg.position.setX(-10);
+		curPageBg.position.setX(-20);
 		curPageBg.position.setZ(3);
 		curPageBg.scale.set(0.33, 0.33, 1);
 		curPageBg.name = "curPageBg";
@@ -124,7 +124,7 @@ var GNOVEL = GNOVEL || {};
 		var container = this._container;
 
 		var farZ = -300;
-		var leftX = -633;
+		var leftX = -645;
 		var initialScale = 1.65;
 		var initialX = 18;
 		var toScale = 1.2;
@@ -147,7 +147,7 @@ var GNOVEL = GNOVEL || {};
 		container.scale.set(initialScale, initialScale, 1);
 		container.add(transitionPanel);
 		this._scene.add(container);
-		transitionPanel.position.set(0, 0, 0);
+		transitionPanel.position.set(10, 0, 0);
 
 		this._runOnHierarchy(container, {
 			opacity: 1
