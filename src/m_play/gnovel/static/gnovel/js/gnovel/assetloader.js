@@ -16,8 +16,10 @@ var GNOVEL= GNOVEL || {};
 		this._preload = new createjs.LoadQueue();
 		this._preload.installPlugin(createjs.Sound);
 
-		this._preload.on("complete", this._handleComplete, this);
-		this._preload.on("fileload", this._handleFileLoad, this);
+		this._preload.on("complete", this._handleComplete, this); // all files in the queue has been loaded
+		this._preload.on("fileload", this._handleFileLoad, this); // single file has completed loading
+
+		this._resList = null;
 
 		// this will be used to load textures for three.js
 		this._textureLoader = new THREE.TextureLoader();
@@ -27,14 +29,22 @@ var GNOVEL= GNOVEL || {};
 	};
 
 	AssetLoader.prototype._handleComplete = function() {
-
+		
 	};
 
 	AssetLoader.prototype._handleFileLoad = function(event) {
-		var item = event;
-		var type = item.type;
+		var item = event.item;
+		var type = item.type;	
 
-		
+		console.log(item.src + " is loaded");
+	};
+
+	AssetLoader.prototype._setResourceList = function(list) {
+		this._resList = list;
+	};
+
+	AssetLoader.prototype._startLoadingResources = function() {
+		ths._preload.loadManifest(list);
 	};
 
 	AssetLoader.prototype._setTextureLoadList = function(list) {
@@ -78,8 +88,6 @@ var GNOVEL= GNOVEL || {};
 				console.log(t + " : " + (xhr.loaded / xhr.total * 100) + '% loaded');
 			}
 		);
-
-
 	};
 
 	AssetLoader.prototype._onTextureLoaded = function(texture) {

@@ -109,19 +109,26 @@ var MPLAY = MPLAY || {};
 	};
 
 	PageLoading.prototype._onStart = function() {
- 	MPLAY.MPlayPage.prototype._onStart.call(this);
+ 		
+ 		MPLAY.MPlayPage.prototype._onStart.call(this);
 		var textureList = MPLAY._getTextureList();
+		var resList = MPLAY._getResourceList();
 
 		var assetLoader = this.getOwner()._getAssetLoader();	
 		var self = this;
 
+		// textures
 		assetLoader._setTextureLoadList(textureList);
 		console.log("start loading texture");
 		assetLoader._startLoadingTextures(
 			// oncomplete
 			function() {
 				self.LoadingComplete();
-			});
+			}
+		);
+
+		// resources
+		assetLoader._setResourceList(resList);
 	};
 
 	PageLoading.prototype._TutorialNext = function(count) {
