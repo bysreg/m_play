@@ -105,11 +105,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: player + "!  Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
-			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},
-			{type: "show", img: cat, expression: "happy", position: "center"},			
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say.  Only what they do.'"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch!"},
+			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},			
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
@@ -122,11 +118,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
-			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},
-			{type: "show", img: cat, expression: "happy", position: "center"},			
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say. Only what they do.'"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch?"},
+			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},			
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
@@ -136,11 +128,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
-			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},
-			{type: "show", img: cat, expression: "happy", position: "center"},						
-			{type: "dialog", speaker: this._cat, text: "There’s this quote I like,"},
-			{type: "dialog", speaker: this._cat, text: "'As I get older, I don’t pay attention to what people say. Only what they do.'"},
-			{type: "dialog", speaker: this._cat, text: "Anyway, I think it went something like that. OK, now on to important matters... where to for lunch?"},
+			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},			
 			{type: "goto", page: "scene 10.a"},
 		];
 

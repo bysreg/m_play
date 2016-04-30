@@ -20,6 +20,7 @@ var GNOVEL= GNOVEL || {};
 		this._preload.on("fileload", this._handleFileLoad, this); // single file has completed loading
 
 		this._resList = null;
+		this._resLoadComplete = null;
 
 		// this will be used to load textures for three.js
 		this._textureLoader = new THREE.TextureLoader();
@@ -29,7 +30,9 @@ var GNOVEL= GNOVEL || {};
 	};
 
 	AssetLoader.prototype._handleComplete = function() {
-		
+		if(this._resLoadComplete) {
+			this._resLoadComplete();
+		}
 	};
 
 	AssetLoader.prototype._handleFileLoad = function(event) {
@@ -43,8 +46,9 @@ var GNOVEL= GNOVEL || {};
 		this._resList = list;
 	};
 
-	AssetLoader.prototype._startLoadingResources = function() {
-		ths._preload.loadManifest(list);
+	AssetLoader.prototype._startLoadingResources = function(onComplete) {
+		this._preload.loadManifest(this._resList);
+		this._resLoadComplete = onComplete;
 	};
 
 	AssetLoader.prototype._setTextureLoadList = function(list) {
@@ -52,11 +56,6 @@ var GNOVEL= GNOVEL || {};
 	};
 
 	AssetLoader.prototype._startLoadingTextures = function(onComplete) {
-		var al = this;
-		var onLoad = function(texture) {
-			al._onTextureLoaded(texture);
-		};
-
 		this._textureLoadIdx = 0;
 		this._onTextureLoadComplete = onComplete;
 

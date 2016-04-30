@@ -122,13 +122,6 @@ var MPLAY = MPLAY || {};
 					text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
 				{type: "close_phone"},
 
-				{type: "show_phone_notif"},
-				{type: "open_phone", layout:"text", people: [this._ryan]},
-				{type: "add_phone_textbox",
-						speaker: this._ryan,
-						text: "Sorry "+ player +", running a little late. Be there in 5 minutes"},
-				{type: "close_phone"},
-
 				{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
 			{type: "custom", func: function(page){
 					var pageObj = page;
@@ -169,7 +162,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "show", img: ryan, expression: "very happy", position: "center", label: "cheers"},
 			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
-			{type: "hide", img: ryan},
+			// {type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
 			{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "talktoryan"},
@@ -188,12 +181,13 @@ var MPLAY = MPLAY || {};
 
 			//during transition
 			{type:"nothing", label: "timefade"},
-			{type: "hide", img: ryan},
-			{type: "show", img: transitionBg, waitUntilShown:false},
-			// after transition
-			{type: "show_context", text: "Later on at Scottie’s…"},
-			{type: "hide", img: transitionBg},
-			{type: "show", img: catsphone, waitUntilShown: false},
+			// {type: "hide", img: ryan},
+			// {type: "show", img: transitionBg, waitUntilShown:false},
+			
+			// // after transition
+			// {type: "show_context", text: "Later on at Scottie’s…"},
+			// {type: "hide", img: transitionBg},
+			// {type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "I'm so happy we'll be working together after graduation!  You're going to love being at techFast."},
 			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class - Programming and Society should be good though."},
