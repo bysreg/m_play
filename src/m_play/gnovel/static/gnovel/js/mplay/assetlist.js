@@ -17,9 +17,18 @@ var MPLAY = MPLAY || {};
 		
 	];
 
+	var resList = [
+		"/static/gnovel/res/font/SFToontime.ttf",
+		"/static/gnovel/res/font/SFToontimeBold.ttf",
+		"/static/gnovel/res/font/SFToontimeBoldItalic.ttf",
+	];
+
 	MPLAY._getTextureList = function() {
 		return textureList;
 	};
 
+	MPLAY._getResourceList = function() {
+		return textureList;
+	};	
 
 }());
