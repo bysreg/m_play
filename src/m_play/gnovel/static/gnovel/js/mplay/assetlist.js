@@ -28,7 +28,7 @@ var MPLAY = MPLAY || {};
 	};
 
 	MPLAY._getResourceList = function() {
-		return textureList;
+		return resList;
 	};	
 
 }());
