@@ -1,9 +1,53 @@
-@media screen {
+@media screen and (min-aspect-ratio: 1280/720) {
 	#application-canvas.fill-mode-KEEP_ASPECT {
 		display: block;
-		margin: auto;
+		margin: 0 auto;;
+		width: 100%;
+		height:auto;
 	}
 }
+
+#application-canvas {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+#application-canvas.fill-mode-FILL_WINDOW {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: auto;
+	height: 48px;
+	line-height: 48px;
+	background: #41648f;
+	color: #ffffff;
+	overflow: hidden;
+}
+
+#footer > .title {
+	float: left;
+}
+
+.img{
+	position: relative;
+	width: 105px;
+	height: 45px;
+	margin: 3px 4px 0px 8px;
+	background-image: url("../footer/footer icon.png");
+	background-repeat: no-repeat;
+}
+
 @font-face{
 	font-family: 'Arvo', serif;
 	font-family: 'Droid Sans', sans-serif;
@@ -12,7 +56,7 @@
 	font-family: 'NoteworthyBold';
 	src: url('../font/noteworthyFontFace.ttf') format('truetype');
 }
-@font-face{	
+@font-face{
 	font-family: 'Bevan';
 	src: url('../font/Bevan.ttf') format('truetype');
 }
@@ -20,7 +64,7 @@
 	font-family: 'Toontime';
 	src: url('../font/SFToontime.ttf') format('truetype');
 }
-@font-face{	
+@font-face{
 	font-family: 'AleoBold';
 	src: url('../font/Aleo-Bold.otf') format('truetype');
 }

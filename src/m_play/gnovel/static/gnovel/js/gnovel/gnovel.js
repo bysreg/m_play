@@ -39,7 +39,7 @@ var GNOVEL = GNOVEL || {};
 		this._height = null;
 
 		this._camera = new THREE.PerspectiveCamera(50, 16 / 9, 100, 1200);
-		this._renderer = null;		
+		this._renderer = null;
 
 		this._clock = new THREE.Clock();
 
@@ -256,11 +256,12 @@ var GNOVEL = GNOVEL || {};
 		}
 	};
 
-	Gnovel.prototype._render = function() {		
-		this._renderer.render(this._scene, this._camera);				
+	Gnovel.prototype._render = function() {
+		this._renderer.render(this._scene, this._camera);
 	};
 
 	Gnovel.prototype._onWindowResize = function(event) {
+		//adjust size to fit the 1920/1080 ratio
 		var aspect_ratio = window.innerWidth / window.innerHeight;
 
 		if (aspect_ratio > 16 / 9) {
@@ -305,7 +306,7 @@ var GNOVEL = GNOVEL || {};
 	Gnovel.prototype._removeFromScene = function(page, o) {
 		if(this._pageRootObject[page.getPageId()]) {
 			this._pageRootObject[page.getPageId()].remove(o);
-		}		
+		}
 	};
 
 	Gnovel.prototype._findInScene = function(page, name) {
@@ -404,7 +405,7 @@ var GNOVEL = GNOVEL || {};
 					console.log("gnovel started");
 				});
 			tween.start();
-		}		
+		}
 	};
 
 	function _onStart(pageObj) {
@@ -442,7 +443,7 @@ var GNOVEL = GNOVEL || {};
 
 		// FIXME : for now regardless of transitionType and transitionParam,
 		// the transition is going to be FADE
-		
+
 		// load the next page during transition
 		var curPage = this.getCurrentPage();
 		var nextPage = this.getPageAt(pageIndex);
@@ -451,7 +452,7 @@ var GNOVEL = GNOVEL || {};
 		//this._unload(curPage);
 
 		//load next scene into root before showing on screen and transition
-		this._load(nextPage);	
+		this._load(nextPage);
 
 		this._onStart = false;
 
@@ -462,8 +463,8 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._runTransition = function(curPage, nextPage, transitionType) {
-		var gnovel = this;	
-		
+		var gnovel = this;
+
 		this._transition.run(curPage, nextPage, {
 			onComplete: function() {
 				gnovel._onPageTransitionComplete(nextPage);
@@ -492,7 +493,7 @@ var GNOVEL = GNOVEL || {};
 		//start flow of next page
 		_onStart(page);
 		this._onStart = true;
-		console.log("gnovel started");		
+		console.log("gnovel started");
 	};
 
 	Gnovel.prototype.getCamera = function() {
@@ -566,7 +567,7 @@ var GNOVEL = GNOVEL || {};
 
 	Gnovel.prototype._getAssetLoader = function() {
 		return this._assetLoader;
-	};	
+	};
 
 	GNOVEL.Gnovel = Gnovel;
 }());
