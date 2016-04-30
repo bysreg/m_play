@@ -91,7 +91,6 @@ var MPLAY = MPLAY || {};
 									map: texture,
 									side: THREE.DoubleSide,
 									transparent: true,
-									alphaTest: 0.5
 								})
 							];
 
