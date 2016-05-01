@@ -140,7 +140,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "sad", position: "right", waitUntilShown: false, flip: true},
 			{type: "dialog", speaker: this._ryan, text: "Look, I didn’t mean that.  It’s just, we’re only using this one time."},
 			{type: "dialog", speaker: this._ryan, text: "That B- really tanked my average, and I need to do well in the class."},
-			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false},
+			{type: "show", img: priya, expression: "sad", position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: this._priya, text: "Look, I know I’m the last person you want to hear this from, but Sweeney was pretty clear in how we should study.  It’s not fair of you to use this test."},
 			{type: "custom", label: "integrityScore", func: function(page) {
 				return page.getIntegrityManager().getIntegrity();
