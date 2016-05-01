@@ -55,7 +55,7 @@ var GNOVEL = GNOVEL || {};
 	        tweenPos.start();
 	      };
 
-      CameraMove.prototype.resetCamDirection = function(){
+      CameraMove.prototype.resetCamDirection = function(onComplete){
         var camera = this._gnovel.getCamera();
 				var curPos = camera.position;
 				var duration = 700;
@@ -69,6 +69,11 @@ var GNOVEL = GNOVEL || {};
           camera.lookAt(curPos);
         })
         .onComplete(function(){
+
+          if(onComplete) {
+            onComplete();
+          }
+
           console.log("camera move complete");
         });
 
