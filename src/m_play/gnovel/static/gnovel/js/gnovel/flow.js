@@ -281,8 +281,7 @@ var GNOVEL = GNOVEL || {};
 		var curPage = this._page;
 		var transitionType = obj.transition;
 		//reset camera
-		var cameraMove = new GNOVEL.CameraMove(this._page._owner, this._page);
-		cameraMove.resetCamDirection();
+		var cameraMove = new GNOVEL.CameraMove(this._page._owner, this._page);		
 
 		switch(transitionType) {
 			case "fade" :
@@ -306,12 +305,16 @@ var GNOVEL = GNOVEL || {};
 			}
 		})
 		tempTween.start();*/
+		var self = this;
+		var onCameraResetComplete = function() {
+			if(typeof obj.page === 'string') {
+				self._page.goToPageByLabel(obj.page, transitionType, null);
+			} else {
+				self._page.goToPage(pageIndex, transitionType, null);
+			}
+		};
 
-		if(typeof obj.page === 'string') {
-			this._page.goToPageByLabel(obj.page, transitionType, null);
-		} else {
-			this._page.goToPage(pageIndex, transitionType, null);
-		}
+		cameraMove.resetCamDirection(onCameraResetComplete);
 	};
 
 	Flow.prototype._handleCompare = function(obj) {
