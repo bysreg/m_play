@@ -83,7 +83,7 @@ var MPLAY = MPLAY || {};
 
 							// create basic material for the page
 							var texture = new THREE.Texture(image);
-							texture.needsUpdate = true;
+							texture.needsUpdate = true;							
 
 							page.rendererObject = [
 								new THREE.MeshBasicMaterial({
