@@ -19,6 +19,7 @@ var MPLAY = MPLAY || {};
 		this._loadTween = null;
 		this._notifText = null;
 		this._animPlaying = false;
+		this._tutFinished = false;
 
 		var page = this;
 		var tutCounter = 1;
@@ -107,12 +108,10 @@ var MPLAY = MPLAY || {};
 
 	//continue button after loading
 	this._continueBut = this.createImage("/static/gnovel/res/loadingPage/loading_continue.png",new THREE.Vector3(0, -300, this.getBackgroundLayer() + 5), 375, 120);
-	this._continueBut.material.opacity = 0;
-	this._addToScene(this._continueBut);
 	};
 
 	PageLoading.prototype._onStart = function() {
- 		
+
  		MPLAY.MPlayPage.prototype._onStart.call(this);
 		var textureList = MPLAY._getTextureList();
 		var resList = MPLAY._getResourceList();
@@ -141,6 +140,13 @@ var MPLAY = MPLAY || {};
 		if (count == 2) {
 			this._compassAnim();
 			// this.LoadingComplete();
+		};
+		//last tutorial for now
+		if(count==3)
+		{
+			//fade compass
+			this._fadeCompass(this._owner._scene.getObjectByName("compassFront"), this._owner._scene.getObjectByName("compassBack"),0);
+
 			this.tweenMat(this._notifText, {
 				opacity: 0,
 				duration: 400,
@@ -148,12 +154,14 @@ var MPLAY = MPLAY || {};
 				onComplete: function() {
 					page._removeFromScene(page._notifText);
 				}
-			})
-		};
-		if(count==3)
-		{
-			//fade compass
-			this._fadeCompass(this._owner._scene.getObjectByName("compassFront"), this._owner._scene.getObjectByName("compassBack"),0);
+			});
+
+			 if(this._loadingComplete){
+				 var nextPage = 1;
+	 		 	 this.goToPage(nextPage, GNOVEL.TransitionType.FADE);
+			 }
+			// this._continueBut.material.opacity = 0;
+			// this._addToScene(this._continueBut);
 		}
 		//display textbox on top of background
 
@@ -325,13 +333,18 @@ PageLoading.prototype._fadeCompass = function(compassFront, compassBack, delayFX
 		//stop loading symbol flashing
 		this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
 
-		//show continue button
-	 var continueBut = this._continueBut;
-		this.tweenMat(continueBut, {
-			opacity: 1,
-			duration: 1000,
-			easing: TWEEN.Easing.Cubic.Out,
-		});
+		//only show button if tutorial is finished
+		if(this._tutFinished){
+			//show continue button & go to next page
+			var nextPage = 1;
+		 	this.goToPage(nextPage, GNOVEL.TransitionType.FADE);
+		//  var continueBut = this._continueBut;
+		// 	this.tweenMat(continueBut, {
+		// 		opacity: 1,
+		// 		duration: 1000,
+		// 		easing: TWEEN.Easing.Cubic.Out,
+		// 	});
+		};
 	};
 
 
