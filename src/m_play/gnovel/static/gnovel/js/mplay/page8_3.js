@@ -81,9 +81,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label:"policy"},
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
-			{type: "show", img: professor, position: "center"},
-			{type: "dialog", speaker: this._professor, text: "There is a quote from Andrew Carnegie I always use."},
-			{type: "dialog", speaker: this._professor, text: "'As I grow older, I pay less attention to what men say.  I just watch what they do.'"},
+			{type: "show", img: professor, position: "center"},			
 			{type: "dialog", speaker: this._professor, text: "Ryan, " + this._player + ", please explain yourselves."},
 
 			{type: "choices", choices : [

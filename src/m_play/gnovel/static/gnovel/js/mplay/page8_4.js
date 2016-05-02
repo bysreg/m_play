@@ -100,20 +100,13 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
 			{type: "show", img: priya, expression: "sad", position: "right"},
-			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote about integrity as his status."},
-			{type: "show", img: cat, expression: "happy", position: "left"},
-			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", flip: true},
-			{type: "dialog", speaker: this._priya, text: "‘As I grow older, I pay less attention to what men say. I just watch what they do.’"},
+			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},			
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "goend"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
-			{type: "dialog", speaker: this._priya, text: "I think this whole thing made Sweeney pretty upset.  He posted a quote about integrity as his status."},
+			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
 			{type: "show", img: cat, expression: "happy", position: "left"},
-			{type: "dialog", speaker: this._cat, text: "Wait, you follow Sweeney on social media? That’s so… Never mind.  What did he post?"},
-			{type: "show", img: priya, expression: "thoughtful", position: "right", flip: true},
-			{type: "dialog", speaker: this._priya, text: "‘As I grow older, I pay less attention to what men say. I just watch what they do.’"},			
 
 			{type: "goto", page: "scene 10.a"},
 		];
