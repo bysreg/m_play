@@ -55,16 +55,20 @@ var GNOVEL = GNOVEL || {};
 	        tweenPos.start();
 	      };
 
-      CameraMove.prototype.resetCamDirection = function(onComplete){
+      CameraMove.prototype.resetCamDirection = function(onComplete, params){
         var camera = this._gnovel.getCamera();
 				var curPos = camera.position;
 				var duration = 700;
-
+				var delay = 300;
+				if(params != null){
+					duration = params.duration;
+					delay = params.delay;
+				}
 				//reset camera to look at origin
 				var tweenPos = new TWEEN.Tween(curPos)
         .to(this._origin, duration)
         .easing(TWEEN.Easing.Cubic.Out)
-				.delay(300)
+				.delay(delay)
         .onUpdate(function(){
           camera.lookAt(curPos);
         })

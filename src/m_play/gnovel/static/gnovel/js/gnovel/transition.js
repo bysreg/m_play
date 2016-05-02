@@ -95,7 +95,7 @@ var GNOVEL = GNOVEL || {};
 		this._runOnHierarchy(transitionBgImg, {
 			opacity: 1,
 		}, {
-			duration: duration / 2,
+			duration: duration,
 			onComplete: function() {
 
 				params.onSafeToUnload();
@@ -104,7 +104,7 @@ var GNOVEL = GNOVEL || {};
 				transition._runOnHierarchy(transitionBgImg, {
 					opacity: 0,
 				}, {
-					duration: duration / 2,
+					duration: duration,
 					onComplete: function() {
 						gnovelObj._scene.remove(transitionBgImg);
 					}

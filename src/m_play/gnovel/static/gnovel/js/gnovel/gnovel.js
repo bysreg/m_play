@@ -399,6 +399,7 @@ var GNOVEL = GNOVEL || {};
 				.to({
 					val: 1,
 				}, loadDuration * 1000)
+				.easing(TWEEN.Easing.Cubic.Out)
 				.onComplete(function() {
 					_onStart(page);
 					gnovel._onStart = true;
