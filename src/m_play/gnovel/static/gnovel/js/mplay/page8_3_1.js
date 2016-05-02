@@ -30,7 +30,7 @@ var MPLAY = MPLAY || {};
 		var priya = "%" + this._priya;
 		var ryan = "%" + this._ryan;
 		var professor = "%" + this._professor;
-		var player = this._player;		
+		var player = this._player;
 
 		var o = null;
 
@@ -41,7 +41,7 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "open_phone", layout:"email", subject: "Academic Violation", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "After much deliberation, I have decided to address your violation of the University’s Policy on Academic Integrity with the following action: As a consequence of unauthorized possession and use of last year’s exam, you will need to retake the take home exam, which will be different from the exam previously provided this semester. As we discussed in our meeting, I will cut you some slack though I am extremely disappointed.  I will be formally advancing this violation to the Division of Student Affairs for additional follow up.  Know that if I am made aware of an additional violation in this course, I will be reporting that as well.  There is no statute of limitations in reporting a violation.  Please take this as a learning experience to reflect on your actions.  -Prof. Sweeney"},
+				text: "After much deliberation, I have decided on the following to address your violation: As a consequence of unauthorized possession and use of last year’s exam, you will receive a 0 on the final. As we discussed in our meeting, I am extremely disappointed.  I will be reporting this violation to the Division of Student Affairs for follow up.  You will hear from a staff member in the Office of Community Standards & Integrity once the report has been made. “As I grow older, I pay less attention to what men say. I just watch what they do.” -Andrew Carnegie -Prof. Sweeney"},
 			{type: "close_phone"},
 
 			{type: "show_context", text: "You receive a text from Ryan"},
@@ -62,7 +62,7 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			// phone exchange begins
@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_3_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -96,7 +96,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_3_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Uc-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
