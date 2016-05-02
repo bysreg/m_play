@@ -281,7 +281,7 @@ var GNOVEL = GNOVEL || {};
 		var curPage = this._page;
 		var transitionType = obj.transition;
 		//reset camera
-		var cameraMove = new GNOVEL.CameraMove(this._page._owner, this._page);		
+		var cameraMove = new GNOVEL.CameraMove(this._page._owner, this._page);
 
 		switch(transitionType) {
 			case "fade" :
@@ -314,7 +314,7 @@ var GNOVEL = GNOVEL || {};
 			}
 		};
 
-		cameraMove.resetCamDirection(onCameraResetComplete);
+		cameraMove.resetCamDirection(onCameraResetComplete,{duration:300,delay:0});
 	};
 
 	Flow.prototype._handleCompare = function(obj) {
