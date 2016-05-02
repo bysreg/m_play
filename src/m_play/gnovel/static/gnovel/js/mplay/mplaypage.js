@@ -151,24 +151,24 @@ var MPLAY = MPLAY || {};
 			x: -1,
 			y: 1
 		};
-		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -130, this._characterLayer));
 		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
+		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -30, this._characterLayer));
 
-		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -50, this._characterLayer));
-		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer)); // angry
-		this._createAnim("cat happy", "/static/gnovel/res/animation/", 1, new THREE.Vector3(0, -20, this._characterLayer));
-		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -150, this._characterLayer));
-		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -75, this._characterLayer));
+		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -60, this._characterLayer));
+		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -145, this._characterLayer)); // angry
+		this._createAnim("cat happy", "/static/gnovel/res/animation/", .9, new THREE.Vector3(0, 40, this._characterLayer));
+		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -160, this._characterLayer));
+		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -95, this._characterLayer));
 
 		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
-		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -110, this._characterLayer));
-		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer));
-		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -70, this._characterLayer));
+		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -110, this._characterLayer));
+		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -145, this._characterLayer));
+		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.79, new THREE.Vector3(0, -40, this._characterLayer));
 
-		this._createAnim("sweeney neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -120, this._characterLayer));
-		this._createAnim("sweeney angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -160, this._characterLayer));
+		this._createAnim("sweeney neutral", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -110, this._characterLayer));
+		this._createAnim("sweeney angry", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -165, this._characterLayer));
 		this._createAnim("sweeney happy", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -160, this._characterLayer));
 
 
@@ -294,6 +294,7 @@ var MPLAY = MPLAY || {};
 		var vignetteOffset = params.vignetteOffset || 0.95;
 		var vignetteDarkness = params.vignetteDarkness || 1.6;
 		var pageObj = this;
+		var repeat = true;
 
 		if (params.clear) {
 			targetBlurH = 0;
@@ -326,6 +327,7 @@ var MPLAY = MPLAY || {};
 			}, duration)
 			.easing(TWEEN.Easing.Cubic.Out);
 		t4.start();
+
 	};
 
 	MPlayPage.prototype._createAnim = function(animName, path, scale, position) {
@@ -626,12 +628,27 @@ var MPLAY = MPLAY || {};
 		//center camera when choices are shown
 		cameraMove.resetCamDirection();
 
-		this._setBlurBgEffect({
-			blurH: this._hardBlurH,
-			blurV: this._hardBlurV,
-			vignetteDarkness: this._hardVignetteDarkness,
-			vignetteOffset: this._hardVignetteOffset,
-		});
+		//if integrity decision, show stronger blur effect
+		//if not, then show normal blur
+		for (var i=0;i<choicesArr.length;i++){
+			if(params.flowElement.choices[i].integrityScore){
+				this._setBlurBgEffect({
+					blurH: this._hardBlurH,
+					blurV: this._hardBlurV,
+					vignetteDarkness: this._hardVignetteDarkness,
+					vignetteOffset: this._hardVignetteOffset,
+				});
+				break;
+			}
+		};
+
+
+		/*this._setBlurBgEffect({
+			blurH: this._softBlurH,
+			blurV: this._softBlurV,
+			vignetteDarkness: this._softVignetteDarkness,
+			vignetteOffset: this._softVignetteOffset,
+		});*/
 		var pageObj = this;
 
 		var oriOnChoiceComplete = params.onChoiceComplete;

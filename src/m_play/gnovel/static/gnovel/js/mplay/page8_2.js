@@ -108,7 +108,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label:"lastyear"},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Are you aware that it's against my policy to use previous semester work?"},
-			{type: "dialog", speaker: this._professor, text: "I explicitly wrote it in the course syllabus"},
+			{type: "dialog", speaker: this._professor, text: "I explicitly wrote it in the course syllabus."},
 
 			{type: "choices", choices : [
 				{text: "I wasn't aware it was against course policy.", go:"#unaware"},
@@ -124,7 +124,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label:"pressure"},
 			{type: "show", img: professor, position: "center"},
-			{type: "dialog", speaker: this._professor, text: "Being that you two are seniors, I understand the importance of doign well this semester."},
+			{type: "dialog", speaker: this._professor, text: "Being that you two are seniors, I understand the importance of doing well this semester."},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Nevertheless, doing something against policy will hurt you more than a bad grade."},
 			{type: "jump", condition: true, goTrue: "#leave", goFalse: "#leave"},
