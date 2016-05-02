@@ -62,12 +62,18 @@ var MPLAY = MPLAY || {};
 					},
 				});
 
+
+				//tween in new bg
+				pageObj.tweenMat(background_ryan, {
+					opacity: 1,
+					easing: TWEEN.Easing.Cubic.Out,
+					duration: 200,
+				});
 				//remove previous background with character and change
-				background_ryan.material.opacity = 1;
 				pageObj.tweenMat(pageObj._background3, {
 					opacity: 0,
 					easing: TWEEN.Easing.Cubic.Out,
-					duration: 100,
+					duration: 800,
 					onComplete: function() {
 						pageObj._removeFromSceneBg(pageObj._background3);
 						//background_priya.material.opacity = 1;
@@ -199,9 +205,9 @@ var MPLAY = MPLAY || {};
 								page._plagiarismData.relationship.ryan = 1;
 								page._plagiarismData.relationship.cat = -1;
 							}}],
-					//seconds: 10,
-					//responses: [{text:"Hello?"},{text: "Don't just leave me hanging."}],
-					speaker: this._ryan},
+					seconds: 10,
+					responses: [{text:"What do you think?"},{text: "We don't have much time."}],
+					speaker: this._cat},
 
 			{type: "nothing", label: "ask"},
 			// {type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#asst_given", goFalse: "#asst_not_given"},

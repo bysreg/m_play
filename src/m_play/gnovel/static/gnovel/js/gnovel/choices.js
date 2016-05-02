@@ -155,10 +155,12 @@ var GNOVEL = GNOVEL || {};
 
 		var pageObj = this._page;
 		var choices = this;
+		var choicesParams = this._params;
+		choicesParams.charLine = 20;
 		//position of dialog based upon speaker
 		var dialogX = this._params.dialogX;
-		var dialogY = this._params.dialogY+300;
-		this._params.bWidth = 225;
+		var dialogY = this._params.dialogY+280;
+		this._params.bWidth = 250;
 		this._params.bHeight = 150;
 
 		var duration = this._params.seconds * 1000 || 1000;
@@ -187,15 +189,17 @@ var GNOVEL = GNOVEL || {};
 					if(responseCount <= choices._timedResponses.length-1){
 						 if(!responseShowing){
 							choices._params.speaker = speaker;
-							choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[responseCount],dialogX,dialogY, choices._params));
+							choices._responseBox.push(pageObj._showTempDialog(choices._timedResponses[responseCount],dialogX,dialogY, choicesParams));
 
 							responseShowing = true;
 						}
 						else{
 						//after the first response displays, then make invisible & move to next response
 						if (responseCount > 0){
-							choices._responseBox[incrementNum]._messageText.material.opacity = 0;
-							choices._responseBox[incrementNum]._textBg.material.opacity = 0;
+							pageObj.tweenMat(choices._responseBox[incrementNum]._messageText,{opacity:0});
+							pageObj.tweenMat(choices._responseBox[incrementNum]._textBg,{opacity:0});
+							// choices._responseBox[incrementNum]._messageText.material.opacity = 0;
+							// choices._responseBox[incrementNum]._textBg.material.opacity = 0;
 							responseShowing = false;
 						}
 					}
@@ -237,8 +241,10 @@ var GNOVEL = GNOVEL || {};
 					pageObj.tweenPulse(timer,{x:0,y:0,z:0,
 						duration: 200,
 						onComplete: function(){
-							choices._responseBox[incrementNum]._messageText.material.opacity = 0;
-							choices._responseBox[incrementNum]._textBg.material.opacity = 0;
+							pageObj.tweenMat(choices._responseBox[incrementNum]._messageText,{opacity:0, duration:200});
+							pageObj.tweenMat(choices._responseBox[incrementNum]._textBg,{opacity:0, duration:200});
+							// choices._responseBox[incrementNum]._messageText.material.opacity = 0;
+							// choices._responseBox[incrementNum]._textBg.material.opacity = 0;
 							responseShowing = false;
 
 						//reset count if at end of timedRsponses array

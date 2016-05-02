@@ -152,13 +152,13 @@ var MPLAY = MPLAY || {};
 			y: 1
 		};
 		this._createAnim("ryan happy 2", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("ryan sad", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -120, this._characterLayer));
 		this._createAnim("ryan thoughtful", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -30, this._characterLayer));
 
 		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -60, this._characterLayer));
 		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -145, this._characterLayer)); // angry
 		this._createAnim("cat happy", "/static/gnovel/res/animation/", .9, new THREE.Vector3(0, 40, this._characterLayer));
-		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -160, this._characterLayer));
+		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -110, this._characterLayer));
 		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -95, this._characterLayer));
 
 		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
@@ -698,7 +698,7 @@ var MPLAY = MPLAY || {};
 		params.bgWidth = params.bWidth || 325;
 		params.bgHeight = params.bHeight || 221;
 		params.showSpeaker = false;
-		params.charLine = 30;
+		params.charLine = params.charLine || 30;
 		params.unclickable = true;
 
 		var chara = null;

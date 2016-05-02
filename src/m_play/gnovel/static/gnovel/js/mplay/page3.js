@@ -186,7 +186,7 @@ var MPLAY = MPLAY || {};
 				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
 					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. - Prof. Sweeney"},
 				{type: "close_phone"},
-				// phone email exchange ends
+				//phone email exchange ends
 
 				{type: "custom", func: function(pageObj){
 					//disable the characters from being clickable while context showing
@@ -239,8 +239,8 @@ var MPLAY = MPLAY || {};
 							page._unauthorizedAsstData.relationship.priya = 2;
 						}},
 					],
-				//seconds: 10,
-				//responses: [{text: "hey!"}, {text:"did you hear me"}],
+				seconds: 10,
+				responses: [{text: player + ", help me out."}, {text:"did you hear me?"}],
 				speaker: this.ryan},
 
 			{type: "nothing", label: "materials"},
