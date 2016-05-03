@@ -161,7 +161,6 @@ var MPLAY = MPLAY || {};
 						go: "#cheers"}]},
 
 			{type: "show", img: ryan, expression: "very happy", position: "center", label: "cheers"},
-			{type: "dialog", speaker: this._ryan, text: "Congrats!"},
 			// {type: "hide", img: ryan},
 			{type: "jump", condition: true, goTrue: "#timefade", goFalse: 1000},
 
