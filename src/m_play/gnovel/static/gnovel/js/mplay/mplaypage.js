@@ -161,11 +161,11 @@ var MPLAY = MPLAY || {};
 		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -110, this._characterLayer));
 		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -95, this._characterLayer));
 
-		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -100, this._characterLayer));
-		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -110, this._characterLayer));
-		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -145, this._characterLayer));
-		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -130, this._characterLayer));
-		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.79, new THREE.Vector3(0, -40, this._characterLayer));
+		this._createAnim("priya neutral", "/static/gnovel/res/animation/", 0.7, new THREE.Vector3(0, -120, this._characterLayer));
+		this._createAnim("priya happy", "/static/gnovel/res/animation/", 0.9, new THREE.Vector3(0, -130, this._characterLayer));
+		this._createAnim("priya angry", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -165, this._characterLayer));
+		this._createAnim("priya sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -150, this._characterLayer));
+		this._createAnim("priya thoughtful", "/static/gnovel/res/animation/", 0.79, new THREE.Vector3(0, -60, this._characterLayer));
 
 		this._createAnim("sweeney neutral", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -110, this._characterLayer));
 		this._createAnim("sweeney angry", "/static/gnovel/res/animation/", 0.75, new THREE.Vector3(0, -165, this._characterLayer));
