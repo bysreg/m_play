@@ -24,6 +24,7 @@ var MPLAY = MPLAY || {};
 
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan solo.png";
 		this.setupLibraryBackground(foregroundImg);
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux_wR.png";
 
 		this._background_empty = this.createImage("/static/gnovel/res/textures/backgrounds/library foreground.png", new THREE.Vector3(0, 10, this._background3Layer-100), 1920, 1080);
 		this._background_empty.scale.set(.90,.85,1);
