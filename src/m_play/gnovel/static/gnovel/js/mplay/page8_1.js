@@ -23,6 +23,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupUcBackground();
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc foreground png.png";
 	};
 
 	Page8_1.prototype._createFlowElements = function() {
@@ -52,9 +53,9 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "I think it will end up ok though.  I just have to face the music.  Thanks for trying to convince me not to use it though."},
 			{type: "dialog", speaker: this._ryan, text: "I feel like an idiot.  It was not worth using it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
-			
+
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "sad", position: "left"},
@@ -63,7 +64,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
-			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},	
+			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},
 			{type: "dialog", speaker: this._ryan, text: "I feel stupid for using it.  It was not worth it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -92,11 +93,11 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  Jeez, heard about what happened."},
 			{type: "dialog", speaker: this._cat, text: "Well I hope it works out ok for him, that's going to be an awkward conversation with his job if he fails the class."},
 			{type: "dialog", speaker: this._cat, text: "I’m surprised he used it, I thought he was smarter than that.  It was smart of you not to look at it."},
-			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},			
+			{type: "dialog", speaker: this._cat, text: "Even seeing something like that can get you in trouble."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
 
 			{type: "nothing", label: "zero-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
@@ -106,7 +107,7 @@ var MPLAY = MPLAY || {};
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Oh boy, was that Ryan?  I heard what happened.  It’s going to be an awkward conversation with his job"},
 			{type: "dialog", speaker: this._cat, text: "if he fails the class.  I hope it works out.  I’m surprised he used it, I thought he was smarter than that."},
-			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},			
+			{type: "dialog", speaker: this._cat, text: "You’re lucky you didn’t look at it– you would have been in trouble too."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
@@ -132,11 +133,11 @@ var MPLAY = MPLAY || {};
 					{audio:"Uc-steps", playrate: 0.1}
 					];
 		return playlist;
-	};	
+	};
 
 	Page8_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -144,7 +145,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_1.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
@@ -156,7 +157,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};		
+	};
 
 	MPLAY.Page8_1 = Page8_1;
 }());

@@ -25,6 +25,7 @@ var MPLAY = MPLAY || {};
 		this._setEffect(false);
 
 		this.setupUcBackground();
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc final layers png.png";
 	};
 
 	Page9_0.prototype._createFlowElements = function() {

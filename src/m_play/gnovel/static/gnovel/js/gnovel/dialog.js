@@ -183,7 +183,7 @@ var GNOVEL = GNOVEL || {};
 				var textHeight = this._messageText.canvas.textHeight;
 				if (textHeight >= 69) {
 					var textWidth = this._messageText.canvas.textWidth;
-					var scale_h = textHeight * 1.7 / 240;					
+					var scale_h = textHeight * 1.7 / 240;
 					var scale = scale_h;
 					Dialog._textBg.position.y -= textHeight / 4;
 					if (characterLine == 45) {
@@ -223,6 +223,7 @@ var GNOVEL = GNOVEL || {};
 
 			} else {
 				Dialog._textBg.material.opacity = 0;
+				this._messageText.material.opacity = 0;
 				//set scale to 0
 				Dialog._textBg.scale.set(0, 0, 1);
 				//bool that tells tween if text already showing from tween
@@ -237,9 +238,16 @@ var GNOVEL = GNOVEL || {};
 					easing: TWEEN.Easing.Back.Out,
 					temp: this._temp,
 					onUpdate: function() {
-						//makes text come in after text box has began showing
-						if ((myDialog._textBg.scale.x > .5) && !textShowing) {
+						//fade in text after text box has began showing
+						if ((myDialog._textBg.scale.x > .6) && !textShowing) {
 							textShowing = true;
+							// var slideBg = this._page.createImage("",new THREE.Vector3(0,0,0),100,100)
+							// myDialog._page.move(Dialog._textBg, {
+							// 	duration: 600,
+							// 	x: targetPos.x,
+							// 	easing: TWEEN.Easing.Back.Out //target position
+							// });
+
 							myDialog._page.tweenMat(myDialog._messageText, {
 								duration: 500,
 								opacity: 1,
@@ -262,13 +270,13 @@ var GNOVEL = GNOVEL || {};
 
 				this._textBg = Dialog._textBg;
 
-				// fade in text and speaker
-				this._messageText.material.opacity = 0;
-				this._page.tweenMat(this._messageText, {
-					duration: 500,
-					opacity: 1,
-					easing: TWEEN.Easing.Cubic.Out
-				});
+				// // fade in text and speaker
+				// this._messageText.material.opacity = 0;
+				// this._page.tweenMat(this._messageText, {
+				// 	duration: 500,
+				// 	opacity: 1,
+				// 	easing: TWEEN.Easing.Cubic.Out
+				// });
 
 				this._nameText.material.opacity = 0;
 				this._page.tweenMat(this._nameText, {

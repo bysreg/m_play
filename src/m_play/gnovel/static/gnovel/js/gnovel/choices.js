@@ -125,7 +125,7 @@ var GNOVEL = GNOVEL || {};
 			textbox.material.opacity = 0;
 			textbox.scale.set(0,0,1);
 			//show and animation text inside choice box
-			//pop in and scale choice box
+			//pop in and scale text box
 			this._page.tweenPulse(textbox,{
 				repeat: false,
 				x:1,y:1,z:1,
@@ -133,7 +133,7 @@ var GNOVEL = GNOVEL || {};
 				easing: TWEEN.Easing.Back.Out
 			});
 
-			//fade in choice box
+			//fade in text box
 			this._page.tweenMat(textbox, {
 				duration: 500,
 				opacity: 1,
