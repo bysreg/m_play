@@ -270,13 +270,15 @@ var GNOVEL = GNOVEL || {};
 
 				this._textBg = Dialog._textBg;
 
-				// // fade in text and speaker
-				// this._messageText.material.opacity = 0;
-				// this._page.tweenMat(this._messageText, {
-				// 	duration: 500,
-				// 	opacity: 1,
-				// 	easing: TWEEN.Easing.Cubic.Out
-				// });
+				// fade in text and speaker
+				if(this._temp){
+					this._messageText.material.opacity = 0;
+					this._page.tweenMat(this._messageText, {
+						duration: 500,
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out
+					});
+			}
 
 				this._nameText.material.opacity = 0;
 				this._page.tweenMat(this._nameText, {
