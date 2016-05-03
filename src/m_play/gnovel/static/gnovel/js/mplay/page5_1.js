@@ -24,6 +24,7 @@ var MPLAY = MPLAY || {};
 
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib with ryan and cat.png";
 		this.setupLibraryBackground(foregroundImg);
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux_wR&C.png";
 
 		this._talked = 0;
 
