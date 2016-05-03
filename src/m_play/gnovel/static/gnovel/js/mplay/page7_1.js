@@ -115,7 +115,8 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
 			{type: "nothing", label: "showpriya"},
-			{type:"show_context", text:"Priya sees you and Ryan together, and comes over to say hi."},
+			{type: "show_context", text:"Priya sees you and Ryan together, and comes over to say hi."},
+			{type: "hide", img: ryan},
 
 			{type: "show", img: ryan, expression: "thoughtful", position: "right", waitUntilShown: false},
 			{type: "show", img: priya, expression: "happy", position: "left", waitUntilShown: false},
