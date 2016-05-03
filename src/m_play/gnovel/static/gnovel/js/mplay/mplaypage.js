@@ -932,7 +932,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._hide = function(obj, params) {
-		params = params || {};
+		params = params || {};		
 
 		var img = obj;
 
@@ -945,6 +945,8 @@ var MPLAY = MPLAY || {};
 			if (img === null) {
 				img = obj.getImage(null);
 			}
+
+			params.duration = 500;
 
 			if (img instanceof MPLAY.SpineAnimation) {
 				params.arr = img.meshes;
