@@ -29,10 +29,6 @@ var MPLAY = MPLAY || {};
 		this.setupLibraryBackground(foregroundImg);
 		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux_wR&P.png"
 
-		this._yourphoneImg = this.createImage("/static/gnovel/res/textures/ui/phone.png", new THREE.Vector3(0, 60, 150), 250, 458);
-
-		this._yourphoneImg.material.opacity = 0;
-
 		this._yourphone = "yourphone";
 
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
@@ -43,7 +39,6 @@ var MPLAY = MPLAY || {};
 		this._transitionBg = "transitionbg";
 
 		// for images
-		this._setObjectTag(this._yourphone, this._yourphoneImg);
 		this._setObjectTag(this._transitionBg,this._transitionBgImg);
 
 		this._talked = 0;

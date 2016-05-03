@@ -115,34 +115,34 @@ var MPLAY = MPLAY || {};
 		o = [
 			// need a flow here to show a buzzing phone before choices
 			// {type: "show_context", text:"You head to Scottie's to celebrate with Ryan.", waitUntilShown:false},
-				{type: "show_phone_notif"},
+			{type: "show_phone_notif"},
 
-				// phone email exchange begins
-				{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
-					text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
-				{type: "close_phone"},
+			// phone email exchange begins
+			{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
+			text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
+			{type: "close_phone"},
 
-				{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
+			{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
 			{type: "custom", func: function(page){
 					var pageObj = page;
 					page.tweenMat(page._background_ryan,{
-					opacity: 1,
-					easing: TWEEN.Easing.Cubic.Out,
-					duration: 200,
-				});
+						opacity: 1,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 200,
+					});
 					page.tweenMat(pageObj._bg, {
-					opacity: 0,
-					easing: TWEEN.Easing.Cubic.Out,
-					duration: 800,
-					onComplete: function() {
+						opacity: 0,
+						easing: TWEEN.Easing.Cubic.Out,
+						duration: 800,
+						onComplete: function() {
 							pageObj._removeFromSceneBg(pageObj._bg);
-						//background_priya.material.opacity = 1;
+							//background_priya.material.opacity = 1;
 							pageObj._bg = pageObj._background_ryan;
-					},
-				});
-					page._io1.setEnable(true);
-			}},
-			];
+							page._io1.setEnable(true);
+						},
+					});					
+				}},
+		];
 
 		if(this._talked == 1) {
 			o = [
