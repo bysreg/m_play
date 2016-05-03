@@ -850,11 +850,11 @@ var MPLAY = MPLAY || {};
 
 		//specify position of object in scene based upon character
 		if (position === "left") {
-			img.position.x = -300;
+			img.position.x = -330;
 		} else if (position === "center") {
 			img.position.x = 0;
 		} else if (position === "right") {
-			img.position.x = 450;
+			img.position.x = 400;
 		}
 
 		if (isChar) {
