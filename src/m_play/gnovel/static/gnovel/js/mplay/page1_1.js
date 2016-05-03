@@ -137,7 +137,7 @@ var MPLAY = MPLAY || {};
 				{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater", rightop: 0, goTrue: "#happyryan", goFalse: "#neutralryan"},
 
 				{type: "show", img: ryan, expression: "happy", position: "center", waitUntilShown: false, label: "happyryan"},
-				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger"},
+				{type: "dialog", speaker: "Ryan", text: player + " here is the lifesaver, I'm just the messenger."},
 				{type: "jump", condition: true, goTrue: "#aside1", goFalse: "#aside1"},
 
 				{type: "show", img: ryan, position: "center", waitUntilShown: false, label: "neutralryan"},
