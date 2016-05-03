@@ -169,8 +169,8 @@ var MPLAY = MPLAY || {};
 					},
 					relationship: [{name: this._ryan, score: 1}],
 					go: "#decline"} ],
-				//seconds: 10,
-				//responses: [{text:"well?"},{text: "Don't just leave me hanging."}],
+				seconds: 10,
+				responses: [{text: player + ", what do you think?"},{text:"It was fine in my last class."},{text: "She's worrying too much."}],
 				speaker: this._ryan},
 
 			// holdoff jump

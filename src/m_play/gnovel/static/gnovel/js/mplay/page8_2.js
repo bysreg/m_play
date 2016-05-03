@@ -73,8 +73,8 @@ var MPLAY = MPLAY || {};
 				{text: "Are you accusing us of cheating?", go:"#cheating?"},
 				{text: "I'm not sure professor.", go:"#policy"},
 				{text: "Ryan received study material from last semester.", go:"#material"}],
-				// seconds: 5,
-				// responses: [{text:this._player + "?"}, {text:"Please explain " + this._player + "."}],
+				seconds: 8,
+				responses: [{text:this._player + "?"}, {text:"Please explain " + this._player + "."}],
 				speaker: this._professor},
 
 			{type: "dialog", speaker: this._professor, label:"cheating?", text:"I'm not accusing you two of anything.  I just want your thoughts but you should know..."},
@@ -86,13 +86,16 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label:"policy"},
 			{type: "dialog", speaker: this._professor, text: "Potential consequences of an academic violation are failing the exam, the course and possible expulsion from your programs."},
 			{type: "dialog", speaker: this._professor, text: "There is an appeals process as well, but before we go down that road, I'd like to hear from you."},
-			{type: "show", img: professor, position: "center"},			
+			{type: "show", img: professor, position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Ryan, " + this._player + ", please explain what happened."},
 
 			{type: "choices", choices : [
 				{text: "Ryan suggested we use last year's test to study.", go:"#lastyear"},
 				{text: "We used some materials from last semester to study.", go:"#lastyear"},
 				{text: "Nothing happened.  We studied the same way as everyone else.", go:"#lie"}],
+				seconds: 8,
+				responses: [{text:"Please be honest with me " + this._player + "."}, {text:this._player + "?"}],
+				speaker: this._professor
 			},
 
 			{type: "nothing", label:"lie"},
@@ -112,6 +115,9 @@ var MPLAY = MPLAY || {};
 				{text: "I wasn't aware it was against course policy.", go:"#unaware"},
 				{text: "We were feeling pressure from our low project grade.", go:"#pressure"},
 				{text: "It was Ryan's suggestion, I just looked briefly.", go:"#unaware"}],
+				seconds: 10,
+				responses: [{text:"Did you read the syllabus?"}, {text:this._player + "?"}],
+				speaker: this._professor
 			},
 
 			{type: "nothing", label:"unaware"},
