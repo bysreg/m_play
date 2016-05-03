@@ -514,20 +514,20 @@ var GNOVEL = GNOVEL || {};
 			arr: params.arr,
 			onComplete: function() {
 				if (waitUntilHidden) {
+					pageObj._removeFromScene(obj);		
 					// go to next flow
 					pageObj._flow._next();
 					pageObj._flow._exec();
-					pageObj._removeFromScene(obj);					
 				}
 			},
 			duration: params.duration || 800,
 		});
 
 		if (!waitUntilHidden) {
+			pageObj._removeFromScene(obj);
 			// go to next flow
 			pageObj._flow._next();
-			pageObj._flow._exec();
-			pageObj._removeFromScene(obj);
+			pageObj._flow._exec();			
 		}
 	};
 
