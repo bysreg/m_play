@@ -850,11 +850,11 @@ var MPLAY = MPLAY || {};
 
 		//specify position of object in scene based upon character
 		if (position === "left") {
-			img.position.x = -300;
+			img.position.x = -330;
 		} else if (position === "center") {
 			img.position.x = 0;
 		} else if (position === "right") {
-			img.position.x = 450;
+			img.position.x = 400;
 		}
 
 		if (isChar) {
@@ -932,7 +932,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._hide = function(obj, params) {
-		params = params || {};
+		params = params || {};		
 
 		var img = obj;
 
@@ -945,6 +945,8 @@ var MPLAY = MPLAY || {};
 			if (img === null) {
 				img = obj.getImage(null);
 			}
+
+			params.duration = 500;
 
 			if (img instanceof MPLAY.SpineAnimation) {
 				params.arr = img.meshes;
