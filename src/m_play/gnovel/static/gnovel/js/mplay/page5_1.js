@@ -132,7 +132,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 			o = [
-				{type:"show_context", text:"Later that day, you head to the library to join Cat and Ryan."},
+				{type:"show_context", text:"The day before the project is due, you head to the library to join Cat and Ryan."},
 				{type: "custom", func: function(pageObj){
 					//disable the characters from being clickable while context showing
 					pageObj._io1.setEnable(true);
@@ -320,7 +320,7 @@ var MPLAY = MPLAY || {};
 				// 	page.getOwner().getSoundManager().play("Sup-Cat");
 				// }},
 				// {type: "play", audio: "Sup-Cat"},
-				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project, I’m compiling everything right now."},
+				{type: "dialog", speaker: "Cat", text: "Thanks for sending your part of the project. I’m compiling everything right now."},
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 
 				{type: "nothing", label: "comparecat1"},

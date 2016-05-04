@@ -59,7 +59,7 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type:"show_context", text:"Later that day, you head to the library to study for your final with Ryan"},
+			{type:"show_context", text:"Later that day, you head to the library to study for your final with Ryan."},
 
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
@@ -88,7 +88,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Ryan-n"},
 			{type: "dialog", speaker: this._ryan, text: player +", remember I told you my brother took this class last year?  He gave me some of his stuff from the class, nothing graded."},
-			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual exam from last year.  Might help, what do you think?"},
+			{type: "dialog", speaker: this._ryan, text: "I have a blank copy of the actual take home exam from last year.  Might help, huh?"},
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
 			{type: "nothing", label: "compareryan1"},
