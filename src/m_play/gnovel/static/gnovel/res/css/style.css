@@ -1,10 +1,32 @@
-@media screen and (min-aspect-ratio: 1280/720) {
+html{
+	height:100%;
+
+}
+
+body{
+	margin: 0;
+	max-height: 100%;
+	height:100%;
+	overflow: hidden;
+}
+
+@media screen and (min-aspect-ratio: 1280/680) {
 	#application-canvas.fill-mode-KEEP_ASPECT {
-		display: block;
 		margin: 0 auto;;
 		width: 100%;
 		height:auto;
 	}
+}
+
+#container{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 48px;
+	left: 0;
+	width: auto;
+	height: auto;
+	overflow: hidden;
 }
 
 #application-canvas {
@@ -14,6 +36,12 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+}
+
+#application-canvas.fill-mode-KEEP_ASPECT {
+	width: 100%;
+	height: auto;
+	margin: auto;
 }
 
 #application-canvas.fill-mode-FILL_WINDOW {

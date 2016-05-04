@@ -261,17 +261,18 @@ var GNOVEL = GNOVEL || {};
 	};
 
 	Gnovel.prototype._onWindowResize = function(event) {
-		//adjust size to fit the 1920/1080 ratio
-		var aspect_ratio = window.innerWidth / window.innerHeight;
+		//adjust size to fit the 1920/1140 ratio
+		var aspect_ratio = window.innerWidth / (window.innerHeight);
 
-		if (aspect_ratio > 16 / 9) {
+		if (aspect_ratio > 16 / 9.5) {
 			// fill height
-			this._cameraCanvas.height = window.innerHeight;
-			this._cameraCanvas.width = (16 / 9) * this._cameraCanvas.height;
+			//adjust height for footer height of 48px
+			this._cameraCanvas.height = window.innerHeight-48;
+			this._cameraCanvas.width = (16 / 9.5) * this._cameraCanvas.height;
 		} else {
 			// fill width
 			this._cameraCanvas.width = window.innerWidth;
-			this._cameraCanvas.height = (9 / 16) * this._cameraCanvas.width;
+			this._cameraCanvas.height = (9.5 / 16) * this._cameraCanvas.width-48;
 		}
 
 		this._width = this._cameraCanvas.width;
