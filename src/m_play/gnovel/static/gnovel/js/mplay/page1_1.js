@@ -157,7 +157,7 @@ var MPLAY = MPLAY || {};
 				{type: "hide", img: ryan},
 				{type: "hide", img: cat},
 				{type: "hide", img: priya},
-				{type: "show_context", text: "The group leaves...some time passes"},
+				{type: "show_context", text: "The group leaves. Some time passes"},
 
 				{type: "open_phone", layout:"text", people: [this._priya, this._ryan, this._cat]},
 				{type: "add_phone_textbox",
