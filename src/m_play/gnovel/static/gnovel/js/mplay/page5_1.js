@@ -123,6 +123,8 @@ var MPLAY = MPLAY || {};
 		var yourphone = "%" + this._yourphone;
 		var player = this._player;
 		var background = this._background_empty;
+		var c_posRel = 3;
+		var c_neuRel = 1
 
 		var cgAssignmentStatus = this._owner.getSavedData("cgAssignmentStatus");
 
@@ -185,6 +187,8 @@ var MPLAY = MPLAY || {};
 							onChoose: function(page) {
 								page._priyaWorkChoice = 0;
 
+								//ryan doesn't like you not taking his word for Priya
+								page._plagiarismData.relationship.ryan = -1;
 								page._plagiarismData.relationship.cat = 1;
 							}},
 						{text: "We only have a few hours. Let’s divide and conquer. Redo her work.",
@@ -312,7 +316,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page){
 					return page.getRelationshipManager().getRelationship("Cat");
 				}, label: "catRelationshipScore1"},
-				{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
+				{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_posRel, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
 
 				{type: "nothing", label: "pos-cat1"},
 				{type: "show", img: cat, expression: "happy", position: "left"},
@@ -324,7 +328,7 @@ var MPLAY = MPLAY || {};
 				{type: "jump", condition: true, goTrue: "#gocommon", goFalse: "#gocommon"},
 
 				{type: "nothing", label: "comparecat1"},
-				{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
+				{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_neuRel, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
 
 				{type: "nothing", label: "zero-cat1"},
 				{type: "show", img: cat, position: "left"},

@@ -31,6 +31,8 @@ var MPLAY = MPLAY || {};
 	Page9_0.prototype._createFlowElements = function() {
 
 		var ryan = "%" + this._ryan;
+		var r_posRel = 4;
+		var r_neuRel = 2;
 
 		var o = null;
 
@@ -50,10 +52,10 @@ var MPLAY = MPLAY || {};
 			*/
 			{type: "compare", leftop: "$IntegrityScore", operator: "greater", rightop: 0, goTrue: "#pos-int", goFalse: "#neg-int"},
 
-	// positive integrity
+			// positive integrity
 			{type: "nothing", label: "pos-int"},
 
-			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 5, goTrue: "#I+R+", goFalse: "#I+ed2"},
+			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: r_posRel, goTrue: "#I+R+", goFalse: "#I+ed2"},
 
 			//positive relationship
 			{type: "nothing", label: "I+R+"},
@@ -63,7 +65,7 @@ var MPLAY = MPLAY || {};
 
 			//neutral relationship
 			{type: "nothing", label: "I+ed2"},
-			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 2, goTrue: "#I+R0", goFalse: "#I+R-"},
+			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: r_neuRel, goTrue: "#I+R0", goFalse: "#I+R-"},
 			{type: "nothing", label: "I+R0"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
 			{type: "show_ed_context", text: "You and Ryan both start work at TechFast after graduation, but the whole situation in the Programming & Society class has strained your relationship. You see Ryan every day, and your conversations usually involve the weather."},
@@ -78,7 +80,7 @@ var MPLAY = MPLAY || {};
 	// negative integrity
 			{type: "nothing", label: "neg-int"},
 
-			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 5, goTrue: "#I-R+", goFalse: "#I-ed2"},
+			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: r_posRel, goTrue: "#I-R+", goFalse: "#I-ed2"},
 
 			{type: "nothing", label: "I-R+"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
@@ -87,7 +89,7 @@ var MPLAY = MPLAY || {};
 
 			//neutral relationship
 			{type: "nothing", label: "I-ed2"},
-			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: 2, goTrue: "#I-R0", goFalse: "#I-R-"},
+			{type: "compare", leftop: "$ryanRelationshipScore", operator: "greater equal", rightop: r_neuRel, goTrue: "#I-R0", goFalse: "#I-R-"},
 			{type: "nothing", label: "I-R0"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
 			{type: "show_ed_context", text: "You and Ryan end up working together, but are no longer as close as you used to be. Things get awkward at work when your boss finds out about what happened in your last semester in school. Ryan ends up leaving TechFast to work at a startup somewhere in Pittsburgh. He seems to be doing well, as far as you can tell from your newsfeed."},

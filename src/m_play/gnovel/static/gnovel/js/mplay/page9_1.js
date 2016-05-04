@@ -30,6 +30,8 @@ var MPLAY = MPLAY || {};
 	Page9_1.prototype._createFlowElements = function() {
 
 		var priya = "%" + this._priya;
+		var p_posRel = 4;
+		var p_neuRel = 2;
 
 		var o = null;
 
@@ -44,7 +46,7 @@ var MPLAY = MPLAY || {};
 			*>1 = Neutral
 			*>6 = Great
 			*/
-			{type: "compare", leftop: "$priyaRelationshipScore", operator: "greater", rightop: 6, goTrue: "#R++", goFalse: "#ed2"},
+			{type: "compare", leftop: "$priyaRelationshipScore", operator: "greater equal", rightop: p_posRel, goTrue: "#R++", goFalse: "#ed2"},
 
 			{type: "nothing", label: "R++"},
 			{type: "show", img: priya, position: "right", expression: "happy", waitUntilShown: false},
@@ -52,7 +54,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			{type: "nothing", label: "ed2"},
-			{type: "compare", leftop: "$priyaRelationshipScore", operator: "greater", rightop: 2, goTrue: "#R0", goFalse: "#R-"},
+			{type: "compare", leftop: "$priyaRelationshipScore", operator: "greater equal", rightop: p_neuRel, goTrue: "#R0", goFalse: "#R-"},
 			{type: "nothing", label: "R0"},
 			{type: "show", img: priya, position: "right", waitUntilShown: false},
 			{type: "show_ed_context", text: "Priya still has another year left at school, but you don’t really talk to her. Last you heard, she wasn’t talking to Ryan much either."},
@@ -69,6 +71,6 @@ var MPLAY = MPLAY || {};
 
 		return o;
 	};
-	
+
 	MPLAY.Page9_1 = Page9_1;
 }());

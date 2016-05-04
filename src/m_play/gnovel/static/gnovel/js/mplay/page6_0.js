@@ -29,6 +29,8 @@ var MPLAY = MPLAY || {};
 
 		var ryan = "%" + this._ryan;
 		var player = this._player;
+		var r_posRel = 4;
+		var r_neuRel = 1;
 
 		var o = null;
 
@@ -44,7 +46,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
@@ -84,7 +86,7 @@ var MPLAY = MPLAY || {};
 
 	Page6_0.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -92,7 +94,7 @@ var MPLAY = MPLAY || {};
 
 	Page6_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Gym-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
