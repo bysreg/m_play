@@ -13,37 +13,101 @@ body
     background-repeat:no-repeat;
     background-size:contain;
     height:100%;
-    widht:100%;
+    width:100%;
+    overflow-y: visible;
 }
 
+
+p
+{
+  color: #000000;
+  font-weight: 400;
+  font-size:14px;
+}
+
+h1, h2, h3
+{
+  color: #000000;
+}
+
+h1
+{
+    font-size: 50px;
+    font-weight: bold;
+}
 
 .content
 {
-    width: 100%;
-    height: 40%;
+    position: relative;
+    width: 50%;
+    height: 100%;
     /*min-height: 100%;*/
-    position: absolute;
-    top:60%;
-    left: 0;
-    overflow: hidden;
+    top:10%;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-.content > #leftContent
+.section > #leftContent
 {
   float: left;
   height: 100% !important;
-  width: 15%;
+  width: 25%;
   display: block;
   overflow: auto;
   margin: 0px auto;
   text-align: center;
 }
 
-.content > #rightContent
+.section > #rightContent
 {
   height: auto !important;
-  max-height: 8500px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  padding-left:20px;
+  overflow: hidden;
   display: block;
+}
+
+.section
+{
+  position: relative;
+    width: 100%;
+    height: auto;
+    /*min-height: 100%;*/
+    top:20px;
+    margin: 0 auto 3px auto;
+    overflow: hidden;
+}
+
+div.hr {
+background: #fff  no-repeat scroll center;
+width:100%;
+height:4px;
+margin-top:-10px;
+}
+
+a
+{
+  color: #FCC325;
+}
+
+a:link {
+    text-decoration: underline;
+}
+
+#credits
+{
+
+}
+
+#credits > #rightContent > ul > li
+{
+  color:#000000;
+  list-style-type: none;
+}
+
+#credits > #leftContent > p
+{
+  color:#000000;
+  font-size: 20px;
+  font-weight: bold;
 }
