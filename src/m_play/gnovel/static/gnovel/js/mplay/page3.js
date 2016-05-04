@@ -337,7 +337,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I guess I can do that."},
-			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". gotta go.  see you guys later!"},
+			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". I'll see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
 
@@ -393,7 +393,7 @@ var MPLAY = MPLAY || {};
 
 
 			{type: "choices", choices :
-			[{text: "Grab some food at the café with Priya.", go: "#gocafe", relationship: [{name:this._priya, score:1}]},
+			[{text: "Grab a coffee at the café with Priya.", go: "#gocafe", relationship: [{name:this._priya, score:1}]},
 			{text : "Join Cat for a bite at Scottie's.", go : "#gobar", relationship: [{name:this._cat, score:1}]},
 			{text: "Go home and take a nap.", go: "#gohome"}]},
 
