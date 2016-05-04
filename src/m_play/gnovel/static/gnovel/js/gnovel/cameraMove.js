@@ -29,11 +29,11 @@ var GNOVEL = GNOVEL || {};
 
         //add offset to camera pos
         if (position === "left") {
-          newPos.x = destPos.x + 250;
+          newPos.x = destPos.x + 290;
         } else if (position === "center") {
           newPos.x = 0;
         } else if (position === "right") {
-          newPos.x = destPos.x - 400;
+          newPos.x = destPos.x - 350;
         }
 
 				if(!this._page._useEffect){

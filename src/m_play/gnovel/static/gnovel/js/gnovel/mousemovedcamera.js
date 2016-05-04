@@ -39,14 +39,27 @@ var GNOVEL = GNOVEL || {};
 		//mouse.x -= gnovelObj._getRenderer().domElement.clientWidth / 2;
 		//mouse.y -= gnovelObj._getRenderer().domElement.clientHeight / 2;
 
+		var targetPosX;
+		var minY = 1;
+		var minX = 0;
 		//console.log("test " + mouse.x + " " + mouse.y);
 
 		//gnovelObj._scene.position.x = mouse.x * 10;
 		//gnovelObj._scene.position.y = mouse.y * 10;
-		gnovelObj.getCurrentPage()._getRootObject().position.x = -mouse.x * 10;
-		gnovelObj.getCurrentPage()._getRootObject().position.y = -mouse.y;
+
+		//prevent camera from going below 0 on y pos
+		var targetPosY = -mouse.y * 10;
+		var targetPosX = - mouse.x * 10;
+		var newY = targetPosY + gnovelObj.getCurrentPage()._getRootObject().position.y;
+		if(newY <= minY)
+			gnovelObj.getCurrentPage()._getRootObject().position.y = -mouse.y * 15;
+		gnovelObj.getCurrentPage()._getRootObject().position.x = -mouse.x * 15;
+
+		//update newY for sceneBG mvmt
+		newY = targetPosY + gnovelObj.getCurrentPage()._getPageSceneBg().position.y;
+		if(newY <= minY)
+			gnovelObj.getCurrentPage()._getPageSceneBg().position.y = -mouse.y * 10;
 		gnovelObj.getCurrentPage()._getPageSceneBg().position.x = -mouse.x * 10;
-		gnovelObj.getCurrentPage()._getPageSceneBg().position.y = -mouse.y;
 	};
 
 	GNOVEL.MouseMovedCamera = MouseMovedCamera;

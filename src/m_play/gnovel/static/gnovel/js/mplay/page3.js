@@ -27,7 +27,7 @@ var MPLAY = MPLAY || {};
 		var foregroundImg = "/static/gnovel/res/textures/backgrounds/lib foreground with ryan and priya.png";
 		//specify which foreground with the characters
 		this.setupLibraryBackground(foregroundImg);
-		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux_wR&P.png"
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/library redux_wR&P_V2.png"
 
 		this._yourphone = "yourphone";
 

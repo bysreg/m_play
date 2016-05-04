@@ -59,6 +59,7 @@ body{
 	height: 48px;
 	line-height: 48px;
 	background: #41648f;
+	background-image: url("../footer/footer_bg.png");
 	color: #ffffff;
 	overflow: hidden;
 }
