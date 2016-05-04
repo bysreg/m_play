@@ -337,7 +337,7 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
 			{type: "dialog", speaker: "Ryan", text: "Seems like overkill, but I guess I can do that."},
-			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". I'll see you guys later."},
+			{type: "dialog", speaker: "Ryan", text: "Thanks " + player +". I'll see you guys later!"},
 			{type: "hide", img: priya, waitUntilHidden: false},
 			{type: "hide", img: ryan},
 

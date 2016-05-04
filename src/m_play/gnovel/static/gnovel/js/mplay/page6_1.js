@@ -97,11 +97,11 @@ var MPLAY = MPLAY || {};
 					{text : "Are you ok?"}]},
 
 			{type: "show", img: ryan, position: "center", expression: "angry", waitUntilShown: false},
-			{type: "dialog", speaker: this._ryan, text: "I’m angry!  We had to rush Priya’s part of the project."},
+			{type: "dialog", speaker: this._ryan, text: "I'm angry! We had to rush Priya’s part of the project"},
 			{type: "dialog", speaker: this._ryan, text: "I feel like that’s why we got that crappy grade.  We both need to do really well on the final now."},
 			{type: "show", img: ryan, position: "center", expression: "neutral"},
-			{type: "dialog", speaker: this._ryan, text: "You know what? It’s going to be fine. We’ll get through the final together, and start our jobs in no time."},
-
+			{type: "dialog", speaker: this._ryan, text: "You know what? It’s going to be fine.  We’ll get through the final together, and start our jobs in no time."},
+			
 			{type: "goto", page: "scene 8.a"},
 		];
 
