@@ -104,7 +104,7 @@ var MPLAY = MPLAY || {};
 		var unauthorizedAsstArray = [
 			{
 				choice: "You didn’t give Ryan your assignments, but you offered to help.",
-				resolution: "You went into office hours and the professor helped Ryan through a lot of his confusion.",
+				resolution: "Ryan went into office hours and the professor helped Ryan through a lot of his confusion.",
 				question: "What would have happened if you didn’t help Ryan?",
 			},
 			{
