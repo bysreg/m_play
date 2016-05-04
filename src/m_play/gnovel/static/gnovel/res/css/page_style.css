@@ -27,3 +27,23 @@ body
     left: 0;
     overflow: hidden;
 }
+
+.content > #leftContent
+{
+  float: left;
+  height: 100% !important;
+  width: 15%;
+  display: block;
+  overflow: auto;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.content > #rightContent
+{
+  height: auto !important;
+  max-height: 8500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+}

@@ -201,7 +201,7 @@
 }
 
 /* The triangle */
-.cbp_tmtimeline > li .cbp_tmlabel:after {
+/*.cbp_tmtimeline > li .cbp_tmlabel:after {
 	right: 102%;
 	border: solid transparent;
 	content: " ";
@@ -212,7 +212,7 @@
 	border-right-color: #3594cb;
 	border-width: 10px;
 	top: 20px;
-}
+}*/
 
 .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
 	border-right-color: #6cbfee;
