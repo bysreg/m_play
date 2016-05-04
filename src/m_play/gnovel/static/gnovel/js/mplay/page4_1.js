@@ -30,6 +30,8 @@ var MPLAY = MPLAY || {};
 	Page4_1.prototype._createFlowElements = function() {
 		var cat = "%" + this._cat;
 		var player = this._player;
+		var c_posRel = 3;
+		var c_neuRel = 1;
 
 		var o = null;
 
@@ -38,7 +40,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos1", goFalse: "#neg1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_neuRel, goTrue: "#pos1", goFalse: "#neg1"},
 
 			{type: "nothing", label: "pos1"},
 			{type: "show", img: cat, expression: "happy", position: "center", waitUntilShown: false},
@@ -138,7 +140,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};	
+	};
 
 	MPLAY.Page4_1 = Page4_1;
 }());

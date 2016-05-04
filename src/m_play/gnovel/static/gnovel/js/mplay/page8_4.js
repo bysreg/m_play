@@ -32,6 +32,8 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var professor = "%" + this._professor;
 		var player = this._player;
+		var p_posRel = 4;
+		var p_neuRel = 2;
 
 		var o = null;
 
@@ -41,8 +43,8 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore1"},
-			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-priya1", goFalse: "#comparepriya1"},
-			
+			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater equal", rightop: p_posRel, goTrue: "#pos-priya1", goFalse: "#comparepriya1"},
+
 			{type: "nothing", label: "pos-priya1"},
 			{type: "show", img: priya, expression: "sad", position: "right", flip: true},
 			{type: "dialog", speaker: this._priya, text: player + " did you hear from Ryan?  He got caught for using that exam."},
@@ -61,7 +63,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#goend", goFalse: 1000},
 
 			{type: "nothing", label: "comparepriya1"},
-			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-priya1", goFalse: "#neg-priya1"},
+			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater equal", rightop: p_neuRel, goTrue: "#zero-priya1", goFalse: "#neg-priya1"},
 
 			{type: "nothing", label: "zero-priya1"},
 			{type: "show", img: priya, expression: "sad", position: "right", flip: true},
@@ -100,7 +102,7 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: cat, position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
 			{type: "show", img: priya, expression: "sad", position: "right"},
-			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},			
+			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "goend"},
@@ -116,7 +118,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_4.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}

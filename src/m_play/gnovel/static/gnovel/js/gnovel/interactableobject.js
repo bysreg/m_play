@@ -71,7 +71,7 @@ var GNOVEL = GNOVEL || {};
 		this._highlightShape2.visible = false;
 
 		//need to add the highlight shapes to the img object
-		this._page._addToScene(this._img);
+		this._page._addToSceneBg(this._img);
 		//this._page._addToScene(this._highlightShape);
 		//this._page._addToScene(this._highlightShape2);
 

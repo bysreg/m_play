@@ -567,7 +567,7 @@ var MPLAY = MPLAY || {};
 		var mouseDownListener = null;
 		if (type == "character") {
 			var tripledot = this.createImage("/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png", new THREE.Vector3(params.x, 20 + params.y + params.height / 2, params.z + 10), 81.25, 54);
-			this._addToScene(tripledot)
+			this._addToSceneBg(tripledot)
 			pageObj.tweenPulse(tripledot, {
 				x: 1.2,
 				y: 1.2,
@@ -597,14 +597,14 @@ var MPLAY = MPLAY || {};
 
 		var onEnableChange = function(io) {
 			if (!io.isEnabled()) {
-				pageObj._removeFromScene(tripledot);
+				pageObj._removeFromSceneBg(tripledot);
 
 				if (mouseDownListener) {
 					pageObj.getOwner().removeMouseDownListener(mouseDownListener);
 				}
 			}
 			if (io.isEnabled()) {
-				pageObj._addToScene(tripledot);
+				pageObj._addToSceneBg(tripledot);
 
 				if (mouseDownListener) {
 					pageObj.getOwner().addMouseDownListener(mouseDownListener);
@@ -932,7 +932,7 @@ var MPLAY = MPLAY || {};
 	 * @override
 	 */
 	MPlayPage.prototype._hide = function(obj, params) {
-		params = params || {};		
+		params = params || {};
 
 		var img = obj;
 
