@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 is_localhost = False
 try:	
 	config = open(os.path.join(BASE_DIR, '..', 'sensitive_config'))
-except FileNotFoundError:	
+except IOError:	
 	is_localhost = True
 	
 # we are using production settings
@@ -48,9 +48,13 @@ if is_localhost:
 else:
 	DEBUG = False
 
+# set the DEBUG to false for this server
+#DEBUG = False
+
 ALLOWED_HOSTS = [
 	'localhost',
 	'.true-north.etc.cmu.edu',
+	'107.21.24.39',
 ]
 
 
@@ -106,7 +110,7 @@ if not is_localhost:
 	# production server setting
 	DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': config_data['DB_NAME'],
             'USER': config_data['DB_USERNAME'],
             'PASSWORD': config_data['DB_PASSWORD'],
@@ -118,12 +122,12 @@ else:
 	# default to localhost
 	DATABASES = {
 		'default': {
-			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'ENGINE': 'django.db.backends.mysql',
 			'NAME': 'm_play_test',
 			'USER' : 'm_play_test',
 			'PASSWORD' : 'test', 
 			'HOST' : '127.0.0.1',
-			'PORT' : '5432',
+			'PORT' : '3306',
 		}
 	}
 
