@@ -225,15 +225,15 @@
 		<div id='username' style="display: none;">{{ name }}</div>
 		<div id='container'>
 				<img src="{% static 'gnovel/res/result/paper background.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
-	        <canvas id='application-canvas' class='fill-mode-KEEP_ASPECT' width='1920' height='1080' >
+	        <canvas id='application-canvas' class='fill-mode-KEEP_ASPECT' width='1920' height='1032' >
 	            JavaScript Not Enabled.
 	        </canvas>
 		</div>
-		<!--<div id="footer">
+		<div id="footer">
 			<a class='title' href='http://www.etc.cmu.edu/projects/true-north/' target='_blank'>
 					<div class='img'></div>
 			</a>
-		</div>-->
+		</div>
 
 		<form id="post_result_form">
 			{% csrf_token %}
