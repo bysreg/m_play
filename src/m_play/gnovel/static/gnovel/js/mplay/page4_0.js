@@ -28,6 +28,8 @@ var MPLAY = MPLAY || {};
 	Page4_0.prototype._createFlowElements = function() {
 		var priya = "%" + this._priya;
 		var player = this._player;
+		var p_posRel = 3;
+		var p_neuRel = 1;
 
 		var cgAssignmentStatus = this._owner.getSavedData("cgAssignmentStatus");
 
@@ -37,15 +39,15 @@ var MPLAY = MPLAY || {};
 		var o = null;
 
 		o = [
-			{type: "show_context", text:"You grab a coffee with Priya at the cafe..."},			
+			{type: "show_context", text:"You grab a coffee with Priya at the cafe..."},
 			{type: "compare", leftop: isAssignmentGiven, operator: "equal", rightop: 1, goTrue: "#assignment_given", goFalse: "#assignment_notgiven"},
 
 			{type: "nothing", label: "assignment_given"},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore1"},
-			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#thoughtful", goFalse: "#neutural"},
-			
+			{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater equal", rightop: p_neuRel, goTrue: "#thoughtful", goFalse: "#neutural"},
+
 			{type: "nothing", label: "thoughtful"},
 			{type: "show", img: priya, expression: "thoughtful", position: "center", waitUntilShown: false},
 			// {type: "custom", func: function(page) {
@@ -66,14 +68,14 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices : [{text: "I’m sorry to hear about your roommate.", go: "#failed"}, {text : "What ended up happening?", go : "#failed"}]},
 			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false, label: "failed"},
 			{type: "dialog", speaker: "Priya", text: "She failed her course, and almost got dropped from her program.  She was an idiot, did something stupid."},
-			{type: "dialog", speaker: "Priya", text: "You know, it’s tough if you’re an international student. If we get dropped, we have problems with our visa."},			
+			{type: "dialog", speaker: "Priya", text: "You know, it’s tough if you’re an international student. If we get dropped, we have problems with our visa."},
 			{type: "jump", condition: true, goTrue: "#gonextscene", goFalse: "#gonextscene"},
 
 			{type: "nothing", label: "assignment_notgiven"},
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Priya");
 			}, label: "priyaRelationshipScore2"},
-			{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#thoughtful2"},
+			{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater equal", rightop: p_neuRel, goTrue: "#happy", goFalse: "#thoughtful2"},
 
 			{type: "nothing", label: "happy"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
@@ -87,11 +89,11 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "choices2"},
 			{type: "choices", choices : [{text: "Oh yeah, no worries.", go: "#failed2"}, {text : "What happened to your roommate? ", go : "#failed2"}]},
-			
+
 			{type: "nothing", label: "failed2"},
 			{type: "show", img: priya, expression: "sad", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Priya", text: "She failed her course, and almost got dropped from her program.  She was an idiot, did something stupid."},
-			{type: "dialog", speaker: "Priya", text: "You know, it’s tough if you’re an international student. If we get dropped, we have problems with our visa."},			
+			{type: "dialog", speaker: "Priya", text: "You know, it’s tough if you’re an international student. If we get dropped, we have problems with our visa."},
 
 			{type: "goto", page: "scene 6.a", label: "gonextscene"},
 		];
@@ -101,7 +103,7 @@ var MPLAY = MPLAY || {};
 
 	Page4_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("Cafe-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};

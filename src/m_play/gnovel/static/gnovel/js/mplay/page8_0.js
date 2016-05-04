@@ -39,6 +39,10 @@ var MPLAY = MPLAY || {};
 		var professor = "%" + this._professor;
 		var player = this._player;
 		var transitionBg = "%" + this._transitionBg;
+		var r_posRel = 4;
+		var r_neuRel = 1;
+		var c_posRel = 3;
+		var c_neuRel = 1;
 
 		var o = null;
 
@@ -48,7 +52,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_posRel, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, expression: "very happy", position: "left"},
@@ -62,9 +66,9 @@ var MPLAY = MPLAY || {};
 			{type: "show", img: ryan, expression: "thoughtful", position: "left"},
 			{type: "dialog", speaker: this._ryan, text: "I'm on my way to meet her for lunch.  I have to go apologize to her - maybe grovel a little.  I’ll see you tonight – we should celebrate!"},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
-			
+
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},			
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, position: "left"},
@@ -96,7 +100,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_posRel, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
 
 			{type: "nothing", label: "pos-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
@@ -105,11 +109,11 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Heyfriend-Cat"},
 			{type: "dialog", speaker: this._cat, text: player + "!  Was that Ryan?  I heard about his fight with Priya.  This class has been insane!"},
-			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},			
+			{type: "dialog", speaker: this._cat, text: "At least he listened to you about not using that test.  Good thing you were thinking straight."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},			
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_neuRel, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
 
 			{type: "nothing", label: "zero-cat1"},
 			{type: "show", img: cat, position: "center"},
@@ -118,7 +122,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
-			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},			
+			{type: "dialog", speaker: this._cat, text: "Good thing you were thinking straight, and made a good call on that test."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "neg-cat1"},
@@ -128,7 +132,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
 			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard about what happened with that test."},
-			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},			
+			{type: "dialog", speaker: this._cat, text: "He’s lucky you were thinking straight."},
 			{type: "goto", page: "scene 10.a"},
 		];
 
@@ -144,11 +148,11 @@ var MPLAY = MPLAY || {};
 					{audio:"Uc-steps", playrate: 0.1}
 					];
 		return playlist;
-	};	
+	};
 
 	Page8_0.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
-		
+
 		if (this._owner._ambient != null) {
 			this._tweenVolumeOut();
 		}
@@ -156,7 +160,7 @@ var MPLAY = MPLAY || {};
 
 	Page8_0.prototype._onStart = function() {
 		MPLAY.MPlayPage.prototype._onStart.call(this);
-		
+
 		this._owner._ambient = this._owner.getSoundManager().play("UC-bg", {interrupt: this._owner.getSoundManager().INTERRUPT_ANY, loop: -1, volume: 0.0});
 		this._tweenVolumeIn();
 	};
@@ -168,7 +172,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._update.call(this);
 
 		this._multiTracksPlayer.shuffle();
-	};		
+	};
 
 	MPLAY.Page8_0 = Page8_0;
 }());

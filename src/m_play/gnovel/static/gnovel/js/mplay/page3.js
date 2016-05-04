@@ -172,6 +172,11 @@ var MPLAY = MPLAY || {};
 		var transitionBg = "%" + this._transitionBg;
 		var background = this._background_empty;
 		var backgroundNoBooks = this._background_noBooks;
+		var p_posRel = 3;
+		var p_neuRel = 1;
+		var r_posRel = 4;
+		var r_neuRel = 1;
+
 		var o = null;
 
 		o = [
@@ -243,7 +248,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore4"},
-			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "greater", rightop: 0, goTrue: "#pos", goFalse: "#compare3"},
+			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "greater equal", rightop: r_posRel, goTrue: "#pos", goFalse: "#compare3"},
 
 			{type: "nothing", label: "pos"},
 			{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
@@ -259,7 +264,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare3"},
-			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "equal", rightop: 0, goTrue: "#zero", goFalse: "#neg" },
+			{type: "compare", leftop: "$ryanRelationshipScore4", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero", goFalse: "#neg" },
 
 			{type: "nothing", label: "zero"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
@@ -288,7 +293,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore5"},
-			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "greater", rightop: 0, goTrue: "#pos1", goFalse: "#compare4"},
+			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "greater equal", rightop: r_posRel, goTrue: "#pos1", goFalse: "#compare4"},
 
 			{type: "nothing", label: "pos1"},
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
@@ -305,7 +310,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare4"},
-			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "equal", rightop: 0, goTrue: "#zero1", goFalse: "#neg1" },
+			{type: "compare", leftop: "$ryanRelationshipScore5", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero1", goFalse: "#neg1" },
 
 			{type: "nothing", label: "zero1"},
 			{type: "show", img: ryan, expression: "angry", position: "left", waitUntilShown: false},
@@ -332,7 +337,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page) {
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore6"},
-			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "greater", rightop: 0, goTrue: "#pos2", goFalse: "#compare5"},
+			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "greater equal", rightop: r_posRel, goTrue: "#pos2", goFalse: "#compare5"},
 
 			{type: "nothing", label: "pos2"},
 			{type: "show", img: ryan, position: "left", waitUntilShown: false},
@@ -344,7 +349,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#aside2", goFalse: "#aside2"},
 
 			{type: "nothing", label: "compare5"},
-			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "equal", rightop: 0, goTrue: "#zero2", goFalse: "#neg2" },
+			{type: "compare", leftop: "$ryanRelationshipScore6", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero2", goFalse: "#neg2" },
 
 			{type: "nothing", label: "zero2"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "left", waitUntilShown: false},
@@ -427,7 +432,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page){
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore1"},
-				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
+				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_posRel, goTrue: "#happy", goFalse: "#compare2"},
 
 				{type: "nothing", label: "happy"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
@@ -438,7 +443,7 @@ var MPLAY = MPLAY || {};
 				{type: "dialog", speaker: "Ryan", text: "Hey " + player + ", nice to see you. Coming to join us?"},
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
-				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#neutural", goFalse: "#thoughtful", label: "compare2"},
+				{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#neutural", goFalse: "#thoughtful", label: "compare2"},
 
 				{type: "nothing", label: "neutural"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
@@ -499,7 +504,7 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
-				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
+				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater equal", rightop: p_neuRel, goTrue: "#pos-priya", goFalse: "#neg-priya"},
 
 				{type: "nothing", label: "pos-priya"},
 				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
@@ -515,7 +520,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore2"},
-				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
+				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
 				{type: "dialog", speaker: "Ryan", text: "Well, I actually do need to study, it's just more fun hanging with Priya."},
@@ -567,7 +572,7 @@ var MPLAY = MPLAY || {};
 						},
 					});
 				}},
-				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
+				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: p_neuRel, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
@@ -583,7 +588,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Ryan");
 				}, label: "ryanRelationshipScore3"},
-				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
+				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
 
 				{type: "nothing", label: "pos-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},
@@ -602,7 +607,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page){
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore1"},
-				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#happy", goFalse: "#compare2"},
+				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater equal", rightop: p_posRel, goTrue: "#happy", goFalse: "#compare2"},
 
 				{type: "nothing", label: "happy"},
 				{type: "show", img: priya, expression: "happy", position: "right", waitUntilShown: false},
@@ -614,7 +619,7 @@ var MPLAY = MPLAY || {};
 				{type: "jump", condition: true, goTrue: "#choices1", goFalse: "#choices1"},
 
 				{type: "nothing", label: "compare2"},
-				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#neutural1", goFalse: "#neutural2"},
+				{type: "compare", leftop: "$priyaRelationshipScore1", operator: "greater equal", rightop: p_neuRel, goTrue: "#neutural1", goFalse: "#neutural2"},
 
 				{type: "nothing", label: "neutural1"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false},
@@ -652,7 +657,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore2"},
-				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-priya", goFalse: "#neg-priya"},
+				{type: "compare", leftop: "$priyaRelationshipScore2", operator: "greater", rightop: p_neuRel, goTrue: "#pos-priya", goFalse: "#neg-priya"},
 
 				{type: "nothing", label: "pos-priya"},
 				{type: "show", img: priya, expression:"happy", position: "right", waitUntilShown: false, flip: true},
@@ -683,7 +688,7 @@ var MPLAY = MPLAY || {};
 					background.material.opacity = 1;
 					pageObj._removeFromSceneBg(pageObj._background3);
 				}},
-				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater", rightop: 0, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
+				{type: "compare", leftop: "$ryanRelationshipScore2", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan", goFalse: "#neg-ryan"},
 
 				{type: "nothing", label: "pos-ryan"},
 				{type: "show", img: ryan, expression: "happy", position: "left", waitUntilShown: false},
@@ -716,7 +721,7 @@ var MPLAY = MPLAY || {};
 				{type: "custom", func: function(page) {
 					return page.getRelationshipManager().getRelationship("Priya");
 				}, label: "priyaRelationshipScore3"},
-				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
+				{type: "compare", leftop: "$priyaRelationshipScore3", operator: "greater equal", rightop: p_neuRel, goTrue: "#pos-priya2", goFalse: "#neg-priya2"},
 
 				{type: "nothing", label: "pos-priya2"},
 				{type: "show", img: priya, position: "right", waitUntilShown: false, flip: true},
@@ -736,7 +741,7 @@ var MPLAY = MPLAY || {};
 					background.material.opacity = 1;
 					pageObj._removeFromSceneBg(pageObj._background3);
 				}},
-				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: 0, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
+				{type: "compare", leftop: "$ryanRelationshipScore3", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan2", goFalse: "#neg-ryan2"},
 
 				{type: "nothing", label: "pos-ryan2"},
 				{type: "show", img: ryan, position: "left", waitUntilShown: false},

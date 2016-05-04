@@ -38,6 +38,8 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var player = this._player;
 		var background = this._background_empty;
+		var r_posRel = 4;
+		var r_neuRel = 1;
 
 		var o = null;
 
@@ -70,7 +72,7 @@ var MPLAY = MPLAY || {};
 					},
 				});
 			}},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#pos-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "center", expression: "sad", waitUntilShown: false},
@@ -101,7 +103,7 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._ryan, text: "I feel like that’s why we got that crappy grade.  We both need to do really well on the final now."},
 			{type: "show", img: ryan, position: "center", expression: "neutral"},
 			{type: "dialog", speaker: this._ryan, text: "You know what? It’s going to be fine.  We’ll get through the final together, and start our jobs in no time."},
-			
+
 			{type: "goto", page: "scene 8.a"},
 		];
 

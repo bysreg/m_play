@@ -53,6 +53,8 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var player = this._player; // player's name
 		var background = this._background_empty;
+		var r_posRel = 4;
+		var r_neuRel = 1;
 
 		var integrityThreshold = 0;
 
@@ -79,7 +81,7 @@ var MPLAY = MPLAY || {};
 					},
 				});
 			}},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_posRel, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
@@ -92,7 +94,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#showpriya", goFalse: "#showpriya"},
 
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},

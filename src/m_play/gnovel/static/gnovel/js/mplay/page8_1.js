@@ -32,6 +32,10 @@ var MPLAY = MPLAY || {};
 		var ryan = "%" + this._ryan;
 		var professor = "%" + this._professor;
 		var player = this._player;
+		var r_posRel = 4;
+		var r_neuRel = 1;
+		var c_posRel = 3;
+		var c_neuRel = 1;
 
 		var o = null;
 
@@ -41,7 +45,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Ryan");
 			}, label: "ryanRelationshipScore1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_posRel, goTrue: "#pos-ryan1", goFalse: "#compareryan1"},
 
 			{type: "nothing", label: "pos-ryan1"},
 			{type: "show", img: ryan, position: "left"},
@@ -55,7 +59,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
 			{type: "nothing", label: "compareryan1"},
-			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
+			{type: "compare", leftop: "$ryanRelationshipScore1", operator: "greater equal", rightop: r_neuRel, goTrue: "#zero-ryan1", goFalse: "#neg-ryan1"},
 
 			{type: "nothing", label: "zero-ryan1"},
 			{type: "show", img: ryan, expression: "sad", position: "left"},
@@ -82,7 +86,7 @@ var MPLAY = MPLAY || {};
 			{type: "custom", func: function(page){
 				return page.getRelationshipManager().getRelationship("Cat");
 			}, label: "catRelationshipScore1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater", rightop: 0, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_posRel, goTrue: "#pos-cat1", goFalse: "#comparecat1"},
 
 			{type: "nothing", label: "pos-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
@@ -97,7 +101,7 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "comparecat1"},
-			{type: "compare", leftop: "$catRelationshipScore1", operator: "equal", rightop: 0, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
+			{type: "compare", leftop: "$catRelationshipScore1", operator: "greater equal", rightop: c_neuRel, goTrue: "#zero-cat1", goFalse: "#neg-cat1"},
 
 			{type: "nothing", label: "zero-cat1"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center"},
