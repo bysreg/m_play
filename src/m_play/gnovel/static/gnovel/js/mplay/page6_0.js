@@ -38,7 +38,7 @@ var MPLAY = MPLAY || {};
 			{type:"show_context", text:"At the gym, you get an email on your phone. You open it."},
 
 			{type: "open_phone", layout:"email", subject: "Group Project Grade", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "Dear "+ player +", Priya, Ryan & Cat, Your group project grade: B- . I will hand back your comments in greater detail in class. -Prof Sweeney"},
+				text: "Dear "+ player +", Priya, Ryan & Cat, // Your group project grade: B-. // I will hand back your comments in greater detail in class. // -Prof Sweeney"},
 			{type: "close_phone"},
 
 			// phone email exchange ends

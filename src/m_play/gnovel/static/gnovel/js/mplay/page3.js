@@ -185,7 +185,7 @@ var MPLAY = MPLAY || {};
 
 				// phone email exchange begins
 				{type: "open_phone", layout:"email", subject: "Programmers and Society", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. - Prof. Sweeney"},
+					text: "Good luck on midterms! Please make sure to email me with any questions you have.  Your group project deadline is coming up.  Don't let it sneak up on you.  Make sure you read the syllabus, and reach out with any questions. // - Prof. Sweeney"},
 				{type: "close_phone"},
 				//phone email exchange ends
 

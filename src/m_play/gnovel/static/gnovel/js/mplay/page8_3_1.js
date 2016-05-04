@@ -42,7 +42,7 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "open_phone", layout:"email", subject: "Academic Violation", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "After much deliberation, I have decided on the following to address your violation: As a consequence of unauthorized possession and use of last year’s exam, you will receive a 0 on the final. As we discussed in our meeting, I am extremely disappointed.  I will be reporting this violation to the Division of Student Affairs for follow up.  You will hear from a staff member in the Office of Community Standards & Integrity once the report has been made. “As I grow older, I pay less attention to what men say. I just watch what they do.” -Andrew Carnegie -Prof. Sweeney"},
+				text: "Dear "+player+", // After much deliberation, I have decided on the following to address your violation: // As a consequence of unauthorized possession and use of last year’s exam, you will receive a 0 on the final.  I am extremely disappointed, and will be reporting this violation to the Division of Student Affairs for follow up.  You will hear from a staff member in the Office of Community Standards & Integrity once the report has been made. // -Prof. Sweeney"},
 			{type: "close_phone"},
 
 			{type: "show_context", text: "You receive a text from Ryan"},
