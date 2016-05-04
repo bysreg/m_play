@@ -72,16 +72,24 @@ var CanvasText = (function () {
         textArr[0] = "";
         // split text into single words first, and then add them to text lines one by one.
         for (var i = 0; i < wordsArr.length; i++) {
-          curlength += wordsArr[i].length + 1;
-          if(curlength >= this.ctx.charLine)
-          {
-            curlength = wordsArr[i].length;
+          if (wordsArr[i] == "//") {
             line++;
-            textArr[line] = "";
-            textArr[line] = textArr[line] + wordsArr[i] + " ";
+            textArr[line]=" ";
+            line++;
+            textArr[line]="";
+            curlength = 0;
+          }else {
+            curlength += wordsArr[i].length + 1;
+            if(curlength >= this.ctx.charLine)
+            {
+              curlength = wordsArr[i].length;
+              line++;
+              textArr[line] = "";
+              textArr[line] = textArr[line] + wordsArr[i] + " ";
+            }
+            else
+              textArr[line] = textArr[line] + wordsArr[i] + " ";
           }
-          else
-            textArr[line] = textArr[line] + wordsArr[i] + " ";
         };
 
         this.textHeight = (line + 1) * this.fontHeight;

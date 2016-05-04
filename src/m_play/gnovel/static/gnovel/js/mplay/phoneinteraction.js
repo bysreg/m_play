@@ -63,8 +63,9 @@ var MPLAY = MPLAY || {};
 		var messageText = page.createTextBox(text, {
 			align: "left",
 			charLine: 45,
-			font: "15px Arial",
+			font: "20px Arial",
 		});
+		messageText.scale.set(0.75, 0.75, 0.75);
 		messageText.position.set(-150, 80, 10);
 
 		var fromText = page.createTextBox(from, {
@@ -75,15 +76,16 @@ var MPLAY = MPLAY || {};
 
 		var emailText = page.createTextBox(email, {
 			align: "left",
-			font: "15px Arial",
+			font: "20px Arial",
 		});
+		emailText.scale.set(0.75, 0.75, 0.75);
 		emailText.position.set(-40, 140, 10);
 
 		var subjectText = page.createTextBox(subject, {
 			align: "left",
 			font: "bold 20px Arial",
 		});
-		subjectText.position.set(-180, 225, 10);
+		subjectText.position.set(-150, 225, 10);
 
 		//if email from sweeney, and this particular subject add attachment
 		if(subject == "Programmers and Society")
@@ -359,7 +361,7 @@ var MPLAY = MPLAY || {};
 			fillstyle: "#ECECEC"
 		});
 		// var textHeight = messageText.canvas.textHeight;
-		messageText.scale.set(0.75, 0.75, 0.75);
+		messageText.scale.set(0.6, 0.6, 0.6);
 		messageText.position.set(-messageBgWidth/2 + 20, (messageBgHeight / 2) - 20, 3);
 		messageText.material.opacity = 0;
 

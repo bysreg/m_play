@@ -47,7 +47,7 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "open_phone", layout:"email", subject: "Academic Violation", from: "Prof. Sweeney", email: "sweeney@andrew.cmu.edu",
-				text: "After our conversation, I've decided on the following: I am disappointed that you did not take an active stand in alerting me to this violation prior to my administration of the take home final.  As I informed you, possession of the exam constitutes a violation according to our code.  Because of this, I will be reporting it to the Division of Student Affairs.  That being said, since I believe you did not consciously act in bad faith, I will not be taking action on your course grade (B).  Please take this as a learning experience to reflect on your actions. Prof. Sweeney"},
+					text: "Dear "+player+", // After much deliberation, I will address your violation of the University Policy on Academic Integrity with the following: // As a consequence of unauthorized use of last year’s exam, you will need to retake the take home final.  I will cut you some slack.  I will be formally advancing this violation to the Division of Student Affairs for additional follow up.  If I discover an additional violation in this course, I will be reporting that as well.  There is no statute of limitations in reporting a violation. // Please take this as a learning experience to reflect on your choices. // -Prof. Sweeney"},
 			{type: "close_phone"},
 
 			{type: "show_context", text: "You receive a text from Ryan"},

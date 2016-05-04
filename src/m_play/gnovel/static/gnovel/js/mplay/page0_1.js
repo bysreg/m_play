@@ -119,7 +119,7 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
-			text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together.  As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! - Ryan"},
+			text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together. // As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! // - Ryan"},
 			{type: "close_phone"},
 
 			{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
