@@ -23,6 +23,7 @@ var MPLAY = MPLAY || {};
 		MPLAY.MPlayPage.prototype._onLoad.call(this);
 
 		this.setupUcBackground();
+		this.nextPageMaterialPath = "/static/gnovel/res/textures/backgrounds/uc final layers png.png";
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
 		var material = new THREE.MeshBasicMaterial( {color: 0x000000, transparent:true } );
 		this._transitionBgImg = new THREE.Mesh(geometry,material);

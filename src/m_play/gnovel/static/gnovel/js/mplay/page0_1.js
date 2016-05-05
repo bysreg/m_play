@@ -38,7 +38,7 @@ var MPLAY = MPLAY || {};
 		this._addToSceneBg(this._background_empty);
 
 		this._catsphoneImg = this.createImage("/static/gnovel/res/textures/wallet for bar.png", new THREE.Vector3(480, -60, this.getBackgroundLayer()+10), 100, 25);
-		this._addToScene(this._catsphoneImg);
+		this._addToSceneBg(this._catsphoneImg);
 		this._catsphoneImg.material.opacity = 0;
 
 		var geometry = new THREE.PlaneBufferGeometry(1920, 1080);
