@@ -14782,9 +14782,10 @@ THREE.ImageLoader.prototype = {
 
 			return cached;
 
+		}else{
+			console.log("texture download : " + url);
 		}
-
-		console.log("texture download : " + url);
+		
 		var image = document.createElement( 'img' );
 
 		image.addEventListener( 'load', function ( event ) {
