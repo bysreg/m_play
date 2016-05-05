@@ -13,8 +13,7 @@ var MPLAY = MPLAY || {};
 		"/static/gnovel/res/textures/backgrounds/restaurant.png",
 		"/static/gnovel/res/textures/wallet for bar.png",
 		"/static/gnovel/res/textures/ui/speech bubble-indicator_wDots.png",
-		"/static/gnovel/res/textures/char/sad ryan.png",
-		
+		"/static/gnovel/res/textures/char/sad ryan.png",		
 	];
 
 	var resList = [

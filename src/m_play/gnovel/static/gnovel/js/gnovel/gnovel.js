@@ -62,12 +62,6 @@ var GNOVEL = GNOVEL || {};
 				src: "sfx-ui-text.ogg"
 			},
 
-			// SFX Waiting dialog
-			{
-				id: "Hello?-Ryan",
-				src: "sfx-waiting-hello-ryan.ogg"
-			},
-
 			// SFX Greeting dialog
 			// Ryan
 			// {

@@ -108,7 +108,6 @@ var MPLAY = MPLAY || {};
 			{type: "nothing", label: "goend"},
 			{type: "show", img: priya, expression: "sad", position: "right"},
 			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
-			{type: "show", img: cat, expression: "happy", position: "left"},
 
 			{type: "goto", page: "scene 10.a"},
 		];

@@ -78,6 +78,7 @@ var GNOVEL= GNOVEL || {};
 			al._onTextureLoaded(texture);
 			// go to the next texture load
 			al._textureLoadIdx++;
+			console.log("progress : " + al._getLoadingProgress());
 			al._loadTexture();
 		};
 
@@ -91,6 +92,11 @@ var GNOVEL= GNOVEL || {};
 
 	AssetLoader.prototype._onTextureLoaded = function(texture) {
 		console.log("texture loaded : " + this._textureLoadIdx + " | "+ this._textureLoadList[this._textureLoadIdx]);
+	};
+
+	AssetLoader.prototype._getLoadingProgress = function() {
+		var ret = Math.floor((this._textureLoadIdx / this._textureLoadList.length) * 100);
+		return ret;
 	};
 
 	GNOVEL.AssetLoader = AssetLoader;

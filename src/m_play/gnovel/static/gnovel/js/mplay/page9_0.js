@@ -60,7 +60,7 @@ var MPLAY = MPLAY || {};
 			//positive relationship
 			{type: "nothing", label: "I+R+"},
 			{type: "show", img: ryan, position: "left", expression: "happy", waitUntilShown: false},
-			{type: "show_ed_context", text: "You and Ryan start working together after graduation. He was right, the job with TechFast was an incredible opportunity. You stay good friends, and Ryan credits you helping him through Programming & Society. You’re both currently working on a startup, making an app called CiteMe! It’s a reference app for students."},
+			{type: "show_ed_context", text: "You and Ryan start working together after graduation.  He was right, the job with TechFast was an incredible opportunity.  You’re able to stay good friends, and he credits his experience in Programming & Society as an important lesson in doing the right thing!  Outside of work, you and Ryan have been developing a side project called CiteMe.  It’s a reference app for students."},
 			{type: "jump", condition: true, goTrue: "#gotoed", goFalse: 1000},
 
 			//neutral relationship
