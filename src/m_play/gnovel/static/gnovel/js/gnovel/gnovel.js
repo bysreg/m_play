@@ -62,103 +62,40 @@ var GNOVEL = GNOVEL || {};
 				src: "sfx-ui-text.ogg"
 			},
 
-			// SFX Greeting dialog
-			// Ryan
-			// {
-			// 	id: "Heyfriend-Ryan",
-			// 	src: "sfx-greeting-heyfriend-ryan-p.ogg"
-			// }, {
-			// 	id: "Hey-Ryan-n",
-			// 	src: "sfx-greeting-hey-ryan-n.ogg"
-			// }, {
-			// 	id: "Hey-Ryan-p",
-			// 	src: "sfx-greeting-hey-ryan-p.ogg"
-			// }, {
-			// 	id: "Hey-Ryan-e",
-			// 	src: "sfx-greeting-hey-ryan-e.ogg"
-			// }, {
-			// 	id: "Ohhi-Ryan",
-			// 	src: "sfx-greeting-ohhi-ryan-n.ogg"
-			// }, {
-			// 	id: "Sup-Ryan",
-			// 	src: "sfx-greeting-sup-ryan-n.ogg"
-			// }, {
-			// 	id: "Yo-Ryan",
-			// 	src: "sfx-greeting-yo-ryan-p.ogg"
-			// },
-
-			// // Cat
-			// {
-			// 	id: "Hey-Cat",
-			// 	src: "sfx-greeting-hey-cat-n.ogg"
-			// }, {
-			// 	id: "Heyfriend-Cat",
-			// 	src: "sfx-greeting-heyfriend-cat-p.ogg"
-			// }, {
-			// 	id: "Ohhi-Cat",
-			// 	src: "sfx-greeting-ohhi-cat-n.ogg"
-			// }, {
-			// 	id: "Wtsnew-Cat",
-			// 	src: "sfx-greeting-whatsnew-cat-n.ogg"
-			// }, {
-			// 	id: "Sup-Cat",
-			// 	src: "sfx-greeting-sup-cat-p.ogg"
-			// },
-
-			// // Priya
-			// {
-			// 	id: "Hello-Priya",
-			// 	src: "sfx-greeting-hello-priya-p.ogg"
-			// }, {
-			// 	id: "Heyfriend-Priya",
-			// 	src: "sfx-greeting-heyfriend-priya-p.ogg"
-			// }, {
-			// 	id: "Hey-Priya",
-			// 	src: "sfx-greeting-hey-priya-n.ogg"
-			// }, {
-			// 	id: "Ohhi-Priya",
-			// 	src: "sfx-greeting-ohhi-priya-p.ogg"
-			// }, {
-			// 	id: "Wtsnew-Priya",
-			// 	src: "sfx-greeting-whatsnew-priya-n.ogg"
-			// },
-
-
-
 			// ambient
-					{id: "Cafe-bg", src: "ambient-cafe.ogg"},
-					{id: "Office-bg", src: "ambient-office.ogg"},
-					{id: "Gym-bg", src: "ambient-gym.ogg"},
-					{id: "Bar-bg", src: "ambient-bar-new.ogg"},
-					{id: "Classroom-bg", src: "ambient-classroom.ogg"},
-					{id: "UC-bg", src: "ambient-uc.ogg"},
-					{id: "Library-bg", src: "ambient-lib.ogg"},
+			{id: "Cafe-bg", src: "ambient-cafe.ogg"},
+			{id: "Office-bg", src: "ambient-office.ogg"},
+			{id: "Gym-bg", src: "ambient-gym.ogg"},
+			{id: "Bar-bg", src: "ambient-bar-new.ogg"},
+			{id: "Classroom-bg", src: "ambient-classroom.ogg"},
+			{id: "UC-bg", src: "ambient-uc.ogg"},
+			{id: "Library-bg", src: "ambient-lib.ogg"},
 
-					// bacakground noises layer
-					{id: "Bar-glasses1", src: "bgnoises-bar-glasses1.ogg"},
-					{id: "Bar-glasses2", src: "bgnoises-bar-glasses2.ogg"},
-					{id: "Bar-glasses3", src: "bgnoises-bar-glasses3.ogg"},
-					{id: "Bar-distantglasses", src: "bgnoises-bar-distantglasses.ogg"},
-					{id: "Bar-girltalking", src: "bgnoises-bar-girltalking.ogg"},
-					{id: "Bar-liquid", src: "bgnoises-bar-liquid.ogg"},
-					{id: "Bar-mantalking", src: "bgnoises-bar-mantalking.ogg"},
-					{id: "Bar-pia", src: "bgnoises-bar-pia.ogg"},
+			// bacakground noises layer
+			{id: "Bar-glasses1", src: "bgnoises-bar-glasses1.ogg"},
+			{id: "Bar-glasses2", src: "bgnoises-bar-glasses2.ogg"},
+			{id: "Bar-glasses3", src: "bgnoises-bar-glasses3.ogg"},
+			{id: "Bar-distantglasses", src: "bgnoises-bar-distantglasses.ogg"},
+			{id: "Bar-girltalking", src: "bgnoises-bar-girltalking.ogg"},
+			{id: "Bar-liquid", src: "bgnoises-bar-liquid.ogg"},
+			{id: "Bar-mantalking", src: "bgnoises-bar-mantalking.ogg"},
+			{id: "Bar-pia", src: "bgnoises-bar-pia.ogg"},
 
-					{id: "Lib-beeping", src: "bgnoises-lib-beeping.ogg"},
-					{id: "Lib-chairs1", src: "bgnoises-lib-chairs1.ogg"},
-					{id: "Lib-chairs2", src: "bgnoises-lib-chairs2.ogg"},
-					{id: "Lib-chairs3", src: "bgnoises-lib-chairs3.ogg"},
-					{id: "Lib-distantchairs", src: "bgnoises-lib-distantchairs.ogg"},
-					{id: "Lib-pia", src: "bgnoises-lib-pia.ogg"},
+			{id: "Lib-beeping", src: "bgnoises-lib-beeping.ogg"},
+			{id: "Lib-chairs1", src: "bgnoises-lib-chairs1.ogg"},
+			{id: "Lib-chairs2", src: "bgnoises-lib-chairs2.ogg"},
+			{id: "Lib-chairs3", src: "bgnoises-lib-chairs3.ogg"},
+			{id: "Lib-distantchairs", src: "bgnoises-lib-distantchairs.ogg"},
+			{id: "Lib-pia", src: "bgnoises-lib-pia.ogg"},
 
-					{id: "Uc-girllaughing", src: "bgnoises-uc-girllaughing.ogg"},
-					{id: "Uc-mantalking", src: "bgnoises-uc-mantalking.ogg"},
-					{id: "Uc-steps", src: "bgnoises-uc-steps.ogg"},
-					{id: "Uc-womantalking", src: "bgnoises-uc-womantalking.ogg"},
+			{id: "Uc-girllaughing", src: "bgnoises-uc-girllaughing.ogg"},
+			{id: "Uc-mantalking", src: "bgnoises-uc-mantalking.ogg"},
+			{id: "Uc-steps", src: "bgnoises-uc-steps.ogg"},
+			{id: "Uc-womantalking", src: "bgnoises-uc-womantalking.ogg"},
 
-					// ed
-					{id: "Ed-music-happy", src: "ed-music-happy.ogg"},
-					{id: "Ed-music-bad", src: "ed-music-bad.ogg"},
+			// ed
+			{id: "Ed-music-happy", src: "ed-music-happy.ogg"},
+			{id: "Ed-music-bad", src: "ed-music-bad.ogg"},
 
 		];
 		this._soundManager = createjs.Sound;
