@@ -18,7 +18,7 @@ def index(request):
 
 	if name is not None:
 		context['name'] = name
-		
+
 	return render(request, 'gnovel/index.html', context)
 
 def exp(request):
@@ -44,7 +44,7 @@ def log(request):
 		action_value = request.POST['action_value']
 
 	if name is not None:
-		Log.objects.create(name=name, scene=scene, type=type, action_number=action_number, action_value=action_value)		
+		Log.objects.create(name=name, scene=scene, type=type, action_number=action_number, action_value=action_value)
 		return HttpResponse(json.dumps({'status_code': 1}))
 
 	return HttpResponse(json.dumps({'status_code': -1}))
@@ -52,6 +52,10 @@ def log(request):
 def intro(request):
 	context = {}
 	return render(request, 'gnovel/intro.html', context)
+
+def resources(request):
+	context = {}
+	return render(request, 'gnovel/resources.html',context)
 
 def get_char_image(name, point):
 	point = int(point)
@@ -66,7 +70,7 @@ def result(request):
 	context = {}
 
  	# i know, this is not a good code, should have used for loop to iterate all possible situations
-	if request.method == 'POST':	
+	if request.method == 'POST':
 		situation = "phone_";
 		context['phone_title'] = request.POST['phone_title']
 		context['phone_choice'] = request.POST['phone_choice']
@@ -94,7 +98,7 @@ def result(request):
 		context['unauthorized_assistance_rel_priya'] = request.POST['unauthorized_assistance_rel_priya']
 		context['unauthorized_assistance_rel_cat_val'] = request.POST['unauthorized_assistance_rel_cat_val']
 		context['unauthorized_assistance_rel_cat'] = request.POST['unauthorized_assistance_rel_cat']
-		
+
 		context[situation + 'rel_ryan_image'] = get_char_image('ryan', request.POST[situation + 'rel_ryan_val'])
 		context[situation + 'rel_priya_image'] = get_char_image('priya', request.POST[situation + 'rel_priya_val'])
 		context[situation + 'rel_cat_image'] = get_char_image('cat', request.POST[situation + 'rel_cat_val'])
@@ -110,7 +114,7 @@ def result(request):
 		context['plagiarism_rel_priya_val'] = request.POST['plagiarism_rel_priya_val']
 		context['plagiarism_rel_priya'] = request.POST['plagiarism_rel_priya']
 		context['plagiarism_rel_cat_val'] = request.POST['plagiarism_rel_cat_val']
-		context['plagiarism_rel_cat'] = request.POST['plagiarism_rel_cat']	
+		context['plagiarism_rel_cat'] = request.POST['plagiarism_rel_cat']
 
 		context[situation + 'rel_ryan_image'] = get_char_image('ryan', request.POST[situation + 'rel_ryan_val'])
 		context[situation + 'rel_priya_image'] = get_char_image('priya', request.POST[situation + 'rel_priya_val'])
