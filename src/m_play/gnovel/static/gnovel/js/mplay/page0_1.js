@@ -119,10 +119,10 @@ var MPLAY = MPLAY || {};
 
 			// phone email exchange begins
 			{type: "open_phone", layout:"email", subject: "FWD: Welcome to team techFast!", from: "Ryan", email: "rtang@andrew.cmu.edu",
-			text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together. // As my fellow future junior software developer, let's celebrate at Scotties.  Burgers on me! // - Ryan"},
+			text: "Woo! Congrats on the techFast gig.  Looks like we'll be on the advanced tech team together. // As my future fellow software developer, let's celebrate at Scotties.  Burgers on me! // - Ryan"},
 			{type: "close_phone"},
 
-			{type: "show_context", text:"Ryan arrives 5 minutes later", waitUntilShown:false},
+			{type: "show_context", text:"Ryan arrives 5 minutes later.", waitUntilShown:false},
 			{type: "custom", func: function(page){
 					var pageObj = page;
 					page.tweenMat(page._background_ryan,{
@@ -190,7 +190,7 @@ var MPLAY = MPLAY || {};
 			// {type: "show", img: catsphone, waitUntilShown: false},
 			{type: "show", img: ryan, expression: "thoughtful", position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: this._ryan, text: "I'm so happy we'll be working together after graduation!  You're going to love being at techFast."},
-			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class - Programming and Society should be good though."},
+			{type: "dialog", speaker: this._ryan, text: "We just have to get through this last semester.  I think our class, Programming and Society, should be good though."},
 			{type: "dialog", speaker: this._ryan, text: "My brother took it last year.  He said it was tough, but he learned a ton."},
 			{type: "choices",
 				choices :
