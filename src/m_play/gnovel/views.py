@@ -55,7 +55,7 @@ def intro(request):
 
 def resources(request):
 	context = {}
-	return render(request, 'gnovel/resources.html',context)
+	return render(request, 'gnovel/credits.html',context)
 
 def get_char_image(name, point):
 	point = int(point)
