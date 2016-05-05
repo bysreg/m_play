@@ -84,7 +84,7 @@ var MPLAY = MPLAY || {};
 			{type: "jump", condition: true, goTrue: "#goend", goFalse: 1000},
 
 			{type: "nothing", label: "neg-priya1"},
-			{type: "show", img: priya, expression: "sad", position: "right"},
+			{type: "show", img: priya, expression: "sad", flip: true, position: "right"},
 			{type: "dialog", speaker: this._priya, text: "I want you to know that Ryan got in trouble for using that exam."},
 
 			// {type: "choices", choices : [
@@ -101,12 +101,12 @@ var MPLAY = MPLAY || {};
 			{type: "dialog", speaker: this._priya, text: "I guess you're in the clear."},
 			{type: "show", img: cat, position: "left"},
 			{type: "dialog", speaker: this._cat, text: "Aren't you guys working at the same company after graduation?  That's going to be awkward.  Hopefully Ryan won't lose his offer."},
-			{type: "show", img: priya, expression: "sad", position: "right"},
+			{type: "show", img: priya, expression: "sad", flip: true, position: "right"},
 			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "goend"},
-			{type: "show", img: priya, expression: "sad", position: "right"},
+			{type: "show", img: priya, expression: "sad", flip: true, position: "right"},
 			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
 
 			{type: "goto", page: "scene 10.a"},
