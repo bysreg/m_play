@@ -146,7 +146,7 @@ var MPLAY = MPLAY || {};
 			},
 			{
 				choice: "You told Ryan not to use the test.",
-				resolution: "Ryan used it anyway. He got caught and failed the final and the class.",
+				resolution: "Ryan used it anyway, but got caught. He received a violation, and faced possible failure of the course.",
 				question: "Could you have convinced Ryan not to use the test?",
 			},
 			{
