@@ -92,7 +92,7 @@ h1
 
 .guideButton
 {
-  background-color: #f9f7ad;
+  background-color: #FCC325;
   border: 2px solid #41648f;
   border-radius: 5px;
   height:100px;
@@ -100,7 +100,7 @@ h1
 
 .guideButton:hover
 {
-  background-color:#fffee6
+  background-color:#337ab7
 }
 
 .guideLink
