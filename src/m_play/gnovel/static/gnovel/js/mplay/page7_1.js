@@ -169,9 +169,9 @@ var MPLAY = MPLAY || {};
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
 					onChoose: function(page) {
-						page._usingTestData.relationship.ryan = 1;
+						page._usingTestData.relationship.ryan = -1;
 					},
-					relationship: [{name: this._ryan, score: 1}],
+					relationship: [{name: this._ryan, score: -1}],
 					go: "#decline"} ],
 				seconds: 10,
 				responses: [{text: player + ", what do you think?"},{text:"It was fine in my last class."},{text: "She's worrying too much."}],
