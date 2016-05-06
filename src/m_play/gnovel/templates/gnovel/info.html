@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- disable zooming in mobile -->
+		<title>A Fine Line Game</title>
+
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/intro.css' %}"/>
+
+		<!-- <link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/> -->
+
+		<!-- Third Party library files -->
+		<script src="{% static 'gnovel/third_party/jquery-2.2.1.min.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'gnovel/js/gnovel/intro.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
+
+		<style>
+			.top-buffer { margin-top:200px; }
+		</style>
+	</head>
+	<body>
+		<div class="container" id="container">
+			<img src="{% static 'gnovel/res/login page.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
+		    <div class="row">
+		            <div class="wrap">
+		                <form class="login" action="/gnovel/" method="post">
+											{% csrf_token %}
+		                <input type="text" id="username" name="username" placeholder="Name" required="true" maxlength="10"/>
+		                <!--<input type="phone" placeholder="Cell" />-->
+		                <input type="submit" value="" />
+		                <!-- <div class="remember-forgot"> -->
+		                    <div class="row">
+		                        <div class="col-md-6">
+
+		                        </div>
+
+		                    </div>
+		                </div>
+		                </form>
+		            </div>
+		    </div>
+		   <!--- <div class="posted-by">Posted By: <a href="http://www.jquery2dotnet.com">Bhaumik Patel</a></ div>-->
+		</div>
+	</body>
+</html>

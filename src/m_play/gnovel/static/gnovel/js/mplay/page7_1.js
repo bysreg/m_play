@@ -169,9 +169,9 @@ var MPLAY = MPLAY || {};
 				{text: "You know what? I'm good Ryan. I’m not going to use the test.",
 					integrityScore: 0,
 					onChoose: function(page) {
-						page._usingTestData.relationship.ryan = 1;
+						page._usingTestData.relationship.ryan = -1;
 					},
-					relationship: [{name: this._ryan, score: 1}],
+					relationship: [{name: this._ryan, score: -1}],
 					go: "#decline"} ],
 				seconds: 10,
 				responses: [{text: player + ", what do you think?"},{text:"It was fine in my last class."},{text: "She's worrying too much."}],
@@ -251,18 +251,18 @@ var MPLAY = MPLAY || {};
 	};
 
 
-	Page7_1.prototype._createRandomPlaylist = function() {
-		var playlist = null;
-		playlist = [
-				    {audio:"Lib-beeping", playrate: 0.03},
-					// {audio:"Lib-chairs2", playrate: 0.1},
-					{audio:"Lib-chairs3", playrate: 0.1},
-					{audio:"Lib-chairs1", playrate: 0.1},
-					{audio:"Lib-distantchairs", playrate: 0.3},
-					{audio:"Lib-pia", playrate: 0.05, noreplay: true}
-					];
-		return playlist;
-	};
+	// Page7_1.prototype._createRandomPlaylist = function() {
+	// 	var playlist = null;
+	// 	playlist = [
+	// 			    {audio:"Lib-beeping", playrate: 0.03},
+	// 				// {audio:"Lib-chairs2", playrate: 0.1},
+	// 				{audio:"Lib-chairs3", playrate: 0.1},
+	// 				{audio:"Lib-chairs1", playrate: 0.1},
+	// 				{audio:"Lib-distantchairs", playrate: 0.3},
+	// 				{audio:"Lib-pia", playrate: 0.05, noreplay: true}
+	// 				];
+	// 	return playlist;
+	// };
 
 	Page7_1.prototype._onUnload = function() {
 		MPLAY.MPlayPage.prototype._onUnload.call(this);
@@ -281,11 +281,11 @@ var MPLAY = MPLAY || {};
 		this._tweenVolumeIn();
 	};
 
-	Page7_1.prototype._update = function() {
-		MPLAY.MPlayPage.prototype._update.call(this);
+	// Page7_1.prototype._update = function() {
+	// 	MPLAY.MPlayPage.prototype._update.call(this);
 
-		this._multiTracksPlayer.shuffle();
-	};
+	// 	this._multiTracksPlayer.shuffle();
+	// };
 
 	MPLAY.Page7_1 = Page7_1;
 }());

@@ -20,6 +20,8 @@ var MPLAY = MPLAY || {};
 		this._notifText = null;
 		this._animPlaying = false;
 		this._tutFinished = false;
+		this._loadingNum = 0;
+		this._loadText = null;
 
 		var page = this;
 		var tutCounter = 1;
@@ -74,16 +76,6 @@ var MPLAY = MPLAY || {};
 		//background.position.z = this.getBackgroundLayer();
 		this.setBackground("/static/gnovel/res/loadingPage/loading screen_noBox.png");
 
-		var loadSymbol = this.createImage("/static/gnovel/res/loadingPage/loading_symbol.png", new THREE.Vector3(550, 320, 0), 300, 150);
-		loadSymbol.name = "loadSymbol";
-		loadSymbol.material.opacity = 0;
-		this._addToScene(loadSymbol);
-
-		this._loadTween = this.tweenFlash(loadSymbol, {
-			opacity2: 0,
-			easing: TWEEN.Easing.Cubic.Out,
-			duration: 1500,
-		});
 		this.getOwner().addMouseDownListener(this.mouseDownListener);
 
 		this._TutorialNext(0);
@@ -125,9 +117,33 @@ var MPLAY = MPLAY || {};
 		assetLoader._startLoadingTextures(
 			// oncomplete
 			function() {
-				self.LoadingComplete();
+				//self.LoadingComplete();
 			}
 		);
+
+		//show loading percentage
+		var loadProgress = assetLoader._getLoadingProgress();
+		var Text2D = THREE_Text.Text2D;
+		this._loadText = new Text2D(loadProgress, {
+			font: "60px Noteworthy",
+			fillStyle: '#FFFFFF',
+			charLine: 30,
+			center: true,
+		});
+		this._loadText.position.set(550, 300,this.getBackgroundLayer() + 10);
+		this._addToScene(this._loadText);
+
+		//show loading symbol
+		var loadSymbol = this.createImage("/static/gnovel/res/loadingPage/loading_symbol.png", new THREE.Vector3(550, 320, 0), 300, 150);
+		loadSymbol.name = "loadSymbol";
+		loadSymbol.material.opacity = 0;
+		this._addToScene(loadSymbol);
+
+		this._loadTween = this.tweenFlash(loadSymbol, {
+			opacity2: 0,
+			easing: TWEEN.Easing.Cubic.Out,
+			duration: 1500,
+		});
 
 		// resources
 		assetLoader._setResourceList(resList);
@@ -329,9 +345,31 @@ PageLoading.prototype._fadeCompass = function(compassFront, compassBack, delayFX
 	 */
 	PageLoading.prototype.LoadingComplete = function() {
 
+		var page = this;
 		this._loadingComplete = true;
 		//stop loading symbol flashing
-		this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
+		var loadSymbol = this._getRootObject().getObjectByName("loadSymbol");
+		this.tweenMat(loadSymbol,{
+			easing: TWEEN.Easing.Linear.None,
+			duration: 300,
+			opacity: 0,
+			delay:300,
+			onComplete: function() {
+				page._removeFromScene(loadSymbol);
+			}
+		});
+
+		//if text is still showing
+			this.tweenMat(this._loadText,{
+				easing: TWEEN.Easing.Linear.None,
+				duration: 300,
+				opacity: 0,
+				delay:300,
+				onComplete: function() {
+					page._removeFromScene(this._loadText);
+				}
+			});
+		//this._removeFromScene(this._getRootObject().getObjectByName("loadSymbol"));
 
 		//only show button if tutorial is finished
 		if(this._tutFinished){
@@ -345,6 +383,29 @@ PageLoading.prototype._fadeCompass = function(compassFront, compassBack, delayFX
 		// 		easing: TWEEN.Easing.Cubic.Out,
 		// 	});
 		};
+	};
+
+	// will be called each frame, after onLoad and onStart complete
+	PageLoading.prototype._update = function() {
+		var page = this;
+
+		//update loading progress on sreen
+		if(this._loadText.text != 100){
+			var assetLoader = this.getOwner()._getAssetLoader();
+			var loadNum = this._loadingNum;
+			//loading number progress
+			var loadProgress = assetLoader._getLoadingProgress();
+			if(loadNum != loadProgress)	{
+				loadNum = loadProgress;
+				this._loadText.text = loadNum;
+			}
+		}
+		else {
+			if(!this._loadingComplete){
+				this.LoadingComplete();
+			}
+		}
+
 	};
 
 

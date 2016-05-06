@@ -64,7 +64,7 @@ var MPLAY = MPLAY || {};
 			{type: "choices", choices :
 								[{text: "How are you?",
 									go: "#wtsup"},
-								 {text: "Nothing much.",
+								 {text: "Ok...",
 								 	go: "#nothingmuch"}]},
 
 			{type: "nothing", label: "wtsup"},
@@ -84,7 +84,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "nothingmuch"},
 			{type: "show", img: cat, expression: "thoughtful", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Cat", text: "Nothing... sounds serious. Can I help?"},
+			{type: "dialog", speaker: "Cat", text: "Ok... sounds serious. Can I help?"},
 			{type: "choices", choices : [{text: "Just this thing with Ryan.  It's ok.", go: "#itsok"}, {text : "Thanks, but it’s fine.", go : "#itsok"}]},
 			{type: "show", img: cat, position: "center", waitUntilShown: false},
 			{type: "dialog", speaker: "Cat", text: "I know I’m usually running around like a crazy person, but if you need to talk, I’m happy to listen.", label: "itsok"},

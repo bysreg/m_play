@@ -1,0 +1,240 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- disable zooming in mobile -->
+		<title>A Fine Line Credits and Resources</title>
+
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}"/>
+		<link rel='stylesheet' type='text/css' href="{% static 'gnovel/res/css/page_style.css' %}"/>
+
+
+		<!-- <link rel='stylesheet' type='text/css' href="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' %}"/> -->
+
+		<!-- Third Party library files -->
+		<script src="{% static 'gnovel/third_party/jquery-2.2.1.min.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'gnovel/third_party/three.js' %}"></script>
+
+		<style>
+			.top-buffer { margin-top:200px; }
+		</style>
+	</head>
+	<body>
+		<div class="container" >
+			<img src="{% static 'gnovel/res/result/paper background.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
+      <div class="content">
+        <h1 style="text-align:center;"> Resources and Credits </h1>
+				<div class="section" id="credits">
+					<h2 style="margin: 0 auto 10px auto; text-align:center; background-color: #f9f7ad; width:125px; border:2px solid #2f4a70; border-radius:5px;"> Credits </h2>
+					<!--Dev Team-->
+					<div   class="col-lg-12">
+					<div id="rightContent" style="padding-left:0; margin-left:0px;">
+						<h2 style="text-align:center; margin-bottom:15px;"> Development Team </h2>
+						<ul class='credits-ul'>
+							<li>
+								<div class="left">Game Designer/Producer</div>
+								<div class="right">Timothy Staton-Davis</div>
+							</li>
+							<li>
+								<div class="left">Writer/Producer</div>
+								<div class="right"> Sarabeth Boak </div>
+							</li>
+							<li>
+								<div class="left">Lead Programmer</div>
+								<div class="right"> Muhammad Hilman Beyri </div>
+							</li>
+							<li>
+								<div class="left">Artist</div>
+								<div class="right"> Ross Houston </div>
+						  </li>
+							<li>
+								<div class="left">Sound Designer/Programmer</div>
+								<div class="right"> Emily Zhou </div>
+						 </li>
+						</ul>
+					</div>
+				</div>
+					<!--Advisors-->
+					<div   class="col-lg-12">
+					<div id="rightContent" style="padding-left:0; margin-left:0px;">
+						<h2 style="text-align:center; margin-bottom:15px;"> Team </h2>
+						<ul>
+							<li>
+								<div class="left">ETC Instructor</div>
+								<div class="right">Ralph Vituccio</div>
+							</li>
+							<li>
+								<div class="left">ETC Instructor</div>
+								<div class="right"> Mike Christel </div>
+							</li>
+							<li>
+								<div class="left">CMU Advisor</div>
+								<div class="right"> Andy Norman </div>
+							</li>
+							<li>
+								<div class="left">Assistant Writer</div>
+								<div class="right"> Sarah Keller</div>
+							</li>
+							<li>
+								<div class="left">UI/UX Designer</div>
+								<div class="right"> Xiaowei Jiang </div>
+							</li>
+							<li>
+								<div class="left">Assistant Artist</div>
+								<div class="right"> Seowon Oh </div>
+							</li>
+							<li>
+								<div class="left">Designer</div>
+								<div class="right"> Tom Garncarz </div>
+							</li>
+							<li>
+								<div class="left">UX Designer</div>
+								<div class="right"> Melody Ting </div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+				<div class="section">
+					<h2 style="margin: 20px auto 10px auto; text-align:center; background-color: #f9f7ad; width:200px; border:2px solid #2f4a70; border-radius:5px;"> Resources </h2>
+					<!-- discussion guide link -->
+					<div class="guideButton" style="margin: 40px auto 0px auto;">
+						<a class="guideLink" href="http://www.etc.cmu.edu/projects/true-north/index.php/discussion-guide/" target="_blank">
+							<!-- <img src="{% static 'gnovel/res/textures/choice_box.png' %}" style="position: absolute; width:10%;	height:7%; right:5%; margin-bottom:50px;"></img> -->
+							<p>Discussion Guide</p>
+						</a>
+					</div>
+					<p style="margin:0px auto 30px auto; text-align:center; color:white;width:70%;font-weight:400;">Interested in hosting a discussion about the game and topic? </br>See our discussion guide for thoughts and question ideas.</p>
+					<h3 style="text-align:center;"> Please visit the <a style="font-weight:bold; font-size:25px;" href='https://www.cmu.edu/academic-integrity/headernav/guides.html'>CMU Academic Policy Page</a>
+						for details on the specific academic policies and guidelines about them.  </h3>
+					<div id="leftContent">
+              <h2 style="font-size:28px;"> CMU Resource </h2>
+          </div>
+          <div> </div>
+          <div id="rightContent">
+              <h2 style="text-align:center;"> How They Can Help </h2>
+					</div>
+					<div class="hr" style="margin-top:10px;"> <hr /></div>
+			</div>
+			<div class="section">
+				<div id="leftContent">
+					  <p> Office of Community Standards and Integrity </br>412-268-2140</p>
+				</div>
+				<div id="rightContent">
+              <div>
+                <ul>
+                  <li>
+                    <p>Discuss ways to respond to incidents where academic dishonesty may have occurred.</p>
+                  </li>
+                  <li>
+                    <p>Advise you on the appeal process.</p>
+                  </li>
+                  <li>
+                    <p>Answer your questions about academic integrity policy</p>
+                  </li>
+                  <li>
+                    <p>Help you to understand consequences of violations.</p>
+                  </li>
+                </ul>
+              </div>
+          </div>
+          <div class="hr"> <hr /></div>
+        </div>
+
+        <!--section 2-->
+        <div class="section">
+          <div id="leftContent">
+                <p> Academic advisors and Assistant Deans</p>
+          </div>
+          <div id="rightContent">
+            <div>
+              <ul>
+                <li>
+                  <p>Provide strategies you can use to deal more effectively with course work before it affects your academic success.</p>
+                </li>
+                <li>
+                  <p>Talk with you about personal circumstances that may affect course work.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hr"> <hr /></div>
+        </div>
+
+        <!--section 3-->
+        <div class="section">
+          <div id="leftContent">
+                <p> Academic Development </br>412-268-6878</p>
+          </div>
+          <div id="rightContent">
+            <div>
+              <ul>
+                <li>
+                  <p>Conduct workshops and tutoring on study skills, time management, and reading skills.</p>
+                </li>
+                <li>
+                  <p>Provide Fast Facts on study skills.</p>
+                </li>
+                <li>
+                  <p>Identify academic difficulties which may be due to learning disabilities.</p>
+                </li>
+                <li>
+                  <p>Act as an advocate for students with learning disabilities.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hr"> <hr /></div>
+        </div>
+
+        <!--section 4-->
+        <div class="section">
+          <div id="leftContent">
+                <p> Intercultural Communications Center </br>412-268-4979</p>
+          </div>
+          <div id="rightContent">
+            <div>
+              <ul>
+                <li>
+                  <p>Counsel students having trouble with academic or personal stress.</p>
+                </li>
+                <li>
+                  <p>Help you to find peer tutoring.</p>
+                </li>
+                <li>
+                  <p>Arrange for programs on time management, study skills or other academic success programs for any group of students
+                    (e.g. a residence hall floor, a student organization, or simply a group of friends).</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hr"> <hr /></div>
+        </div>
+
+        <!--section 5-->
+        <div class="section">
+          <div id="leftContent">
+                <p> University Libraries </br>412-268-2442</p>
+          </div>
+          <div id="rightContent">
+            <div>
+              <ul>
+                <li>
+                  <p>Advise students on proper research methodology.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="hr"> <hr /></div>
+        </div>
+
+      </div>
+		</div>
+		<div id="footer" style="height:50px; width:100%;"></div>
+	</body>
+</html>

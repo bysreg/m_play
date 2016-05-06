@@ -85,17 +85,17 @@ var MPLAY = MPLAY || {};
 
 		var phoneChoiceArray = [
 			{
-				choice: "You chose to give it to the waiter",
+				choice: "You chose to give it to the waiter.",
 				resolution: "They found the owner- it was Cat’s!",
 				question: "What would have happened if they didn’t get it back to her?",
 			},
 			{
-				choice: "You chose to give it to campus police",
+				choice: "You chose to give it to campus police.",
 				resolution: "They found the owner- it was Cat’s!",
 				question: "What would have happened if you didn’t take initiative and just left it?",
 			},
 			{
-				choice: "You wanted to checked for cash",
+				choice: "You asked if it had cash in it.",
 				resolution: "Ryan gave it to the waiter instead- turns out it was Cat’s! ",
 				question: "What would have happened if you really had taken the cash?",
 			},
@@ -114,7 +114,7 @@ var MPLAY = MPLAY || {};
 			},
 
 			{
-				choice: "You gave Ryan your old assignments",
+				choice: "You gave Ryan your old assignments.",
 				resolution: "Turns out that’s against the academic code...",
 				question: "Was there a way to help Ryan without violating the code?",
 			},
@@ -122,35 +122,35 @@ var MPLAY = MPLAY || {};
 
 		var plagiarismArray = [
 			{
-				choice: "You got Priya to redo her work",
-				resolution: "It was Ok; B-",
+				choice: "You got Priya to redo her work.",
+				resolution: "It was Ok; B-.",
 				question: "Was there a way to help Priya?",
 			},
 			{
-				choice: "You redid Priya’s work",
-				resolution: "You did Ok; B-",
+				choice: "You redid Priya’s work.",
+				resolution: "You did Ok; B-.",
 				question: "Was there a way to solve the problem without doing Priya’s work for her?",
 			},
 			{
-				choice: "You wanted to just turn it in, but your team redid it instead",
-				resolution: "Not so good; B-",
+				choice: "You wanted to turn it in, but your team redid it instead.",
+				resolution: "Not so good; B-.",
 				question: "Was there a way to solve the problem without redoing Priya’s work?",
 			},
 		];
 
 		var usingTestArray = [
 			{
-				choice: "You told Ryan not to use the test",
+				choice: "You told Ryan not to use the test.",
 				resolution: "Ryan didn’t use it either. He’s glad he didn’t use it, and he’s patching things up with Priya.",
 				question: "What would have happened if you did take the test?",
 			},
 			{
-				choice: "You told Ryan not to use the test",
-				resolution: "Ryan used it anyway. He got caught and failed the final and the class.",
+				choice: "You told Ryan not to use the test.",
+				resolution: "Ryan used it anyway, but got caught. He received a violation, and faced possible failure of the course.",
 				question: "Could you have convinced Ryan not to use the test?",
 			},
 			{
-				choice: "You did use the test.",
+				choice: "You used the test.",
 				resolution: "You got caught by Professor Sweeney for using the old take home test.",
 				question: "Why did you choose to use the test? Was there another way?",
 			},
@@ -160,12 +160,12 @@ var MPLAY = MPLAY || {};
 				question: "Why did you choose to use the test? Was there another way?",
 			},
 			{
-				choice: "You didn’t use the test",
-				resolution: "Ryan used the test even though you didn’t. He got caught and failed the final and the class.",
+				choice: "You didn’t use the test.",
+				resolution: "You chose not to use the test, but Ryan did.  Sweeney caught him, and he received a violation.",
 				question: "What would have happened if Ryan revealed that you had access to the test too?",
 			},
 			{
-				choice: "You didn’t use the test",
+				choice: "You didn’t use the test.",
 				resolution: "Ryan used the test, got caught and told the professor you saw it too, which is also a violation.",
 				question: "Was there a way to stop Ryan from using the test? Should you have reported the violation?",
 			},
@@ -176,11 +176,11 @@ var MPLAY = MPLAY || {};
 		var situationDataArr = [phoneData, unauthorizedAsstData, plagiarismData, usingTestData];
 
 		var postData = {
-			'phone_title': 'Ryan found a lost wallet',
+			'phone_title': 'Ryan found a lost wallet.',
 
-			'unauthorized_assistance_title': 'Ryan asked for your help',
+			'unauthorized_assistance_title': 'Ryan asked for your help.',
 
-			'plagiarism_title': 'Priya copied work from codehub',
+			'plagiarism_title': 'Priya copied work from codehub.',
 
 			'using_test_title': 'Ryan wanted to use last year’s blank exam.',
 		};
@@ -253,11 +253,15 @@ var MPLAY = MPLAY || {};
 		// 		'using_test_rel_cat': 'Your relationship with Cat increased',
 		// 	}
 		// );
-
-		this._post("/gnovel/result/", postData);
+		
+		var self = this;
+		this._tweenVolumeOut(function(){
+			self._post("/gnovel/result/", postData);
+		});
 
 		return o;
 	};
+
 
 	MPLAY.PageEnding = PageEnding;
 }());

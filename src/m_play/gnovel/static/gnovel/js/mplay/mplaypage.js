@@ -157,7 +157,7 @@ var MPLAY = MPLAY || {};
 
 		this._createAnim("cat neutral", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -60, this._characterLayer));
 		this._createAnim("cat annoyed", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -145, this._characterLayer)); // angry
-		this._createAnim("cat happy", "/static/gnovel/res/animation/", .9, new THREE.Vector3(0, 40, this._characterLayer));
+		this._createAnim("cat happy", "/static/gnovel/res/animation/", .9, new THREE.Vector3(0, 30, this._characterLayer));
 		this._createAnim("cat sad", "/static/gnovel/res/animation/", 0.8, new THREE.Vector3(0, -110, this._characterLayer));
 		this._createAnim("cat thoughtful", "/static/gnovel/res/animation/", 0.55, new THREE.Vector3(0, -95, this._characterLayer));
 

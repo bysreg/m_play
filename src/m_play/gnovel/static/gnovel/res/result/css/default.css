@@ -35,12 +35,60 @@ body {
 }
 
 a {
-	color: #f0f0f0;
+	color: #000;
 	text-decoration: none;
 }
 
 a:hover {
 	color: #000;
+}
+
+.nextPage
+{
+	position:absolute;
+	background-color: #f9f7ad;
+	border: 2px solid #41648f;
+	border-radius: 5px;
+	width:150px;
+	height:70px;
+	right:5%;
+	top:8%;
+}
+
+.nextPage:hover
+{
+	background-color:#fffee6
+}
+
+.nextPage > p
+{
+	margin-top:15px;
+	text-align: center;
+	font-weight: 600;
+	font-size:24px;
+}
+
+.nextPageBottom
+{
+	background-color: #f9f7ad;
+	border: 2px solid #41648f;
+	border-radius: 5px;
+	position: absolute;
+	width:150px;
+	height:70px; right:5%; margin-bottom:50px;
+}
+
+.nextPageBottom:hover
+{
+	background-color:#fffee6
+}
+
+.nextPageBottom > p
+{
+	margin-top:15px;
+	text-align: center;
+	font-weight: 600;
+	font-size:24px;
 }
 
 .main,

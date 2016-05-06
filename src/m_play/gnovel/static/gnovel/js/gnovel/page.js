@@ -80,7 +80,7 @@ var GNOVEL = GNOVEL || {};
 
 	Page.prototype.createImage = function(path, position, width, height) {
 		var texture = THREE.ImageUtils.loadTexture(path, null, function(t) {
-			console.log("createImage onLoad : " + path);
+			// console.log("createImage onLoad : " + path);
 			texture.path = path;
 			texture.needsUpdate = true;
 		});
@@ -610,7 +610,7 @@ var GNOVEL = GNOVEL || {};
 						}, duration);
 	};
 
-	Page.prototype._tweenVolumeOut = function() {
+	Page.prototype._tweenVolumeOut = function(onComplete) {
 		var duration = 1000;
 		var pageObj = this;
 		var ambient = pageObj._owner._ambient;
@@ -621,6 +621,7 @@ var GNOVEL = GNOVEL || {};
 						.call(handleComplete);
 		function handleComplete() {
 			ambient.stop();
+			onComplete();
 		};
 	};
 

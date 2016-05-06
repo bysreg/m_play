@@ -1,9 +1,17 @@
+html
+{
+  height:100%;
+}
+
 body
 {
     /*background: url('../landing page2.png') fixed;*/
     background-size: cover;
     padding: 0;
     margin: 0;
+    max-height: 100%;
+    height:100%;
+    min-height:1600px;
 }
 
 .container
@@ -12,16 +20,19 @@ body
     left:0;
     background-repeat:no-repeat;
     background-size:contain;
-    height:100%;
+    /*height:100%;*/
+    height:auto;
+    min-height:inherit;
     width:100%;
     overflow-y: visible;
+
 }
 
 
 p
 {
   color: #000000;
-  font-weight: 400;
+  font-weight: 600;
   font-size:14px;
 }
 
@@ -40,8 +51,8 @@ h1
 {
     position: relative;
     width: 50%;
-    height: 100%;
-    /*min-height: 100%;*/
+    height: auto;
+    min-height: inherit;
     top:10%;
     margin: 0 auto;
     overflow-x: hidden;
@@ -65,17 +76,58 @@ h1
   padding-left:20px;
   overflow: hidden;
   display: block;
+  width: 75%;
 }
 
 .section
 {
-  position: relative;
+    position: relative;
     width: 100%;
     height: auto;
     /*min-height: 100%;*/
     top:20px;
     margin: 0 auto 3px auto;
     overflow: hidden;
+}
+
+.guideButton
+{
+  background-color: #FCC325;
+  border: 2px solid #41648f;
+  border-radius: 5px;
+  height:100px;
+}
+
+.guideButton:hover
+{
+  background-color:#337ab7
+}
+
+.guideLink
+{
+  /*background-color: #f9f7ad;*/
+	/*border: 2px solid #41648f;
+	border-radius: 5px;*/
+	position: absolute;
+  text-align: center;
+  width:100%;
+  height:inherit;
+  color:transparent;
+	/*width:150px;
+	height:70px; margin-bottom:50px;*/
+}
+
+.guideLink:hover
+{
+  	/*background-color:#fffee6*/
+}
+
+.guideLink > p
+{
+  margin-top:20px;
+	text-align: center;
+	font-weight: 600;
+	font-size:40px;
 }
 
 div.hr {
@@ -99,10 +151,35 @@ a:link {
 
 }
 
-#credits > #rightContent > ul > li
+#credits > div > #rightContent > ul
+{
+    padding:inherit;
+}
+
+#credits > div > #rightContent > ul > li
 {
   color:#000000;
   list-style-type: none;
+  font-size:18px;
+  margin:-5px auto -5px auto;
+}
+
+#credits > div > #rightContent > ul > li > div
+{
+  display: inline-block;
+}
+
+#credits > div > #rightContent > ul > li > div.left
+{
+  width:50%;
+  text-align:right;
+  padding-right:20px;
+}
+
+#credits > div >  #rightContent > ul > li > div.right
+{
+  font-size:24px;
+  font-weight: bold;
 }
 
 #credits > #leftContent > p

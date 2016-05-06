@@ -68,7 +68,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
-			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},
+			{type: "dialog", speaker: this._ryan, text: "Whatever.  I think it will end up ok.  I just have to get chewed out."},
 			{type: "dialog", speaker: this._ryan, text: "I feel stupid for using it.  It was not worth it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 
@@ -120,8 +120,8 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened.  If you had looked at the exam,"},
-			{type: "dialog", speaker: this._cat, text: "you’d have been in trouble too.  Lucky break."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened."},
+			{type: "dialog", speaker: this._cat, text: "If you had looked at the exam, you’d have been in trouble too. Lucky break."},
 			{type: "goto", page: "scene 10.a"},
 		];
 

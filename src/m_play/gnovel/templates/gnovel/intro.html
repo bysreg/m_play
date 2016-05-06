@@ -28,20 +28,15 @@
 			<img src="{% static 'gnovel/res/landing page2.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
 		    <div class="row">
 		            <div class="wrap">
-		                <form class="login" action="/gnovel/" method="post">
-											{% csrf_token %}
-		                <input type="text" id="username" name="username" placeholder="Name" required="true" maxlength="10"/>
 		                <!--<input type="phone" placeholder="Cell" />-->
-		                <input type="submit" value="" />
-		                <!-- <div class="remember-forgot"> -->
-		                    <div class="row">
-		                        <div class="col-md-6">
-
-		                        </div>
-
-		                    </div>
+										<div style="margin:0px auto 50px auto; height:200px; width: 700px;">
+											<img style="height:200px; width: 700px; "src="{% static 'gnovel/res/landing_description.png' %}"/>
+										</div>
+		                <div class="enter">
+											<a class="enter" href="../info">
+												<img style="height:100px;width:235px;" src="{% static 'gnovel/res/textures/ui/landing page enter button.png' %}"/>
+											</a>
 		                </div>
-		                </form>
 		            </div>
 		    </div>
 		   <!--- <div class="posted-by">Posted By: <a href="http://www.jquery2dotnet.com">Bhaumik Patel</a></ div>-->
