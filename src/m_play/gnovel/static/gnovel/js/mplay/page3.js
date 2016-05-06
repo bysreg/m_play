@@ -759,18 +759,18 @@ var MPLAY = MPLAY || {};
 		return o;
 	};
 
-	Page3.prototype._createRandomPlaylist = function() {
-		var playlist = null;
-		playlist = [
-				    {audio:"Lib-beeping", playrate: 0.03},
-					// {audio:"Lib-chairs2", playrate: 0.1},
-					{audio:"Lib-chairs3", playrate: 0.1},
-					{audio:"Lib-chairs1", playrate: 0.1},
-					{audio:"Lib-distantchairs", playrate: 0.3},
-					{audio:"Lib-pia", playrate: 0.05}
-					];
-		return playlist;
-	};
+	// Page3.prototype._createRandomPlaylist = function() {
+	// 	var playlist = null;
+	// 	playlist = [
+	// 			    {audio:"Lib-beeping", playrate: 0.03},
+	// 				// {audio:"Lib-chairs2", playrate: 0.1},
+	// 				{audio:"Lib-chairs3", playrate: 0.1},
+	// 				{audio:"Lib-chairs1", playrate: 0.1},
+	// 				{audio:"Lib-distantchairs", playrate: 0.3},
+	// 				{audio:"Lib-pia", playrate: 0.05}
+	// 				];
+	// 	return playlist;
+	// };
 
 	/**
 	 * @override
@@ -793,11 +793,11 @@ var MPLAY = MPLAY || {};
 		this._tweenVolumeIn();
 	};
 
-	Page3.prototype._update = function() {
-		MPLAY.MPlayPage.prototype._update.call(this);
+	// Page3.prototype._update = function() {
+	// 	MPLAY.MPlayPage.prototype._update.call(this);
 
-		this._multiTracksPlayer.shuffle();
-	};
+	// 	this._multiTracksPlayer.shuffle();
+	// };
 
 	MPLAY.Page3 = Page3;
 }());
