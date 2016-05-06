@@ -43,6 +43,54 @@ a:hover {
 	color: #000;
 }
 
+.nextPage
+{
+	position:absolute;
+	background-color: red;
+	border: 2px solid #41648f;
+	border-radius: 5px;
+	width:150px;
+	height:70px;
+	right:5%;
+	top:8%;
+}
+
+.nextPage:hover
+{
+	background-color:#f9f7ad
+}
+
+.nextPage > p
+{
+	margin-top:15px;
+	text-align: center;
+	font-weight: 600;
+	font-size:24px;
+}
+
+.nextPageBottom
+{
+	background-color: red;
+	border: 2px solid #41648f;
+	border-radius: 5px;
+	position: absolute;
+	width:150px;
+	height:70px; right:5%; margin-bottom:50px;
+}
+
+.nextPageBottom:hover
+{
+	background-color:#f9f7ad
+}
+
+.nextPageBottom > p
+{
+	margin-top:15px;
+	text-align: center;
+	font-weight: 600;
+	font-size:24px;
+}
+
 .main,
 .container > header {
 	width: 95%;

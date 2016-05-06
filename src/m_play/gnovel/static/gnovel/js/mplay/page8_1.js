@@ -68,7 +68,7 @@ var MPLAY = MPLAY || {};
 			// }},
 			// {type: "play", audio: "Hey-Ryan-p"},
 			{type: "dialog", speaker: this._ryan, text: "Hey.  I'm on my way to meet Sweeney.  Apparently they do cycle some of the questions..."},
-			{type: "dialog", speaker: this._ryan, text: "whatever.  I think it will end up ok.  I just have to get chewed out."},
+			{type: "dialog", speaker: this._ryan, text: "Whatever.  I think it will end up ok.  I just have to get chewed out."},
 			{type: "dialog", speaker: this._ryan, text: "I feel stupid for using it.  It was not worth it."},
 			{type: "jump", condition: true, goTrue: "#hideryan", goFalse: "#hideryan"},
 

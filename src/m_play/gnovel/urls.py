@@ -8,5 +8,5 @@ urlpatterns = [
 	url(r'^log/$', views.log, name="log"),
 	url(r'^intro/$', views.intro, name='intro'),
 	url(r'^result/$', views.result, name='result'),
-	url(r'^resources/$', views.resources, name='resource'),
+	url(r'^credits/$', views.resources, name='resource'),
 ]

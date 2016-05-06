@@ -128,7 +128,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label:"pressure"},
 			{type: "show", img: professor, position: "center"},
-			{type: "dialog", speaker: this._professor, text: "Being that you two are seniors, I understand the importance of doing well this semester."},
+			{type: "dialog", speaker: this._professor, text: "I understand the importance of doing well this semester."},
 			{type: "show", img: professor, expression: "sad", position: "center"},
 			{type: "dialog", speaker: this._professor, text: "Nevertheless, doing something against policy will hurt you more than a bad grade."},
 			{type: "jump", condition: true, goTrue: "#leave", goFalse: "#leave"},
