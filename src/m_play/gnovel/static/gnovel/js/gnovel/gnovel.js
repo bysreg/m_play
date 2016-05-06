@@ -66,7 +66,7 @@ var GNOVEL = GNOVEL || {};
 			{id: "Cafe-bg", src: "ambient-cafe.ogg"},
 			{id: "Office-bg", src: "ambient-office.ogg"},
 			{id: "Gym-bg", src: "ambient-gym.ogg"},
-			{id: "Bar-bg", src: "ambient-bar-new.ogg"},
+			{id: "Bar-bg", src: "ambient-bar.ogg"},
 			{id: "Classroom-bg", src: "ambient-classroom.ogg"},
 			{id: "UC-bg", src: "ambient-uc.ogg"},
 			{id: "Library-bg", src: "ambient-lib.ogg"},

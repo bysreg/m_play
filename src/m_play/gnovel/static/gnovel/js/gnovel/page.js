@@ -610,7 +610,7 @@ var GNOVEL = GNOVEL || {};
 						}, duration);
 	};
 
-	Page.prototype._tweenVolumeOut = function() {
+	Page.prototype._tweenVolumeOut = function(onComplete) {
 		var duration = 1000;
 		var pageObj = this;
 		var ambient = pageObj._owner._ambient;
@@ -621,6 +621,7 @@ var GNOVEL = GNOVEL || {};
 						.call(handleComplete);
 		function handleComplete() {
 			ambient.stop();
+			onComplete();
 		};
 	};
 

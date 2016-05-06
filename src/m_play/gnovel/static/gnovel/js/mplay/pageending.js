@@ -253,11 +253,15 @@ var MPLAY = MPLAY || {};
 		// 		'using_test_rel_cat': 'Your relationship with Cat increased',
 		// 	}
 		// );
-
-		this._post("/gnovel/result/", postData);
+		
+		var self = this;
+		this._tweenVolumeOut(function(){
+			self._post("/gnovel/result/", postData);
+		});
 
 		return o;
 	};
+
 
 	MPLAY.PageEnding = PageEnding;
 }());

@@ -120,8 +120,8 @@ var MPLAY = MPLAY || {};
 			// 	page.getOwner().getSoundManager().play("Hey-Cat");
 			// }},
 			// {type: "play", audio: "Hey-Cat"},
-			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened.  If you had looked at the exam,"},
-			{type: "dialog", speaker: this._cat, text: "you’d have been in trouble too.  Lucky break."},
+			{type: "dialog", speaker: this._cat, text: "Was that Ryan?  I heard what happened."},
+			{type: "dialog", speaker: this._cat, text: "If you had looked at the exam, you’d have been in trouble too. Lucky break."},
 			{type: "goto", page: "scene 10.a"},
 		];
 

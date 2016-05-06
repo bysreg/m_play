@@ -106,8 +106,6 @@ var MPLAY = MPLAY || {};
 			{type: "goto", page: "scene 10.a"},
 
 			{type: "nothing", label: "goend"},
-			{type: "show", img: priya, expression: "sad", flip: true, position: "right"},
-			{type: "dialog", speaker: this._priya, text: "Yeah, let's hope so."},
 
 			{type: "goto", page: "scene 10.a"},
 		];

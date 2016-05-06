@@ -35,7 +35,7 @@ body {
 }
 
 a {
-	color: #f0f0f0;
+	color: #000;
 	text-decoration: none;
 }
 
@@ -46,7 +46,7 @@ a:hover {
 .nextPage
 {
 	position:absolute;
-	background-color: red;
+	background-color: #f9f7ad;
 	border: 2px solid #41648f;
 	border-radius: 5px;
 	width:150px;
@@ -57,7 +57,7 @@ a:hover {
 
 .nextPage:hover
 {
-	background-color:#f9f7ad
+	background-color:#fffee6
 }
 
 .nextPage > p
@@ -70,7 +70,7 @@ a:hover {
 
 .nextPageBottom
 {
-	background-color: red;
+	background-color: #f9f7ad;
 	border: 2px solid #41648f;
 	border-radius: 5px;
 	position: absolute;
@@ -80,7 +80,7 @@ a:hover {
 
 .nextPageBottom:hover
 {
-	background-color:#f9f7ad
+	background-color:#fffee6
 }
 
 .nextPageBottom > p
