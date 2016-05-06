@@ -25,11 +25,12 @@
 	</head>
 	<body>
 		<div class="container" id="container">
-			<img src="{% static 'gnovel/res/login page.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
+			<img src="{% static 'gnovel/res/landing page2.png' %}" style="height:100%; width:100%; top:0; left:0; position:fixed;"/>
 		    <div class="row">
 		            <div class="wrap">
 		                <form class="login" action="/gnovel/" method="post">
 											{% csrf_token %}
+										<p class="descripText" style="font-size:20px; font-weight:800; text-align:center; margin-bottom:2px;">Enter your first name</p>
 		                <input type="text" id="username" name="username" placeholder="Name" required="true" maxlength="10"/>
 		                <!--<input type="phone" placeholder="Cell" />-->
 		                <input type="submit" value="" />
