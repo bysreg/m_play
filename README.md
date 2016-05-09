@@ -94,5 +94,5 @@ Interactable Object
 Add this objet to add clickable object on the page
 
 ####MPLAY
-MPLAY namespaced files can be found under /src/m_play/gnovel/static/gnovel/js/mplay. These are classes that implements the story-specific codes of morality play project. Many classes in this folder inherit from MPLAY.MPlayPage which then inherit from GNOVEL.Page. The most important class in this namespace is MPlayPage in mplaypage.js. This class has common functions that are shared among the story pages. It also override many functions from Page and make it specific to Morality Page project. 
+MPLAY namespaced files can be found under /src/m_play/gnovel/static/gnovel/js/mplay. These are classes that implement the story-specific codes of morality play project. Many classes in this folder inherit from MPLAY.MPlayPage which then inherit from GNOVEL.Page. The most important class in this namespace is MPlayPage in mplaypage.js. This class has common functions that are shared among the story pages. It also override many functions from Page and make it specific to Morality Page project. 
 
