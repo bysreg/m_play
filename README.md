@@ -88,7 +88,7 @@ Story flow or Flow for short, is a way to control what texts to show, control th
  - Nothing. This just does nothing. This is useful to just label something as a destionation of the 'jump' flow.
  - Play This is used to play music
 
-You can add more flow types by calling flow._addCustomHandle("<name of the flow tpye>", handler). THe handler function will be called as a callback so watch out for referencing a class's function from inside handler function.
+You can add more flow types by calling flow._addCustomHandle("< name of the flow type >", handler). THe handler function will be called as a callback so watch out for referencing a class's function from inside handler function.
 
 Interactable Object
 Add this objet to add clickable object on the page
