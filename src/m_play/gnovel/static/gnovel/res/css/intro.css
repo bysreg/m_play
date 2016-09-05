@@ -13,7 +13,7 @@ body
     background-repeat:no-repeat;
     background-size:contain;
     height:100%;
-    widht:100%;
+    width:100%;
 }
 .wrap
 {
@@ -79,7 +79,8 @@ form.login input[type="text"], form.login input[type="password"], form.login inp
 {
     width: 235px;
     height:100px;
-    margin: 10px auto 16px 35%;
+    position:relative;
+    margin: 10px auto 16px auto;
     text-transform: uppercase;
     outline: 0;
     cursor: pointer;
