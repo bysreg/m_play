@@ -82,6 +82,7 @@ Require all granted
 ```
 
 - restart apache server (sudo service httpd restart)
+- If all is okay, you should see a line of the form: Apache/2.4.8 (Unix) mod_wsgi/4.4.21 Python/2.7 configured in the Apache error log file. (/var/log/httpd/error_log)
 - the production server should be up and running in link <HOSTNAME>/gnovel
 
 ## sensitive_config file <a name="sensitive_config">
