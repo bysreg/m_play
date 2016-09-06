@@ -84,6 +84,8 @@ Require all granted
 - restart apache server (sudo service httpd restart)
 - If all is okay, you should see a line of the form: Apache/2.4.8 (Unix) mod_wsgi/4.4.21 Python/2.7 configured in the Apache error log file. (/var/log/httpd/error_log)
 - the production server should be up and running in link <HOSTNAME>/gnovel
+- You should also create admin user by running this : python manage.py createsuperuser (you must be in the same folder as manage.py)
+- The admin panel can be accessed in <HOSTNAME>/admin
 
 ## sensitive_config file <a name="sensitive_config">
 sensitive_config file is mandatory to have for production server. The file
