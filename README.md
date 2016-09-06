@@ -1,12 +1,11 @@
-# m_play
+# m_play Apache Mysql Branch
 
 ##Server requirement
-- python 3.4.3
-- python-pip 1.5.4
+- python 2.7.5
+- python-pip 8.1.2
 - All the libraries listed in src/requirements.txt
-- PostgreSQL 9.4.5
-- uWSGI 2.0.12
-- nginx 1.4.6
+- Mysql 5.7.14
+- mod_wsgi 4.5.2
 
 ##Dev requirement
 - node.js 5.5.0 (only to install js packages)
@@ -34,14 +33,38 @@
 - run /scripts/run_localhost.bat for windows or /scripts/run_localhost.sh for linux
 - the localhost server should be up and running in 127.0.0.1:8000/gnovel/
 
-##Setting up linux production server
+##Setting up linux production server using apache and mysql
 - install all server requirements
-- run pip3 install -r /src/requirements.txt
+- run pip install -r /src/requirements.txt
 - create file named sensitive_config (see [sensitive_config file section](#sensitive_config))
-- create postgresql database specified by DB_NAME in sensitive_config
-- add postgresql user specified by DB_USERNAME in sensitive_config with DB_PASSWORD
-- run /scripts/setup.sh
-- run /scripts/run_production.sh
+- create mysql database specified by DB_NAME in sensitive_config
+- add mysql user specified by DB_USERNAME in sensitive_config with DB_PASSWORD
+- run /scripts/setup.sh (this will create the tables inside the database)
+- install mod_wsgi
+- configure httpd.conf
+  - edit the file in /etc/httpd/conf/httpd.conf with sudo and add "LoadModule <path to the .so file>" (the path should be : "/usr/lib64/httpd/modules/mod_wsgi.so" although it may differ with each system, the path is outputted from the make install of mod_wsgi)
+  - Also add these to the end of the httpd.conf file and change the path to point to your corresponding folder: 
+
+```
+# For Django
+
+Alias /static/ /home/ec2-user/prod/static/
+
+<Directory /home/ec2-user/prod/static>
+Require all granted
+</Directory>
+
+WSGIScriptAlias / /home/ec2-user/prod/m_play/src/m_play/m_play/wsgi.py
+WSGIPythonPath /home/ec2-user/prod/m_play/src/m_play
+
+<Directory /home/ec2-user/prod/m_play/src/m_play/m_play>
+<Files wsgi.py>
+Require all granted
+</Files>
+</Directory>
+```
+
+- restart apache server (sudo service httpd restart)
 - the production server should be up and running in link <HOSTNAME>/gnovel
 
 ## sensitive_config file <a name="sensitive_config">
