@@ -54,7 +54,7 @@ else:
 ALLOWED_HOSTS = [
 	'localhost',
 	'.true-north.etc.cmu.edu',
-	'107.21.24.39',
+	'apps2.studentaffairs.cmu.edu',
 ]
 
 
