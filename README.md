@@ -16,8 +16,25 @@
 - pgadmin3 1.20
 
 ## note for linux
-- instead of using python & pip, you must run the command using python3 and pip3
 - most of the time, you need sudo to properly install stuff with pip
+- apache mysql required packages installation : 
+  - Sudo yum install git
+	- Sudo yum install nano
+	- wget "https://bootstrap.pypa.io/get-pip.py"
+	- sudo python get-pip.py
+	- sudo pip install Django==1.9.1
+	- sudo yum install yum-utils
+	- sudo yum install gcc
+	- sudo yum install python-devel-0:2.7.5-34.el7.x86_64 (match it with the python version)
+	- sudo yum install mysql-community-devel
+	- sudo sudo pip install mysqlclient==1.3.7
+	- wget "https://github.com/GrahamDumpleton/mod_wsgi/archive/4.5.2.tar.gz"
+	- tar xvfz 4.5.2.tar.gz
+	- cd mod_wsgi-4.5.2/
+	- ./configure
+	- make
+  - sudo make install
+  - copy the output path of mod_wsgi.so, it will be used to configure httpd.conf later on
 
 ##Setting up local server
 - install all server requirements
