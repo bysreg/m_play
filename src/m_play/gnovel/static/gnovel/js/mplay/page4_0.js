@@ -79,7 +79,7 @@ var MPLAY = MPLAY || {};
 
 			{type: "nothing", label: "happy"},
 			{type: "show", img: priya, expression: "happy", position: "center", waitUntilShown: false},
-			{type: "dialog", speaker: "Priya", text: "I was so relieved when you didn’t give Ryan the the problem set. My roommate got in trouble for something like that."},
+			{type: "dialog", speaker: "Priya", text: "I was so relieved when you didn’t give Ryan the problem set. My roommate got in trouble for something like that."},
 			{type: "jump", condition: true, goTrue: "#choices2", goFalse: "#choices2"},
 
 			{type: "nothing", label: "thoughtful2"},
